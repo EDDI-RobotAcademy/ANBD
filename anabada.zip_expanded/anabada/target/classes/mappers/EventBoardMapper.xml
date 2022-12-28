@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="EventMapper">
+
+	<!-- 글쓰기저장 -->
+	<insert id="insert" parameterType="EventBoardVO">
+		INSERT INTO EVENTBOARD (ENO,E_TITLE,E_START,E_END,E_WIN,E_CONTENT,ID)
+		VALUES(#{eno},#{e_title},#{e_start},#{e_end},#{e_win},#{e_content},#{id})
+	</insert>
+
+	<select id="maxeno" resultType="int">
+		select max(eno)+1 from eventboard
+	</select>
+
+	<!-- 게시글 저장시 사진 저장 -->
+	<insert id="fileSave" parameterType="java.util.Map">
+		INSERT INTO EFILE (EFNO,FILEPATH,ENO)
+		VALUES(efile_seq.nextval, #{filepath},#{eno})
+	</insert>
+
+	<!-- 게시글 목록보기 -->
+	<select id="list"
+		parameterType="com.anabada.web.vo.EvSearchCriteria"
+		resultType="EventBoardVO">
+		SELECT ENO,E_TITLE,E_START,E_WIN,E_TYPE,E_END
+		FROM (SELECT ENO, E_TITLE, E_START, E_WIN,E_END, E_TYPE, ROW_NUMBER()
+		OVER(ORDER BY ENO DESC) AS RNUM
+		FROM EVENTBOARD WHERE 1=1
+		<include refid="search"></include>
+		<include refid="search2"></include>
+		)EV
+		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd} ORDER BY ENO DESC
+
+	</select>
+
+	<!-- 사진 경로 1개 반환 -->
+	<select id="getImg" parameterType="int" resultType="String">
+		SELECT FILEPATH FROM (SELECT EFNO, FILEPATH,ENO FROM EFILE WHERE ENO
+		=#{eno} ORDER BY EFNO) WHERE ROWNUM =1
+	</select>
+
+	<!-- 게시글 수 -->
+	<select id="listCount"
+		parameterType="com.anabada.web.vo.EvSearchCriteria" resultType="int">
+		SELECT COUNT(*) FROM EVENTBOARD WHERE 1=1
+		<include refid="search"></include>
+		<include refid="search2"></include>
+		AND ENO > 0
+	</select>
+
+	<sql id="search">
+		<if test="searchType != null">
+			AND E_TITLE LIKE '%' || #{keyword} ||'%'</if>
+	</sql>
+
+	<sql id="search2">
+		<if test="state != null and state !=''">
+			AND E_TYPE =#{state}
+		</if>
+	</sql>
+	<!-- 조회쉬 +1 -->
+	<update id="cuntup" parameterType="int">
+		UPDATE EVENTBOARD SET E_COUNT = E_COUNT+1 WHERE ENO = #{eno}
+	</update>
+
+	<!-- 게시글 상세보기 -->
+	<select id="read" parameterType="int" resultType="EventBoardVO">
+		SELECT * FROM EVENTBOARD WHERE ENO = #{eno}
+	</select>
+
+	<!-- 게시글 상세보기시 사진정보 리턴 -->
+	<select id="filelist" parameterType="int" resultType="EfileVO">
+		SELECT * FROM EFILE WHERE ENO = #{eno}
+	</select>
+	<!-- 게시글 삭제 -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM EVENTBOARD WHERE ENO = #{eno}
+	</delete>
+	<!-- 참여하기 눌렀을때 게시글 total +1 -->
+	<update id="uptotal" parameterType="int" >
+	UPDATE EVENTBOARD SET E_TOTAL = E_TOTAL+1 WHERE ENO = #{eno}
+	</update>
+		<!-- 참여하기 취소 눌렀을때 게시글 total -1 -->
+	<update id="downtotal" parameterType="int" >
+	UPDATE EVENTBOARD SET E_TOTAL = E_TOTAL-1 WHERE ENO = #{eno}
+	</update>
+	<!-- 이벤트 완료시키기 -->
+	<update id="endEvent" parameterType="int" >
+	UPDATE EVENTBOARD SET E_TYPE = 'end' WHERE ENO = #{eno}
+	</update>
+	<!-- 총 응모 인원수 반환  -->
+	<select id="getTotal" parameterType="int" resultType="int" >
+	SELECT E_TOTAL FROM EVENTBOARD WHERE ENO = #{eno}
+	</select>
+	<!--winnerlist를 db에 저장  -->
+	<update id="winner" parameterType="EventBoardVO" >
+	UPDATE EVENTBOARD SET E_WINNER = #{e_winner} WHERE ENO = #{eno}
+	</update>
+
+</mapper>

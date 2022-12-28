@@ -13,6 +13,22 @@
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
+
+<div>
+
+<a href="/product/list"> 상품 목록으로 가기  </a>
+<br>
+<a href="/product//writeView"> 상품 글쓰기 가기  </a>
+<br>
+<a href="/event/writeView"> 이벤트 글쓰기 가기  </a>
+<br>
+<a href="/event/list"> 이벤트 리스트가기  </a>
+
+
+
+</div>
+
+
 	<%@include file="./test/korea.jsp" %>
 	<form action="/job/writeView_boss" method="get">
 		<input type="submit" value="알바 구인 공고 쓰러가기">
