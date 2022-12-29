@@ -56,7 +56,7 @@
 	<select id="read" parameterType="int" resultType="PBoardVO">
 		SELECT PNO,
 		P_TITLE, P_COST, P_TYPE, P_CON, SELL_A, SELL_B, P_CONTENT,
-		P_FILE,P_COUNT,P_HEART, ID, P_REGDATE,P_LOCAL
+		P_FILE,P_COUNT,P_HEART, ID, P_REGDATE,P_LOCAL,P_BUY
 		FROM PBOARD WHERE PNO
 		=#{pno}
 	</select>
@@ -147,6 +147,10 @@
 	<!-- 하트 -1 -->
 	<update id="downHeart" parameterType="int" >
 	UPDATE PBOARD SET P_HEART = P_HEART-1 WHERE PNO = #{pno}
+	</update>
+	<!-- pno, p_buy 전달해서 상품 판매 상태 변경  -->
+	<update id="change" parameterType="java.util.Map" >
+	UPDATE PBOARD SET P_BUY = #{p_buy} WHERE PNO = #{pno}
 	</update>
 
 

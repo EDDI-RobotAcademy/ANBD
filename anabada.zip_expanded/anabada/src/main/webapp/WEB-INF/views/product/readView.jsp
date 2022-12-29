@@ -10,9 +10,11 @@
 
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
 
 
 
@@ -103,166 +105,213 @@ img {
 	text-align: center;
 	font-weight: bold;
 	color: white;
+	margin-right: 0px;
+	letter-spacing: 2px;
+}
+
+#userBK{
+	width: 100px;
+	display: inline-block;
+	border-radius: 7px;
+	padding: 5px;
+	background-color: #AFAFAF;
+	text-align: center;
+	font-weight: bold;
+	color: white;
 	margin-right: 10px;
+	letter-spacing: 2px;
+
+
+
 }
 
 #btndiv {
 	float: right;
 	margin-bottom: 30px;
 }
+
+#book option, #book {
+	text-align: center;
+	font-weight: bold;
+	color: #3D3D3D;
+	font-size: 17px;
+}
 </style>
 <script type="text/javascript">
-	$(document)
-			.ready(
-					function() {
-						var formObj = $("form[name='readForm']");
+	$(document).ready(function() {
+		var formObj = $("form[name='readForm']");
 
-						//목록으로 가기 버튼
-						$("#listbtn").on("click", function() {
-							location.href = "/product/list";
-						})
-						//수정하기 버튼
-						$("#rebtn").on("click", function() {
+		//목록으로 가기 버튼
+		$("#listbtn").on("click", function() {
+			location.href = "/product/list";
+		})
+		//수정하기 버튼
+		$("#rebtn").on("click", function() {
 
-							formObj.attr("action", "/product/updateView");
-							formObj.attr("method", "get");
-							formObj.submit();
+			formObj.attr("action", "/product/updateView");
+			formObj.attr("method", "get");
+			formObj.submit();
 
-						})
+		})
 
-						//삭제하기 버튼 
-						$("#delbtn")
-								.on(
-										"click",
-										function() {
-											if (confirm("게시글을 삭제하시겠습니까?   삭제한 게시글은 복구 할 수 없습니다.")) {
-												formObj.attr("action",
-														"/product/delete");
-												formObj.attr("method", "post");
-												formObj.submit();
+		//삭제하기 버튼 
+		$("#delbtn").on("click", function() {
+			if (confirm("게시글을 삭제하시겠습니까?   삭제한 게시글은 복구 할 수 없습니다.")) {
+				formObj.attr("action", "/product/delete");
+				formObj.attr("method", "post");
+				formObj.submit();
 
-											} else {
-												return false;
-											}
-										})
+			} else {
+				return false;
+			}
+		})
 
-						//슬라이드쇼 구현 
-						$("#slick").slick({
-							infinite : true, /* 맨끝이미지에서 끝나지 않고 다시 맨앞으로 이동 */
-							slidesToShow : 1, /* 화면에 보여질 이미지 갯수*/
-							slidesToScroll : 1, /*  스크롤시 이동할 이미지 갯수 */
-							autoplay : true, /* 자동으로 다음이미지 보여주기 */
-							arrows : true, /* 화살표  */
-							dots : true, /*  아래점  */
-							autoplaySpeed : 1500,/* 다음이미지로 넘어갈 시간 */
-							speed : 1000, /* 다음이미지로 넘겨질때 걸리는 시간 */
-							pauseOnHover : true, /*  마우스 호버시 슬라이드 이동 멈춤 */
-							//vertical:true,/*  세로방향으로 슬라이드를 원하면 추가하기// 기본값 가로방향 슬라이드*/
-							responsive : [ { /* 반응형웹*/
-								breakpoint : 960, /*  기준화면사이즈 */
-								settings : {
-									slidesToShow : 2
-								}
-							/*  사이즈에 적용될 설정 */
-							}, { /* 반응형웹*/
-								breakpoint : 768, /*  기준화면사이즈 */
-								settings : {
-									slidesToShow : 1
-								}
-							/*  사이즈에 적용될 설정 */
-							} ]
-						});
+		//슬라이드쇼 구현 
+		$("#slick").slick({
+			infinite : true, /* 맨끝이미지에서 끝나지 않고 다시 맨앞으로 이동 */
+			slidesToShow : 1, /* 화면에 보여질 이미지 갯수*/
+			slidesToScroll : 1, /*  스크롤시 이동할 이미지 갯수 */
+			autoplay : true, /* 자동으로 다음이미지 보여주기 */
+			arrows : true, /* 화살표  */
+			dots : true, /*  아래점  */
+			autoplaySpeed : 1500,/* 다음이미지로 넘어갈 시간 */
+			speed : 1000, /* 다음이미지로 넘겨질때 걸리는 시간 */
+			pauseOnHover : true, /*  마우스 호버시 슬라이드 이동 멈춤 */
+			//vertical:true,/*  세로방향으로 슬라이드를 원하면 추가하기// 기본값 가로방향 슬라이드*/
+			responsive : [ { /* 반응형웹*/
+				breakpoint : 960, /*  기준화면사이즈 */
+				settings : {
+					slidesToShow : 2
+				}
+			/*  사이즈에 적용될 설정 */
+			}, { /* 반응형웹*/
+				breakpoint : 768, /*  기준화면사이즈 */
+				settings : {
+					slidesToShow : 1
+				}
+			/*  사이즈에 적용될 설정 */
+			} ]
+		});
 
-						//찜버튼 이벤트 
-						$("#heart")
-								.on(
-										"click",
-										function() {
+		//찜버튼 이벤트 
+		$("#heart").on("click", function() {
 
-											if ($(this).prop('checked')) {
-												$(".himg")
-														.attr("src",
-																"../../resources/images/heartB.png");
+			if ($(this).prop('checked')) {
+				$(".himg").attr("src", "../../resources/images/heartB.png");
 
-												var params = {
-													pno : "${read.pno}",
-													id : "${id}"
-												}
+				var params = {
+					pno : "${read.pno}",
+					id : "${id}"
+				}
 
-												$
-														.ajax({
+				$.ajax({
 
-															type : "POST",
-															url : "/product/addHeart",
-															data : params,
-															dataType : "json",
-															contetnType : "application/json",
+					type : "POST",
+					url : "/product/addHeart",
+					data : params,
+					dataType : "json",
+					contetnType : "application/json",
 
-															success : function(
-																	res) {
+					success : function(res) {
 
-																//res.getEncoding('utf-8');
-																//var list = JSON.parse(res);
+						//res.getEncoding('utf-8');
+						//var list = JSON.parse(res);
 
-																const element = document
-																		.getElementById('heartCh');
-																element.innerText = res.hnum;
+						const element = document.getElementById('heartCh');
+						element.innerText = res.hnum;
 
-															},
-															error : function(
-																	request,
-																	status,
-																	error) {
+					},
+					error : function(request, status, error) {
 
-																alert("error:"
-																		+ error);
+						alert("error:" + error);
 
-															}
+					}
 
-														});
-											} else {
-												$(".himg")
-														.attr("src",
-																"../../resources/images/heartA.png");
+				});
+			} else {
+				$(".himg").attr("src", "../../resources/images/heartA.png");
 
-												var params = {
-													pno : "${read.pno}",
-													id : "${id}"
-												}
+				var params = {
+					pno : "${read.pno}",
+					id : "${id}"
+				}
 
-												$
-														.ajax({
+				$.ajax({
 
-															type : "POST",
-															url : "/product/subHeart",
-															data : params,
-															dataType : "json",
-															contetnType : "application/json",
+					type : "POST",
+					url : "/product/subHeart",
+					data : params,
+					dataType : "json",
+					contetnType : "application/json",
 
-															success : function(
-																	res) {
+					success : function(res) {
 
-																const element = document
-																		.getElementById('heartCh');
-																element.innerText = res.hnum;
+						const element = document.getElementById('heartCh');
+						element.innerText = res.hnum;
 
-															},
-															error : function(
-																	XMLRequest,
-																	textStatus,
-																	errorThrown) {
+					},
+					error : function(XMLRequest, textStatus, errorThrown) {
 
-																alert("error:"
-																		+ error);
+						alert("error:" + error);
 
-															}
+					}
 
-														});
+				});
 
-											}
-										}); // 하트 이벤트 끝
+			}
+		}); // 하트 이벤트 끝
 
-					})
+		//사용자가 상품 판매 상태 변경시 
+		$("#book").on("change", function() {
+
+			var book = document.getElementById('book');
+			var str = $("#book option:selected").val(); // 선택된 값
+
+			var params = {
+				pno : "${read.pno}",
+				p_buy : str
+			}
+
+			$.ajax({
+				type : "POST",
+				url : "/product/change",
+				data : params,
+				dataType : "json",
+				contetnType : "application/json",
+
+				success : function(res) {
+
+				},
+				error : function(request, status, error) {
+
+					alert("error:" + error);
+
+				}
+
+			});
+
+		}); //상품 상태 변경 끝 
+
+		bookCh();
+
+	})
+
+	//User가 제품 판매 상태 보기 
+	function bookCh() {
+
+		var p_buy = "${read.p_buy}";
+		const element = document.getElementById("userBK");
+
+		if (p_buy == 'ing') {
+
+			element.innerText = '판매중';
+
+		} else if (p_buy == 'book') {
+			element.innerText = '예약중';
+		} else {
+			element.innerText = '판매완료';
+		}
+	}
 </script>
 
 </head>
@@ -352,32 +401,7 @@ img {
 					<td colspan="3" style="font-weight: bold; font-size: 35px;">${read.p_title }</td>
 				</tr>
 
-				<%-- 	<tr>
-					<td colspan="3">&nbsp;</td>
 
-					<td style="float: right;" width="600px;">
-						<div style="display: inline;">
-
-							<label class="rach"><input type="checkbox" id="heart" name="p_heart" value="${read.p_heart }" /> <c:choose>
-									<c:when test="${heart==0 }">
-										<img class="himg" style="width: 60px; height: 60px;" alt="" src="../../resources/images/heartA.png">
-									</c:when>
-									<c:otherwise>
-										<img class="himg" style="width: 60px; height: 60px;" alt="" src="../../resources/images/heartB.png">
-									</c:otherwise>
-								</c:choose> </label>
-
-						</div>
-
-					</td>
-
-				</tr> --%>
-				<%-- 		<tr>
-					<td>&nbsp;</td>
-					<td colspan="3" style="font-weight: bold; font-size: 35px;">${read.p_title }</td>
-
-
-				</tr> --%>
 				<tr>
 					<td>&nbsp;</td>
 					<td colspan="2">판매자 : ${read.id }</td>
@@ -387,7 +411,21 @@ img {
 				<tr>
 					<td>&nbsp;</td>
 					<td colspan="2">판매가격 : ${read.p_cost }원</td>
-					<td>&nbsp;</td>
+					<td><c:choose>
+							<c:when test="${read.id== id }">
+								<select id="book" class="form-select form-select-sm" aria-label=".form-select-sm example">
+									<option value="ing" <c:out value="${read.p_buy eq 'ing' ? 'selected' :''} "/>>판매중</option>
+									<option value="book" <c:out value="${read.p_buy eq 'book' ? 'selected' :''} "/>>예약중</option>
+									<option value="end" <c:out value="${read.p_buy eq 'end' ? 'selected' :''} "/>>판매완료</option>
+
+								</select>
+							</c:when>
+							<c:otherwise>
+								<div  id="userBK"></div>
+
+							</c:otherwise>
+
+						</c:choose></td>
 
 				</tr>
 
@@ -499,7 +537,7 @@ img {
 			<!-- 관련 상품 끝 -->
 
 			<div id="textbox">
-				<font style="font-size: 20px; font-weight: bold; color: #6F6F6F ">[ 상품 상태 ]</font> <br> <br> ${read.p_content}
+				<font style="font-size: 20px; font-weight: bold; color: #6F6F6F">[ 상품 상태 ]</font> <br> <br> ${read.p_content}
 			</div>
 
 

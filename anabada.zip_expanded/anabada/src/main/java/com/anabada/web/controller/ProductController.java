@@ -325,6 +325,19 @@ public class ProductController {
 
 		return hlist;
 	}
+	
+	//상품의 판매 상태 변경
+	@RequestMapping(value = "/change")
+	@ResponseBody
+	public void change(@RequestParam Map<String, String> param) throws Exception {
+		logger.info("change");
+		
+       service.change(param); // pno , p_buy 전달 
+	}
+	
+	
+	
+	
 
 	// 이미지 저장
 	private List<String> fileProcess(MultipartHttpServletRequest multipartRequest) throws Exception {

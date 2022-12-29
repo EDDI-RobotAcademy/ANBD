@@ -160,6 +160,14 @@ public class ProductServiceImpl implements ProductService {
 		return dao.getImg(pno);
 	}
 
+
+	//pno, p_buy 전달해서 상품 판매 상태 변경 
+	@Override
+	public void change(Map<String, String> param) throws Exception {
+		dao.change(param);
+		
+	}
+
 	
 
 }

@@ -58,6 +58,9 @@ public interface ProductService {
 	//pno에 해당하는 사진경로중 가장 먼저올린것 1개의 filePath 반환
 	public String getImg(int pno) throws Exception ;
 
+	//pno, p_buy 전달해서 상품 판매 상태 변경 
+	public void change(Map<String, String> param) throws Exception;
+
 
 	
 	// 게시물 수정 

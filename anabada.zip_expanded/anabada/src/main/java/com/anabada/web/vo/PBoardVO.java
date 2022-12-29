@@ -19,6 +19,15 @@ public class PBoardVO {
 	private String id;
 	private String p_local;
 	private String p_filepath;
+	private String   p_buy;
+	
+	
+	public String getP_buy() {
+		return p_buy;
+	}
+	public void setP_buy(String p_buy) {
+		this.p_buy = p_buy;
+	}
 	public int getPno() {
 		return pno;
 	}
@@ -114,9 +123,9 @@ public class PBoardVO {
 		return "PBoardVO [pno=" + pno + ", p_title=" + p_title + ", p_cost=" + p_cost + ", p_type=" + p_type
 				+ ", p_con=" + p_con + ", sell_a=" + sell_a + ", sell_b=" + sell_b + ", p_content=" + p_content
 				+ ", p_regdate=" + p_regdate + ", p_file=" + p_file + ", p_count=" + p_count + ", p_heart=" + p_heart
-				+ ", id=" + id + ", p_local=" + p_local + ", p_filepath=" + p_filepath + "]";
+				+ ", id=" + id + ", p_local=" + p_local + ", p_filepath=" + p_filepath + ", p_buy=" + p_buy + "]";
 	}
-	
+
 	
 
 }
