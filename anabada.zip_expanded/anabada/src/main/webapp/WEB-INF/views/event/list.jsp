@@ -28,7 +28,6 @@
 
 
 
-	<!--================Home Gallery Area =================-->
 	<section class="home_gallery_area p_120">
 		<div class="container">
 			<div class="main_title">

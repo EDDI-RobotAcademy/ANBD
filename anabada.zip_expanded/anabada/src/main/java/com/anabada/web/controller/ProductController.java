@@ -125,6 +125,7 @@ public class ProductController {
 		PBPageMaker pageMaker = new PBPageMaker();
 		pageMaker.setCri(scri);
 		pageMaker.setTotalCount(service.listCount(scri));
+		System.out.println("list count : "+ pageMaker.getTotalCount());
 		model.addAttribute("pageMaker", pageMaker);
 
 		return "product/list";
@@ -190,12 +191,9 @@ public class ProductController {
 		model.addAttribute("read", read);
 
 		// 사진 정보 저장하기
-//		model.addAttribute("filelist", service.filelist(read.getPno()));
 		model.addAttribute("filelist", service.filelist(pno));
 
-		// 유사한 제품 리스트 담아오기 (게시글의 타입, 게시글의 번호 넘기기)
-		// model.addAttribute("similar", similerlist); // 6개 담아옴
-
+	
 		// 유사 제품들의 사진 정보 담기
 		model.addAttribute("listImg", listImg); // 사진당 제일 먼저 올린 1장을 받아옴 (s_title, s_filePath)
 		return "product/readView";

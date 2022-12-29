@@ -57,7 +57,7 @@ width: 150px; height: 150px;
 
 		<form name="updateForm" enctype="multipart/form-data" method="POST" >
 		<input  name="pno" type="hidden"  value="${update.pno }"  >
-<input id="dlist" name="dlist" type="text"  value="" > 
+<input id="dlist" name="dlist" type="hidden"  value="" > 
 			<table>
 				<tr>
 					<td>

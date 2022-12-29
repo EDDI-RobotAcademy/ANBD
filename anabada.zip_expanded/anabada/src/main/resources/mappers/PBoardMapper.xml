@@ -47,6 +47,7 @@
 		parameterType="com.anabada.web.vo.SearchCriteriapro" resultType="int">
 		SELECT COUNT(PNO) FROM PBOARD WHERE 1=1
 		<include refid="search"></include>
+		<include refid="search2"></include>
 		AND PNO > 0
 	</select>
 
@@ -100,7 +101,7 @@
 		parameterType="com.anabada.web.vo.SimilarSearch">
 		select pno, p_title,id, p_cost, p_type from ( select pno, p_title , id, p_cost,p_type,
 		row_number() over(order by p_regdate desc ) as rnum from pboard
-		where p_type=#{searchP_type} and pno !=#{selpno} ) where rnum between 1 and #{tnum} 
+		where p_type=#{searchP_type} and pno !=#{selpno} and p_buy='ing') where rnum between 1 and #{tnum} 
 
 	</select>
 	
