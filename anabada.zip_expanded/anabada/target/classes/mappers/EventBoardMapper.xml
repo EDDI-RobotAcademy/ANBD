@@ -18,7 +18,7 @@
 	<!-- 게시글 저장시 사진 저장 -->
 	<insert id="fileSave" parameterType="java.util.Map">
 		INSERT INTO EFILE (EFNO,FILEPATH,ENO)
-		VALUES(efile_seq.nextval, #{filepath},#{eno})
+		VALUES(efile_seq.nextval, #{filePath},#{eno})
 	</insert>
 
 	<!-- 게시글 목록보기 -->
@@ -99,5 +99,21 @@
 	<update id="winner" parameterType="EventBoardVO" >
 	UPDATE EVENTBOARD SET E_WINNER = #{e_winner} WHERE ENO = #{eno}
 	</update>
+	<!-- efno에 해당하는 사진의 Path 반환  -->
+	<select id="imgPath" parameterType="int" resultType="String"  >
+	SELECT FILEPATH FROM EFILE WHERE EFNO = #{efno}
+	</select>
+	<!-- 글 수정시  이미지 삭제 (efno에 해당하는 사진을 테이블에서 삭제) -->
+		<delete id="deleteImg" parameterType="int"  >
+	DELETE FROM EFILE WHERE EFNO = #{efno}
+	</delete>
+	
+	<!-- 수정한 게시글 저장 -->
+	<update id="update" parameterType="EventBoardVO">
+	UPDATE EVENTBOARD
+	SET E_TITLE=#{e_title},E_START=#{e_start}, E_END=#{e_end},E_WIN=#{e_win},
+	E_CONTENT =#{e_content} WHERE ENO = #{eno}
+	</update>
+	
 
 </mapper>

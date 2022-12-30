@@ -113,7 +113,6 @@ public class PBoardDAOImpl implements PBoardDAO {
 	// 수정한 게시글 저장 
 	@Override
 	public void update(PBoardVO pboardVO) throws Exception {
-		System.out.println("DAO에서 확인한 게시글 정보  :  "+pboardVO);
 		sql.update("pBoardMapper.update",pboardVO);
 		
 	}

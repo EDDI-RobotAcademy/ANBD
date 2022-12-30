@@ -41,6 +41,8 @@ import com.anabada.web.vo.SearchCriteriapro;
 @RequestMapping("/event/*")
 @SessionAttributes("member")
 public class EventController {
+	
+	
 
 	private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 	// 이미지 파일 저장 폴더 설정
@@ -74,6 +76,13 @@ public class EventController {
 
 			}
 		}
+		System.out.println("글 저장시 ");
+		System.out.println("날짜 e_start : "+eventBoardVO.getE_start());
+		System.out.println("날짜 e_end : "+eventBoardVO.getE_end());
+		System.out.println("날짜 e_win : "+eventBoardVO.getE_win());
+		
+		
+		
 
 		return "redirect:/event/list"; // 글 목록으로 보내기
 	}
@@ -111,11 +120,7 @@ public class EventController {
 			HttpServletRequest req, HttpServletResponse res) throws Exception {
 		logger.info("readView");
 		int eno = eventBoardvo.getEno(); // 클릭한 게시글의 eno
-		/*
-		 * 해주어야 할 처리 : 참여 여부 체크 (찜여부와 비슷) 관리자이면 view 부분에서 다른거 처리 게시글 보기 처리
-		 */
-		System.out.println("eno : " + eno);
-		System.out.println("scri : " + scri);
+
 		// 1. 회원의 참여여부 체크
 		HttpSession session = req.getSession();
 		String id = (String) session.getAttribute("id");
@@ -127,6 +132,11 @@ public class EventController {
 		// 2. 게시글 정보 불러오기
 		EventBoardVO read = service.read(eno);
 		model.addAttribute("read", read);
+		
+		System.out.println("글 상세보기시 ");
+		System.out.println("날짜 e_start : "+read.getE_start());
+		System.out.println("날짜 e_end : "+read.getE_end());
+		System.out.println("날짜 e_win : "+read.getE_win());
 
 		// 3. 게시글의 사진정보 불러오기
 		model.addAttribute("filelist", service.filelist(eno));
@@ -267,20 +277,56 @@ public class EventController {
 	@RequestMapping(value = "/editView", method = RequestMethod.GET)
 	public String edit(EventBoardVO eventboardvo , @ModelAttribute("scri") EvSearchCriteria scri, Model model )
 	throws Exception{
-		logger.info("event edit~");
-		/*
-		해야할일 
-		1. 해당 게시글의 정보를 담음
-		2. 해당게시글의 사진정보 담기 
-		3.scri담기 
-		
-		*/
-		
-		
+		logger.info("event edit");
+		int eno = eventboardvo.getEno();
+		model.addAttribute("update",service.read(eno));
+		model.addAttribute("scri",scri);
+		model.addAttribute("filelist",service.filelist(eno));
 		return "event/eventeditView";
 	}
 	
-	
+	//이벤트 수정이 끝나고 저장할때 
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String update(EventBoardVO eventboardvo,@ModelAttribute("scri") SearchCriteriapro scri,Model model,@RequestParam String dlist, MultipartHttpServletRequest multipartRequest, HttpServletResponse response,RedirectAttributes rttr ) throws Exception {
+		logger.info("update");
+		
+		String[] str = dlist.split(","); // 삭제할 사진 번호들
+		// 수정시 삭제해야할 이미지 삭제 
+		if (!(dlist.equals(""))) {
+		
+
+			removeImg(dlist);
+		}
+		service.update(eventboardvo);
+		
+		//넘어온 사진 저장 
+		List<String> fileList = fileProcess(multipartRequest);
+		if (fileList != null) {
+			System.out.println("사진 넘어옴 ");
+			for (int i = 0; i < fileList.size(); i++) {
+			
+				Map<String, String> fileMap = new HashMap<>();
+				
+				//fileMap.put("fno", String.valueOf(ftotal)); // 게시글 내부에서 파일의 넘버 전달
+				fileMap.put("filePath", "/eventImg/" + (String) fileList.get(i)); // 파일의 경로 저장
+				System.out.println("사진 경로 : " + fileMap.get("filePath"));
+				System.out.println("사진 리얼 : "+fileList.get(i));
+				fileMap.put("eno", String.valueOf(eventboardvo.getEno())); // 게시글 넘버 저장
+
+				service.fileSave(fileMap); // 파일 저장
+			}
+		}
+		//페이징 정보 
+		rttr.addAttribute("page", scri.getPage());
+		rttr.addAttribute("perPageNum", scri.getPerPageNum());
+		rttr.addAttribute("searchType", scri.getSearchType());
+		rttr.addAttribute("keyword", scri.getSearchType());
+		
+		
+		
+		
+		return "redirect:/event/list";
+	}
 	
 	
 
@@ -328,5 +374,19 @@ public class EventController {
 		file.delete();
 
 	}
+	
+	// 게시글 수정시 넘어온 이미지 삭제
+	private void removeImg(String dlist) throws Exception {
+
+		String[] list = dlist.split(",");
+		for (String str : list) {
+			int efno = Integer.parseInt(str);
+			// 사진의 경로 가져오기
+			String imgpath = service.imgPath(efno);
+			deleteRealImg(imgpath); // 넣어준 경로의 사진을 서버에서 삭제해준다
+			service.deleteImg(efno); // 해당 이미지를 테이블에서 삭제
+		}
+	}
+	
 
 }

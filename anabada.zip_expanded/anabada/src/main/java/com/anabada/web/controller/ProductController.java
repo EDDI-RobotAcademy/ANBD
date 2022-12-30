@@ -106,7 +106,7 @@ public class ProductController {
 			HttpServletResponse res) throws Exception {
 		HttpSession session = req.getSession();
 
-		session.setAttribute("id", "korea");
+		session.setAttribute("id", "admin");
 		List<PBoardVO> list = service.list(scri);
 		// list의 각각의 pno에 해당하는 사진 정보 가져오기
 		for (int i = 0; i < list.size(); i++) {
@@ -244,10 +244,8 @@ public class ProductController {
 		multipartRequest.setCharacterEncoding("utf-8");
 		// dlist에 삭제할 이미지의 fno가 담겨서 온다.
 		logger.info("update");
-		String[] str = dlist.split(",");
-		for (int i = 0; i < str.length; i++) {
-			System.out.println("삭제한 사진정보들의 값 : " + str[i]);
-		}
+		//String[] str = dlist.split(",");
+	
 		if (pboardVO.getSell_a() == null) {
 			pboardVO.setSell_a("0");
 			pboardVO.setP_local("0");

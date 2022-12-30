@@ -7,7 +7,7 @@ public class EventBoardVO {
 	private String e_title;
 	//@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private String e_date;
-//	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	//@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private String e_start;
 	//@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private String e_end;

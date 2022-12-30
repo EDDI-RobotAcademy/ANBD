@@ -137,6 +137,24 @@ public class EventServiceImpl implements EventService {
 		
 	}
 
+	//efno에 해당하는 사진의 Path 반환 
+	@Override
+	public String imgPath(int efno) throws Exception {
+		return dao.imgPath(efno);
+	}
+
+	//글 수정시  이미지 삭제 (efno에 해당하는 사진을 테이블에서 삭제)
+	@Override
+	public void deleteImg(int efno) throws Exception {
+		dao.deleteImg(efno);
+	}
+
+	//수정한 게시글 저장하기
+	@Override
+	public void update(EventBoardVO eventboardvo) throws Exception {
+		dao.update(eventboardvo);
+	}
+
 
 
 
