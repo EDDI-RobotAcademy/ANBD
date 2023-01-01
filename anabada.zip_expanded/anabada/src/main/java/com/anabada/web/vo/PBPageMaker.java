@@ -102,11 +102,7 @@ public class PBPageMaker {
 	   public String makeSearch(int page) { // list.jsp에서 페이지 숫자 눌렀을 때 실행되는 메소드
 	      UriComponents uriComponents = 
 	            UriComponentsBuilder.newInstance() 
-	            /*
-	            UroComponentsBilder : 여러개의 파라미터들을 연결하여 URL 형태로 만들어주는 기능 
-	            즉,Controller에서 addAttribute로 하나하나 속성을 지정해주지 ㅇ낳아도 이 class를 이용하면 
-	            간단하게 파라미터들을 전달 할 수 있다. (한글처리를 신경쓰지 않아도 된다.)
-	            */
+	          
 	            .queryParam("page", page)
 	            .queryParam("perPageNum", cri.getPerPageNum())
 	            .queryParam("searchType", ((SearchCriteriapro)cri).getSearchType())
@@ -115,8 +111,6 @@ public class PBPageMaker {
 	            .build();
 	      
 	      return uriComponents.toUriString();
-	      // UriComponents: URI를 동적으로 생성해주는 클래스다. 파라미터가 조합된 URI를 손쉽게 만들어 주어서
-	      // 코드상에서 직접 문자열을 조합할 때 생기는 실수를 방지할 수 있다.
 	   }
 	   
 	   private String encoding(String keyword) {

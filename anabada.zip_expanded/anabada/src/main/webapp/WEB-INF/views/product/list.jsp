@@ -62,7 +62,6 @@ white-space: nowrap;
 
 					var chbtn = $("input[type='radio']:checked").val();
 
-					alert("$('input[id=con]:checked').val()");
 					self.location = "list" + '${pageMaker.makeQuery(1)}'
 							+ '&searchType='
 							+ $("select option:selected").val() + "&keyword="

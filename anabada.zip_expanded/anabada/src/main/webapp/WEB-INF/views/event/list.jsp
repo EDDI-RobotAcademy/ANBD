@@ -22,6 +22,30 @@
 <!-- main css -->
 <link rel="stylesheet" href="../resources/eve_list/css/style.css">
 <link rel="stylesheet" href="../resources/eve_list/css/responsive.css">
+<!-- 부트스트랩 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<style type="text/css">
+#keywordBox {
+	width: 400px;
+}
+
+.btn-secondary1 { 
+--bs-btn-color: #272a2e; 
+	--bs-btn-bg: #e9ecef; 
+	--bs-btn-border-color: #ced4da; 
+	--bs-btn-hover-color: #fff; 
+	--bs-btn-hover-bg: #a1a5a9; 
+	--bs-btn-hover-border-color: #a1a5a9; 
+	--bs-btn-focus-shadow-rgb: 130, 138, 145; 
+	--bs-btn-active-color: #fff; 
+	--bs-btn-active-bg: #a1a5a9; 
+	--bs-btn-active-border-color: #a1a5a9; 
+	--bs-btn-active-shadow: inset 0 3px 5pxrgba(0, 0, 0, 0.125); 
+	--bs-btn-disabled-color: #fff; 
+	--bs-btn-disabled-bg: #a1a5a9; 
+	--bs-btn-disabled-border-color: #a1a5a9;
+}
+</style>
 </head>
 <body>
 
@@ -34,11 +58,21 @@
 				<h2>🌎아나바다와 함께하는 이벤트🌎</h2>
 				<p>Our One Step for the Environment</p>
 			</div>
+
+			<!-- 검색 기능 -->
+			<div class="input-group mb-3" id="keywordBox">
+				<span class="input-group-text" id="basic-addon1">제 목</span> <input type="text" id="keywordInput" class="form-control" placeholder="검색어를 입력하세요 ">
+				<button type="button" id="searchBtn" class="btn btn-secondary1"  >검색</button>
+			</div>
+
+
+
 			<div class="isotope_fillter">
 				<ul class="gallery_filter list">
 					<li class="active" data-filter="*"><a href="#">All</a></li>
-					<li data-filter=".ing"><a href="#">진행중인 이벤트</a></li>
-					<li data-filter=".eng"><a href="#">완료된 이벤트</a></li>
+					<li class="active" data-filter=".ing"><a href="#">진행중인 이벤트</a></li>
+					<li class="active" data-filter=".end"><a href="#">완료된 이벤트</a></li>
+
 				</ul>
 				<div style="text-align: right;">
 					<c:if test="${id == 'admin'}">
@@ -50,20 +84,19 @@
 
 		<div class="container">
 			<div class="gallery_f_inner row imageGallery1">
-			
-			
-			
+
+
+
 
 				<c:forEach items="${list }" var="list">
 					<div class="col-lg-4 col-md-4 col-sm-6 ${list.e_type} design print">
 						<div class="h_gallery_item" onclick="location.href='/event/readView?eno=${list.eno}&page=${scri.page }&perPageNum=${scri.perPageNum }&searchType=${scri.searchType }&keyword=${scri.keyword }'">
 
-							<div class="g_img_item" style=" width: 340px; height: 340px; ">
+							<div class="g_img_item" style="width: 340px; height: 340px;">
 
-								
-										<img class="img-fluid" width="340px;" height="340px;" src="${list.e_filePath }" alt="">
-										<a class="light"><img src="../resources/eve_list/img/gallery/icon.png" alt=""></a>
-								
+
+								<img class="img-fluid" width="340px;" height="340px;" src="${list.e_filePath }" alt=""> <a class="light"><img src="../resources/eve_list/img/gallery/icon.png" alt=""></a>
+
 							</div>
 
 
@@ -76,12 +109,34 @@
 				</c:forEach>
 
 
-				<div class="more_btn">
+				<!-- 	<div class="more_btn">
 					<a class="main_btn" href="#">Load More Items</a>
-				</div>
+				</div> -->
 			</div>
 	</section>
 	<!--================End Home Gallery Area =================-->
+	<!-- 페이징 -->
+	<!-- 페이징 처리 부분 -->
+	<nav style="margin-left: 50%">
+		<ul class="pagination">
+			<li class="page-item"><c:if test="${pageMaker.prev }">
+					<a class="page-link" href="list${pageMaker.makeSearch(pageMaker.startPage - 1 )}" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+					</a></li>
+			</c:if>
+			<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+				<li class="page-item" <c:out value="${pageMaker.cri.page == idx ? 'class=info' : '' }"/>><a class="page-link" href="list${pageMaker.makeSearch(idx)}">${idx }</a></li>
+			</c:forEach>
+
+
+			<c:if test="${pageMaker.next && pageMakerendPage > 0 }">
+				<li class="page-item"><a class="page-link" href="list${pageMaker.makeSearch(pageMaker.endPage + 1)}" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+				</a></li>
+			</c:if>
+		</ul>
+	</nav>
+	<!-- 페이징 끝  -->
+
+
 
 	<!--================Footer Area =================-->
 
@@ -106,5 +161,27 @@
 	<script src="../resources/eve_list/vendors/counter-up/jquery.counterup.min.js"></script>
 	<script src="../resources/eve_list/js/mail-script.js"></script>
 	<script src="../resources/eve_list/js/theme.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+
+ 
+	$("#searchBtn").on("click", function() {
+		self.location = "list" + '${pageMaker.makeQuery(1)}'
+		+ "&keyword="
+		+ encodeURIComponent($('#keywordInput').val());
+
+		
+ 
+
+
+		
+		
+	});
+	
+})
+</script>
+
 </body>
 </html>

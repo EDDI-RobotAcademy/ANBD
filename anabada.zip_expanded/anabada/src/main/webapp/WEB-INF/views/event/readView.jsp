@@ -206,10 +206,17 @@
 															료</option>
 													</select>
 													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													<button id="completion" type="button"
+													
+												    <span id="adminBox" style="visibility: hidden;" >
+													
+													 <button id="completion" type="button"
 														class="btn btn-outline-primary"
 														<c:out value="${read.e_winner == null  ? '' :'disabled'} "/>>당첨자
-														발표</button>
+														발표</button> 
+														
+														</span>
+
+
 
 												</c:when>
 
@@ -349,6 +356,8 @@
 		$(document)
 				.ready(
 						function() {
+						
+
 							var formObj = $("form[name='readForm']");
 							$("#slick").slick({
 								infinite : true, /* 맨끝이미지에서 끝나지 않고 다시 맨앞으로 이동 */
@@ -497,14 +506,22 @@
 
 												}
 											}); //  이벤트 참여 기능 끝
+											
+											
 
+											
+											if($(
+											".op option:selected")
+											.val() == 'end'){
+												$('#adminBox').attr("style","visibility:visible");
+											}
 							//이벤트 완료
 							$(".op")
 									.change(
 											function() {
 												var opt = $(
-														".op option:selected")
-														.val();
+												".op option:selected")
+												.val();
 
 												var param = {
 													eno : "${read.eno}"
@@ -515,6 +532,9 @@
 														$(".op").prop(
 																'disabled',
 																true); // 변경불가로 만들기 
+																$('#adminBox').attr("style","visibility:visible");
+																
+																
 														$
 																.ajax({
 
@@ -525,6 +545,11 @@
 																	contetnType : "application/json",
 
 																	success : function() {
+																		//담청자 발표를 위한 버튼 생성 
+																	
+																		
+														
+																		
 																	},
 																	error : function(
 																			XMLRequest,

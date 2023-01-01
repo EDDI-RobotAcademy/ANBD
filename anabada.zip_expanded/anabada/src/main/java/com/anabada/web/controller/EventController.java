@@ -71,16 +71,12 @@ public class EventController {
 			for (int i = 0; i < fileList.size(); i++) {
 				Map<String, String> fileMap = new HashMap<>();
 				fileMap.put("eno", String.valueOf(num));
-				fileMap.put("filepath", "/eventImg/" + (String) fileList.get(i));
+				fileMap.put("filePath", "/eventImg/" + (String) fileList.get(i));
 				service.fileSave(fileMap);
 
 			}
 		}
-		System.out.println("글 저장시 ");
-		System.out.println("날짜 e_start : "+eventBoardVO.getE_start());
-		System.out.println("날짜 e_end : "+eventBoardVO.getE_end());
-		System.out.println("날짜 e_win : "+eventBoardVO.getE_win());
-		
+	
 		
 		
 
@@ -309,8 +305,6 @@ public class EventController {
 				
 				//fileMap.put("fno", String.valueOf(ftotal)); // 게시글 내부에서 파일의 넘버 전달
 				fileMap.put("filePath", "/eventImg/" + (String) fileList.get(i)); // 파일의 경로 저장
-				System.out.println("사진 경로 : " + fileMap.get("filePath"));
-				System.out.println("사진 리얼 : "+fileList.get(i));
 				fileMap.put("eno", String.valueOf(eventboardvo.getEno())); // 게시글 넘버 저장
 
 				service.fileSave(fileMap); // 파일 저장
