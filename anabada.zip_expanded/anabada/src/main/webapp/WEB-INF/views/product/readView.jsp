@@ -293,8 +293,114 @@ img {
 		}); //상품 상태 변경 끝 
 
 		bookCh();
+		
+		
+		
+		// 최근 본 목록 구현 - sessionStroage
+		function recent_item(){
+		    //세션에서 최초로 데이터 꺼내오기
+		    //세션이 비어있을 경우에 객체를 넣어야 함으로
+		    //비어있는지 유무를 파악
+		    var data = sessionStorage.getItem("recent_product");
+		     
+		    if(data){//만약 데이터가 들어있다면
+		        alert("들어있음")
+		        //데이터가 있을 경우 json으로 파싱
+		        //JSON.parse() : json 문자열을 javascript객체로 변환
+		        data = JSON.parse(data);
+		        //alert("사이즈 : "+data.length);
+		        
+		        var pno = '${read.pno}';
+		        
+		        //중복될 번호들을 따로 뽑아
+		        //배열에 넣은후 값을 비교 한후
+		        var bno = [];
+		        for(var i = 0; i < data.length; i++){
+		            bno.push(data[i].pno);
+		        }
+		        
+		        var idxOf = bno.indexOf(pno);
+		        //alert("중복 결과 : "+idxOf);
+		 
+		        if(idxOf<0){
+		            alert("중복안됨")
+		            //중복이 되지 않으면 객체 삽입
+		            //즉, 찾고자 하는 값이 배열에 들어 있지 않은 경우
+		            //.unshift() : 배열의 맨 앞에 값을 추가한다.
+		            data.unshift({
+		                   "pno":'${read.pno}',
+		                   "p_title":'${read.p_title}',
+		                   "p_img":'${filelist[0].filepath}'
+		                    });
+		        }else{
+		            alert("중복됨");
+		        	// 이미 봤다면 이전 기록 삭제하고 다시 추가
+		        	data.splice(idxOf, 1);
+		            data.unshift({
+		            	 "pno":'${read.pno}',
+		                   "p_title":'${read.p_title}',
+		                   "p_img":'${filelist[0].filepath}'
+		                    });
+		        };//if
+		        //alert("성공");
+		     
+		    }else{
+		    //세션에 데이터가 없을 경우 
+		    //새로운 배열 생성후
+		    //객체를 넣어줌
+		        alert("비어있음")
+		        data=[{
+		        	  "pno":'${read.pno}',
+	                   "p_title":'${read.p_title}',
+	                   "p_img":'${filelist[0].filepath}'
+		                }];
+		    }//if
+		    
+		    //준비된 data배열을 넣고
+		    //JSON으로 저장
+		    sessionStorage.setItem("recent_product", JSON.stringify(data));
+		    //alert(   "pno : "+"${read.pno}"+", title : "+"${read.p_title}"+", img : "+ "${filelist[0].filepath}"  );
+		    //pno : 4, title : 레이저 마우스 검은색 팝니다, img : /tomcatImg/85bed4d7-8fc8-4399-815d-51fff5a16ea5.jpg
+		  
+		}     
+		 
+		function get_recent_item(){
+		    
+		    var $recentItemList = $("#recentItemList");
+		    
+		    var items = sessionStorage.getItem("recent_product");
+		    //alert(key)
+		    
+		    //인수로 전달받은 문자열을 자바스크립트 객체로 변환
+		    var realitem = JSON.parse(items);
+		    
+		    //파싱된 객체의 길이로 for문 돌리기
+		     for (var i = 0; i < realitem.length; i++) {
+		         var pno = realitem[i].pno;
+		        var p_title = realitem[i].p_title;
+		        var p_img = realitem[i].p_img; 
+		        alert(pno+", "+p_title+", "+p_img);
+		      
+		 
+		        var li = "<li><a href='/readView/"+pno+"'><img width='70' height='70' src='"+p_img+"' alt='' title='"+p_title+"' /></a></li>";
+		        //ul에 붙이기
+		        $recentItemList.append(li);
+		        
+		    }
+		    
+		}
+		
+		recent_item();
+		get_recent_item();
+		//최근본 목록 끝
+		
+		
+		
+		
+		
+		
 
-	})
+	});
 
 	//User가 제품 판매 상태 보기 
 	function bookCh() {
