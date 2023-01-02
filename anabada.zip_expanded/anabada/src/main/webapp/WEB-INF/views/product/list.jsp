@@ -17,11 +17,14 @@
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="../resources/css/styles.css" rel="stylesheet" />
 <style type="text/css">
-img {
-	width: 450px;
+   
+/*    
+.card-img-top img {
+	width: 299.33px;
 	height: 300px;
 }
-
+ */
+ 
 .rach input[type='radio'] {
 	display: none;
 }
@@ -49,6 +52,67 @@ text-overflow: ellipsis;
 white-space: nowrap;
 
 }
+
+  /*레이아웃 */
+#wapper {
+      width: 1200px;
+      margin: auto;
+      height: auto;
+   }
+   .nav, .aside, .section {
+      margin: 3px;/*간격*/
+   }
+   .nav, .section, .aside {
+      float: left;
+   }
+   .nav {
+      width: 70px;
+   }
+   .section {
+      /* background-color: #f9f9f9;    */
+      width: 1000px; 
+      border: 0px; 
+      border-collapse: collapse;
+   }
+   
+   .aside {
+
+   }
+   
+   .sideBanner {
+      width: 120px; 
+      position: absolute;
+      height: 450px;
+      top: 100px;
+      background-color: white;
+      border: 1px solid #0C6BBC;
+      text-align: center;
+      margin-left: 10px;
+      margin-top: 10px;
+   }
+   .recent_list{
+      height: 405px; 
+      /*
+      396인 이유: li높이 128(검사에서 확인)+margin bottom 5px이 3개씩 보일거라
+      132*3 = 396임.
+      */
+      overflow: hidden;
+   }
+   
+   /*최근 본 알바 ul*/
+   #recentItemList{
+   	  list-style: none;
+   	  float: left;
+   	  text-align: center;
+   }
+   #recentItemList li{
+      height: 130px;
+	  display: inline-block;
+	  text-align: center;
+	  margin-bottom: 5px;
+   }
+   
+   /*끝 */
 
 </style>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -94,6 +158,71 @@ white-space: nowrap;
 
 			location.href = "/product/writeView";
 		})
+		
+		//최근본 목록
+		// 최근 본 알바 플로팅배너
+		   // 기본 위치(top)값
+			var floatPosition = parseInt($(".sideBanner").css('top')); //100
+			var floatHei = parseInt($(".sideBanner").outerHeight()); // 플로팅 배너 길이 450
+			var footerTop = $('#footer').outerHeight(); // footer가 위치한 높이 
+			
+			
+			
+			// scroll 인식
+			$(window).scroll(function() {
+			  
+			    // 현재 스크롤 위치
+			    var currentTop = $(window).scrollTop();
+			    var bannerTop = currentTop + floatPosition + "px";
+			    var val = $(document).height() - footerTop;
+			    var hei = currentTop + floatPosition + floatHei;
+			   
+
+			    
+			
+			    
+			    //이동 애니메이션
+			    if (hei < footerTop){
+			    	$(".sideBanner").stop().animate({
+			   	    	"top" : bannerTop
+			   	    }, 500);
+			    	
+			    }
+
+			}).scroll(); 
+		   
+		    // 최근 본 알바 불러오기. sessionStorage
+		    function get_recent_item(){
+			   
+			    //sessionStorage.clear(); 
+			    var $recentItemList = $("#recentItemList");
+			    
+			    var items = sessionStorage.getItem("recent_product");
+			    
+			    if(items == null){
+			    	var li = "<br><br><li>최근 본 상품이 없습니다.</li>"
+			    	$recentItemList.append(li);
+			    }
+			
+			    //alert(key)
+			    
+			    var realitem = JSON.parse(items);
+			    
+	
+			    
+			}
+			
+			$(".recent_btn").click(function () {
+				var ih = $(this).index() == 0 ? -135 : 135; //위아래로 움직이는 px 숫자
+				var obj = $('.recent_list');
+				obj.animate({ scrollTop:obj.scrollTop() + ih }, 100);
+		    });
+			
+			// 이거 젤 마지막에 둬야 함
+			get_recent_item();
+			//최근본 목록 끝 
+		
+		
 
 	});
 </script>
@@ -101,7 +230,7 @@ white-space: nowrap;
 </head>
 <body>
 	<!-- Navigation-->
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<!-- 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container px-4 px-lg-5">
 			<a class="navbar-brand" href="#!">🌎아나바다.com</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -126,9 +255,9 @@ white-space: nowrap;
 				</form>
 			</div>
 		</div>
-	</nav>
+	</nav> -->
 	<!-- Header-->
-	<header class="bg-dark py-5" >
+<!-- 	<header class="bg-dark py-5" >
 		<div class="container px-4 px-lg-5 my-5"  >
 			<div class="text-center text-white"  >
 				<h1 class="display-4 fw-bolder"> 아나바다.com </h1>
@@ -136,8 +265,21 @@ white-space: nowrap;
 			</div>
 		</div>
 	</header>
+	 -->
+ 	
+	<div>
+   <jsp:include page="../includes/nav.jsp" />
+</div>
+<div>
+   <jsp:include page="../includes/header.jsp" />
+</div>
+	
+	
 	<!-- 검색 기능 부분  -->
 	<form role="form" method="get">
+	<div id="wapper" >
+	 <section class="nav"></section>
+	<section class="section" style="border-top: 1px solid #e5e5e5">
 		<div style="text-align: center;"  >
 
 			<table>
@@ -235,7 +377,9 @@ white-space: nowrap;
 							<div class="col mb-5"    onclick="location.href='/product/readView?pno=${list.pno}&p_type=${list.p_type}&page=${scri.page }&perPageNum=${scri.perPageNum }&searchType=${scri.searchType }&keyword=${scri.keyword }&productType=${scri.productType} '"  >
 								<div class="card h-100">
 									<!-- Product image-->
-									<img class="card-img-top" src="${list.p_filepath }" />
+									<div style="height: 267px;"  >
+									<img class="card-img-top"  height="265px;"  src="${list.p_filepath }" />
+									</div>
 									<!-- Product details-->
 									<div class="card-body p-4">
 										<div class="text-center">
@@ -253,7 +397,7 @@ white-space: nowrap;
 												<div class="bi-star-fill"></div>
 											</div>
 											<!-- Product price-->
-											\ ${list.p_cost}
+											₩ ${list.p_cost}
 										</div>
 									</div>
 									<!-- Product actions-->
@@ -307,13 +451,31 @@ white-space: nowrap;
 
 
 			</section>
+			</section>
+			<!-- 사이드바 - 최근본 상품 목록 -->
+			   <section class="aside"   >
+      <div class="sideBanner"   style="background-color: pink;  " >
+   	  최근 본 상품
+      	 <div class="r_btn">
+      	 	<button class="recent_btn">▲</button>
+      	 	<button class="recent_btn">▼</button>
+      	 </div>
+      	 <div class="recent_list"  >
+			 <ul id="recentItemList">
+			 </ul>
+	     </div>
+      </div>
+   </section>
+   <!-- 최근본 상품 끝  -->
+			</div>
 	</form>
 	<!-- Footer-->
-	<footer class="py-5 bg-dark">
-		<div class="container">
-			<p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p>
-		</div>
-	</footer>
+	<div id="footer" >
+	
+		   <div id="footer">
+      <jsp:include page="../includes/footer.jsp" />
+   </div>
+	</div>
 	<!-- Bootstrap core JS-->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Core theme JS-->
