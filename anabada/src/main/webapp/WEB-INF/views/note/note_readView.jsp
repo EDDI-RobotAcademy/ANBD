@@ -74,7 +74,12 @@
 		$("button[name=n_reply]").on("click", function () { 
 			$("#content").attr("placeholder", "");
 			$("#content").val("");
-			$("#r_id").val("<c:out value='${n_read.s_id}'/>");
+			
+			if('${scri.who eq receive}'){ // 받은 사람=로그인한 아이디
+				$("#r_id").val("<c:out value='${n_read.r_id}'/>");
+			}else{
+				$("#r_id").val("<c:out value='${n_read.s_id}'/>");
+			}
 			$("#r_id").attr("readonly", true);
 			$('#noteModal').modal("show"); 
 		});
@@ -173,6 +178,12 @@
        border-bottom: 1px solid #e9e9e9; 
        border-top: 1px solid #e9e9e9;
    }
+   .p_img { 
+      width: 110px;
+      height: 110px;
+      border-radius: 10px;
+   }
+   
 
 </style>
 </head>
@@ -215,21 +226,19 @@
 		<div class="minicon" style="background-color: white; border-top: 1px solid #e9e9e9">
 			<table class="n_read">
 				<tr>
-					<td>
+					<td colspan="2">
 						<button type="button" name="n_delete" class="d_btn">삭제</button>
-						<c:if test="${n_read.s_id ne id}"><!-- 받은 메시지에서만 답장 가능 -->
 						<button type="button" name="n_reply" class="d_btn">답장</button>
-						</c:if>
 						<button type="button" name="list" class="d_btn">목록</button>
 					</td>
 				</tr>
 				<c:choose>
 				<c:when test="${n_read.s_id eq id }"><!-- 보낸 사람과 현재 로그인한 사람이 같을 때 -->
 				<tr>
-					<td>보낸 메시지</td>
+					<td colspan="2">보낸 메시지</td>
 				</tr>
 				<tr>
-					<td>
+					<td colspan="2">
 					받은 사람&nbsp;&nbsp;${n_read.r_id }<br>
 					보낸 시간&nbsp;&nbsp;${n_read.s_time }<br>
 					</td>
@@ -237,17 +246,41 @@
 				</c:when>
 				<c:otherwise>
 				<tr>
-					<td>받은 메시지</td>
+					<td colspan="2">받은 메시지</td>
 				</tr>
 				<tr>	
-					<td>
+					<td colspan="2">
 					보낸 사람&nbsp;&nbsp;${n_read.s_id }<br>
 					받은 시간&nbsp;&nbsp;${n_read.s_time }<br>
 					</td>
 				</tr>
+				
 				</c:otherwise>
 				</c:choose>
+				
+				<!-- 중고게시글과 관련될때 -->
+                <!-- 유진언니한테 검사받기!!!! -->
+				<c:if test="${n_read.pno ne 0 }">
+				<tr>
+					<td width="130px;">
+						<a href="product/readView/pno=${n_read.pno}">
+							<img class="p_img" src="">
+						</a>
+					</td>
+					<td>
+						제목<br>
+						비용<br>
+						<!-- 
+						${p_read.p_title}<br>
+						${p_read.p_cost}<br>
+						${p_read.p_cost}
+						 -->
+						 <!-- 이 부분은 나중에 -->
+					</td>
+				</tr>
+				</c:if>
 			</table>
+			
 			<div style="padding:10px">
 			${n_read.content }
 			</div>
@@ -264,7 +297,7 @@
                 </div>
                 <form id="note_form">
                     <!-- 
-                    <input type="hidden" id="id" name="s_id" vlaue="koread"/>현재 로그인한 아이디.send.임의로함. 원래는 ${id}
+                    <input type="hidden" id="id" name="s_id" vlaue="korea"/>현재 로그인한 아이디.send.임의로함. 원래는 ${id}
                     <input type="hidden" id="id" name="r_id" value="money"/>글쓴이 아이디.recive. 원래는 ${raea.id} 
                     -->
                     <div class="modal-body">

@@ -21,24 +21,10 @@
    .n_list{
       margin: auto;
       width: 95%;
-      /* border-top: 1px solid #e5e5e5; */
-      /* border-collapse: collapse; */
    }
    .n_list tr, .n_list td{
       border-bottom: 1px solid #e5e5e5;
       padding: 10px;
-   }
-   
-   .d_btn {
-	  all: unset;
-	  width: 45px;
-	  height: 30px;
-	  border-radius: 2px 2px;
-	  color: black;
-	  font-size: 15px;
-	  text-align: center;
-	  cursor: pointer;
-	  border: 1px solid gray;
    }
    
    input[type=radio]{
@@ -61,7 +47,6 @@
    	   cursor: pointer;
    }
    
-   
    input[type=radio]:radio + label{
    	   background-image: none;
    	   background-color: #3598dc;
@@ -75,7 +60,6 @@
        border-bottom: 1px solid #e9e9e9; 
        border-top: 1px solid #e9e9e9;
    }
-
 </style>
 <script type="text/javascript">
    $(document).ready(function () {
@@ -197,12 +181,12 @@
         <!-- 바 -->
         <div class="sidemenu">
         	<div class="myImg">
-        		<img src="../resources/images/아나바다.png" width="150px" height="150px"/>
+        		<img src="../resources/images/아나바다2.png" width="150px" height="150px"/>
         		<br>
         		${id } 님
         	</div>
         	<div style="padding-top: 10px">
-	        	<button type="button" name="send" id="send" class="ask_btn" style="display: block; margin: auto;">쪽지 보내기</button>
+	        	<button type="button" name="send" id="send" class="n_btn1" style="display: block; margin: auto;">쪽지 보내기</button>
 	        	<ul style="margin-top: 5px;">
 		        	<li style="text-align: left">
 		        	<label>
@@ -224,7 +208,7 @@
             <table class="n_list">
             <tr>
             	<td colspan="4">
-            	<button type="button" name="delete" class="d_btn">
+            	<button type="button" name="delete" class="n_btn2">
             	삭제</button>
             	&nbsp;읽지 않은 메시지 ${no_read }
             	</td>
@@ -260,7 +244,7 @@
                   <c:if test="${empty n_list.s_id}">(알수없음)</c:if>
                </td>
                <td>
-                  <a href="/note/note_readView?bno=${n_list.bno}&page=${scri.page }&perPageNum=${scri.perPageNum }&who=${scri.who}">
+                  <a href="/note/note_readView?bno=${n_list.bno}&pno=${n_list.pno }&page=${scri.page }&perPageNum=${scri.perPageNum }&who=${scri.who}">
                      <c:if test="${n_list.read_chk eq 1}">
                      <img src="../resources/images/new.png" width="14px" height="14px">
                      </c:if>
@@ -339,8 +323,8 @@
                 </div>
                 <form id="note_form">
                     <!-- 
-                    <input type="hidden" id="id" name="s_id" vlaue="koread"/>현재 로그인한 아이디.send.임의로함. 원래는 ${id}
-                    <input type="hidden" id="id" name="r_id" value="money"/>글쓴이 아이디.recive. 원래는 ${raea.id} 
+                    <input type="hidden" id="s_id" name="s_id" vlaue="${id}"/>현재 로그인한 아이디
+                    <input type="hidden" id="r_id" name="r_id" value=""/>받을 사람 아이디
                     -->
                     <div class="modal-body">
                         <table style="width: 100%">
