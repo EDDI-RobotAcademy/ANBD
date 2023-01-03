@@ -50,7 +50,7 @@
 			<br>
 			<br>
 		</div>
-		<form action="/note/test" method="get">
+		<form action="/note/product_note" method="get">
       		<input type="submit" value="쪽지한 사람들 목록 보러 가기">
    		</form>
 		<form action="/job/writeView_boss" method="get">

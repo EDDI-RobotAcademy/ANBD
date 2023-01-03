@@ -62,6 +62,7 @@
 		
 		// 쪽지 보내기 버튼 눌렀을 떄 모달창 띄우기
 		$("button[name=n_send]").on("click", function () { 
+			$("#pno").val("0"); // 쪽지보낼때 pno은 0
 			$("#content").attr("placeholder", "");
 			$("#content").val("");
 			$("#r_id").attr("placeholder", "");
@@ -72,6 +73,7 @@
 		
 		// 답장 버튼 눌렀을 때 모달창 띄우기
 		$("button[name=n_reply]").on("click", function () { 
+			$("#pno").val('${n_read.pno}'); // 답장할 때는 그 게시글 pno를 적음
 			$("#content").attr("placeholder", "");
 			$("#content").val("");
 			
@@ -97,6 +99,8 @@
 	    		return false;
 	    	}
 	    	
+	    	
+	    	
 	        $.ajax({
 	            type: "get",
 	            url : "/note/note_insert.ajax",
@@ -104,6 +108,7 @@
 	            data : $("#note_form").serialize(),
 	            success:function(data){
 	                alert("쪽지 전송 완료");
+	                alert($("#pno").val());
 	            },
 	        });
 	        
@@ -116,6 +121,11 @@
 			'&page=' + '${scri.page }' +
 			'&perPageNum=' + '${scri.perPageNum }' +
 			'&who=' + '${scri.who}';
+		});
+	    
+	    // 답장 버튼 눌렀을 때 모달창 띄우기
+		$("button[name=review]").on("click", function () { 
+			$('#reviewModal').modal("show"); 
 		});
 	    
 		
@@ -260,7 +270,7 @@
 				
 				<!-- 중고게시글과 관련될때 -->
                 <!-- 유진언니한테 검사받기!!!! -->
-				<c:if test="${n_read.pno ne 0 }">
+				<c:if test="${n_read.pno ne 0 && n_read.confirm eq 'no'}">
 				<tr>
 					<td width="130px;">
 						<a href="product/readView/pno=${n_read.pno}">
@@ -279,16 +289,38 @@
 					</td>
 				</tr>
 				</c:if>
+				<!-- 원래는 아래 코드로 실행해야함 -->
+				<%-- <c:if test="${n_read.pno ne 0 && n_read.confirm eq 'yes'}"> --%>
+				<c:if test="${n_read.confirm eq 'yes'}">
+				<tr>
+					<td width="130px;">
+						<a href="product/readView/pno=${n_read.pno}">
+							<img class="p_img" src="">
+						</a>
+					</td>
+					<td>
+						제목<br>
+						비용<br><br>
+						<!-- 
+						${p_read.p_title}<br>
+						${p_read.p_cost}<br>
+						${p_read.p_cost}
+						 -->
+						 <!-- 이 부분은 나중에 -->
+						 <button type="button" class="review" name="review">후기 작성하기</button>
+					</td>
+				</tr>
+				</c:if>
 			</table>
 			
 			<div style="padding:10px">
-			${n_read.content }
+			${n_read.content }<br>
 			</div>
 		</div>
 	</form>
 	</section>
 	
-	<!-- 모달내용 -->
+	<!-- 쪽지 모달 -->
 	<div class="modal fade" id="noteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content ">
@@ -300,6 +332,11 @@
                     <input type="hidden" id="id" name="s_id" vlaue="korea"/>현재 로그인한 아이디.send.임의로함. 원래는 ${id}
                     <input type="hidden" id="id" name="r_id" value="money"/>글쓴이 아이디.recive. 원래는 ${raea.id} 
                     -->
+                    <!-- pno값 숫자로 전달하기 위해서.... -->
+                    <input type="hidden" name="confirm" value="no">
+                    <div style="display: none">
+                    	<input type="number" id="pno" name="pno">
+                    </div>
                     <div class="modal-body">
                         <table style="width: 100%">
                             <tbody>
@@ -332,6 +369,36 @@
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" id="note_submit">보내기</button>
                     <button class="btn btn-primary" type="button" id="finsh" data-bs-dismiss="modal">취소</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 후기 모달 -->
+	<div class="modal fade" id="reviewModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">쪽지</h1>
+                </div>
+                <form id="review_form">
+                    
+                    <!-- pno값 숫자로 전달하기 위해서.... -->
+                    <input type="hidden" name="confirm" value="no">
+                    <div style="display: none">
+                    	<input type="number" id="pno" name="pno">
+                    </div>
+                    
+                    <div class="modal-body">
+                        <table style="width: 100%">
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" id="review_submit">보내기</button>
+                    <button class="btn btn-primary" type="button" id="review_finsh" data-bs-dismiss="modal">취소</button>
                 </div>
             </div>
         </div>

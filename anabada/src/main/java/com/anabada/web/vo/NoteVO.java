@@ -13,6 +13,7 @@ public class NoteVO {
 	private int s_delete_chk; 
 	private int r_delete_chk; 
 	private int pno; // 중고게시물 번호
+	private String confirm; // 판매완료된 쪽지이면
 	
 	public int getBno() {
 		return bno;
@@ -68,12 +69,20 @@ public class NoteVO {
 	public void setPno(int pno) {
 		this.pno = pno;
 	}
+	public String getConfirm() {
+		return confirm;
+	}
+	public void setConfirm(String confirm) {
+		this.confirm = confirm;
+	}
 	@Override
 	public String toString() {
 		return "NoteVO [bno=" + bno + ", s_id=" + s_id + ", r_id=" + r_id + ", s_time=" + s_time + ", content="
 				+ content + ", read_chk=" + read_chk + ", s_delete_chk=" + s_delete_chk + ", r_delete_chk="
-				+ r_delete_chk + ", pno=" + pno + "]";
+				+ r_delete_chk + ", pno=" + pno + ", confirm=" + confirm + "]";
 	}
+	
+	
 	
 	
 	

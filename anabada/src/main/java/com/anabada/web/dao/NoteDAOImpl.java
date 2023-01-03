@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.anabada.web.vo.NoteCriteria;
 import com.anabada.web.vo.NoteSearchCriteria;
 import com.anabada.web.vo.NoteVO;
 
@@ -87,8 +88,9 @@ public class NoteDAOImpl implements NoteDAO{
 	}
 
 	@Override
-	public List get_members(int pno) throws Exception {
-		return sqlSession.selectOne("noteMapper.get_members", pno);
+	public List<String> get_members(Map map) throws Exception {
+		return sqlSession.selectList("noteMapper.get_members", map);
 	}
+
 
 }

@@ -4,9 +4,10 @@
 
 <mapper namespace="noteMapper">
 <insert id="insert" parameterType="NoteVO">
-INSERT INTO NOTE (BNO, S_ID, R_ID, CONTENT, S_TIME, READ_CHK, R_DELETE_CHK, S_DELETE_CHK)
-VALUES(NOTE_SEQ.NEXTVAL, #{s_id}, #{r_id}, #{content}, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MM:SS'), 1, 1, 1)
+INSERT INTO NOTE (BNO, S_ID, R_ID, CONTENT, S_TIME, READ_CHK, R_DELETE_CHK, S_DELETE_CHK, PNO, CONFIRM)
+	VALUES(NOTE_SEQ.NEXTVAL, #{s_id}, #{r_id}, #{content}, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MM:SS'), 1, 1, 1, #{pno}, #{confirm})
 </insert>
+
 
 <select id="listPage" resultType="NoteVO" parameterType="java.util.Map">
 SELECT BNO, S_ID, R_ID, CONTENT, S_TIME, READ_CHK, R_DELETE_CHK, S_DELETE_CHK, PNO 
@@ -32,7 +33,7 @@ AND BNO > 0
 
 
 <select id="read" parameterType="int" resultType="NoteVO">
-SELECT BNO, R_ID, S_ID, CONTENT, S_TIME, READ_CHK, S_DELETE_CHK, R_DELETE_CHK, PNO
+SELECT BNO, R_ID, S_ID, CONTENT, S_TIME, READ_CHK, S_DELETE_CHK, R_DELETE_CHK, PNO, CONFIRM
 FROM NOTE WHERE BNO = #{bno}
 </select>
 
@@ -90,8 +91,8 @@ DELETE FROM NOTE WHERE ((R_DELETE_CHK = 0 AND R_DELETE_CHK = 0) OR (s_id IS NULL
 AND BNO = #{bno}
 </delete>
 
-<select id="get_members" parameterType="int" resultType="java.util.List">
-SELECT DISTINCT S_ID FROM NOTE WHERE PNO = #{pno}
+<select id="get_members" parameterType="java.util.Map" resultType="java.lang.String">
+SELECT DISTINCT S_ID FROM NOTE WHERE PNO = #{pno} AND S_ID != #{id}
 </select>
 
 </mapper>

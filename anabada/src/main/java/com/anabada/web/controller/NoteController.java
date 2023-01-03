@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.anabada.web.service.NoteService;
+import com.anabada.web.vo.NoteCriteria;
 import com.anabada.web.vo.NotePageMaker;
 import com.anabada.web.vo.NoteSearchCriteria;
 import com.anabada.web.vo.NoteVO;
@@ -43,10 +44,10 @@ public class NoteController {
 	// 쪽지보내는 ajax
 	@RequestMapping(value="/note_insert.ajax", method = RequestMethod.GET)
 	@ResponseBody
-    public void reg_proc(HttpServletResponse resp, @ModelAttribute("noteVO") NoteVO noteVO) throws Exception {
+    public void note_insert(HttpServletResponse resp, @ModelAttribute("noteVO") NoteVO noteVO) throws Exception {
         
 		System.out.println("쪽지" + noteVO);
-		System.out.println(noteVO);
+		noteVO.getPno();
 		
 		boolean result = false;
         
@@ -133,6 +134,7 @@ public class NoteController {
 		// model.addAttribute("p_read", productService.read(ProductVO.getPno()));
 		
 		System.out.println("번호: " + noteVO.getBno());
+		System.out.println("확정쪽지인지: " + noteVO.getConfirm());
 		
 		model.addAttribute("n_read", noteService.note_view(noteVO.getBno())); // 게시글 번호로 게시글 객체 불러옴
 		model.addAttribute("scri", scri);
@@ -173,21 +175,69 @@ public class NoteController {
 	    writer.println(result);
 	}	
 	
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
-	public String test(@ModelAttribute NoteVO vo, Model model) throws Exception{
+	// 특정 중고게시물에 대해 쪽지한 사람 리스트
+	@RequestMapping(value = "/product_note", method = RequestMethod.GET)
+	public String product_note(@ModelAttribute NoteVO noteVO, Model model, HttpSession session,
+			@ModelAttribute("cri") NoteCriteria cri) throws Exception{
+		
+		//int pno = ProductService.getPno()
+		//중고게시물에서 pno번호가 넘어와야함!!
 		
 		logger.info("해당 중고게시글에 쪽지한 사람들 목록");
 		
 		// 임의로 설정했음!!
+		// 0번 게시물에 대해서
 	    int pno = 0;
-	    System.out.println(pno);
+	    System.out.println("중고게시물 번호: " + pno);
 	    
+	    Map<String, Object> map = new HashMap<String, Object>();
+	    map.put("id", (String)session.getAttribute("id"));
+		map.put("pno", pno);
+		
+		// 페이징 처리 10개씩! 아직 확인안해봄 나중에 확인해보기!!!
+		NotePageMaker pageMaker = new NotePageMaker();
+		pageMaker.setCri(cri); 
+		System.out.println("페이지번호: " + cri.getPage());
+		
+		List<String> members = noteService.get_members(map); // 쪽지한 사람 전체 리스트
+		pageMaker.setTotalCount(members.size());
+		
+		if(members.size() > 10) { // 우선 페이지 처리 4까지만 했음
+			if(cri.getPage() == 2) {
+				members = members.subList(10, 20);
+			}else if(cri.getPage() == 3){
+				members = members.subList(20, 30);
+			}else if(cri.getPage() == 4){
+				members = members.subList(30, 40);
+			}
+		}
+		
+		// 안읽으면 1, 읽으면 0
+		model.addAttribute("pageMaker", pageMaker);
+	    model.addAttribute("m_list", members); // 쪽지한 아이디 리스트들 반환
+	    // model.addAttribute("p_read", productService.read(ProductVO.getPno()));
+	    // 중고 게시물 정보도 넘겨줘야함.
 	    
-	    //model.addAttribute("m_list", noteService.get_members(pno));
-	    return "/note/test";
-	    
-	
+	    return "/note/product_note";
 	}
 	
+	// 판매리뷰 쪽지 보내기 ajax
+    @RequestMapping(value="/review_note.ajax", method = RequestMethod.GET)
+	@ResponseBody
+	public void review_note(HttpServletResponse resp, @ModelAttribute("noteVO") NoteVO noteVO) throws Exception {
+	        
+    	System.out.println("쪽지" + noteVO);
+			
+		boolean result = false;
+	        
+		noteService.send(noteVO);
+			
+		result = true;
+	        
+	    PrintWriter writer = resp.getWriter();
+	    resp.setCharacterEncoding("UTF-8"); 
+	    resp.setContentType("text/html;charset=UTF-8");
+	    writer.println(result);
+    }
 	
 }

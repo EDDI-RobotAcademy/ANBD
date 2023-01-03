@@ -326,6 +326,7 @@
                     <input type="hidden" id="s_id" name="s_id" vlaue="${id}"/>현재 로그인한 아이디
                     <input type="hidden" id="r_id" name="r_id" value=""/>받을 사람 아이디
                     -->
+                    <input type="hidden" name="confirm" value="no">
                     <div class="modal-body">
                         <table style="width: 100%">
                             <tbody>
