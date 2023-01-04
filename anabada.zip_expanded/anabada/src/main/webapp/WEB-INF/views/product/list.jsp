@@ -83,7 +83,7 @@
 .sideBanner {
 	width: 120px;
 	position: absolute;
-	height: 450px;
+	height: 470px;
 	top: 100px;
 	background-color: white;
 	border: 1px solid #0C6BBC;
@@ -214,17 +214,17 @@ ul {
 			        var p_img = realitem[i].p_img; 
 
 				if (p_img != null || p_img != "") {
-					var li = "<li><a href='/product/readView?pno="
+					var li = "<li  ><a href='/product/readView?pno="
 							+ pno
 							+ "'><img width='100' height='100' src='"+p_img+"'/>"
-							+ "<br><font>" + pno + p_title + "</font>"
+							+ "<br><font  >" + pno + p_title + "</font>"
 							+ "</a></li>";
 				}
 				if (p_img == null || p_img == "") {
-					var li = "<li><a href='/product/readView?pno="
+					var li = "<li  ><a href='/product/readView?pno="
 							+ pno
-							+ "'><img width='100' height='100' src='../resources/images/아나바다2.png'/>"
-							+ "<br><font>" + pno + p_title + "</font>"
+							+ "'><img width='100' height='100' src='../resources/images/아나바다.png'/>"
+							+ "<br><font >" + pno + p_title + "</font>"
 							+ "</a></li>";
 				}
 
@@ -235,11 +235,13 @@ ul {
 		}
 
 		$(".recent_btn").click(function() {
-			var ih = $(this).index() == 0 ? -135 : 135; //위아래로 움직이는 px 숫자
+		//	var ih = $(this).index() == 0 ? -135 : 135; //위아래로 움직이는 px 숫자
+			var ih = $(this).index() == 0 ? -405 : 405; //위아래로 움직이는 px 숫자
+	        // 위로 : 0 아래로 : 1 
+	        
 			var obj = $('.recent_list');
-			obj.animate({
-				scrollTop : obj.scrollTop() + ih
-			}, 100);
+			
+			obj.animate({scrollTop : obj.scrollTop() + ih}, 100);
 		});
 
 		// 이거 젤 마지막에 둬야 함
@@ -374,22 +376,25 @@ ul {
 												<div class="word">
 													<h5 class="fw-bolder">${list.p_title }</h5>
 												</div>
-												<!-- Product reviews-->
-												<div class="d-flex justify-content-center small text-warning mb-2">
-													<div class="bi-star-fill"></div>
-													<div class="bi-star-fill"></div>
-													<div class="bi-star-fill"></div>
-													<div class="bi-star-fill"></div>
-													<div class="bi-star-fill"></div>
-												</div>
+													
+													<%-- <div>
+														<img  style="width: 30px; height: 30px;" src="../../resources/images/heartB.png"> &nbsp;&nbsp;${list.p_heart }
+													</div>
+													 --%>
+												
+									
 												<!-- Product price-->
 												₩ ${list.p_cost}
+													<div style="margin-top: 10px;" >
+													<fmt:formatDate pattern="yyyy.MM.dd"    value="${list.p_regdate }"/>
+													
+													</div>
 											</div>
 										</div>
 										<!-- Product actions-->
 										<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 											<div class="text-center">
-												<a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
+												<a class="btn btn-outline-dark mt-auto" href="#"> 살펴보기</a>
 											</div>
 										</div>
 									</div>
@@ -445,7 +450,7 @@ ul {
 						<button class="recent_btn">▲</button>
 						<button class="recent_btn">▼</button>
 					</div>
-					<div class="recent_list">
+					<div class="recent_list ">
 						<ul id="recentItemList">
 						</ul>
 					</div>
