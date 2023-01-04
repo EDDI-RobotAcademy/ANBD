@@ -123,10 +123,52 @@
 			'&who=' + '${scri.who}';
 		});
 	    
-	    // 답장 버튼 눌렀을 때 모달창 띄우기
+	    
+	    // 후기 작성 모달창 띄우기
 		$("button[name=review]").on("click", function () { 
-			$('#reviewModal').modal("show"); 
+			
+			$.ajax({
+	            type: "get",
+	            url : "/review/review_chk.ajax",
+	          	dataType : "json",
+	          	traditional : true,
+	            data : {
+	            	pno: ${n_read.pno}
+	            },
+	            success:function(chk){
+	                if(chk == 1){
+	            		alert("이미 후기를 작성했습니다.");
+	            		return false;
+	                }else{
+	                	$('#reviewModal').modal("show"); 
+	                }
+	            },
+	        });
+			
 		});
+	    
+		// 모달창에서 후기 작성 완료 버튼 눌렀을 때
+	    $("#review_submit").click(function(){
+	    	
+	    	var chk = $('input[name=r_score]').is(":checked");
+	    	if(!chk){
+	    		alert("선택해주세요."); // 멘트 다시
+	    		return false;
+	    	}
+	    	
+	        $.ajax({
+	            type: "get",
+	            url : "/review/review_register.ajax",
+	          	dataType : "json",
+	            data : $("#review_form").serialize(),
+	            success:function(data){
+	                alert("후기 작성 완료");
+	                window.location.reload();
+	            },
+	        });
+	        
+	        $("#reviewModal").modal("hide");
+	    });
 	    
 		
 	})
@@ -154,12 +196,12 @@
 	  border: 1px solid gray;
    }
    
-   input[type=radio]{
+   input[name=who]{
    	   display: none;
    	   margin: 10px; 
    }
    
-   input[type=radio] + label{
+   input[name=who] + label{
    	   display: inline-block;
    	   margin:-2px;
    	   padding: 8px 10px;
@@ -175,7 +217,7 @@
    }
    
    
-   input[type=radio]:radio + label{
+   input[type=who]:radio + label{
    	   background-image: none;
    	   background-color: #3598dc;
 	   color:#fff;
@@ -192,6 +234,11 @@
       width: 110px;
       height: 110px;
       border-radius: 10px;
+   }
+   
+   /*후기 테이블*/
+   .review_table{
+   	  width: 100%
    }
    
 
@@ -216,7 +263,7 @@
         		${id } 님
         	</div>
         	<div style="padding-top: 10px">
-				<button type="button" name="n_send" class="ask_btn" style="display: block; margin: auto;">쪽지 보내기</button>
+				<button type="button" name="n_send" class="n_btn1" style="display: block; margin: auto;">쪽지 보내기</button>
 				<ul style="margin-top: 5px;">
 		        	<li style="text-align: left">
 		        	<label>
@@ -268,7 +315,7 @@
 				</c:otherwise>
 				</c:choose>
 				
-				<!-- 중고게시글과 관련될때 -->
+				<!-- 중고게시글과 관련된 쪽지일때 -->
                 <!-- 유진언니한테 검사받기!!!! -->
 				<c:if test="${n_read.pno ne 0 && n_read.confirm eq 'no'}">
 				<tr>
@@ -289,6 +336,8 @@
 					</td>
 				</tr>
 				</c:if>
+				
+				<!-- 후기 쪽지일때 -->
 				<!-- 원래는 아래 코드로 실행해야함 -->
 				<%-- <c:if test="${n_read.pno ne 0 && n_read.confirm eq 'yes'}"> --%>
 				<c:if test="${n_read.confirm eq 'yes'}">
@@ -306,8 +355,10 @@
 						${p_read.p_cost}<br>
 						${p_read.p_cost}
 						 -->
-						 <!-- 이 부분은 나중에 -->
-						 <button type="button" class="review" name="review">후기 작성하기</button>
+						<!-- 받은 사람만 후기 작성하기 버튼 누를수있도록 -->
+						<c:if test="${n_read.r_id eq id }">
+						   <button type="button" class="review" name="review">후기 작성하기</button>
+						</c:if>
 					</td>
 				</tr>
 				</c:if>
@@ -334,9 +385,7 @@
                     -->
                     <!-- pno값 숫자로 전달하기 위해서.... -->
                     <input type="hidden" name="confirm" value="no">
-                    <div style="display: none">
-                    	<input type="number" id="pno" name="pno">
-                    </div>
+                    <input type="hidden" name="pno" value="${n_read.pno}">
                     <div class="modal-body">
                         <table style="width: 100%">
                             <tbody>
@@ -379,26 +428,54 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content ">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">쪽지</h1>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">거래 후기 남기기</h1>
                 </div>
                 <form id="review_form">
-                    
-                    <!-- pno값 숫자로 전달하기 위해서.... -->
-                    <input type="hidden" name="confirm" value="no">
-                    <div style="display: none">
-                    	<input type="number" id="pno" name="pno">
-                    </div>
+                
+                    <input type="hidden" name="pno" value="${n_read.pno}">
+                    <input type="hidden" name="r_seller" value="${n_read.s_id}">
+                    <input type="hidden" name="r_consumer" value="${id}">
                     
                     <div class="modal-body">
-                        <table style="width: 100%">
+                        <table class="review_table">
                             <tbody>
+                            	<tr>
+                            		<td style="text-align: center; padding: 10px;">
+                            			<h5>${n_read.s_id}님과의 거래가 어떠셨나요?</h5>
+                            		</td>
+                            	</tr>
+                            	<tr>
+	                            	<td style="text-align: center; padding: 10px;">
+	                            		<label>
+	                            			<input type="radio" name="r_score" value="0.2">별로예요.
+	                            		</label>
+	                            		&nbsp;&nbsp;&nbsp;
+	                            		<label>
+	                            			<input type="radio" name="r_score" value="0.1">보통이에요.
+	                            		</label>
+	                            		&nbsp;&nbsp;&nbsp;
+	                            		<label>
+	                            			<input type="radio" name="r_score" value="0.2">좋아요!
+	                            		</label>
+	                            		&nbsp;&nbsp;&nbsp;
+	                            		<label>
+	                            			<input type="radio" name="r_score" value="0.3">최고예요♥
+	                            		</label>
+	                            	</td>
+	                            </tr>
+	                            <tr>
+	                            	<td style="text-align: center; padding: 10px;">
+	                            		${n_read.s_id}님에게 감사 인사를 남겨보세요.<br>
+	                            		<textarea name="r_content" id="r_content" style="resize: none; height: 100px; width: 100%"></textarea>
+	                            	</td>
+	                            </tr>
                             </tbody>
                         </table>
                     </div>
                 </form>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" id="review_submit">보내기</button>
-                    <button class="btn btn-primary" type="button" id="review_finsh" data-bs-dismiss="modal">취소</button>
+                    <button class="btn btn-secondary" type="button" id="review_submit">작성 완료</button>
+                    <button class="btn btn-primary" type="button" id="finsh" data-bs-dismiss="modal">취소</button>
                 </div>
             </div>
         </div>

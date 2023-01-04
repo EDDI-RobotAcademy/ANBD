@@ -225,8 +225,8 @@
                   <td width="150px" style="text-align: center">받는 사람</td>
                </c:otherwise>
                </c:choose>
-               <td width="450px" style="text-align: center">내용</td>
-               <td width="200px" style="text-align: center">날짜</td>
+               <td width="400px" style="text-align: center">내용</td>
+               <td width="250px" style="text-align: center">날짜</td>
             </tr>
             
             <!-- 안읽으면 1, 읽으면 0 -->
