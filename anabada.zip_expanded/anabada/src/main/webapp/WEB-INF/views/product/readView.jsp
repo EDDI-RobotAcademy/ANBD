@@ -78,14 +78,14 @@
 }
 
 #textbox {
-	margin-left: auto;
-	margin-right: auto;
-	width: 50%;
-	height: 200px;
+	
+	width: 490px;
+	height: 320px;
 	border-radius: 20px;
-	border: 2px solid #E2E2E2;
+	border-top-left-radius: 0px;
+	border: 2px solid #AFAFAF;
 	padding: 17px;
-	margin-top: 40px;
+	
 }
 
 #re {
@@ -109,6 +109,18 @@
 	color: white;
 	margin-right: 0px;
 	letter-spacing: 2px;
+}
+.reBox{
+padding: 5px;
+	background-color: #AFAFAF;
+	text-align: center;
+	font-weight: bold;
+	color: white;
+	letter-spacing: 2px;
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
+	width: 100px;
+
 }
 
 #userBK{
@@ -138,10 +150,113 @@
 	color: #3D3D3D;
 	font-size: 17px;
 }
+
+/*레이아웃 */
+#wapper {
+	width: 1200px;
+	margin: auto;
+	height: auto;
+}
+
+.nav, .aside, .section {
+	margin: 3px; /*간격*/
+}
+
+.nav, .section, .aside {
+	float: left;
+}
+
+.nav {
+	width: 70px;
+}
+
+.section {
+	/* background-color: #f9f9f9;    */
+	width: 1000px;
+	border: 0px;
+	border-collapse: collapse;
+}
+
+.aside {
+	
+}
+
+.sideBanner {
+	width: 120px;
+	position: absolute;
+	height: 470px;
+	top: 100px;
+	background-color: white;
+	border: 1px solid #0C6BBC;
+	text-align: center;
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+.recent_list {
+	height: 405px;
+	overflow: hidden;
+}
+
+/*최근 본 알바 ul*/
+#recentItemList {
+	list-style: none;
+	float: left;
+	text-align: center;
+}
+
+#recentItemList li {
+	height: 130px;
+	display: inline-block;
+	text-align: center;
+	margin-bottom: 5px;
+}
+ul {
+    list-style: none;
+    margin:0px; padding:0px;
+}
+
+
+#reviewBox{
+margin-top: 70px;
+}
+#reviewBox td{
+ width: 510px;
+
+}
+
+
+/*끝 */
+
+
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
 		var formObj = $("form[name='readForm']");
+		var floatPosition = parseInt($(".sideBanner").css('top')); //100
+		var floatHei = parseInt($(".sideBanner").outerHeight()); // 플로팅 배너 길이 450
+		var footerTop = $('#footer').outerHeight(); // footer가 위치한 높이 
+
+		// scroll 인식
+		$(window).scroll(function() {
+
+			// 현재 스크롤 위치
+			var currentTop = $(window).scrollTop();
+			var bannerTop = currentTop + floatPosition + "px";
+			var val = $(document).height() - footerTop;
+			var hei = currentTop + floatPosition + floatHei;
+
+			//이동 애니메이션
+			if (hei < footerTop) {
+				$(".sideBanner").stop().animate({
+					"top" : bannerTop
+				}, 500);
+
+			}
+
+		}).scroll();
+		
+		
 		
 		
 		
@@ -198,7 +313,7 @@
 		    //세션에 데이터가 없을 경우 
 		    //새로운 배열 생성후
 		    //객체를 넣어줌
-		        alert("비어있음")
+		    //    alert("비어있음")
 		        data=[{
 		        	  "pno":'${read.pno}',
 	                   "p_title":'${read.p_title}',
@@ -228,16 +343,25 @@
 		         var pno = realitem[i].pno;
 		        var p_title = realitem[i].p_title;
 		        var p_img = realitem[i].p_img; 
-		        alert(pno+", "+p_title+", "+p_img);
+		      //  alert(pno+", "+p_title+", "+p_img);
 		      
 		 
-		        var li = "<li><a href='/readView/"+pno+"'><img width='70' height='70' src='"+p_img+"' alt='' title='"+p_title+"' /></a></li>";
+		        var li = "<li  ><a href='/product/readView?pno="
+							+ pno
+							+ "'><img width='100' height='100' src='"+p_img+"'/>"
+							+ "<br><font  >" + pno + p_title + "</font>"
+							+ "</a></li>";
 		        //ul에 붙이기
 		        $recentItemList.append(li);
 		        
 		    }
 		    
 		}
+		
+		
+		
+		
+		
 		
 		recent_item();
 		get_recent_item();
@@ -456,8 +580,9 @@
 
 <!-- header end -->
 
-	<div>
-	
+	<div id="wapper" >
+	<section class="nav"></section>
+	<section class="section" style="border-top: 1px solid #e5e5e5">
 
 	
 	
@@ -680,13 +805,41 @@
 
 			<!-- 관련 상품 끝 -->
 
-			<div id="textbox"   style="text-align: left;" >
-				<font style="font-size: 20px; font-weight: bold; color: #6F6F6F">[ 상품 상태 ]</font> <br> <br> ${read.p_content}
-			</div>
+			
+		<!-- 상품 상세 설명  및 구매자 후기 -->	
+		<table id="reviewBox"  >
+		<tr> <td> <div class="reBox" >상 품 상 태</div> </td>  <td> <div class="reBox" > 상점 후기 </div> </td>  </tr>
+		<tr> <td> <div id="textbox" > ${read.p_content } </div> </td>  <td> <div id="textbox" ></div> </td>   </tr>
+		</table>
+		
+		
+		<!-- 상품 상세 설명 및 구매자 후기  끝  -->
+			
+			
+			
+			
+
 
 
 
 		</form>
+		</section>
+							<!-- 사이드바 - 최근본 상품 목록 -->
+			<section class="aside">
+				<div class="sideBanner" >
+					최근 본 상품
+					<div class="r_btn">
+						<button class="recent_btn">▲</button>
+						<button class="recent_btn">▼</button>
+					</div>
+					<div class="recent_list ">
+						<ul id="recentItemList">
+						</ul>
+					</div>
+				</div>
+			</section>
+			<!-- 최근본 상품 끝  -->
+		
 	</div>
 	
 	<!-- footer -->

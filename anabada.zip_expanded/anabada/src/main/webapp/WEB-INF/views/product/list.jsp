@@ -94,10 +94,6 @@
 
 .recent_list {
 	height: 405px;
-	/*
-      396인 이유: li높이 128(검사에서 확인)+margin bottom 5px이 3개씩 보일거라
-      132*3 = 396임.
-      */
 	overflow: hidden;
 }
 
