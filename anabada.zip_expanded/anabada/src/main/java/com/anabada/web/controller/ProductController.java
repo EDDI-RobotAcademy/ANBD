@@ -109,6 +109,9 @@ public class ProductController {
 
 		session.setAttribute("id", "korea");
 
+
+		session.setAttribute("id", "korea");
+
 		session.setAttribute("id", "admin");
 
 		List<PBoardVO> list = service.list(scri);

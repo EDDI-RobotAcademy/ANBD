@@ -42,12 +42,20 @@ input[type='file']{
 display: inline;
 }
 
+#wapper {
+	width: 1200px;
+	margin: auto;
+	height: auto;
+}
+
+
 
 #wapper {
 	width: 1200px;
 	margin: auto;
 	height: auto;
 }
+
 
 #toptd {
 text-align: center;
@@ -56,11 +64,16 @@ padding-bottom: 40px;
 }
 .td_title{
 
+
+
 padding-right: 10px;
 }
 
 
 
+
+padding-right: 10px;
+}
 
 </style>
 
@@ -184,6 +197,8 @@ padding-right: 10px;
 <body>
 
 
+
+
 <!--  hearder -->
 
 	<div>
@@ -195,6 +210,13 @@ padding-right: 10px;
 
 <!-- end hearder -->
 
+
+		<div id="wapper">
+		
+
+		
+
+
 		<div id="wapper">
 		
 
@@ -203,6 +225,7 @@ padding-right: 10px;
 	<div  >
 
 		<h2  >카페 글쓰기</h2>
+
 
 		<br>
 
@@ -214,8 +237,14 @@ padding-right: 10px;
 				<tr>
 					<td class="td_title" >
 
+
+			<tr> <td colspan="2" id="toptd">  게시글 쓰기  </td> </tr>
+				<tr>
+					<td class="td_title" >
+
 				<tr>
 					<td>
+
 
 						<h4>[ 상품 카테고리 ]</h4>
 					</td>
@@ -235,12 +264,19 @@ padding-right: 10px;
 
 					<td class="td_title" ><h4>판매 가격</h4></td>
 
+
+					<td class="td_title" ><h4>판매 가격</h4></td>
+
 					<td><h4>판매 가격</h4></td>
+
 
 					<td><input name="p_cost" type="text" placeholder="가격을 입력해 주세요" style="width: 180px; height: 30px; font-size: 15px; text-align: center; " class="chk" title="가격을 입력하세요"> 원</td>
 				</tr>
 
 				<tr>
+
+					<td class="td_title" >
+
 
 					<td class="td_title" >
 
@@ -279,7 +315,11 @@ padding-right: 10px;
 
 					<td class="td_title" ><h4>거래 방법</h4></td>
 
+
+					<td class="td_title" ><h4>거래 방법</h4></td>
+
 					<td><h4>거래 방법</h4></td>
+
 
 					<td><div class="checkbox-part">
 
@@ -304,12 +344,21 @@ padding-right: 10px;
 				<tr>
 					<td colspan="2"><textarea id="summernote" class="chk" title="내용을 입력하세요" name="p_content" rows="25" cols="80" placeholder="제품의 상세 정보를 기입해주세요. 직거래시 가능한 장소도 알려주세요."></textarea></td>
 
+
+					<td class="td_title" ><h4>제목</h4></td>
+					<td><input name="p_title" id="p_title" class="chk" title="제목을 입력하세요" type="text" size="58px;" ></td>
+
+				</tr>
+				<tr>
+					<td colspan="2"><textarea id="summernote" class="chk" title="내용을 입력하세요" name="p_content" rows="25" cols="80" placeholder="제품의 상세 정보를 기입해주세요. 직거래시 가능한 장소도 알려주세요."></textarea></td>
+
 					<td><h4>제목</h4></td>
 					<td><input name="p_title" id="p_title" class="chk" title="제목을 입력하세요" type="text" size="70px;" ></td>
 
 				</tr>
 				<tr>
 					<td colspan="2"><textarea id="summernote" class="chk" title="내용을 입력하세요" name="p_content" rows="50" cols="80" placeholder="제품의 상세 정보를 기입해주세요. 직거래시 가능한 장소도 알려주세요."></textarea></td>
+
 
 				</tr>
 				<tr>
@@ -340,15 +389,23 @@ padding-right: 10px;
 
 		</form>
 	</div>
+	<!-- footer -->
+	<div >
+
+
 
 	<!-- footer -->
 	<div >
+
 
 		<div >
 			<jsp:include page="../includes/footer.jsp" />
 		</div>
 	</div>
 <!-- end footer -->
+
+
+
 
 
 

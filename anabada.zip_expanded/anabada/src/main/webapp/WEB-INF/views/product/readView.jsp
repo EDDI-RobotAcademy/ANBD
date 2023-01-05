@@ -16,6 +16,9 @@
 
 
 
+
+
+
 <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
@@ -27,6 +30,12 @@
 <title>${read.p_title}</title>
 <style type="text/css">
 /*  img {
+
+	width: 500px;
+	height: 500px;
+}
+ */
+
 	width: 500px;
 	height: 500px;
 }
@@ -36,6 +45,7 @@ img {
 	width: 500px;
 	height: 500px;
 }
+
 
 
 .rach input[type='checkbox'] {
@@ -92,6 +102,11 @@ img {
 	
 	width: 490px;
 	height: 320px;
+
+
+	
+	width: 490px;
+	height: 320px;
 	border-radius: 20px;
 	border-top-left-radius: 0px;
 	border: 2px solid #AFAFAF;
@@ -102,10 +117,16 @@ img {
 	margin-right: auto;
 	width: 50%;
 	height: 200px;
+
 	border-radius: 20px;
-	border: 2px solid #E2E2E2;
+	border-top-left-radius: 0px;
+	border: 2px solid #AFAFAF;
 	padding: 17px;
+
+	
+
 	margin-top: 40px;
+
 
 }
 
@@ -130,6 +151,18 @@ img {
 	color: white;
 	margin-right: 0px;
 	letter-spacing: 2px;
+}
+.reBox{
+padding: 5px;
+	background-color: #AFAFAF;
+	text-align: center;
+	font-weight: bold;
+	color: white;
+	letter-spacing: 2px;
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
+	width: 100px;
+
 }
 
 .reBox{
@@ -174,6 +207,9 @@ padding: 5px;
 	color: #3D3D3D;
 	font-size: 17px;
 }
+
+
+
 
 
 /*레이아웃 */
@@ -255,10 +291,153 @@ margin-top: 70px;
 
 
 
+
+
+
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
 		var formObj = $("form[name='readForm']");
+		var floatPosition = parseInt($(".sideBanner").css('top')); //100
+		var floatHei = parseInt($(".sideBanner").outerHeight()); // 플로팅 배너 길이 450
+		var footerTop = $('#footer').outerHeight(); // footer가 위치한 높이 
+
+		// scroll 인식
+		$(window).scroll(function() {
+
+			// 현재 스크롤 위치
+			var currentTop = $(window).scrollTop();
+			var bannerTop = currentTop + floatPosition + "px";
+			var val = $(document).height() - footerTop;
+			var hei = currentTop + floatPosition + floatHei;
+
+			//이동 애니메이션
+			if (hei < footerTop) {
+				$(".sideBanner").stop().animate({
+					"top" : bannerTop
+				}, 500);
+
+			}
+
+		}).scroll();
+		
+		
+		
+		
+		
+
+		// 최근 본 목록 구현 - sessionStroage
+		function recent_item(){
+		    //세션에서 최초로 데이터 꺼내오기
+		    //세션이 비어있을 경우에 객체를 넣어야 함으로
+		    //비어있는지 유무를 파악
+		    var data = sessionStorage.getItem("recent_product");
+		     
+		    if(data){//만약 데이터가 들어있다면
+		      
+		        //데이터가 있을 경우 json으로 파싱
+		        //JSON.parse() : json 문자열을 javascript객체로 변환
+		        data = JSON.parse(data);
+		        //alert("사이즈 : "+data.length);
+		        
+		        var pno = '${read.pno}';
+		        
+		        //중복될 번호들을 따로 뽑아
+		        //배열에 넣은후 값을 비교 한후
+		        var bno = [];
+		        for(var i = 0; i < data.length; i++){
+		            bno.push(data[i].pno);
+		        }
+		        
+		        var idxOf = bno.indexOf(pno);
+		        //alert("중복 결과 : "+idxOf);
+		 
+		        if(idxOf<0){
+		            
+		            //중복이 되지 않으면 객체 삽입
+		            //즉, 찾고자 하는 값이 배열에 들어 있지 않은 경우
+		            //.unshift() : 배열의 맨 앞에 값을 추가한다.
+		            data.unshift({
+		                   "pno":'${read.pno}',
+		                   "p_title":'${read.p_title}',
+		                   "p_img":'${filelist[0].filepath}'
+		                    });
+		        }else{
+		           
+		        	// 이미 봤다면 이전 기록 삭제하고 다시 추가
+		        	data.splice(idxOf, 1);
+		            data.unshift({
+		            	 "pno":'${read.pno}',
+		                   "p_title":'${read.p_title}',
+		                   "p_img":'${filelist[0].filepath}'
+		                    });
+		        };//if
+		        //alert("성공");
+		     
+		    }else{
+		    //세션에 데이터가 없을 경우 
+		    //새로운 배열 생성후
+		    //객체를 넣어줌
+		    //    alert("비어있음")
+		        data=[{
+		        	  "pno":'${read.pno}',
+	                   "p_title":'${read.p_title}',
+	                   "p_img":'${filelist[0].filepath}'
+		                }];
+		    }//if
+		    
+		    //준비된 data배열을 넣고
+		    //JSON으로 저장
+		    sessionStorage.setItem("recent_product", JSON.stringify(data));
+		 
+		  
+		}     
+		 
+		function get_recent_item(){
+		    
+		    var $recentItemList = $("#recentItemList");
+		    
+		    var items = sessionStorage.getItem("recent_product");
+		    //alert(key)
+		    
+		    //인수로 전달받은 문자열을 자바스크립트 객체로 변환
+		    var realitem = JSON.parse(items);
+		    
+		    //파싱된 객체의 길이로 for문 돌리기
+		     for (var i = 0; i < realitem.length; i++) {
+		         var pno = realitem[i].pno;
+		        var p_title = realitem[i].p_title;
+		        var p_img = realitem[i].p_img; 
+		      //  alert(pno+", "+p_title+", "+p_img);
+		      
+		 
+		        var li = "<li  ><a href='/product/readView?pno="
+							+ pno
+							+ "'><img width='100' height='100' src='"+p_img+"'/>"
+							+ "<br><font  >" + pno + p_title + "</font>"
+							+ "</a></li>";
+		        //ul에 붙이기
+		        $recentItemList.append(li);
+		        
+		    }
+		    
+		}
+		
+		
+		
+		
+		
+		
+		recent_item();
+		get_recent_item();
+		//최근본 목록 끝
+		
+		
+		
+		
+		
+		
+		
 
 		var floatPosition = parseInt($(".sideBanner").css('top')); //100
 		var floatHei = parseInt($(".sideBanner").outerHeight()); // 플로팅 배너 길이 450
@@ -407,8 +586,19 @@ margin-top: 70px;
 		})
 		//수정하기 버튼
 		$("#rebtn").on("click", function() {
+			
+			if(confirm("게시글을 수정하시겠습니까 ? ")){
+				formObj.attr("action", "/product/updateView");
+				formObj.attr("method", "get");
+				formObj.submit();
+			}else{
+				return false;
+			}
+			
 
 		
+
+
 			if(confirm("게시글을 수정하시겠습니까 ? ")){
 				formObj.attr("action", "/product/updateView");
 				formObj.attr("method", "get");
@@ -423,6 +613,7 @@ margin-top: 70px;
 			formObj.attr("action", "/product/updateView");
 			formObj.attr("method", "get");
 			formObj.submit();
+
 
 
 		})
@@ -548,9 +739,17 @@ margin-top: 70px;
 				p_buy : str
 				// 변수 전달 구매자 아이디 
 
+			// 모달창 띄우는 쿼리 
+			//모달창에서 id 선택  var dd + ''
 			var params = {
 				pno : "${read.pno}",
 				p_buy : str
+				// 변수 전달 구매자 아이디 
+
+			var params = {
+				pno : "${read.pno}",
+				p_buy : str
+
 
 			}
 
@@ -578,6 +777,8 @@ margin-top: 70px;
 		
 		
 		
+
+
 
 
 		// 최근 본 목록 구현 - sessionStroage
@@ -678,6 +879,7 @@ margin-top: 70px;
 		get_recent_item();
 		//최근본 목록 끝
 
+
 		
 		
 		
@@ -708,6 +910,7 @@ margin-top: 70px;
 </head>
 <body>
 
+<!-- header -->
 
 <!-- header -->
 
@@ -715,6 +918,12 @@ margin-top: 70px;
 		<jsp:include page="../includes/nav.jsp" />
 	</div>
 	<div>
+
+		<jsp:include page="../includes/nav.jsp" />
+	</div>
+	<div>
+
+
 		<jsp:include page="../includes/header.jsp" />
 	</div>
 
@@ -728,7 +937,10 @@ margin-top: 70px;
 	
 
 
+
+
 	<div>
+
 
 		<button id="listbtn">목록으로가기</button>
 
@@ -785,7 +997,11 @@ margin-top: 70px;
 
 					<td colspan="6" rowspan="10" style="background-color: white;">
 
+
+					<td colspan="6" rowspan="10" style="background-color: white;">
+
 					<td colspan="6" rowspan="9" style="background-color: white;">
+
 
 
 						<div class="single-item" id="slick" style="width: 500px; height: 500px;">
@@ -796,8 +1012,11 @@ margin-top: 70px;
 									<div class="imgbox" >
 										<img width="500px;" height="500px;"  src="/tomcatImg/img.png">
 
+
+
 									<div>
 										<img src="/tomcatImg/img.png">
+
 
 									</div>
 								</c:when>
@@ -808,8 +1027,13 @@ margin-top: 70px;
 										<div class="imgbox" >
 											<img width="500px;" height="500px;" src="${list.filepath }" name="p_file">
 
+
+										<div class="imgbox" >
+											<img width="500px;" height="500px;" src="${list.filepath }" name="p_file">
+
 										<div>
 											<img src="${list.filepath }" name="p_file">
+
 
 										</div>
 									</c:forEach>
@@ -852,6 +1076,8 @@ margin-top: 70px;
 						</c:choose></td>
 
 				</tr>
+				<tr><td>&nbsp;</td> <td colspan="3" >게시일 : <fmt:formatDate  pattern="yyyy.MM.dd" value="${read.p_regdate }"/></td> </tr>
+				
 
 			<tr><td>&nbsp;</td> <td colspan="3" >게시일 : <fmt:formatDate  pattern="yyyy.MM.dd" value="${read.p_regdate }"/></td> </tr>
 				
@@ -932,7 +1158,11 @@ margin-top: 70px;
 
 						<td  ><c:choose>
 
+
+						<td  ><c:choose>
+
 						<td><c:choose>
+
 
 								<c:when test="${ empty listImg.s_filePath}">
 
@@ -970,6 +1200,8 @@ margin-top: 70px;
 			<!-- 관련 상품 끝 -->
 
 
+
+
 			
 		<!-- 상품 상세 설명  및 구매자 후기 -->	
 		<table id="reviewBox"  >
@@ -983,6 +1215,8 @@ margin-top: 70px;
 			
 			
 			
+
+
 
 
 
@@ -1022,8 +1256,36 @@ margin-top: 70px;
 			</div>
 
 
+
 		</form>
+		</section>
+							<!-- 사이드바 - 최근본 상품 목록 -->
+			<section class="aside">
+				<div class="sideBanner" >
+					최근 본 상품
+					<div class="r_btn">
+						<button class="recent_btn">▲</button>
+						<button class="recent_btn">▼</button>
+					</div>
+					<div class="recent_list ">
+						<ul id="recentItemList">
+						</ul>
+					</div>
+				</div>
+			</section>
+			<!-- 최근본 상품 끝  -->
+		
 	</div>
+	
+	<!-- footer -->
+	<div id="footer">
+
+		<div id="footer">
+			<jsp:include page="../includes/footer.jsp" />
+		</div>
+	</div>
+	<!-- footer end -->
+
 
 
 
