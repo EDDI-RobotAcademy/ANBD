@@ -61,7 +61,7 @@ public class ReviewController {
 	public String home_test(HttpSession session) {
 		logger.info("임시로 홈 만듦!!");
 		
-		session.setAttribute("id", "korea");
+		session.setAttribute("id", "seoul");
 		
 		return "/note/home_test";
 	}

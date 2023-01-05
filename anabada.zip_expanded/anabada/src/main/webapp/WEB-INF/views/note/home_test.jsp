@@ -66,6 +66,7 @@
       		<button type="submit">내 쪽지함</button>
    		</form>
    		id=${id }<br>
+   		<a href="/member/login">로그인</a></li>
    		
 		
 	</section>

@@ -56,7 +56,7 @@
 			        data: {
 			        	r_id : r_id,
 			        	s_id : '${id}', 
-			        	pno : 0, 
+			        	pno : 1, 
 //원래는 이거임!!		    pno : '${p_read.pno}' // 원래는 이거 나중에 수정하기!!!
 						content: '판매가 확정되었습니다. 후기를 작성해주세요.',
 						confirm: 'yes'

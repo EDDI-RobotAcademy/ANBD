@@ -224,7 +224,7 @@ public class JobController {
 			return "/job/my_jobWrite";
 		}
 		
-		System.out.println("로그인한 아이디:" + id + "/사장 아이디:" + vo.getId());
+		System.out.println("로그인한 아이디:" + id);
 		
 		//
 		JobPageMaker pageMaker = new JobPageMaker();
@@ -237,6 +237,7 @@ public class JobController {
 		map.put("rowEnd", cri.getRowEnd());
 		
 		model.addAttribute("my_jobList", jobService.my_jobList(map)); // 세션에 저장된 아이디와 같은 아이디가 쓴 글 불러움
+		System.out.println(jobService.my_jobList(map));
 		
 		pageMaker.setTotalCount(jobService.my_jobListCount(cri));
 		model.addAttribute("pageMaker", pageMaker);
