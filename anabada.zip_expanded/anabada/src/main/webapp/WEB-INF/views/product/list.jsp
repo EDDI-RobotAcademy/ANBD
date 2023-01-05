@@ -84,6 +84,7 @@
 	width: 120px;
 	position: absolute;
 	height: 470px;
+	height: 450px;
 	top: 100px;
 	background-color: white;
 	border: 1px solid #0C6BBC;
@@ -94,6 +95,10 @@
 
 .recent_list {
 	height: 405px;
+    /*
+      396인 이유: li높이 128(검사에서 확인)+margin bottom 5px이 3개씩 보일거라
+      132*3 = 396임.
+      */
 	overflow: hidden;
 }
 
@@ -210,6 +215,7 @@ ul {
 			        var p_img = realitem[i].p_img; 
 
 				if (p_img != null || p_img != "") {
+
 					var li = "<li  ><a href='/product/readView?pno="
 							+ pno
 							+ "'><img width='100' height='100' src='"+p_img+"'/>"
@@ -221,6 +227,19 @@ ul {
 							+ pno
 							+ "'><img width='100' height='100' src='../resources/images/아나바다.png'/>"
 							+ "<br><font >" + pno + p_title + "</font>"
+
+					var li = "<li><a href='/product/readView?pno="
+							+ pno
+							+ "'><img width='100' height='100' src='"+p_img+"'/>"
+							+ "<br><font>" + pno + p_title + "</font>"
+							+ "</a></li>";
+				}
+				if (p_img == null || p_img == "") {
+					var li = "<li><a href='/product/readView?pno="
+							+ pno
+							+ "'><img width='100' height='100' src='../resources/images/아나바다2.png'/>"
+							+ "<br><font>" + pno + p_title + "</font>"
+
 							+ "</a></li>";
 				}
 
@@ -231,6 +250,7 @@ ul {
 		}
 
 		$(".recent_btn").click(function() {
+
 		//	var ih = $(this).index() == 0 ? -135 : 135; //위아래로 움직이는 px 숫자
 			var ih = $(this).index() == 0 ? -405 : 405; //위아래로 움직이는 px 숫자
 	        // 위로 : 0 아래로 : 1 
@@ -238,6 +258,13 @@ ul {
 			var obj = $('.recent_list');
 			
 			obj.animate({scrollTop : obj.scrollTop() + ih}, 100);
+
+			var ih = $(this).index() == 0 ? -135 : 135; //위아래로 움직이는 px 숫자
+			var obj = $('.recent_list');
+			obj.animate({
+				scrollTop : obj.scrollTop() + ih
+			}, 100);
+
 		});
 
 		// 이거 젤 마지막에 둬야 함
@@ -372,6 +399,7 @@ ul {
 												<div class="word">
 													<h5 class="fw-bolder">${list.p_title }</h5>
 												</div>
+
 													
 													<%-- <div>
 														<img  style="width: 30px; height: 30px;" src="../../resources/images/heartB.png"> &nbsp;&nbsp;${list.p_heart }
@@ -385,12 +413,27 @@ ul {
 													<fmt:formatDate pattern="yyyy.MM.dd"    value="${list.p_regdate }"/>
 													
 													</div>
+
+												<!-- Product reviews-->
+												<div class="d-flex justify-content-center small text-warning mb-2">
+													<div class="bi-star-fill"></div>
+													<div class="bi-star-fill"></div>
+													<div class="bi-star-fill"></div>
+													<div class="bi-star-fill"></div>
+													<div class="bi-star-fill"></div>
+												</div>
+												<!-- Product price-->
+												₩ ${list.p_cost}
+
 											</div>
 										</div>
 										<!-- Product actions-->
 										<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 											<div class="text-center">
+
 												<a class="btn btn-outline-dark mt-auto" href="#"> 살펴보기</a>
+
+												<a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
 											</div>
 										</div>
 									</div>
@@ -446,7 +489,11 @@ ul {
 						<button class="recent_btn">▲</button>
 						<button class="recent_btn">▼</button>
 					</div>
+
 					<div class="recent_list ">
+
+					<div class="recent_list">
+
 						<ul id="recentItemList">
 						</ul>
 					</div>
