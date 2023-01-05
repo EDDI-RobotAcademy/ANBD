@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration 
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+<!-- 마이바티스 작동 규칙정의 -->
+<settings>
+	<setting name="cacheEnabled" value="false"/>
+	<setting name="useGeneratedKeys" value="true"/>
+	<setting name="mapUnderscoreToCamelCase" value="false"/>
+</settings>
+
+<typeAliases>
+	<typeAlias type="com.anabada.web.vo.JobVO" alias="JobVO"/>
+	<typeAlias type="com.anabada.web.vo.PutInVO" alias="PutInVO"/>
+	<typeAlias type="com.anabada.web.vo.NoteVO" alias="NoteVO"/>
+	<typeAlias type="com.anabada.web.vo.MemberVO" alias="memberVO"/>
+	<typeAlias type="com.anabada.web.vo.ReviewVO" alias="ReviewVO"/>
+</typeAliases>
+
+</configuration>
