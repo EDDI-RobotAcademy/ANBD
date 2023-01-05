@@ -29,7 +29,7 @@
 </div>
 
 
-	<%@include file="./test/korea.jsp" %>
+	
 	<form action="/job/writeView_boss" method="get">
 		<input type="submit" value="알바 구인 공고 쓰러가기">
 	</form>
