@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>자주 묻는 질문</title>
 </head>
-<link rel="stylesheet" href="<c:url value='/css/styles.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/r_styles.css'/>">
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="<c:url value='/ckeditor/ckeditor.js'/>"></script>
 <script type="text/javascript">
@@ -116,9 +116,9 @@
 						</tbody>
 					</table>
 					
-					<div class="right">
-						<a class="btfsize-13" href="javascript:addBoard()">수정</a>
-						<button type="button" class="cancel_btn btfsize-13">취소</button>
+					<div class="fnqf-13">
+						<a href="javascript:addBoard()">수정&nbsp;</a>
+<!-- 						<button type="button" class="cancel_btn fnqfoot-13">취소</button> -->
 					</div>
 				</form>
 			</div>

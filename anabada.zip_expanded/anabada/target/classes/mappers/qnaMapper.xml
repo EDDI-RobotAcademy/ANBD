@@ -5,8 +5,8 @@
 <mapper namespace="qnaMapper">
 	<!-- 게시판 글 작성 -->
 	<insert id="insert">
-		INSERT INTO qna_board (q_no, id, email, q_title, q_content)
-				VALUES(qna_board_seq.nextval, #{id}, #{email}, #{q_title}, #{q_content})
+		INSERT INTO qna_board (q_no, id, email, q_title, q_content, q_date)
+				VALUES(qna_board_seq.nextval, #{id}, #{email}, #{q_title}, #{q_content}, SYSDATE)
 	</insert>
 	
 	<!-- 게시글 목록 조회 -->

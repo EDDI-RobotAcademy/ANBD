@@ -10,7 +10,7 @@
 <meta name="theme-color" content="#ffffff">
 <meta charset="UTF-8">
 <title>회원가입</title>
-<link href="../resources/css/styles.css" rel="stylesheet" />
+<link href="../resources/css/r_styles.css" rel="stylesheet" />
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	

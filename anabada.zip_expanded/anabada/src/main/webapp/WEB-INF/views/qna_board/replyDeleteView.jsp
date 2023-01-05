@@ -27,12 +27,12 @@
 	<div>
 		<section>
 			<form name="deleteForm" role="form" method="post" action="/qna_board/replyDelete">
-				<input type="hidden" name="q_no" value="${replyDelete.q_no}" readonly="readonly" />
-				<input type="hidden" id="qr_no" name="qr_no" value="${replyUpdate.qr_no}" />
-				<input type="hidden" id="page" name="page" value="${scri.page}" />
-				<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}" />
-				<input type="hidden" id="searchType" name="searchType" value="${scri.searchType}" />
-				<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}" />
+				<input type="text" id="q_no" name="q_no" value="${replyDelete.q_no}" />
+				<input type="text" id="qr_no" name="qr_no" value="${replyDelete.qr_no}" />
+				<input type="text" id="page" name="page" value="${scri.page}" />
+				<input type="text" id="perPageNum" name="perPageNum" value="${scri.perPageNum}" />
+				<input type="text" id="searchType" name="searchType" value="${scri.searchType}" />
+				<input type="text" id="keyword" name="keyword" value="${scri.keyword}" />
 				
 				<div>
 					<p>삭제하시겠습니까?</p>

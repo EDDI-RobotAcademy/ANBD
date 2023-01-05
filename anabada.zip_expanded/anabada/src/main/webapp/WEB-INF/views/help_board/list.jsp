@@ -10,7 +10,7 @@
 <meta name="theme-color" content="#ffffff">
 <meta charset="UTF-8">
 <title>아나바다</title>
-<link rel="stylesheet" href="<c:url value='/css/styles.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/r_styles.css'/>">
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -60,16 +60,16 @@
 			
 			<div class="minicon">
 				<form role="form" method="get">
-					<p class="mayi">
+					<p class="mayihelp">
 						무엇을 도와드릴까요?<br>
 						<b>아나바다 고객센터</b>입니다.
 					</p>
-					<div class="helpu" style="background-color: #F9F9F9;">
+					<div class="helpy" style="background-color: #F9F9F9;">
 						
 					<!-- 검색 -->
 						<div>
 							<div>
-								<div class="fnq-box">
+								<div class="fnq-sbox">
 									<input type="text" name="keyword" id="keywordInput" class="fnq-in" value="${scri.keyword}" placeholder="질문을 검색해 보세요" />
 									<button id="searchBtn" class="fnq-but" type="button" value="all" <c:out value="${scri.searchType eq 'all' ? 'clicked' : ''}" />>검색</button>
 								</div>
@@ -115,20 +115,22 @@
 					</script>
 					
 					<div>
-						<ul style="list-style-type: none;">
-							<c:if test="${pageMaker.prev}">
-								<li><a href="list${pageMaker.makeSearch(pageMaker.startPage - 1)}">이전</a></li>
-							</c:if>
-							
-							<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-								<li <c:out value="${pageMaker.cri.page == idx ? 'class = info' : ''}" />>
-							</c:forEach>
-							
-							<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-								<li><a href="list${pageMaker.makeSearch(pageMaker.engPage + 1)}">다음</a></li>
-							</c:if>
-						</ul>
-					</div>
+				      <ul class="mtm-pagination">
+				         <c:if test="${pageMaker.prev }">
+				            <li><a href="list${pageMaker.makeSearch(pageMaker.startPage - 1 )}">이전</a></li>
+				         </c:if>
+				                     
+				         <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+				            <li class="list" <c:out value="${pageMaker.cri.page == idx ? 'class=info' : '' }"/>>
+				               <a href="list${pageMaker.makeSearch(idx)}">${idx }</a>
+				            </li>
+				         </c:forEach>
+				                  
+				         <c:if test="${pageMaker.next && pageMakerendPage > 0 }">
+				            <li><a href="list${pageMaker.makeSearch(pageMaker.endPage + 1)}">다음</a></li>
+				         </c:if>
+				      </ul>
+				   </div>
 					
 					<div class="fsize-13">
 						<c:if test="${member.id == 'admin'}">

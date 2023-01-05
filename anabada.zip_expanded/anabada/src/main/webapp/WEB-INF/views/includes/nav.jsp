@@ -10,7 +10,7 @@
 <meta name="theme-color" content="#ffffff">
 <meta charset="UTF-8">
 <title>아나바다</title>
-<link rel="stylesheet" href="<c:url value='/css/n_styles.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/r_styles.css'/>">
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 

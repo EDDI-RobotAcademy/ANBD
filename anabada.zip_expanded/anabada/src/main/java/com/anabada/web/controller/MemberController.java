@@ -85,10 +85,13 @@ public class MemberController {
 		
 		if (login == null) {
 			session.setAttribute("member", null);
+			session.setAttribute("id", null);
+			
 			rttr.addFlashAttribute("msg", false);
 			
 		} else {
 			session.setAttribute("member", login);
+			session.setAttribute("id", login);
 			logger.info("member: " +  login);
 		}
 		return "redirect:/";

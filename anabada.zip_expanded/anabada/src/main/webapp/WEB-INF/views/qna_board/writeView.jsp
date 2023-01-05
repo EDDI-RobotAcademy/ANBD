@@ -10,13 +10,13 @@
 <meta name="theme-color" content="#ffffff">
 <meta charset="UTF-8">
 <title>아나바다</title>
-<link rel="stylesheet" href="<c:url value='/css/styles.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/r_styles.css'/>">
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <script type="text/javascript">
 	$(document).ready(function() {
 		var formObj = $("form[name='writeForm']");
-		$(".ask_btn").on("click", function() {
+		$(".ask_btnb").on("click", function() {
 			if (fn_valiChk()) {
 				return false;
 			}
@@ -82,7 +82,7 @@
 			
 			<div class="minicon">
 				<form name="writeForm" method="post" action="/qna_board/write">
-					<input type="hidden" id="id" name="id" value="${member.id}" readonly="readonly" />
+					<input type="hidden" id="id" name="id" value="${member.id}"/>
 					
 					<table style="margin: 0 auto;">
 						<tbody>
@@ -114,7 +114,7 @@
 		
 									<tr>
 										<td>
-											<button class="ask_btn" type="submit">문의하기</button>
+											<button class="ask_btnb" type="submit">문의하기</button>
 										</td>
 									</tr>
 							</c:if>

@@ -53,5 +53,5 @@ public class QnaVO {
 		return "QnaVO [q_no=" + q_no + ", id=" + id + ", email=" + email + ", q_title=" + q_title + ", q_content="
 				+ q_content + ", q_date=" + q_date + "]";
 	}
-	
+
 }

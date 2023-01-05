@@ -1,5 +1,7 @@
 package com.anabada.web.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
@@ -71,6 +73,9 @@ public class QnaController {
 				
 		model.addAttribute("read", service.read(qnaVO.getQ_no()));
 		model.addAttribute("scri", scri);
+		
+		List<QnaReplyVO> replyList = replyService.readReply(qnaVO.getQ_no());
+		model.addAttribute("replyList", replyList);
 				
 		return "qna_board/readView";
 	}
@@ -138,7 +143,7 @@ public class QnaController {
 	public String replyUpdateView(QnaReplyVO vo, SearchCriteria scri, Model model) throws Exception {
 		logger.info("댓글 수정 GET ~ ");
 			
-		model.addAttribute("replyUpdate", replyService.selectReply(vo.getQ_no()));
+		model.addAttribute("replyUpdate", replyService.selectReply(vo.getQr_no()));
 		model.addAttribute("scri", scri);
 			
 		return "qna_board/replyUpdateView";
@@ -165,15 +170,15 @@ public class QnaController {
 	public String replyDelete(QnaReplyVO vo, SearchCriteria scri, Model model) throws Exception {
 		logger.info("댓글 삭제 GET ~ ");
 			
-		model.addAttribute("replyDelete", replyService.selectReply(vo.getQ_no()));
+		model.addAttribute("replyDelete", replyService.selectReply(vo.getQr_no()));
 		model.addAttribute("scri", scri);
 			
-		return "/qna_board/replyDeleteView";
+		return "qna_board/replyDeleteView";
 	}
 		
 	// 댓글 삭제
 	@RequestMapping(value = "/replyDelete", method = RequestMethod.POST)
-	public String replyDelete(QnaReplyVO vo, SearchCriteria scri, RedirectAttributes rttr) throws Exception {
+	public String replyDelete(QnaReplyVO vo, RedirectAttributes rttr, SearchCriteria scri) throws Exception {
 		logger.info("댓글 삭제 POST ~ ");
 			
 		replyService.deleteReply(vo);

@@ -31,6 +31,12 @@ a {
 }
 
 
+/* 버튼 디자인 초기화*/
+.btn_reset {
+  all: unset;
+}
+
+
 
 /* 여백 */
 .mt-22 {
@@ -41,9 +47,17 @@ a {
 
 /* 게시판 하단 메뉴 */
 .fsize-13 {
-  margin: 10px 5px;
+  margin: 10px 5px 10px auto;
   text-align: right;
   font-size: 13px;
+  color: #555555;
+}
+
+.fsize-14 {
+  margin: 10px 5px 0 auto;
+  text-align: right;
+  font-size: 14px;
+  font-weight: 400;
   color: #555555;
 }
 
@@ -53,10 +67,6 @@ a {
   appearance: none;
   background-color: transparent;
   border: 0;
-  margin: 10px 5px 10px auto;
-  display: block;
-  font-size: 13px;
-  color: #555555;
   cursor: pointer;
 }
 
@@ -336,24 +346,94 @@ a {
 }
 
 
+/* 내 정보 수정 */
+.mtitle {
+  font-size: 22px;
+  font-weight: 500;
+  padding: 0 0 20px 0;
+  border-bottom: 1px solid #6D6D6D;
+}
+
+.membermodify {
+  width: 220px;
+  height: 70px;
+  display: inline-block;
+  padding-left: 10px;
+  font-size: 14px;
+  text-align: left;
+  font-weight: 500;
+  line-height: 45px;
+  box-sizing: border-box;
+}
+
+.mmodify {
+  display: inline-block;
+  font-size: 14px;
+  color: #474747;
+}
+
+.modi-box {
+  display: inline-block;
+  width: 350px;
+  height: 40px;
+  border: 1px solid #D5D5D5;
+  border-radius: 5px 5px;
+  padding: 0 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+  color: #474747;
+}
+
+.modi-select {
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  appearance:none;
+  width: 350px;
+  height: 40px;
+  border: 1px solid #D5D5D5;
+  border-radius: 5px 5px;
+  margin: 5px 0;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: 14px;
+  color: #474747;
+  cursor: pointer;
+}
+
+.modi_btn {
+  all: unset;
+  width: 120px;
+  height: 40px;
+  border-radius: 5px 5px;
+  background-color: #0C6BBC;
+  color: #fff;
+  margin: 18px auto 45px auto;
+  display: block;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  line-height: 35px;
+}
+
+
 
 /* 고객센터(자주 묻는 질문) */
-.helpu {
+.helpy {
   text-align: center;
   margin-top: 0;
-  padding: 20px 20px;
+  padding: 30px 20px;
   border-radius: 15px 15px;
   box-sizing: border-box;
 }
 
-.mayi {
+.mayihelp {
   font-size: 24px;
   color: #383838;
   margin: 0 auto 20px 5px;
   padding: 0;
 }
 
-.fnq-box {
+.fnq-sbox {
   display: flex;
   margin: 0 auto;
   width: 350px;
@@ -475,15 +555,48 @@ a {
   box-sizing: border-box;
 }
 
+.fnqf-13 {
+  margin: 10px 20px 0 auto;
+  text-align: right;
+  font-size: 13px;
+  font-weight: 500;
+  color: #555555;
+}
+
+.fnqfoot-13 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: #555555;
+}
+
+.mtm-pagination {
+  list-style-type: none;
+  padding: 20px 0 40px 0;
+  text-align: center;
+  font-size: 13px;
+}
+
+.list {
+  display:inline-block;
+  margin-right: 10px;
+}
+
 
 
 /* 고객센터 (1:1 문의) */
 .ask {
-  display: inline-block;
   width: 100px;
+  display: inline-block;
   font-size: 14px;
   text-align: left;
   font-weight: 500;
+  line-height: 45px;
 }
 
 .asktitle {
@@ -517,7 +630,7 @@ a {
   box-sizing: border-box;
 }
 
-.ask_btn {
+.ask_btnb {
   all: unset;
   width: 200px;
   height: 50px;
@@ -529,6 +642,146 @@ a {
   cursor: pointer;
   margin: 10px auto;
   display: block;
+}
+
+
+/* 리스트 */
+.board-table {
+  font-size: 13px;
+  width: 100%;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+.board-table a {
+  color: #333;
+  display: inline-block;
+  line-height: 1.4;
+  word-break: break-all;
+  vertical-align: middle;
+}
+
+.board-table a:hover {
+  text-decoration: underline;
+}
+
+.board-table th {
+  text-align: center;
+}
+
+.board-table .th-num {
+  width: 50px;
+  text-align: center;
+}
+
+.board-table .th-date {
+  width: 120px;
+}
+
+.board-table th, .board-table td {
+  padding: 14px 0;
+}
+
+.board-table tbody td {
+  border-top: 1px solid #e7e7e7;
+  text-align: center;
+}
+
+.board-table tbody th {
+  padding-left: 28px;
+  padding-right: 14px;
+  border-top: 1px solid #e7e7e7;
+  text-align: left;
+}
+
+.board-table tbody th p {
+  display: none;
+}
+
+.pagination {
+  list-style-type: none;
+  padding: 20px 0 40px 0;
+  text-align: center;
+  font-size: 13px;
+}
+
+.mtm_btn {
+  all: unset;
+  width: 100px;
+  height: 35px;
+  border-radius: 5px 5px;
+  background-color: #0C6BBC;
+  color: #fff;
+  margin: 15px 15px 15px auto;
+  display: block;
+  font-size: 13px;
+  text-align: center;
+  cursor: pointer;
+  line-height: 35px;
+}
+
+
+/* 문의 내역 확인 */
+.qna {
+  padding-left: 10px;
+  width: 150px;
+  font-size: 14px;
+  text-align: left;
+  font-weight: 500;
+  box-sizing: border-box;
+}
+
+.qnatitle {
+  width: 620px;
+  margin: 15px auto;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.qnacon {
+  width: 620px;
+  margin: 30px auto;
+  padding-right: 25px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.replytit {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-left: 10px;
+  font-size: 17px;
+  text-align: left;
+  font-weight: 400;
+  box-sizing: border-box;
+}
+
+.replycon {
+  list-style: none;
+  font-size: 14px;
+  background-color: #f9f9f9;
+  text-align: justify;
+  line-height: 1.6;
+}
+
+.reply-write-area {
+  margin-top: 30px;
+  padding: 15px;
+  border: 1px solid #E0E0E0;
+  box-sizing: border-box;
+}
+
+.reply-write {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  padding: 10px;
+  width: 100%;
+  height: 50px;
+  max-height: 100px;
+  border: 0;
+  box-sizing: border-box;
 }
 
 

@@ -5,7 +5,7 @@
 <mapper namespace="qnareplyMapper">
 	<!-- 댓글 조회 -->
 	<select id="readReply" resultType="qnareplyVO">
-		SELECT q_no, id, qr_content, qr_date
+		SELECT q_no, qr_no, id, qr_content, qr_date
 		FROM qna_reply
 		WHERE q_no = #{q_no}
 	</select>
@@ -24,15 +24,15 @@
 	</update>
 
 	<!-- 댓글 삭제 -->
-	<delete id="deleteReply" parameterType="int">
+	<delete id="deleteReply" parameterType="qnareplyVO">
 		DELETE FROM qna_reply
 		WHERE qr_no = #{qr_no}
 	</delete>
 
 	<!-- 선택된 댓글 조회 -->
-	<select id="selectReply" parameterType="int" resultType="qnareplyVO">
-		SELECT q_no, qr_no, id, qr_content, qr_date
-		FROM qna_reply
+	<select id="selectReply" resultType="qnareplyVO">
+		SELECT q_no, qr_no, id, qr_content, qr_date 
+		FROM qna_reply 
 		WHERE qr_no = #{qr_no}
 	</select>
 </mapper>

@@ -10,7 +10,7 @@
 <meta name="theme-color" content="#ffffff">
 <meta charset="UTF-8">
 <title>아나바다</title>
-<link rel="stylesheet" href="<c:url value='/css/styles.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/r_styles.css'/>">
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 
@@ -56,23 +56,31 @@
 				</ul>
 			</div>
 			
-			<div class="minicon" style="background-color: yellow;">
+			<div class="minicon">
+				<div class="stitle">
+					1:1 문의 내역
+				</div>
+				
+				<div style="text-align: right;">
+					<a class="mtm_btn" href="/qna_board/writeView">1:1 문의하기</a>
+				</div>
+			
 				<form role="form" method="get">
 					<!-- 목록 -->
-					<table>
+					<table class="board-table">
 						<thead>
 							<tr>
-								<th>번호</th>
-								<th>제목</th>
-								<th>작성자</th>
-								<th>등록일</th>
+								<th scope="col" class="th-num">번호</th>
+								<th scope="col" class="th-title">제목</th>
+								<th scope="col" class="th-date">작성자</th>
+								<th scope="col" class="th-date">등록일</th>
 							</tr>
 						</thead>
 						
 						<c:forEach items="${list}" var="list">
 							<tr>
 								<td><c:out value="${list.q_no}" /></td>
-								<td>
+								<td style="text-align: left;">
 									<a href="/qna_board/readView?q_no=${list.q_no}&page=${scri.page}&perPageNum=${scri.perPageNum}&searchType=${scri.searchType}&keyword=${scri.keyword}">
 										<c:out value="${list.q_title}" />
 									</a>
@@ -100,8 +108,6 @@
 				         </c:if>
 				      </ul>
 				   </div>
-					
-					<a href="/qna_board/writeView">글쓰기</a>
 				</form>
 			</div>
 		</section>

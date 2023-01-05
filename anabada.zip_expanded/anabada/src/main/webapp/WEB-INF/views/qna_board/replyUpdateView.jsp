@@ -13,7 +13,7 @@
 	$(document).ready(function() {
 		var formObj = $("form[name='updateForm']");
 		
-		$(".cancel_bnt").on("click", function() {
+		$(".cancel_btn").on("click", function() {
 			location.href = "/qna_board/readView?q_no=${replyUpdate.q_no}"
 					+ "&page=${scri.page}"
 					+ "&perPageNum=${scri.perPageNum}"
@@ -27,12 +27,12 @@
 	<div>
 		<section>
 			<form name="updateForm" role="form" method="post" action="/qna_board/replyUpdate">
-				<input type="hidden" name="q_no" value="${replyUpdate.q_no}" readonly="readonly" />
-				<input type="hidden" id="qr_no" name="qr_no" value="${replyUpdate.qr_no}" />
-				<input type="hidden" id="page" name="page" value="${scri.page}" />
-				<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}" />
-				<input type="hidden" id="searchType" name="searchType" value="${scri.searchType}" />
-				<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}" />
+				<input type="text" name="q_no" value="${replyUpdate.q_no}" readonly="readonly" />
+				<input type="text" id="qr_no" name="qr_no" value="${replyUpdate.qr_no}" />
+				<input type="text" id="page" name="page" value="${scri.page}" />
+				<input type="text" id="perPageNum" name="perPageNum" value="${scri.perPageNum}" />
+				<input type="text" id="searchType" name="searchType" value="${scri.searchType}" />
+				<input type="text" id="keyword" name="keyword" value="${scri.keyword}" />
 				
 				<table>
 					<tbody>
