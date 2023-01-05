@@ -25,7 +25,15 @@ public interface JobService {
 
 	public int my_jobListCount(JobCriteria cri) throws Exception;
 
-	public String get_image(int j_bno) throws Exception;
+	public int heartCheck(Map<String, String> check) throws Exception;
+
+	public void addHeart(Map<String, String> param) throws Exception;
+
+	public void upHeart(int j_bno) throws Exception;
+
+	public void subHeart(Map<String, String> param) throws Exception;
+
+	public void downHeart(int j_bno) throws Exception;
 	
 	
 	

@@ -125,6 +125,7 @@ a {
   text-align: center;
 }
 
+
 /* 검색 */
 .sbox {
   display: flex;
@@ -203,13 +204,28 @@ a {
   box-sizing: border-box;
   list-style-type: none;
   text-align: right;
-  border-right: solid 1px #e9e9e9;
-  /*쪽지 이미지보이는 부분*/
+}
+
+.sidemenu2 {
+  float: left;
+  width: 180px;
+  height: 500px;
+  padding: 0 40px 0 0;
+  box-sizing: border-box;
+  list-style-type: none;
+  text-align: right;
 }
 
 .hello {
   font-size: 26px;
   font-style: italic;
+}
+
+.stitle {
+  font-size: 26px;
+  font-weight: 500;
+  padding: 5px 0 10px 10px;
+  border-bottom: 1px solid #6D6D6D;
 }
 
 .side-ul {
@@ -226,14 +242,14 @@ a {
 }
 
 .side-t {
-  margin: 5px 0 10px 0;
-  font-size: 22px;
+  margin: 0 0 10px 0;
+  font-size: 24px;
   font-weight: 500;
   cursor: default;
 }
 
 .minicon {
-  float: left;
+  float: right;
   width: 780px;
   padding: 0px 0 15px 0;
   box-sizing: border-box;
@@ -325,21 +341,21 @@ a {
 .helpu {
   text-align: center;
   margin-top: 0;
-  padding: 30px 20px;
+  padding: 20px 20px;
   border-radius: 15px 15px;
   box-sizing: border-box;
 }
 
 .mayi {
-  font-size: 28px;
+  font-size: 24px;
   color: #383838;
-  margin: 0;
+  margin: 0 auto 20px 5px;
   padding: 0;
 }
 
 .fnq-box {
   display: flex;
-  margin: 15px auto 0 auto;
+  margin: 0 auto;
   width: 350px;
   height: 40px;
   border: 1px solid #cccccc;
@@ -363,7 +379,7 @@ a {
   margin: 0;
   padding: 0;
   border: none;
-  background: #c5c5c5;
+  background: #989898;
   color: #fff;
   font-size: 13px;
   border-radius: 0 8px 8px 0;
@@ -417,16 +433,16 @@ a {
   line-height: 1.6;
 }
   
-.anw::before {
-  display: inline-block;
-  content: "";
-  left: 24px;
-  top: 28px;
-  width: 8px;
-  height: 9px;
-  background: url("../images/arw_reply.png") 0% 0% no-repeat;
-  background-size: 8px 9px;
-}
+/* .anw::before { */
+/*   display: inline-block; */
+/*   content: ""; */
+/*   left: 24px; */
+/*   top: 28px; */
+/*   width: 8px; */
+/*   height: 9px; */
+/*   background: url("../images/arw_reply.png") 0% 0% no-repeat; */
+/*   background-size: 8px 9px; */
+/* } */
 
 .arrow-wrap {
   position: absolute;
@@ -449,6 +465,73 @@ a {
 .que.on .arrow-top {
   display: block; 
 }
+
+.cktitle {
+  width: 762px;
+  height: 50px;
+  margin: 13px auto;
+  padding: 15px;
+  border: 1px solid #D0D0D0;
+  box-sizing: border-box;
+}
+
+
+
+/* 고객센터 (1:1 문의) */
+.ask {
+  display: inline-block;
+  width: 100px;
+  font-size: 14px;
+  text-align: left;
+  font-weight: 500;
+}
+
+.asktitle {
+  width: 650px;
+  height: 45px;
+  margin: 13px auto;
+  padding: 15px;
+  border: 1px solid #E0E0E0;
+  border-radius: 5px 5px;
+  box-sizing: border-box;
+}
+
+.askmid {
+  float: left;
+  display: inline-block;
+  width: 100px;
+  line-height: 350px;
+  font-size: 14px;
+  text-align: left;
+  font-weight: 500;
+}
+
+.askcon {
+  float: right;
+  width: 650px;
+  height: 350px;
+  padding: 15px;
+  border: 1px solid #E0E0E0;
+  border-radius: 5px 5px;
+  resize: none;
+  box-sizing: border-box;
+}
+
+.ask_btn {
+  all: unset;
+  width: 200px;
+  height: 50px;
+  border-radius: 8px 8px;
+  background-color: #0C6BBC;
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+  margin: 10px auto;
+  display: block;
+}
+
+
 
 /* 푸터 */
 .foot {
@@ -476,40 +559,4 @@ a {
   margin: 0;
   padding: 15px 20px;
   box-sizing: border-box;
-}
-
-.n_btn1 { /*파란 버튼*/
-  all: unset;
-  width: 150px;
-  height: 40px;
-  border-radius: 8px 8px;
-  background-color: #0C6BBC;
-  color: #fff;
-  font-size: 15px;
-  text-align: center;
-  cursor: pointer;
-  margin: 5px;
-}
-.n_btn2 { /*하얀 버튼*/
-  all: unset;
-  width: 45px;
-  height: 30px;
-  border-radius: 2px 2px;
-  color: black;
-  font-size: 15px;
-  text-align: center;
-  cursor: pointer;
-  border: 1px solid gray;
-}
-.n_btn3 { /*회색 버튼*/
-  all: unset;
-  width: 100px;
-  height: 30px;
-  border-radius: 5px 5px;
-  color: black;
-  font-size: 15px;
-  text-align: center;
-  cursor: pointer;
-  border: 1px solid #ced4da;
-  background-color: #ced4da;
 }

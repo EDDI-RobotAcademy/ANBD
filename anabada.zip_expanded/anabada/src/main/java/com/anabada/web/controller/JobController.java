@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.inject.Inject;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -14,9 +13,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -35,17 +37,12 @@ public class JobController {
 	@Inject
 	JobService jobService;
 	
+	
 	// 알바 구인 게시물 쓰기 눌렀을 때
 	@RequestMapping(value = "/writeView_boss", method = RequestMethod.GET)
 	public String write_boass_view(HttpServletRequest req) throws Exception{ // 임의로 내가 아이디줬음
 		
 		logger.info("write_boss_view");
-		
-		
-		HttpSession session = req.getSession(); // HttpServletRequest는 HttpSession 객체 만드는데 필요
-		// MemberVO login = service.login(vo); // 로그인한 회원 객체 반환
-		session.setAttribute("id", "korea"); // 아이디를 세션으로
-		// 세션 지금 임의로 저장한거!!!!!!나중에 수정하기!!!!!
 		
 		return "/job/write_boss";
 	}
@@ -94,7 +91,6 @@ public class JobController {
 	// 알바 게시판 목록 조회
 	@RequestMapping(value = "/job_list", method = RequestMethod.GET) // 임의
 	public String job_list(Model model, @ModelAttribute JobVO vo, HttpServletRequest req, @ModelAttribute("scri")JobSearchCriteria scri) throws Exception{
-		// @ModelAttribute로 SearchCriteria scri 객체를 생성해서 뷰에서 값을 받고, 넘길 수 있다.
 		
 		logger.info("게시판 보기 눌렀음");
 		
@@ -103,14 +99,9 @@ public class JobController {
 		
 		JobPageMaker pageMaker = new JobPageMaker();
 		pageMaker.setCri(scri);
-		// setCri(scri)로 목록뷰가 로딩될때마다(검색이나 페이징 등)url값이 넘어오면 페이지가 바뀌어도 그 값이 계속 유지될 수 있다.
 		pageMaker.setTotalCount(jobService.job_listCount(scri)); // 게시글 총 개수 받아서 페이징 처리함
 		
 		model.addAttribute("pageMaker", pageMaker);
-		
-		HttpSession session = req.getSession(); // HttpServletRequest는 HttpSession 객체 만드는데 필요
-		// MemberVO login = service.login(vo); // 로그인한 회원 객체 반환
-		session.setAttribute("id", "seoul");
 		
 		return "/job/job_list";
 	}
@@ -118,21 +109,22 @@ public class JobController {
 	// 알바 구인 게시물 상세보기 페이지로 가는거
 	@RequestMapping(value = "/job_readView", method = RequestMethod.GET) // job_list.jsp에서 사진 눌러서 상세보기할 때 실행
 	public String job_readView(JobVO vo, @ModelAttribute("scri") JobSearchCriteria scri, Model model, HttpServletRequest req) throws Exception{
-		// ex) job_list.jsp의 a 태그에 적었던 파라미터 값들이 scri(page, perPageNum, j_term 등), model(j_bno) 저장됨(setter)
 		
 		logger.info("상세보기 페이지~");
-		
 		System.out.println("번호: " + vo.getJ_bno());
 		
-		model.addAttribute("j_bno", vo.getJ_bno()); // 쿠키에 저장할 용도??
+		// 찜 여부 조회
+		Map<String, String> check = new HashMap<String, String>();
+		check.put("j_bno", Integer.toString(vo.getJ_bno()));
+		check.put("id", (String) req.getSession().getAttribute("id"));
+		
+		int heart = jobService.heartCheck(check);
+		
+		//model.addAttribute("j_bno", vo.getJ_bno());
 		model.addAttribute("j_read", jobService.job_view(vo.getJ_bno())); // 게시글 번호로 게시글 객체 불러옴
 		model.addAttribute("scri", scri);
+		model.addAttribute("heart", heart);
 		System.out.println("상세보기 게시물:" + jobService.job_view(vo.getJ_bno()));
-		
-		// 임의
-		HttpSession session = req.getSession();
-		String id = (String)session.getAttribute("id");
-		System.out.println("세션에 저장된 id:" + id);
 		
 		return "/job/job_read";
 	}
@@ -198,7 +190,11 @@ public class JobController {
 		logger.info("사장이 삭제버튼 눌렀음"); 
 		// 페이징 처리 안해줬음 
 		
-		String j_image = jobService.get_image(vo.getJ_bno()); // 디비에 저장된 이미지 이름 불러옴
+		//String j_image = jobService.get_image(vo.getJ_bno()); // 디비에 저장된 이미지 이름 불러옴
+		
+		logger.info("이미지 이름:" + vo.getJ_img());
+		String j_image = vo.getJ_img();
+		
 		jobService.delete_boss(vo.getJ_bno()); // 디비 삭제 
 		
 		if(j_image != null || j_image != "") {
@@ -219,6 +215,8 @@ public class JobController {
 		logger.info("사장이 지가 쓴 알바 글 목록 보려고함~~~");
 		
 		HttpSession session = req.getSession(); // HttpServletRequest는 HttpSession 객체 만드는데 필요
+		//아이디 임의로 준거이!!!!!!!!!!!!!!!!!!
+		//session.setAttribute("id", "korea");
 		String id = (String)session.getAttribute("id");
 		
 		if(id == null) { // 로그인안했으면 바로 my_jobWrite.jsp가서 스크립트 실행해서 뒤로 보냄
@@ -226,7 +224,6 @@ public class JobController {
 			return "/job/my_jobWrite";
 		}
 		
-		vo.setId("korea");// 임의로 로그인 아이디랑 글쓰니 아이디 같게 하려고, 글쓰니 아이디 설정함 
 		System.out.println("로그인한 아이디:" + id + "/사장 아이디:" + vo.getId());
 		
 		//
@@ -247,6 +244,37 @@ public class JobController {
 		
 		return "/job/my_jobWrite";
 	}
+	
+	// 게시글에서 찜하기 할때
+
+	@RequestMapping(value = "/addHeart")
+	@ResponseBody
+	public Map<String, String> addHeart(@RequestParam Map<String, String> param) throws Exception {
+		logger.info("addHeart");
+		Map<String, String> hlist = new HashMap<String, String>();
+		int j_bno = Integer.parseInt(param.get("j_bno")); // 좋아요 누른 게시판번호
+		jobService.addHeart(param); // Heart 테이블에 좋아요 누른 정보 저장
+		jobService.upHeart(j_bno); // 게시글의 j_heart +1 하기
+		hlist.put("hnum", Integer.toString(jobService.job_view(j_bno).getJ_heart())); // 찜한 총 개수
+
+		return hlist;
+	}
+		
+	// 게시글 찜 해제 할때
+	@RequestMapping(value = "/subHeart")
+	@ResponseBody
+	public Map<String, String> subHeart(@RequestParam Map<String, String> param) throws Exception {
+		logger.info("subHeart");
+		Map<String, String> hlist = new HashMap<String, String>();
+		int j_bno = Integer.parseInt(param.get("j_bno")); // 게시판번호
+		jobService.subHeart(param); // Heart 테이블에 좋아요 누른 정보 삭제
+		jobService.downHeart(j_bno); // 게시글의 j_heart -1 하기
+		hlist.put("hnum", Integer.toString(jobService.job_view(j_bno).getJ_heart()));
+
+		return hlist;
+	}
+
+	
 	
 	
 	

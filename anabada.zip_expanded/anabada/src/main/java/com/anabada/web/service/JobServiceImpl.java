@@ -66,10 +66,34 @@ public class JobServiceImpl implements JobService {
 		return dao.my_jobListCount(cri);
 	}
 
-	// 삭제할 때 이미지 이름 얻어오는 쿼리
+	// 찜했는지 안했는지 조회
 	@Override
-	public String get_image(int j_bno) throws Exception {
-		return dao.get_image(j_bno);
+	public int heartCheck(Map<String, String> check) throws Exception {
+		return dao.heartCheck(check);
+	}
+
+	// 하트 찜하기
+	@Override
+	public void addHeart(Map<String, String> param) throws Exception{
+		dao.addHeart(param);
+	}
+
+	// 하트 찜 개수 늘리기 +1
+	@Override
+	public void upHeart(int j_bno) throws Exception {
+		dao.upHeart(j_bno);
+	}
+
+	// 하트 찜 해제
+	@Override
+	public void subHeart(Map<String, String> param) throws Exception{
+		dao.subHeart(param);
+	}
+
+	// 하트 찜 개수 줄이기 -1
+	@Override
+	public void downHeart(int j_bno) throws Exception {
+		dao.downHeart(j_bno);
 	}
 	
 
