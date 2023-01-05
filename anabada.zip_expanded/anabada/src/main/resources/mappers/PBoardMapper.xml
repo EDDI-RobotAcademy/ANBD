@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="pBoardMapper">
+
+	<!-- 게시판 글 작성 -->
+	<insert id="insert">
+		INSERT INTO PBOARD(PNO, P_TITLE, P_COST, P_TYPE,
+		P_CON, SELL_A, SELL_B,P_LOCAL,
+		P_CONTENT, P_FILE ,ID)
+		VALUES(#{pno},
+		#{p_title},#{p_cost},#{p_type},
+		#{p_con},#{sell_a},#{sell_b},#{p_local},
+		#{p_content},#{p_file} ,#{id})
+	</insert>
+
+
+	<!-- pno 얻어오기 -->
+	<select id="maxpno" resultType="int">
+		select max(pno)+1 from pboard
+	</select>
+
+
+	<!-- 게시글 목록보기 -->
+	<select id="listPage" resultType="com.anabada.web.vo.PBoardVO"
+		parameterType="com.anabada.web.vo.SearchCriteriapro">
+
+		SELECT pno, p_title, p_content,p_con,sell_a, sell_b, p_count,
+		p_regdate, p_heart, id, p_type, p_cost
+		FROM (SELECT PNO, P_TITLE, P_CONTENT,
+		P_CON,
+		SELL_A,SELL_B,P_COUNT,P_REGDATE, P_HEART, ID,p_type,p_cost, 
+		ROW_NUMBER() OVER(ORDER BY PNO DESC) AS RNUM
+		FROM PBOARD WHERE 1=1
+		<include refid="search"></include>
+		<include refid="search2"></include>
+		)PB
+		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+		ORDER BY pno DESC
+
+	</select>
+
+	<!-- 게시글 수 -->
+	<select id="listCount"
+		parameterType="com.anabada.web.vo.SearchCriteriapro" resultType="int">
+		SELECT COUNT(PNO) FROM PBOARD WHERE 1=1
+		<include refid="search"></include>
+		<include refid="search2"></include>
+		AND PNO > 0
+	</select>
+
+
+
+	<!-- 게시물 상세보기 -->
+	<select id="read" parameterType="int" resultType="PBoardVO">
+		SELECT PNO,
+		P_TITLE, P_COST, P_TYPE, P_CON, SELL_A, SELL_B, P_CONTENT,
+		P_FILE,P_COUNT,P_HEART, ID, P_REGDATE,P_LOCAL,P_BUY
+		FROM PBOARD WHERE PNO
+		=#{pno}
+	</select>
+	<!-- 게시글 조회수 +1 -->
+	<update id="cuntup" parameterType="int">
+		UPDATE PBOARD SET P_COUNT =
+		P_COUNT+1 WHERE PNO =#{p_no}
+	</update>
+
+	<!-- 게시글 상세보기시 사진 정보 가져오기 -->
+	<select id="filelist" parameterType="int" resultType="PfileVO">
+		select * from pfile where pno = #{pno}
+	</select>
+
+
+
+	<!-- 찾기 버전 선택 t:제목, c: 내용, p : 물건의 타입 ,w : 작성자(ID) -->
+	<sql id="search">
+		<if test="searchType != null ">
+			<if test="searchType == 't'.toString ">AND P_TITLE LIKE '%' || #{keyword} ||'%'</if>
+			<if test="searchType == 'c'.toString ">AND P_CONTENT LIKE '%' || #{keyword} ||'%'</if>
+			<if test="searchType == 'w'.toString ">AND ID LIKE '%' || #{keyword} ||'%'</if>
+		</if>
+
+	</sql>
+
+	<sql id="search2">
+		<if test="productType != null and productType != ''">
+			AND P_TYPE=#{productType}
+		</if>
+	</sql>
+
+	<!-- 타입에 해당하는 게시글 총 수 구하기 -->
+	<select id="typecount" parameterType="java.lang.String"
+		resultType="int">
+		select count(*) from pboard where p_type= #{p_type}
+	</select>
+
+	<!-- 비슷한 타입 게시글들 select -->
+	<select id="similar" resultType="PBoardVO"
+		parameterType="com.anabada.web.vo.SimilarSearch">
+		select pno, p_title,id, p_cost, p_type from ( select pno, p_title , id, p_cost,p_type,
+		row_number() over(order by p_regdate desc ) as rnum from pboard
+		where p_type=#{searchP_type} and pno !=#{selpno} and p_buy='ing') where rnum between 1 and #{tnum} 
+
+	</select>
+	
+	<!-- pno에 해당하는 filePath를 가져옴(가장 먼저 올린것 1개 ) -->
+	<select id="getImg"  parameterType="int" resultType="String" >
+	SELECT FILEPATH FROM (SELECT FNO,FILEPATH,PNO FROM PFILE WHERE PNO = #{pno} ORDER BY FNO) 
+	WHERE ROWNUM =1
+	</select>
+	
+
+	<!-- 파일 경로 저장 -->
+	<insert id="fileSave" parameterType="java.util.Map">
+		insert into
+		pfile(fno,ftotal,filepath,pno)
+		values( pfile_seq.nextval, #{fno},#{filePath},#{pno} )
+	</insert>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="delete"  parameterType="int" >
+	DELETE FROM PBOARD WHERE PNO = #{pno}
+	</delete>
+	<!--fno에 해당하는 pfile의 filePath를 리턴 (게시글 수정에서 사진 삭제시 사용)-->
+	<select id="imgPath" parameterType="int" resultType="String"  >
+	SELECT FILEPATH FROM PFILE WHERE FNO = #{fno}
+	</select>
+	
+	
+	<!-- 게시글 수정시 이미지 삭제  -->
+	<delete id="deleteImg" parameterType="int"  >
+	DELETE FROM PFILE WHERE FNO = #{fno}
+	</delete>
+	
+	<!-- 수정한 게시글 저장 -->
+	<update id="update" parameterType="PBoardVO" >
+	UPDATE PBOARD
+	SET P_TITLE = #{p_title} , P_COST = #{p_cost}, P_TYPE = #{p_type}, 
+	P_CON =#{p_con},SELL_A =#{sell_a},SELL_B =#{sell_b}, P_CONTENT =#{p_content}, P_FILE =#{p_file},
+	P_LOCAL = #{p_local} WHERE PNO =#{pno}
+	</update>
+	<!-- 하트 +1 -->
+	<update id="upHeart" parameterType="int" >
+	UPDATE PBOARD SET P_HEART = P_HEART+1 WHERE PNO = #{pno}
+	</update>
+	<!-- 하트 -1 -->
+	<update id="downHeart" parameterType="int" >
+	UPDATE PBOARD SET P_HEART = P_HEART-1 WHERE PNO = #{pno}
+	</update>
+	<!-- pno, p_buy 전달해서 상품 판매 상태 변경  -->
+	<update id="change" parameterType="java.util.Map" >
+	UPDATE PBOARD SET P_BUY = #{p_buy} WHERE PNO = #{pno}
+	</update>
+
+	
+	<!-- 자기가 쓴 게시물 목록 불러오기 -->
+	<select id="myBoardList" parameterType="String" resultType="PBoardVO" >
+	SELECT * FROM PBOARD WHERE ID = #{id}
+	</select>
+
+
+
+</mapper>

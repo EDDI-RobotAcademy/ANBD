@@ -192,7 +192,7 @@
 			<div class="myImg">
 				<img src="../resources/images/아나바다.png" width="150px" height="150px"/>
         		<br>
-        		${id } 님
+        		${id } 님gkgkgkgk
         	</div>
         	<div style="padding-top: 10px">
 				<button type="button" name="n_send" class="ask_btn" style="display: block; margin: auto;">쪽지 보내기</button>

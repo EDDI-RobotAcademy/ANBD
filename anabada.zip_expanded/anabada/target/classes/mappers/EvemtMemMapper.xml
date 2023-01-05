@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="EventMemMapper">
+
+
+
+<!-- 해당 게시글을에 응모했는지 확인  -->
+<select id="checkEv"  parameterType="hashMap" resultType="int" >
+SELECT COUNT(*) FROM EVENTMEM WHERE ENO=#{eno} AND ID = #{id} 
+</select>
+
+<!-- 참여하기 누른사람 정보 저장 -->
+<insert id="addHeart" parameterType="hashMap" >
+INSERT INTO EVENTMEM (ENO, ID) VALUES (#{eno} , #{id})
+</insert>
+
+<!-- 참여 취소시 정보 삭제 -->
+<delete id="subHeart" parameterType="hashMap" >
+DELETE FROM EVENTMEM WHERE ENO = #{eno} AND ID = #{id}
+</delete>
+<select id="getAll" parameterType="int" resultType="String" >
+SELECT ID FROM EVENTMEM WHERE ENO = #{eno}
+</select>
+<!-- winner id 가져오기  -->
+<select id="getWin" parameterType="int" resultType="String" >
+SELECT ID FROM (SELECT ID, ROW_NUMBER() OVER(ORDER BY ID ) AS RNUM FROM EVENTMEM) WHERE RNUM = #{i}
+</select>
+
+
+</mapper>

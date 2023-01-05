@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.anabada.web.vo.NoteSearchCriteria;
 import com.anabada.web.vo.NoteVO;
 
-import oracle.net.aso.s;
+//import oracle.net.aso.s;
 
 @Repository
 public class NoteDAOImpl implements NoteDAO{
