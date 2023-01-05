@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,4 +55,15 @@ public class ReviewController {
 		
 		return chk;
 	}
+	
+	// 이거 임시로 내 홈 만든거
+	@RequestMapping(value="/home_test", method = RequestMethod.GET)
+	public String home_test(HttpSession session) {
+		logger.info("임시로 홈 만듦!!");
+		
+		session.setAttribute("id", "korea");
+		
+		return "/note/home_test";
+	}
+	
 }
