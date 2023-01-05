@@ -2,7 +2,7 @@ package com.anabada.web.vo;
 
 public class JobCriteria {
 
-	private int page; // 페이지 번호
+	private int page; // 페이지 번호1111
 	private int perPageNum; // 한 페이지 당 보여줄 게시글 수
 	private int rowStart; // 페이지 한 행의 첫번째 게시물 rowNum
 	private int rowEnd; // 페이지 한 행의 마지막 게시물 rowNum
