@@ -106,7 +106,14 @@ public class ProductController {
 			HttpServletResponse res) throws Exception {
 		HttpSession session = req.getSession();
 
+
 		session.setAttribute("id", "korea");
+
+
+		session.setAttribute("id", "korea");
+
+		session.setAttribute("id", "admin");
+
 		List<PBoardVO> list = service.list(scri);
 		// list의 각각의 pno에 해당하는 사진 정보 가져오기
 		for (int i = 0; i < list.size(); i++) {

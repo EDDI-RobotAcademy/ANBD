@@ -98,7 +98,10 @@
 		<button type="submit">내 쪽지함</button>
 	</form>
 	
-
+	<form action="/review/home_test" method="get">
+		<button type="submit">지애</button>
+	</form>
+	
 
 
 </body>

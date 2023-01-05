@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.anabada.web.dao.NoteDAO;
+import com.anabada.web.vo.NoteCriteria;
 import com.anabada.web.vo.NoteSearchCriteria;
 import com.anabada.web.vo.NoteVO;
 
@@ -77,6 +78,12 @@ public class NoteServiceImpl implements NoteService {
 	public void delete_detail(int bno) throws Exception {
 		dao.delete_detail(bno);
 	}
+
+	@Override
+	public List<String> get_members(Map map) throws Exception {
+		return dao.get_members(map);
+	}
+
 	
 	
 	

@@ -47,8 +47,8 @@
    }
    
    .j_img { 
-     width: 237px;
-     height: 237px;
+      width: 237px;
+      height: 237px;
    }
    
    .search{
@@ -73,15 +73,6 @@
    select{
       width: 100px;
       height: 30px;
-   }
-   
-   .sideBanner {
-      width: 100px; 
-      position: absolute;
-      height: 200px;
-      top: 100px;
-      background-color: white;
-      border: 1px solid #626262;
    }
    
    /*레이아웃*/
@@ -110,17 +101,38 @@
    }
    
    .sideBanner {
-      width: 100px; 
+      width: 120px; 
       position: absolute;
-        height: 200px;
-        top: 100px;
-        background-color: white;
-        border: 1px solid #626262;
+      height: 450px;
+      top: 100px;
+      background-color: white;
+      border: 1px solid #0C6BBC;
+      text-align: center;
+      margin-left: 10px;
+      margin-top: 10px;
+   }
+   .recent_list{
+      height: 405px; 
+      /*
+      396인 이유: li높이 128(검사에서 확인)+margin bottom 5px이 3개씩 보일거라
+      132*3 = 396임.
+      */
+      overflow: hidden;
    }
    
+   /*최근 본 알바 ul*/
+   #recentItemList{
+   	  list-style: none;
+   	  float: left;
+   	  text-align: center;
+   }
+   #recentItemList li{
+      height: 130px;
+	  display: inline-block;
+	  text-align: center;
+	  margin-bottom: 5px;
+   }
    
-   
-
    
 </style>
 <body>
@@ -138,7 +150,7 @@
    <section class="section" style="border-top: 1px solid #e5e5e5">
    <form name="job_board" method="get">
       
-      <input type="button" class="addr1_btn" id="write" value="알바 구인 공고 작성하기" style="float: right;">
+      <input type="button" class="j_btn1" id="write" value="알바 구인 공고 작성하기" style="float: right;">
       <br><br>
       
       <table class="search">
@@ -281,7 +293,7 @@
                        <div class="details">
                           <c:choose>
                              <c:when test="${empty j_list.j_img}">
-                                <img class="j_img" src="../resources/images/아나바다.png"/>
+                                <img class="j_img" src="../resources/images/아나바다2.png"/>
                              </c:when>
                              <c:otherwise>
                                 <img class="j_img" src="/upload/${j_list.j_img }"/>
@@ -306,9 +318,8 @@
          <c:if test="${pageMaker.prev }">
             <a href="job_list${pageMaker.makeSearch(pageMaker.startPage - 1 )}">이전</a>
             <!-- 다시 쓰기!!!!!!!!!!!!!!!!
-            ex) 1페이지에서 제목+내용 선택하고 aaaaa 입력한 뒤 검색 버튼 누르고 -> 그 검색 목록 중에서 [2]페이지 눌렀을 때 
-            http://localhost:8080/board/list?page=2&perPageNum=10&searchType=tc&keyword=aaaaa 
-            [이전] 누르면 파라미터 값들 가지고 BoardController "/list"로 이동(기본이 get방식)
+            page=2&perPageNum=10&searchType=tc&keyword=aaaaa 
+            "/list"로 이동(기본이 get방식)
             -->
          </c:if>
          <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
@@ -326,13 +337,20 @@
    <!-- 사이드바.ex)최근 본 항목 -->
    <section class="aside">
       <div class="sideBanner">
-      최근 본 알바<br>
-      
+   	  최근 본 알바
+      	 <div class="r_btn">
+      	 	<button class="recent_btn">▲</button>
+      	 	<button class="recent_btn">▼</button>
+      	 </div>
+      	 <div class="recent_list">
+			 <ul id="recentItemList">
+			 </ul>
+	     </div>
       </div>
    </section>
    </div>
    
-   <div>
+   <div id="footer">
       <jsp:include page="../includes/footer.jsp" />
    </div>
 </body>
@@ -391,23 +409,78 @@
    })
    
    
-   // 최근 본 알바
+   // 최근 본 알바 플로팅배너
    // 기본 위치(top)값
-   var floatPosition = parseInt($(".sideBanner").css('top'))
+	var floatPosition = parseInt($(".sideBanner").css('top'));
+	var floatHei = parseInt($(".sideBanner").outerHeight()); // 플로팅 배너 길이
+	var footerTop = $('#footer').outerHeight(); // footer가 높이한 위치
+	
+	// scroll 인식
+	$(window).scroll(function() {
+	  
+	    // 현재 스크롤 위치
+	    var currentTop = $(window).scrollTop(); // 현재 윈도우 스크린 위치
+	    var bannerTop = currentTop + floatPosition + "px"; // 
+	    var val = $(document).height() - footerTop;
+	    var hei = currentTop + floatPosition + floatHei;
+	    
+	    //이동 애니메이션
+	    if (hei < footerTop){
+	    	$(".sideBanner").stop().animate({
+	   	    	"top" : bannerTop
+	   	    }, 500);
+	    }
 
-   // scroll 인식
-   $(window).scroll(function() {
-     
-       // 현재 스크롤 위치
-       var currentTop = $(window).scrollTop();
-       var bannerTop = currentTop + floatPosition + "px";
+	}).scroll(); 
+   
+    // 최근 본 알바 불러오기. sessionStorage
+    function get_recent_item(){
+	   
+	    //sessionStorage.clear(); 
+	    var $recentItemList = $("#recentItemList");
+	    
+	    var items = sessionStorage.getItem("recent_job");
+	    
+	    if(items == null){
+	    	var li = "<br><br><li>최근 본 상품이 없습니다.</li>"
+	    	$recentItemList.append(li);
+	    }
+	
+	    //alert(key)
+	    
+	    var realitem = JSON.parse(items);
+	    
+	    //파싱된 객체의 길이로 for문 돌리기
+	     for (var i = 0; i < 5; i++) {
+	        var j_bno = realitem[i].j_bno;
+	        var j_title = realitem[i].j_title;
+	        var j_img = realitem[i].j_img;
+	        
+	        if(j_img != null || j_img != ""){
+		        var li = "<li><a href='/job/job_readView?j_bno="+j_bno+"'><img width='100' height='100' src='/upload/"+j_img+"'/>"
+		        	+ "<br><font>" +j_bno + j_title+ "</font>" + "</a></li>";
+	        }
+	        if(j_img == null || j_img == ""){
+	        	var li = "<li><a href='/job/job_readView?j_bno="+j_bno+"'><img width='100' height='100' src='../resources/images/아나바다2.png'/>"
+		        	+ "<br><font>" +j_bno + j_title+ "</font>" + "</a></li>";
+	        }
+	 
+	        //ul에 붙이기
+	        $recentItemList.append(li);
+	    }
+	    
+	}
+	
+	$(".recent_btn").click(function () {
+		var ih = $(this).index() == 0 ? -135 : 135; //위아래로 움직이는 px 숫자
+		var obj = $('.recent_list');
+		obj.animate({ scrollTop:obj.scrollTop() + ih }, 100);
+    });
+	
+	// 이거 젤 마지막에 둬야 함
+	get_recent_item();
 
-       //이동 애니메이션
-       $(".sideBanner").stop().animate({
-         "top" : bannerTop
-       }, 500);
-
-   }).scroll();
+   
 });
 </script>
 </html>
