@@ -3,6 +3,7 @@ package com.anabada.web.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.anabada.web.vo.NoteCriteria;
 import com.anabada.web.vo.NoteSearchCriteria;
 import com.anabada.web.vo.NoteVO;
 
@@ -43,4 +44,8 @@ public interface NoteDAO {
 
 	// 쪽지 상세보기에서 쪽지 디비에서 삭제
 	public void delete_detail(int bno) throws Exception;
+
+	// 해당 중고게시물에 대한 쪽지를 주고 받은 사람들 리스트
+	public List<String> get_members(Map map) throws Exception;
+
 }
