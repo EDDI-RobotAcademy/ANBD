@@ -8,10 +8,11 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.anabada.web.vo.NoteCriteria;
 import com.anabada.web.vo.NoteSearchCriteria;
 import com.anabada.web.vo.NoteVO;
 
-//import oracle.net.aso.s;
+import oracle.net.aso.s;
 
 @Repository
 public class NoteDAOImpl implements NoteDAO{
@@ -85,5 +86,11 @@ public class NoteDAOImpl implements NoteDAO{
 	public void delete_detail(int bno) throws Exception {
 		sqlSession.delete("noteMapper.delete_detail", bno);
 	}
+
+	@Override
+	public List<String> get_members(Map map) throws Exception {
+		return sqlSession.selectList("noteMapper.get_members", map);
+	}
+
 
 }
