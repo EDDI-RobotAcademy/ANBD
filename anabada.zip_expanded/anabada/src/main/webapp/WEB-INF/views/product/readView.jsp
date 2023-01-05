@@ -225,6 +225,31 @@ margin-top: 70px;
 
 }
 
+	#select_table{
+		width: 100%;
+	}
+	
+	.info, .info td{
+		padding-bottom: 10px;
+	}
+	
+	.m_label{
+		width: 100%;
+		border: 1px solid #e9e9e9;
+		cursor: pointer;
+		padding: 10px;
+	}
+	
+	.r_id{ /*모달창 사람들 라디오버튼*/
+		/*display: none;*/
+	}
+	
+	.p_img { 
+        width: 110px;
+        height: 110px;
+        border-radius: 10px;
+    }
+
 
 /*끝 */
 
@@ -506,6 +531,12 @@ margin-top: 70px;
 
 			var book = document.getElementById('book');
 			var str = $("#book option:selected").val(); // 선택된 값
+			
+			
+			if(str == 'end'){
+				$('#selectModal').modal("show");
+			}
+			
 
 			// 모달창 띄우는 쿼리 
 			//모달창에서 id 선택  var dd + ''
@@ -538,6 +569,70 @@ margin-top: 70px;
 		bookCh();
 		
 		
+		//모달 
+		// 모달창에서 선택 완료 버튼 누르면
+	    $("#review_note").click(function(){
+	    	
+	    	// 사람 선택했는지 체크
+	    	var chk = $('input[name=r_id]').is(":checked");
+	    	if(!chk){
+	    		alert("구매자를 선택해주세요.");
+	    		return false;
+	    	}
+	    	
+	    	if(confirm("구매자를 확정하시겠습니까?")){
+		   	    var r_id = $("input[name=r_id]:checked").val();
+		        
+		    	if(r_id == "" || r_id == null){
+		    		alert("구매를 확정했습니다.");
+		    		$("#selectModal").modal("hide");
+		    		return false;
+//		    		// 해당 사항 없음을 선택하면 리뷰 쪽지 안가게 막음
+//		    		// 이때도 readonly로 바뀌도록
+		    	}
+		    	
+				$.ajax({
+			        type: "get",
+			        url : "/note/review_note.ajax",
+			        data: {
+			        	r_id : r_id,
+			        	s_id : '${id}', 
+			        	pno : ${read.pno}, 
+//원래는 이거임!!		    pno : '${p_read.pno}' // 원래는 이거 나중에 수정하기!!!
+						content: '판매가 확정되었습니다. 후기를 작성해주세요.',
+						confirm: 'yes'
+			        	},
+			        dataType :  'json',   // 데이터 타입을 Json으로 변경
+			        traditional : true,
+			        success: function(data){
+			            alert("구매자가 확정되었습니다.");
+			        }
+		  		});
+	   		
+				$("#selectModal").modal("hide"); // 모달창 닫기
+//				// 이때 readonly로 바꾸기
+	    	
+	    	}else{
+	    		return false;
+	    	}
+	           
+	   
+	   });
+	
+	   // 사람 선택하면 색깔 바뀌는 코드
+	   $('input[name=r_id]').change(function(){
+		   alert("11");
+		   $('.m_label').css('background-color', '#fff');
+		   alert("22");
+		   if($(this).is(':checked')){
+			   alert("33");
+	    		$(this).closest('.m_label').css('background-color', '#e9e9e9');
+	    		alert("44");
+		   }
+	    		
+	   });
+	   
+	   //모달 끝 
 		
 		
 		
@@ -564,6 +659,11 @@ margin-top: 70px;
 			element.innerText = '판매완료';
 		}
 	}
+	
+	
+	
+	
+	
 </script>
 
 </head>
@@ -842,6 +942,9 @@ margin-top: 70px;
 		
 	</div>
 	
+	
+	
+	
 	<!-- footer -->
 	<div id="footer">
 
@@ -850,6 +953,73 @@ margin-top: 70px;
 		</div>
 	</div>
 	<!-- footer end -->
+	
+	
+	 <!-- 모달 내용 -->
+   <div class="modal fade" id="selectModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">구매자 선택하기</h1>
+                </div>
+                <form id="select_form">
+                    <!-- 
+                    <input type="hidden" id="s_id" name="s_id" vlaue="${id}"/>현재 로그인한 아이디
+                    <input type="hidden" id="r_id" name="r_id" value=""/>받을 사람 아이디
+                    -->
+                    <div class="modal-body">
+                       <table id="select_table">
+                            <tbody>
+                                <tr class="info">
+            						<td width="130px;">
+                  						<img class="p_img" src=""><!-- 해당 썸네일 이미지 경로 -->
+            						</td>
+            						<td>
+						               ${read.p_title}<br>
+						               ${read.p_cost}<br>
+						               <!-- 
+						               ${p_read.p_title}<br>
+						               ${p_read.p_cost}<br>
+						               -->
+						            </td>
+						        </tr>
+                                
+                                <c:forEach items="${m_list }" var="m_list">
+								<tr>
+									<td colspan="2">
+										<label class="m_label">
+											<input type="radio" name="r_id" class="r_id" value="${m_list }">
+											${m_list }
+										</label>
+									</td>
+								</tr>
+								</c:forEach>
+								
+								<tr>
+									<td colspan="2">
+										<label class="m_label">
+											<input type="radio" name="r_id" class="r_id" value="">
+											해당 사항 없음
+										</label>
+											<input type="radio" name="r_id" class="r_id" value="">
+											해당 사항 없음
+										</label>
+									</td>
+								</tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" id="review_note">선택 완료</button>
+                    <button class="btn btn-primary" type="button" id="finsh" data-bs-dismiss="modal">취소</button>
+                </div>
+            </div>
+        </div>
+   </div>
+   <!-- 모달 end  -->
+	
+	
 
 
 
