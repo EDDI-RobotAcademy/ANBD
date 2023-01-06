@@ -35,7 +35,7 @@
 	<!-- nav 영역 -->
 	<nav class="navbar navbar-border">
 		<form class="container" name='homeForm' method="post" action="/member/login">
-			<c:if test="${member == null}">
+			<c:if test="${id == null}">
 					<div class="nav-right">
 						<ul class="profile">
 							<li class="pro-li"><a href="/member/login">로그인</a></li>
@@ -44,7 +44,7 @@
 					</div>
 			</c:if>
 				
-			<c:if test="${member != null}">
+			<c:if test="${id != null}">
 				<div class="nav-right">
 					<ul class="profile">
 						<li class="pro-li">쪽지</li>
