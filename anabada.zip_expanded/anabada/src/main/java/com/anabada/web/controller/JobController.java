@@ -1,12 +1,14 @@
 package com.anabada.web.controller;
 
 import java.io.File;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -39,19 +41,19 @@ public class JobController {
 	
 	
 	// 알바 구인 게시물 쓰기 눌렀을 때
-	@RequestMapping(value = "/writeView_boss", method = RequestMethod.GET)
-	public String write_boass_view(HttpServletRequest req) throws Exception{ // 임의로 내가 아이디줬음
+	@RequestMapping(value = "/job_insert", method = RequestMethod.GET)
+	public String job_insert_view(HttpServletRequest req) throws Exception{ // 임의로 내가 아이디줬음
 		
-		logger.info("write_boss_view");
+		logger.info("알바구인공고 쓰기");
 		
-		return "/job/write_boss";
+		return "/job/job_insert";
 	}
 	
 	// 알바 구인 게시글 등록하기
-	@RequestMapping(value = "/write_boss", method = RequestMethod.POST)
-	public String write_boss(@ModelAttribute JobVO vo, RedirectAttributes rttr) throws Exception{
+	@RequestMapping(value = "/job_insert", method = RequestMethod.POST)
+	public String job_insert(@ModelAttribute JobVO vo, RedirectAttributes rttr) throws Exception{
 		
-		logger.info("write_boss");
+		logger.info("알바 구인등록 버튼 누름");
 		
 		System.out.println(vo.getJ_uploadImg()); // 저장한 파일 해쉬코드나옴
 		MultipartFile uploadImg = vo.getJ_uploadImg(); // 업로드한 이미지 불러옴. 이미지 선택안해도 아래와 같이 저장됨
@@ -82,7 +84,7 @@ public class JobController {
 		}
 		
 		System.out.println(vo);
-		jobService.write_boss(vo);
+		jobService.job_insert(vo);
 		
 		return "redirect:/job/job_list"; 
 	}
@@ -107,8 +109,8 @@ public class JobController {
 	}
 	
 	// 알바 구인 게시물 상세보기 페이지로 가는거
-	@RequestMapping(value = "/job_readView", method = RequestMethod.GET) // job_list.jsp에서 사진 눌러서 상세보기할 때 실행
-	public String job_readView(JobVO vo, @ModelAttribute("scri") JobSearchCriteria scri, Model model, HttpServletRequest req) throws Exception{
+	@RequestMapping(value = "/job_read", method = RequestMethod.GET) // job_list.jsp에서 사진 눌러서 상세보기할 때 실행
+	public String job_read(JobVO vo, @ModelAttribute("scri") JobSearchCriteria scri, Model model, HttpServletRequest req) throws Exception{
 		
 		logger.info("상세보기 페이지~");
 		System.out.println("번호: " + vo.getJ_bno());
@@ -118,32 +120,32 @@ public class JobController {
 		check.put("j_bno", Integer.toString(vo.getJ_bno()));
 		check.put("id", (String) req.getSession().getAttribute("id"));
 		
-		int heart = jobService.heartCheck(check);
+		int heart = jobService.job_heartCheck(check);
 		
 		//model.addAttribute("j_bno", vo.getJ_bno());
-		model.addAttribute("j_read", jobService.job_view(vo.getJ_bno())); // 게시글 번호로 게시글 객체 불러옴
+		model.addAttribute("j_read", jobService.job_read(vo.getJ_bno())); // 게시글 번호로 게시글 객체 불러옴
 		model.addAttribute("scri", scri);
 		model.addAttribute("heart", heart);
-		System.out.println("상세보기 게시물:" + jobService.job_view(vo.getJ_bno()));
+		System.out.println("상세보기 게시물:" + jobService.job_read(vo.getJ_bno()));
 		
 		return "/job/job_read";
 	}
 	
 	// 알바 수정 게시물 페이지로 가는거
-	@RequestMapping(value = "/updateView_boss", method = RequestMethod.GET)
-	public String updateView_boss(JobVO vo, @ModelAttribute("scri") JobSearchCriteria scri, Model model) throws Exception{
+	@RequestMapping(value = "/job_update", method = RequestMethod.GET)
+	public String job_update_view(JobVO vo, @ModelAttribute("scri") JobSearchCriteria scri, Model model) throws Exception{
 		
 		logger.info("사장이 수정하려고함~~");
 		
-		model.addAttribute("j_update", jobService.job_view(vo.getJ_bno()));
+		model.addAttribute("j_update", jobService.job_read(vo.getJ_bno()));
 		model.addAttribute("scri", scri);
 		
-		return "/job/update_boss"; // 수정 페이지로 이동
+		return "/job/job_update"; // 수정 페이지로 이동
 	}
 	
 	// 알바 게시글 수정게시글에서 수정 버튼 눌렀을 때 실행
-	@RequestMapping(value = "/update_boss", method = RequestMethod.POST)
-	public String update_boss(@ModelAttribute JobVO vo, RedirectAttributes rttr) throws Exception{
+	@RequestMapping(value = "/job_update", method = RequestMethod.POST)
+	public String job_update(@ModelAttribute JobVO vo, RedirectAttributes rttr) throws Exception{
 		
 		logger.info("수정완료 버튼 눌렀음");
 		
@@ -175,17 +177,17 @@ public class JobController {
 			vo.setJ_img(uniqueName + imgExtension); // 빈에 이미지 이름 저장
 		}
 		System.out.println(vo);
-		jobService.update_boss(vo);
+		jobService.job_update(vo);
 		
 		rttr.addAttribute("j_bno", vo.getJ_bno());
 		
-		return "redirect:/job/job_readView"; // 컨트롤러로 이동
+		return "redirect:/job/job_read"; // 컨트롤러로 이동
 		// 게시물 상세보기로
 	}
 	
 	// 알바 구인 게시물 삭제할 떄
-	@RequestMapping(value = "/delete_boss", method = RequestMethod.POST)
-	public String delete_boss(@ModelAttribute JobVO vo) throws Exception{
+	@RequestMapping(value = "/job_delete", method = RequestMethod.POST)
+	public String job_delete(@ModelAttribute JobVO vo) throws Exception{
 		
 		logger.info("사장이 삭제버튼 눌렀음"); 
 		// 페이징 처리 안해줬음 
@@ -195,7 +197,7 @@ public class JobController {
 		logger.info("이미지 이름:" + vo.getJ_img());
 		String j_image = vo.getJ_img();
 		
-		jobService.delete_boss(vo.getJ_bno()); // 디비 삭제 
+		jobService.job_delete(vo.getJ_bno()); // 디비 삭제 
 		
 		if(j_image != null || j_image != "") {
 			File file = null;
@@ -208,55 +210,17 @@ public class JobController {
 		// 게시판 기본 상태로 돌아감
 	}
 	
-	// 사장이 쓴 구인공고물들 목록 보기
-	@RequestMapping(value = "/my_jobList", method = RequestMethod.GET)
-	public String my_jobList(@ModelAttribute JobVO vo, HttpServletRequest req, Model model,@ModelAttribute("cri") JobCriteria cri) throws Exception{
-		
-		logger.info("사장이 지가 쓴 알바 글 목록 보려고함~~~");
-		
-		HttpSession session = req.getSession(); // HttpServletRequest는 HttpSession 객체 만드는데 필요
-		//아이디 임의로 준거이!!!!!!!!!!!!!!!!!!
-		//session.setAttribute("id", "korea");
-		String id = (String)session.getAttribute("id");
-		
-		if(id == null) { // 로그인안했으면 바로 my_jobWrite.jsp가서 스크립트 실행해서 뒤로 보냄
-			model.addAttribute("id", id);
-			return "/job/my_jobWrite";
-		}
-		
-		System.out.println("로그인한 아이디:" + id);
-		
-		//
-		JobPageMaker pageMaker = new JobPageMaker();
-		pageMaker.setCri(cri);
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		map.put("id", id); // 세션에 저장된 아이디
-		map.put("rowStart", cri.getRowStart());
-		map.put("rowEnd", cri.getRowEnd());
-		
-		model.addAttribute("my_jobList", jobService.my_jobList(map)); // 세션에 저장된 아이디와 같은 아이디가 쓴 글 불러움
-		System.out.println(jobService.my_jobList(map));
-		
-		pageMaker.setTotalCount(jobService.my_jobListCount(cri));
-		model.addAttribute("pageMaker", pageMaker);
-		System.out.println(pageMaker);
-		
-		return "/job/my_jobWrite";
-	}
 	
 	// 게시글에서 찜하기 할때
-
 	@RequestMapping(value = "/addHeart")
 	@ResponseBody
-	public Map<String, String> addHeart(@RequestParam Map<String, String> param) throws Exception {
+	public Map<String, String> job_addHeart(@RequestParam Map<String, String> param) throws Exception {
 		logger.info("addHeart");
 		Map<String, String> hlist = new HashMap<String, String>();
 		int j_bno = Integer.parseInt(param.get("j_bno")); // 좋아요 누른 게시판번호
-		jobService.addHeart(param); // Heart 테이블에 좋아요 누른 정보 저장
-		jobService.upHeart(j_bno); // 게시글의 j_heart +1 하기
-		hlist.put("hnum", Integer.toString(jobService.job_view(j_bno).getJ_heart())); // 찜한 총 개수
+		jobService.job_addHeart(param); // Heart 테이블에 좋아요 누른 정보 저장
+		jobService.job_upHeart(j_bno); // 게시글의 j_heart +1 하기
+		hlist.put("hnum", Integer.toString(jobService.job_read(j_bno).getJ_heart())); // 찜한 총 개수
 
 		return hlist;
 	}
@@ -268,11 +232,59 @@ public class JobController {
 		logger.info("subHeart");
 		Map<String, String> hlist = new HashMap<String, String>();
 		int j_bno = Integer.parseInt(param.get("j_bno")); // 게시판번호
-		jobService.subHeart(param); // Heart 테이블에 좋아요 누른 정보 삭제
-		jobService.downHeart(j_bno); // 게시글의 j_heart -1 하기
-		hlist.put("hnum", Integer.toString(jobService.job_view(j_bno).getJ_heart()));
+		jobService.job_subHeart(param); // Heart 테이블에 좋아요 누른 정보 삭제
+		jobService.job_downHeart(j_bno); // 게시글의 j_heart -1 하기
+		hlist.put("hnum", Integer.toString(jobService.job_read(j_bno).getJ_heart()));
 
 		return hlist;
+	}
+	
+	
+	
+	
+	//마이페이지 컨트롤러 만들면 거기에 추가하기
+	// 사장이 쓴 구인공고물들 목록 보기
+	@RequestMapping(value = "/my_job", method = RequestMethod.GET)
+	public String my_jobList(@ModelAttribute JobVO vo, HttpServletRequest req, Model model, @ModelAttribute("cri") JobCriteria cri) throws Exception{
+		//NoteCriteria가 10개씩 보여줌. JobCriteria는 16개씩 보여줌
+		
+		logger.info("사장이 지가 쓴 알바 글 목록 보려고함~~~");
+			
+		HttpSession session = req.getSession(); // HttpServletRequest는 HttpSession 객체 만드는데 필요
+		//아이디 임의로 준거이!!!!!!!!!!!!!!!!!!
+		//session.setAttribute("id", "korea");
+		String id = (String)session.getAttribute("id");
+			
+		Map<String, Object> map = new HashMap<String, Object>();
+			
+		map.put("id", id); // 세션에 저장된 아이디
+		map.put("rowStart2", cri.getRowStart2());
+		map.put("rowEnd2", cri.getRowEnd2());
+		System.out.println(cri.getRowStart() + "하하하하" + cri.getRowEnd());
+			
+		model.addAttribute("my_jobList", jobService.my_jobList(map)); // 세션에 저장된 아이디와 같은 아이디가 쓴 글 불러움
+		System.out.println(jobService.my_jobList(map));
+		
+		JobPageMaker pageMaker = new JobPageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount2(jobService.my_jobListCount(id));
+		model.addAttribute("pageMaker", pageMaker);
+		
+		return "/job/my_job";
+	}
+		
+	// 마이페이지 게시물 삭제 ajax
+	@RequestMapping(value = "/delete_chk.ajax", method = RequestMethod.GET)
+	@ResponseBody
+	public void delete_chk(HttpServletResponse resp, @RequestParam(value="delete_array") int[] delete_array, 
+			HttpSession session) throws Exception{
+			
+		logger.info("알바 마이페이지에서 삭제 눌렀음"); 
+		// 페이징 처리 안해줬음 
+			
+		jobService.my_jobDelete(delete_array); // 마이페이지 게시물들 번호 배열로 받아서 삭제
+		
+		logger.info("삭제 성공");
 	}
 
 	

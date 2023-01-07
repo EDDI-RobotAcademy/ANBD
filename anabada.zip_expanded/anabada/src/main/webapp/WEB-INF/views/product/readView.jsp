@@ -565,8 +565,6 @@ margin-top: 70px;
 			});
 
 		}); //상품 상태 변경 끝 
-
-		bookCh();
 		
 		
 		//모달 
@@ -633,14 +631,10 @@ margin-top: 70px;
 	   });
 	   
 	   //모달 끝 
-		
-		
-		
-		
-		
-		
-		
 
+	   bookCh();
+		
+		
 	});
 
 	//User가 제품 판매 상태 보기 
@@ -1001,6 +995,7 @@ margin-top: 70px;
 											<input type="radio" name="r_id" class="r_id" value="">
 											해당 사항 없음
 										</label>
+										<label>
 											<input type="radio" name="r_id" class="r_id" value="">
 											해당 사항 없음
 										</label>

@@ -15,14 +15,6 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
 
-	/* $(window).on("load", function () {
-		var null_chk = <c:out value="${p_list}"/>;
-		if(null_chk == null || null_chk == ""){
-			alert("지원자가 없습니다.");
-			history.go(-1);
-		}
-	}); */
-	
 </script>
 <style>
     .j_img{

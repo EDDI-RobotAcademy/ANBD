@@ -80,8 +80,62 @@
       padding: 10px;
    }
    
-
 </style>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function () {
+		
+		// 삭제 전체 선택, 해제
+	    $('#delete_all').on("click", function () {
+	    	if($("#delete_all").is(":checked")){
+	           $("input[name=delete]").prop("checked", true);
+	        }else{
+	           $("input[name=delete]").prop("checked", false);
+	        }
+	     });
+	     
+	     //삭제 버튼 눌렀을 때. ajax 처리
+	     $('button[name=delete_btn]').on("click", function () {
+	        
+	        if($("input:checkbox[name=delete]").is(":checked") == false) {
+	           alert("선택된 쪽지가 없습니다.");
+	           return;
+	        }
+	        
+	        
+	        if(confirm("삭제하시겠습니까?")){
+	           // 배열로 선언
+	           var delete_array = new Array(); //j_bno를 담음
+	           $('input[name=delete]:checked').each(function (i) {
+	              delete_array.push($(this).val());
+	              //alert($(this).val());
+	           });
+	           
+	           $.ajax({
+	               type: "get",
+	               url : "/job/delete_chk.ajax",
+	               data: {
+	                  delete_array : delete_array, 
+	               },
+	               traditional : true,
+	               success: function(data){
+	                   alert("삭제했습니다.");
+	                   window.location.reload();
+	               },
+	               error : function(request, status, error) {
+						alert("삭제 실패:" + error);
+				   }
+	             });
+	        
+	        }else{
+	           return;
+	        }
+	     });
+        
+    });
+  
+	
+</script>
 </head>
 <body>
    <div>
@@ -133,12 +187,25 @@
             <c:when test="${not empty my_jobList}">
         	<table class="mj_list">
         		<tr>
+            		<td colspan="4">
+            			<button type="button" name="delete_btn" class="n_btn2">
+            			삭제</button>
+            		</td>
+            	</tr>
+            	
+        		<tr>
+        			<td width="50px;" style="text-align: center">
+                  		<input type="checkbox" name="delete" value="0" id="delete_all">
+               		</td>
         			<td colspan="2" style="text-align: center">내용</td>
         			<td>등록일</td>
         		</tr>
                 
                 <c:forEach var="mj_list" items="${my_jobList}">
                 <tr>
+                	<td style="text-align: center">
+                  		<input type="checkbox" name="delete" class="delete" value="${mj_list.j_bno}">
+               		</td>
 				   	<td style="width: 130px;">
                         <c:choose>
                         <c:when test="${empty mj_list.j_img}">
@@ -156,12 +223,11 @@
                     <td>
                         ${mj_list.j_title }<br>
                         ${mj_list.j_company }<br>
-                        ${mj_list.j_day }&nbsp;${mj_list.j_start }:00 ~ ${mj_list.j_end }:00<br>
-                        ${mj_list.j_method }&nbsp;${mj_list.j_pay }<br>
-                        ${mj_list.j_addr1 }&nbsp;${mj_list.j_addr2 }
+                        근무일: ${mj_list.j_day }<br> 
+                        근무시간: ${mj_list.j_start }:00 ~ ${mj_list.j_end }:00<br>
                     </td>
                     <td>
-                        
+                        ${mj_list.j_date }
                     </td>
                 </tr>
             </c:forEach>

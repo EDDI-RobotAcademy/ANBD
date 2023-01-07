@@ -67,7 +67,7 @@ WHERE BNO IN(
 
 
 <delete id="delete_all" parameterType="java.util.ArrayList">
-DELETE FROM NOTE WHERE ((R_DELETE_CHK = 0 AND R_DELETE_CHK = 0) OR (s_id IS NULL AND r_id IS NULL))
+DELETE FROM NOTE WHERE ((R_DELETE_CHK = 0 AND S_DELETE_CHK = 0) OR (S_ID IS NULL AND R_ID IS NULL))
 AND BNO IN(
 	<foreach collection="array" item="item" index="index" separator=",">
        #{item}
@@ -87,7 +87,7 @@ WHERE BNO = #{bno}
 </update>
 
 <delete id="delete_detail" parameterType="int">
-DELETE FROM NOTE WHERE ((R_DELETE_CHK = 0 AND R_DELETE_CHK = 0) OR (s_id IS NULL AND r_id IS NULL))
+DELETE FROM NOTE WHERE ((R_DELETE_CHK = 0 AND S_DELETE_CHK = 0) OR (S_ID IS NULL AND R_ID IS NULL))
 AND BNO = #{bno}
 </delete>
 

@@ -20,7 +20,7 @@ public class JobDAOImpl implements JobDAO{
 	
 	// 게시물 작성
 	@Override
-	public void write_boss(JobVO vo) throws Exception {
+	public void job_insert(JobVO vo) throws Exception {
 		sqlSession.insert("jobMapper.insert", vo);
 	}
 
@@ -39,62 +39,71 @@ public class JobDAOImpl implements JobDAO{
 
 	// 알바 게시물 상세 보기
 	@Override
-	public JobVO job_view(int j_bno) throws Exception {
+	public JobVO job_read(int j_bno) throws Exception {
 		return sqlSession.selectOne("jobMapper.read", j_bno);
 	}
 
 	// 알바 게시물 수정
 	@Override
-	public void update_boss(JobVO vo) throws Exception {
+	public void job_update(JobVO vo) throws Exception {
 		sqlSession.update("jobMapper.update", vo);
 	}
 
 	// 알바 게시물 삭제
 	@Override
-	public void delete_boss(int j_bno) throws Exception {
+	public void job_delete(int j_bno) throws Exception {
 		sqlSession.delete("jobMapper.delete", j_bno);
 	}
 
-	// 사장이 쓴 알바 구인 게시글 목록
-	@Override
-	public List<JobVO> my_jobList(Map map) throws Exception {
-		return sqlSession.selectList("jobMapper.m_listPage",map );
-	}
-
-	// 사장이 쓴 알바 구인 게시글 목록 개수
-	@Override
-	public int my_jobListCount(JobCriteria cri) throws Exception {
-		return sqlSession.selectOne("jobMapper.m_listCount", cri);
-	}
 
 	// 찜했는지 안했는지 체크
 	@Override
-	public int heartCheck(Map<String, String> check) throws Exception {
+	public int job_heartCheck(Map<String, String> check) throws Exception {
 		return sqlSession.selectOne("jHeartMapper.heartCheck", check);
 	}
 
 	// 찜 체크하기
 	@Override
-	public void addHeart(Map<String, String> param) throws Exception {
+	public void job_addHeart(Map<String, String> param) throws Exception {
 		sqlSession.insert("jHeartMapper.addHeart", param);
 	}
 
 	// 찜 개수 늘리기 +1
 	@Override
-	public void upHeart(int j_bno) throws Exception {
+	public void job_upHeart(int j_bno) throws Exception {
 		sqlSession.update("jobMapper.upHeart", j_bno);
 	}
 
 	// 찜 해제하기
 	@Override
-	public void subHeart(Map<String, String> param) throws Exception {
+	public void job_subHeart(Map<String, String> param) throws Exception {
 		sqlSession.delete("jHeartMapper.subHeart", param);
 	}
 
 	// 찜 개수 줄이기 -1
 	@Override
-	public void downHeart(int j_bno) throws Exception {
+	public void job_downHeart(int j_bno) throws Exception {
 		sqlSession.update("jobMapper.downHeart", j_bno);
+	}
+
+	
+	//////////알바 마이페이지 관련
+	// 사장이 쓴 알바 구인 게시글 목록
+	@Override
+	public List<JobVO> my_jobList(Map map) throws Exception {
+		return sqlSession.selectList("jobMapper.mj_listPage",map );
+	}
+
+	// 사장이 쓴 알바 구인 게시글 목록 개수
+	@Override
+	public int my_jobListCount(String id) throws Exception {
+		return sqlSession.selectOne("jobMapper.mj_listCount", id);
+	}
+	
+	// 알바마이페이지에서 게시물 삭제
+	@Override
+	public void my_jobDelete(int[] delete_array) throws Exception{
+		sqlSession.delete("jobMapper.mj_delete", delete_array);
 	}
 
 }

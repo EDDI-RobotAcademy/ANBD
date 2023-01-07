@@ -63,25 +63,26 @@
 </style>
 <script type="text/javascript">
    $(document).ready(function () {
-      $('.search_who').click(function () {
+     
+	  // 보낸 쪽지함, 받은 쪽지함
+	  $('.search_who').click(function () {
          location.href = "note_list" + '${pageMaker.makeQuery(1)}' + 
          '&who=' + $("input[name=who]:checked").val(); 
       });
       
-      
       // 삭제 전체 선택, 해제
       $('#delete_all').on("click", function () {
          if($("#delete_all").is(":checked")){
-            $("input[name=deletes]").prop("checked", true);
+            $("input[name=delete]").prop("checked", true);
          }else{
-            $("input[name=deletes]").prop("checked", false);
+            $("input[name=delete]").prop("checked", false);
          }
       });
       
       //삭제 버튼 눌렀을 때. ajax 처리
-      $('button[name=delete]').on("click", function () {
+      $('button[name=delete_btn]').on("click", function () {
          
-         if($("input:checkbox[name=deletes]").is(":checked") == false) {
+         if($("input:checkbox[name=delete]").is(":checked") == false) {
             alert("선택된 쪽지가 없습니다.");
             return;
          }
@@ -90,7 +91,7 @@
          if(confirm("삭제하시겠습니까?")){
             // 배열로 선언
             var delete_array = new Array(); //bno를 담음
-            $('input[name=deletes]:checked').each(function (i) {
+            $('input[name=delete]:checked').each(function (i) {
                delete_array.push($(this).val());
                //alert($(this).val());
             });
@@ -116,7 +117,10 @@
                  success: function(data){
                      alert("삭제했습니다.");
                      window.location.reload();
-                 }
+                 },
+                 error : function(request, status, error) {
+					 alert("삭제 실패:" + error);
+				 }
               });
          
          }else{
@@ -157,6 +161,9 @@
                    alert("쪽지 전송 완료");
                    window.location.reload();
                },
+               error : function(request, status, error) {
+				   alert("쪽지 전송 실패:" + error);
+			   }
            });
            
            $("#noteModal").modal("hide");
@@ -208,14 +215,16 @@
             <table class="n_list">
             <tr>
             	<td colspan="4">
-            	<button type="button" name="delete" class="n_btn2">
+            	<button type="button" name="delete_btn" class="n_btn2">
             	삭제</button>
+            	<c:if test="${who eq 'receive'}">
             	&nbsp;읽지 않은 메시지 ${no_read }
+            	</c:if>
             	</td>
             </tr>
             <tr>
                <td width="50px;" style="text-align: center">
-                  <input type="checkbox" name="deletes" value="0" id="delete_all">
+                  <input type="checkbox" name="delete" value="0" id="delete_all">
                </td>
                <c:choose>
                <c:when test="${who eq 'receive'}">
@@ -237,7 +246,7 @@
             <c:when test="${who eq 'receive' && n_list.r_delete_chk eq 1}">
             <tr onmouseover="this.style.backgroundColor = '#f9f9f9'" onmouseout="this.style.backgroundColor = ''">
                <td style="text-align: center">
-                  <input type="checkbox" name="deletes" class="delete" value="${n_list.bno}">
+                  <input type="checkbox" name="delete" class="delete" value="${n_list.bno}">
                </td>
                <td>
                   <c:if test="${not empty n_list.s_id}">${n_list.s_id }</c:if>
@@ -264,7 +273,7 @@
             <c:when test="${who eq 'send' && n_list.s_delete_chk eq 1}">
                <tr onmouseover="this.style.backgroundColor = '#e5e5e5'" onmouseout="this.style.backgroundColor = ''">
                <td style="text-align: center">
-                  <input type="checkbox" name="deletes" class="delete" value="${n_list.bno}">
+                  <input type="checkbox" name="delete" class="delete" value="${n_list.bno}">
                </td>
                <td>
                   <c:if test="${not empty n_list.r_id}">${n_list.r_id }</c:if>

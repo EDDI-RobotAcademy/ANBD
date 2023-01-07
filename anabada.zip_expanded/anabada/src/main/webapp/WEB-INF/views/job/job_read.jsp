@@ -2,6 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<% pageContext.setAttribute("replaceChar", "\n"); %>
 
 <!DOCTYPE html>
 <html>
@@ -15,10 +17,11 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function () {
+
 		var readForm = $("form[name='readForm']");
 		
 		$("#update").on("click", function () { // 수정 버튼 눌렀을 때
-			readForm.attr("action", "/job/updateView_boss"); // 수정 컨트롤러로 돌아감
+			readForm.attr("action", "/job/job_update"); // 수정 컨트롤러로 돌아감
 			readForm.attr("method", "get");
 			readForm.submit();
 		});
@@ -27,7 +30,7 @@
 			if (!confirm("삭제하시겠습니까?")) {
 		        return false;
 		    } else {
-				readForm.attr("action", "/job/delete_boss"); // 삭제 컨트롤러로
+				readForm.attr("action", "/job/job_delete"); // 삭제 컨트롤러로
 				readForm.attr("method", "post"); // 여기서는 페이징처리 필요없으니까 post
 				readForm.submit();
 		    }
@@ -41,7 +44,7 @@
 		
 		// 알바 지원하기 컨트롤러로 이동
 		$("#putIn").on("click", function () { 
-			location.href= "/putIn/putIn_job" + 
+			location.href= "/putIn/putIn_insert" + 
 				'?page=' + '${scri.page }' +
 				'&perPageNum=' + '${scri.perPageNum }' +
 				'&j_bno=' + '${j_read.j_bno}' + // putin_job.jsp에서 j_bno이름으로 값 받음
@@ -177,20 +180,15 @@
 					data : params,
 					dataType : "json",
 					contetnType : "application/json",
-
 					success : function(res) {
-
 						//res.getEncoding('utf-8');
 						//var list = JSON.parse(res);
-
 						const element = document.getElementById('heartCh');
 						element.innerText = res.hnum;
 
 					},
 					error : function(request, status, error) {
-
 						alert("error:" + error);
-
 					}
 
 				});
@@ -209,23 +207,19 @@
 					data : params,
 					dataType : "json",
 					contetnType : "application/json",
-
 					success : function(res) {
-
 						const element = document.getElementById('heartCh');
 						element.innerText = res.hnum;
-
 					},
 					error : function(XMLRequest, textStatus, errorThrown) {
-
 						alert("error:" + error);
-
 					}
 
 				});
 
 			}
 		}); // 하트 이벤트 끝
+		
 		 
 	});
 
@@ -298,7 +292,8 @@
 			</td>
 			<td>
 				<label class="rach">
-					<input type="checkbox" id="heart" name="j_heart" value="${j_read.j_heart }" /> 					<c:choose>
+					<input type="checkbox" id="heart" name="j_heart" value="${j_read.j_heart }" /> 					
+					<c:choose>
 					<c:when test="${heart == 0 }">
 						<img class="himg" style="width: 60px; height: 60px;" src="../../resources/images/heartA.png">
 					</c:when>
@@ -313,7 +308,7 @@
 				<div style="inline-block" id="heartCh">${j_read.j_heart }</div>
 			</td>
 		</tr>
-		
+
 		<tr>
 			<td colspan="6">${j_read.j_company }</td>
 		</tr>
@@ -348,13 +343,19 @@
 			<td>${j_read.j_start }:00 ~ ${j_read.j_end }:00</td>
 		</tr>
 		
+		<!-- 내용 있을 때만 출력 -->
+		<c:if test="${j_read.j_content ne null}">
 		<tr>
-			<td colspan="6">${j_read.j_content }</td>
+			<td colspan="6">
+			${fn:replace(j_read.j_content, replaceChar, "<br/>")}
+			</td>
 		</tr>
+		</c:if>
 		
 		<tr>
 			<td colspan="6">
 				<div id="addr">${j_read.j_addr1 } ${j_read.j_addr2 }</div>
+				<br>
 				<div id="map" style="width:100%;height:200px; margin: auto"></div>
 			
 			<!-- 해당 주소에 해당하는 지도 띄우기 -->	

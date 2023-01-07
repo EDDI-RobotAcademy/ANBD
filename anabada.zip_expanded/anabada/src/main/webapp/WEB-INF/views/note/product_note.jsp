@@ -80,6 +80,7 @@
 	
 	   // 사람 선택하면 색깔 바뀌는 코드
 	   $('input[name=r_id]').change(function(){
+		   
 		   $('.m_label').css('background-color', '#fff');
 		   
 		   if($(this).is(':checked')){
@@ -185,7 +186,7 @@
 								<tr>
 									<td colspan="2">
 										<label class="m_label">
-											<input type="radio" name="r_id" class="r_id" value="">
+											<input type="radio" name="r_id" class="r_id" value="money">
 											해당 사항 없음
 										</label>
 									</td>

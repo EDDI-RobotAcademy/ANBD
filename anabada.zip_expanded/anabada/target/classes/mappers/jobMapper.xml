@@ -106,22 +106,6 @@ WHERE J_BNO = #{j_bno}
 DELETE FROM JOB_BOARD WHERE J_BNO = #{j_bno}
 </delete>
 
-<!-- 마이페이지 -->
-<select id="m_listPage" resultType="JobVO" parameterType="com.anabada.web.vo.JobCriteria">
-SELECT ID, J_BNO, J_TITLE, J_COMPANY, J_ADDR1, J_CATE, J_METHOD, J_PAY, J_TERM, J_DAY, J_START, J_END, J_HEART, J_IMG, J_DATE
-FROM(SELECT ID, J_BNO, J_TITLE, J_COMPANY, J_ADDR1, J_CATE, J_METHOD, J_PAY, J_TERM, J_DAY, J_START, J_END, J_HEART, J_IMG, J_DATE, 
-	ROW_NUMBER() OVER(ORDER BY J_BNO DESC) AS RNUM
-	FROM JOB_BOARD) JOB
-WHERE (RNUM BETWEEN #{rowStart} AND #{rowEnd}) AND ID = #{id}
-ORDER BY J_BNO DESC
-</select>
-
-<!-- 마이페이지 -->
-<select id="m_listCount" parameterType="com.anabada.web.vo.JobCriteria" resultType="int">
-SELECT COUNT(ID) FROM JOB_BOARD
-</select>
-
-
 <!-- 하트 +1 -->
 <update id="upHeart" parameterType="int" >
 UPDATE JOB_BOARD SET J_HEART = J_HEART+1 WHERE J_BNO = #{j_bno}
@@ -130,6 +114,31 @@ UPDATE JOB_BOARD SET J_HEART = J_HEART+1 WHERE J_BNO = #{j_bno}
 <update id="downHeart" parameterType="int" >
 UPDATE JOB_BOARD SET J_HEART = J_HEART-1 WHERE J_BNO = #{j_bno}
 </update>
+
+
+
+<!-- 마이페이지 관련 나중에 뺴기 -->
+<select id="mj_listPage" resultType="JobVO" parameterType="com.anabada.web.vo.JobCriteria">
+SELECT ID, J_BNO, J_TITLE, J_COMPANY, J_ADDR1, J_CATE, J_METHOD, J_PAY, J_TERM, J_DAY, J_START, J_END, J_HEART, J_IMG, J_DATE
+FROM(SELECT ID, J_BNO, J_TITLE, J_COMPANY, J_ADDR1, J_CATE, J_METHOD, J_PAY, J_TERM, J_DAY, J_START, J_END, J_HEART, J_IMG, J_DATE, 
+	ROW_NUMBER() OVER(ORDER BY J_BNO DESC) AS RNUM
+	FROM JOB_BOARD) JOB
+WHERE (RNUM BETWEEN #{rowStart2} AND #{rowEnd2}) AND ID = #{id}
+ORDER BY J_BNO DESC
+</select>
+
+<select id="mj_listCount" parameterType="com.anabada.web.vo.JobCriteria" resultType="int">
+SELECT COUNT(J_BNO) FROM JOB_BOARD WHERE ID = #{id}
+</select>
+
+
+<delete id="mj_delete" parameterType="java.util.ArrayList">
+DELETE FROM JOB_BOARD WHERE J_BNO IN(
+	<foreach collection="array" item="item" index="index" separator=",">
+       #{item}
+    </foreach>
+)
+</delete>
 
 
 </mapper>

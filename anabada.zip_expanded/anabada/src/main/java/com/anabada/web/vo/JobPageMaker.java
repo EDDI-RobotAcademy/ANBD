@@ -63,6 +63,19 @@ public class JobPageMaker{
 		this.cri = cri;
 	}
 	
+	/////////알바 마이페이지 과련
+	//마이페이지 관련
+	private int totalCount2; 
+		
+	public int getTotalCount2() {
+		return totalCount2;
+	}
+	public void setTotalCount2(int totalCount2) {
+		this.totalCount2 = totalCount2;
+		calData2();
+	}
+	/////////알바 마이페이지 관련
+	
 	// setTotlaCount 메소드 실행하면 calData()가 실행돼서 endPage, startPage, prev, next에 값이 삽입된다.
 	private void calData() { // 페이지 데이터 처리
 		// 1~10페이지는 endPage가 [10]으로 고정되고 11~20페이지는 endPage가 [20]으로 고정되는 방식
@@ -84,6 +97,22 @@ public class JobPageMaker{
 		// 마지막 페이지가 [54]일때, 54*10=540 >= 536(게시글총갯수)
 	}
 	
+	/////////알바 마이페지 관련
+	private void calData2() {
+		endPage = (int)(Math.ceil(cri.getPage() / (double)displayPageNum) * displayPageNum);
+		startPage = (endPage - displayPageNum) + 1; 
+			
+		int tempEndPage = (int)(Math.ceil(totalCount2 / (double)cri.getPerPageNum2()));
+		if(endPage > tempEndPage) {
+			endPage = tempEndPage;
+		}
+			
+		prev = startPage == 1 ? false : true;
+		next = endPage * cri.getPerPageNum2() >= totalCount2 ? false : true;
+	}
+	//////////알바 마이페이지 관련
+	
+	
 	public String makeQuery(int page) { // list.jsp에서 [검색] 버튼 눌렀을 때 실행되는 메소드
 		// 원하는 페이지로 페이지 쿼리문을 날려준다.
 		UriComponents uriComponents = 
@@ -96,7 +125,7 @@ public class JobPageMaker{
 		return uriComponents.toUriString();
 	}
 	
-	public String makeSearch(int page) { // list.jsp에서 페이지 숫자 눌렀을 때 실행되는 메소드
+	public String makeSearch(int page) { // list.jsp에서 페이지 숫자 눌렀을 때 실행되는 메소드(검색있을때)
 		UriComponents uriComponents = 
 				UriComponentsBuilder.newInstance()
 				.queryParam("page", page)
@@ -112,17 +141,19 @@ public class JobPageMaker{
 		// 코드상에서 직접 문자열을 조합할 때 생기는 실수를 방지할 수 있다.
 	}
 	
-	public String makeSearch2(int page) { // list.jsp에서 페이지 숫자 눌렀을 때 실행되는 메소드
+	///////마이페이지 알바 관련
+	public String makeSearch2(int page) {
 		UriComponents uriComponents = 
 				UriComponentsBuilder.newInstance()
 				.queryParam("page", page)
-				.queryParam("perPageNum", cri.getPerPageNum())
+				.queryParam("perPageNum2", cri.getPerPageNum2())
 				.build();
 		
 		return uriComponents.toUriString();
 		// UriComponents: URI를 동적으로 생성해주는 클래스다. 파라미터가 조합된 URI를 손쉽게 만들어 주어서
 		// 코드상에서 직접 문자열을 조합할 때 생기는 실수를 방지할 수 있다.
 	}
+	///////마이페이지 알바 관련
 	
 	
 	private String encoding(String keyword) {

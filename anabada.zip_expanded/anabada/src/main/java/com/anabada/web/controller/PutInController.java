@@ -35,19 +35,19 @@ public class PutInController {
 	JobService jobService;
 	
 	// 알바구인 게시물보고 지원하기 눌렀을 때 실행
-	@RequestMapping(value = "/putIn_job", method = RequestMethod.GET)
+	@RequestMapping(value = "/putIn_insert", method = RequestMethod.GET)
 	public String putIn_job(@ModelAttribute JobVO vo, @ModelAttribute("scri") JobSearchCriteria scri, HttpServletRequest req, Model model) throws Exception{
 		
 		logger.info("지원하기 눌렀음");
-		model.addAttribute("j_read", jobService.job_view(vo.getJ_bno()));
+		model.addAttribute("j_read", jobService.job_read(vo.getJ_bno()));
 		model.addAttribute("scri", scri);
 		
-		return "/putIn/putIn_job";
+		return "/putIn/putIn_insert";
 		
 	}
 		
 	// 알바지원페이지 작성하고 지원하기 눌렀을 때 실행
-	@RequestMapping(value = "/putIn_done", method = RequestMethod.GET)
+	@RequestMapping(value = "/putIn_insert", method = RequestMethod.POST)
 	public String putIn_done(@ModelAttribute PutInVO vo, @ModelAttribute("scri") JobSearchCriteria scri, Model model) throws Exception{
 		
 		logger.info("지원서 다 썼음!");
@@ -85,7 +85,7 @@ public class PutInController {
 		model.addAttribute("j_title",putInService.job_title(putVO.getJ_bno())); 
 		model.addAttribute("p_list", putInService.putIn_list(map));
 		model.addAttribute("j_bno", putVO.getJ_bno()); // 페이지 유지하기 위해
-		model.addAttribute("j_read", jobService.job_view(jobVO.getJ_bno()));
+		model.addAttribute("j_read", jobService.job_read(jobVO.getJ_bno()));
 		
 		pageMaker.setTotalCount(putInService.putIn_listCount()); // 게시글 총 개수 받아서 페이징 처리함
 		System.out.println("총개수: " + putInService.putIn_listCount());

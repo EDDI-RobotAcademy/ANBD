@@ -52,7 +52,10 @@
 							'&perPageNum=' + '${scri.perPageNum }' +
 							'&who=' + '${scri.who}';
 				            
-				        }
+				        },
+				        error : function(request, status, error) {
+							alert("삭제 실패:" + error);
+						}
 				  });
 			}else{
 				return;
@@ -110,6 +113,9 @@
 	                alert("쪽지 전송 완료");
 	                alert($("#pno").val());
 	            },
+	            error : function(request, status, error) {
+					alert("쪽지 전송 실패:" + error);
+				}
 	        });
 	        
 	        $("#noteModal").modal("hide");
@@ -143,6 +149,9 @@
 	                	$('#reviewModal').modal("show"); 
 	                }
 	            },
+	            error : function(request, status, error) {
+					alert("오류:" + error);
+				}
 	        });
 			
 		});
@@ -165,6 +174,9 @@
 	                alert("후기 작성 완료");
 	                window.location.reload();
 	            },
+	            error : function(request, status, error) {
+					alert("후기 작성 실패:" + error);
+				}
 	        });
 	        
 	        $("#reviewModal").modal("hide");
@@ -447,7 +459,7 @@
                             	<tr>
 	                            	<td style="text-align: center; padding: 10px;">
 	                            		<label>
-	                            			<input type="radio" name="r_score" value="0.2">별로예요.
+	                            			<input type="radio" name="r_score" value="-0.2">별로예요.
 	                            		</label>
 	                            		&nbsp;&nbsp;&nbsp;
 	                            		<label>

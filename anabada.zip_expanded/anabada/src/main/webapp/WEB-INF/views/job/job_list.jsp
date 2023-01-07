@@ -148,9 +148,9 @@
    
    <!-- 콘텐츠부분 -->
    <section class="section" style="border-top: 1px solid #e5e5e5">
-   <form name="job_board" method="get">
+   <form name="jobForm" method="get">
       
-      <input type="button" class="j_btn1" id="write" value="알바 구인 공고 작성하기" style="float: right;">
+      <input type="button" class="j_btn1" id="job_insert" value="알바 구인 공고 작성하기" style="float: right;">
       <br><br>
       
       <table class="search">
@@ -288,7 +288,7 @@
           <ul class="boxes">
              <c:forEach var="j_list" items="${j_list}">
                  <li>
-                   <a href="/job/job_readView?j_bno=${j_list.j_bno }&page=${scri.page }&perPageNum=${scri.perPageNum }&j_addr1=${scri.j_addr1 }&j_term=${scri.j_term }&j_day=${scri.j_day}&j_cate=${scri.j_cate}">
+                   <a href="/job/job_read?j_bno=${j_list.j_bno }&page=${scri.page }&perPageNum=${scri.perPageNum }&j_addr1=${scri.j_addr1 }&j_term=${scri.j_term }&j_day=${scri.j_day}&j_cate=${scri.j_cate}">
                     <!-- a태그 누르면  -->   
                        <div class="details">
                           <c:choose>
@@ -404,8 +404,8 @@
       
    });
    
-   $("#write").click(function () {
-      location.href = "writeView_boss";
+   $("#job_insert").click(function () {
+      location.href = "job_insert";
    })
    
    
@@ -457,11 +457,11 @@
 	        var j_img = realitem[i].j_img;
 	        
 	        if(j_img != null || j_img != ""){
-		        var li = "<li><a href='/job/job_readView?j_bno="+j_bno+"'><img width='100' height='100' src='/upload/"+j_img+"'/>"
+		        var li = "<li><a href='/job/job_read?j_bno="+j_bno+"'><img width='100' height='100' src='/upload/"+j_img+"'/>"
 		        	+ "<br><font>" +j_bno + j_title+ "</font>" + "</a></li>";
 	        }
 	        if(j_img == null || j_img == ""){
-	        	var li = "<li><a href='/job/job_readView?j_bno="+j_bno+"'><img width='100' height='100' src='../resources/images/아나바다2.png'/>"
+	        	var li = "<li><a href='/job/job_read?j_bno="+j_bno+"'><img width='100' height='100' src='../resources/images/아나바다2.png'/>"
 		        	+ "<br><font>" +j_bno + j_title+ "</font>" + "</a></li>";
 	        }
 	 
@@ -477,7 +477,7 @@
 		obj.animate({ scrollTop:obj.scrollTop() + ih }, 100);
     });
 	
-	// 이거 젤 마지막에 둬야 함
+	// 이거 젤 마지막에 둬야지 정상적으로 실행됨
 	get_recent_item();
 
    

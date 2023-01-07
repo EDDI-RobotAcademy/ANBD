@@ -227,7 +227,7 @@
     
 	<!-- 수정하고 나서 리스트 맨 첨 화면으로 돌아감. 페이징 없이 -->
 	<section class="container">
-	<form name="update_boss" action="/job/update_boss" method="post" enctype="multipart/form-data">
+	<form name="job_update" action="/job/job_update" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="j_bno" value="${j_update.j_bno }">
 		
 		<!-- 수정해도 등록날짜는 안바뀌도록 했음 -->
