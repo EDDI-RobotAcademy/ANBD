@@ -120,6 +120,7 @@ ul {
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 	$(function() {
+		alert("${id}");
 
 		// 검색어 입력하고 검색 눌렀을떄 
 		$('.searchBtn').on(

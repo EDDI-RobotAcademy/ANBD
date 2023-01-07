@@ -31,7 +31,6 @@
 .rach input[type='checkbox'] {
 	display: none;
 }
-
 .rach input[type='checkbox']+span {
 	display: inline-block;
 	padding: 5px 5px;
@@ -42,13 +41,11 @@
 	cursor: pointer;
 	color: #E55555;
 }
-
 .rach input[type='checkbox']:checked+span {
 	background-color: #FD7D7D;
 	color: white;
 	border-radius: 10px;
 }
-
 .slick-arrow {
 	z-index: 2; /* prev버튼은 위치 이동시 이미지 뒤로 숨겨짐 */
 	position: absolute; /* 원하는 위치에 지정  */
@@ -57,26 +54,21 @@
 	height: 50px;
 	transform: translateY(-25px);
 }
-
 .slick-prev.slick-arrow { /* prev 이전 */
 	position: absolute;
 	left: 0px;
 }
-
 .slick-next.slick-arrow { /* next 다음 */
 	right: 10px;
 }
-
 /* 아래점 */
 .slick-dots {
 	text-align: center;
 }
-
 .slick-dots li {
 	display: inline-block;
 	margin: 0 5px;
 }
-
 #textbox {
 	
 	width: 490px;
@@ -87,7 +79,6 @@
 	padding: 17px;
 	
 }
-
 #re {
 	text-align: center;
 	font-weight: bold;
@@ -98,7 +89,6 @@
 	height: 30px;
 	border-bottom: 2px;
 }
-
 .box {
 	display: inline;
 	border-radius: 7px;
@@ -120,9 +110,7 @@ padding: 5px;
 	border-top-left-radius: 7px;
 	border-top-right-radius: 7px;
 	width: 100px;
-
 }
-
 #userBK{
 	width: 100px;
 	display: inline-block;
@@ -134,53 +122,41 @@ padding: 5px;
 	color: white;
 	margin-right: 10px;
 	letter-spacing: 2px;
-
-
-
 }
-
 #btndiv {
 	float: right;
 	margin-bottom: 30px;
 }
-
 #book option, #book {
 	text-align: center;
 	font-weight: bold;
 	color: #3D3D3D;
 	font-size: 17px;
 }
-
 /*레이아웃 */
 #wapper {
 	width: 1200px;
 	margin: auto;
 	height: auto;
 }
-
 .nav, .aside, .section {
 	margin: 3px; /*간격*/
 }
-
 .nav, .section, .aside {
 	float: left;
 }
-
 .nav {
 	width: 70px;
 }
-
 .section {
 	/* background-color: #f9f9f9;    */
 	width: 1000px;
 	border: 0px;
 	border-collapse: collapse;
 }
-
 .aside {
 	
 }
-
 .sideBanner {
 	width: 120px;
 	position: absolute;
@@ -192,19 +168,16 @@ padding: 5px;
 	margin-left: 10px;
 	margin-top: 10px;
 }
-
 .recent_list {
 	height: 405px;
 	overflow: hidden;
 }
-
 /*최근 본 알바 ul*/
 #recentItemList {
 	list-style: none;
 	float: left;
 	text-align: center;
 }
-
 #recentItemList li {
 	height: 130px;
 	display: inline-block;
@@ -215,16 +188,12 @@ ul {
     list-style: none;
     margin:0px; padding:0px;
 }
-
-
 #reviewBox{
 margin-top: 70px;
 }
 #reviewBox td{
  width: 510px;
-
 }
-
 	#select_table{
 		width: 100%;
 	}
@@ -249,11 +218,7 @@ margin-top: 70px;
         height: 110px;
         border-radius: 10px;
     }
-
-
 /*끝 */
-
-
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -261,31 +226,25 @@ margin-top: 70px;
 		var floatPosition = parseInt($(".sideBanner").css('top')); //100
 		var floatHei = parseInt($(".sideBanner").outerHeight()); // 플로팅 배너 길이 450
 		var footerTop = $('#footer').outerHeight(); // footer가 위치한 높이 
-
 		// scroll 인식
 		$(window).scroll(function() {
-
 			// 현재 스크롤 위치
 			var currentTop = $(window).scrollTop();
 			var bannerTop = currentTop + floatPosition + "px";
 			var val = $(document).height() - footerTop;
 			var hei = currentTop + floatPosition + floatHei;
-
 			//이동 애니메이션
 			if (hei < footerTop) {
 				$(".sideBanner").stop().animate({
 					"top" : bannerTop
 				}, 500);
-
 			}
-
 		}).scroll();
 		
 		
 		
 		
 		
-
 		// 최근 본 목록 구현 - sessionStroage
 		function recent_item(){
 		    //세션에서 최초로 데이터 꺼내오기
@@ -398,7 +357,6 @@ margin-top: 70px;
 		
 		
 		
-
 		//목록으로 가기 버튼
 		$("#listbtn").on("click", function() {
 			location.href = "/product/list";
@@ -414,23 +372,18 @@ margin-top: 70px;
 				return false;
 			}
 			
-
 		
-
 		})
-
 		//삭제하기 버튼 
 		$("#delbtn").on("click", function() {
 			if (confirm("게시글을 삭제하시겠습니까?   삭제한 게시글은 복구 할 수 없습니다.")) {
 				formObj.attr("action", "/product/delete");
 				formObj.attr("method", "post");
 				formObj.submit();
-
 			} else {
 				return false;
 			}
 		})
-
 		//슬라이드쇼 구현 
 		$("#slick").slick({
 			infinite : true, /* 맨끝이미지에서 끝나지 않고 다시 맨앞으로 이동 */
@@ -457,78 +410,54 @@ margin-top: 70px;
 			/*  사이즈에 적용될 설정 */
 			} ]
 		});
-
 		//찜버튼 이벤트 
 		$("#heart").on("click", function() {
-
 			if ($(this).prop('checked')) {
 				$(".himg").attr("src", "../../resources/images/heartB.png");
-
 				var params = {
 					pno : "${read.pno}",
 					id : "${id}"
 				}
-
 				$.ajax({
-
 					type : "POST",
 					url : "/product/addHeart",
 					data : params,
 					dataType : "json",
 					contetnType : "application/json",
-
 					success : function(res) {
-
 						//res.getEncoding('utf-8');
 						//var list = JSON.parse(res);
-
 						const element = document.getElementById('heartCh');
 						element.innerText = res.hnum;
-
 					},
 					error : function(request, status, error) {
-
 						alert("error:" + error);
-
 					}
-
 				});
 			} else {
 				$(".himg").attr("src", "../../resources/images/heartA.png");
-
 				var params = {
 					pno : "${read.pno}",
 					id : "${id}"
 				}
-
 				$.ajax({
-
 					type : "POST",
 					url : "/product/subHeart",
 					data : params,
 					dataType : "json",
 					contetnType : "application/json",
-
 					success : function(res) {
-
 						const element = document.getElementById('heartCh');
 						element.innerText = res.hnum;
-
 					},
 					error : function(XMLRequest, textStatus, errorThrown) {
-
 						alert("error:" + error);
-
 					}
-
 				});
-
 			}
 		}); // 하트 이벤트 끝
-
 		//사용자가 상품 판매 상태 변경시 
 		$("#book").on("change", function() {
-
 			var book = document.getElementById('book');
 			var str = $("#book option:selected").val(); // 선택된 값
 			
@@ -537,7 +466,6 @@ margin-top: 70px;
 				$('#selectModal').modal("show");
 			}
 			
-
 			// 모달창 띄우는 쿼리 
 			//모달창에서 id 선택  var dd + ''
 			var params = {
@@ -545,27 +473,19 @@ margin-top: 70px;
 				p_buy : str
 				// 변수 전달 구매자 아이디 
 			}
-
 			$.ajax({
 				type : "POST",
 				url : "/product/change",
 				data : params,
 				dataType : "json",
 				contetnType : "application/json",
-
 				success : function(res) {
-
 				},
 				error : function(request, status, error) {
-
 					alert("error:" + error);
-
 				}
-
 			});
-
 		}); //상품 상태 변경 끝 
-
 		bookCh();
 		
 		
@@ -640,19 +560,13 @@ margin-top: 70px;
 		
 		
 		
-
 	});
-
 	//User가 제품 판매 상태 보기 
 	function bookCh() {
-
 		var p_buy = "${read.p_buy}";
 		const element = document.getElementById("userBK");
-
 		if (p_buy == 'ing') {
-
 			element.innerText = '판매중';
-
 		} else if (p_buy == 'book') {
 			element.innerText = '예약중';
 		} else {
@@ -909,7 +823,52 @@ margin-top: 70px;
 		<!-- 상품 상세 설명  및 구매자 후기 -->	
 		<table id="reviewBox"  >
 		<tr> <td> <div class="reBox" >상 품 상 태</div> </td>  <td> <div class="reBox" > 상점 후기 </div> </td>  </tr>
-		<tr> <td> <div id="textbox" > ${read.p_content } </div> </td>  <td> <div id="textbox" ></div> </td>   </tr>
+		<tr> <td> <div id="textbox" > ${read.p_content } </div> </td>  
+		
+		
+		
+		<td> 
+		<div id="textbox" >
+		
+		<!-- 상점 후기  -->
+		<table>
+		<c:forEach items="${reviewList }"  var="review" >
+		<tr>  <td> ${review.r_consumer}</td>  <td> ${review.r_score} </td> <td> ${review.r_date} </td></tr>
+		<tr>
+		 <td colspan="3" > ${review.r_content } </td>
+		  </tr>
+		
+		
+		</c:forEach>
+		
+		<!-- 후기 게시판 페이지 네이션 -->
+		
+		
+		<!-- 페이지 네이션 끝 -->
+			
+		
+		
+		
+		
+		</table>
+		
+		
+		<!-- 후기 끝 -->
+		
+
+		
+		
+		
+		
+		</div> 
+		</td>   
+		
+		
+		
+		
+		
+		
+		</tr>
 		</table>
 		
 		
