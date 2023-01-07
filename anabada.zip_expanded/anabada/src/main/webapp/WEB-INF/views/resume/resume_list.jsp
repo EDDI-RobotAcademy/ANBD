@@ -68,37 +68,40 @@
 			</tr>
 			
 			<tr>
-				<th>이름</th><th>나이</th><th>성별</th><th>전화번호</th><th colspan="2">경력</th>
+				<th>이름</th><th>나이</th><th>성별</th><th>전화번호</th><th colspan="2">경력</th><th>지원날짜</th>
 			</tr>
 			
-			<c:if test="${not empty p_list}">
-			<c:forEach items="${p_list}" var="p_list">
+			<c:if test="${not empty r_list}">
+			<c:forEach items="${r_list}" var="r_list">
 			<tr>
-				<td>${p_list.p_name }</td>
-				<td>${p_list.p_age }</td>
-				<td>${p_list.p_gender }</td>
-				<td>${p_list.p_tel }</td>
+				<td>${r_list.r_name }</td>
+				<td>${r_list.r_age }</td>
+				<td>${r_list.r_gender }</td>
+				<td>${r_list.r_tel }</td>
 				<td>
-					<c:if test="${not empty p_list.p_company1 }">
-					${p_list.p_company1 }<br>
+					<c:if test="${not empty r_list.r_company1 }">
+					${r_list.r_company1 }<br>
 					</c:if>
-					<c:if test="${not empty p_list.p_company2 }">
-					${p_list.p_company2 }<br>
+					<c:if test="${not empty r_list.r_company2 }">
+					${r_list.r_company2 }<br>
 					</c:if>
-					<c:if test="${not empty p_list.p_company3 }">
-					${p_list.p_company3 }
+					<c:if test="${not empty r_list.r_company3 }">
+					${r_list.r_company3 }
 					</c:if>
 				</td>
 				<td>
-					<c:if test="${not empty p_list.p_start1 && not empty p_list.p_end1 }">
-					${p_list.p_start1 } ~ ${p_list.p_end1 }<br>
+					<c:if test="${not empty r_list.r_start1 && not empty r_list.r_end1 }">
+					${r_list.r_start1 } ~ ${r_list.r_end1 }<br>
 					</c:if>
-					<c:if test="${not empty p_list.p_start2 && not empty p_list.p_end2 }">
-					${p_list.p_start2 } ~ ${p_list.p_end2 }<br>
+					<c:if test="${not empty r_list.r_start2 && not empty r_list.r_end2 }">
+					${r_list.r_start2 } ~ ${r_list.r_end2 }<br>
 					</c:if>
-					<c:if test="${not empty p_list.p_start3 && not empty p_list.p_end3 }">
-					${p_list.p_start3 } ~ ${p_list.p_end3 }<br>
+					<c:if test="${not empty r_list.r_start3 && not empty r_list.r_end3 }">
+					${r_list.r_start3 } ~ ${r_list.r_end3 }<br>
 					</c:if>
+				</td>
+				<td>
+					${r_list.r_date }
 				</td>
 			</tr>
 			</c:forEach>	
@@ -107,23 +110,23 @@
 			<tr>
 				<td colspan="6" style="text-align: center">
 					<c:if test="${pageMaker.prev }">
-						<a href="putIn_list${pageMaker.makeSearch(pageMaker.startPage - 1 )}&j_bno=${j_bno}">이전</a>
+						<a href="resume_list${pageMaker.makeSearch(pageMaker.startPage - 1 )}&j_bno=${j_bno}">이전</a>
 						<!-- j_title을 보내줘야지 새로고침하거나 페이지 달라져도 제목 유지됨. 11줄 -->
 					</c:if>									
 					
 					<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
 						<%-- <c:out value="${pageMaker.cri.page == idx ? 'class=info' : '' }"/> --%>
-						&nbsp;<a href="putIn_list${pageMaker.makeSearch(idx)}&j_bno=${j_bno}">${idx }</a>
+						&nbsp;<a href="resume_list${pageMaker.makeSearch(idx)}&j_bno=${j_bno}">${idx }</a>
 					</c:forEach>
 										
 					<c:if test="${pageMaker.next && pageMakerendPage > 0 }">
-						<a href="putIn_list${pageMaker.makeSearch(pageMaker.endPage + 1)}&j_bno=${j_bno}">다음</a>
+						<a href="resume_list${pageMaker.makeSearch(pageMaker.endPage + 1)}&j_bno=${j_bno}">다음</a>
 					</c:if>
 				</td>
 			</tr>
 			</c:if>
 			
-			<c:if test="${empty p_list }">
+			<c:if test="${empty r_list }">
 			<tr>
 				<td colspan="6" style="text-align: center">지원자가 없습니다.
 				<br>

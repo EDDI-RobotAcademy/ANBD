@@ -38,23 +38,28 @@
 		
 		// 경력 지우기
 		$("#reset").on("click", function () {
-			$("#p_company1").val("");			
-			$("#p_company2").val("");			
-			$("#p_company3").val("");			
-			$(".monthpicker").val("");			
+			$("#r_company1").val("");			
+			$("#r_company2").val("");			
+			$("#r_company3").val("");
+			$("#r_start1").val("");
+			$("#r_start2").val("");
+			$("#r_start3").val("");
+			$("#r_end1").val("");
+			$("#r_end2").val("");
+			$("#r_end3").val("");
 		});
 		
 		// submit할 때 체크해야 할 것들
 		$("button[type='submit']").click(function () {
 			
-			var name = $("input[name='p_name']").val();
-			var tel = $("input[name='p_tel']").val();
-			var age = $("input[name='p_age']").val();
-			var gender = $("input[name='p_gender']").is(":checked");
+			var name = $("input[name='r_name']").val();
+			var tel = $("input[name='r_tel']").val();
+			var age = $("input[name='r_age']").val();
+			var gender = $("input[name='r_gender']").is(":checked");
 			
-			var company1 = $("input[id='p_company1']").val();
-			var company2 = $("input[id='p_company2']").val();
-			var company3 = $("input[id='p_company3']").val();
+			var company1 = $("input[id='r_company1']").val();
+			var company2 = $("input[id='r_company2']").val();
+			var company3 = $("input[id='r_company3']").val();
 			
 			// 경력 추가가 화면에 보여지는지
 			var career2 = $("#career2").css("display") == "inline-block";
@@ -68,13 +73,13 @@
 		    var today = year+"-"+(("00"+month.toString()).slice(-2)); // 오늘 날짜(문자)
 		    var n_today = today.replace(/-/gi,''); //오늘 날짜(숫자로 ex)202012)
 			
-		    var n_start1 = $("#p_start1").val().replace(/-/gi, '');
-		    var n_start2 = $("#p_start2").val().replace(/-/gi, '');
-		    var n_start3 = $("#p_start3").val().replace(/-/gi, '');
+		    var n_start1 = $("#r_start1").val().replace(/-/gi, '');
+		    var n_start2 = $("#r_start2").val().replace(/-/gi, '');
+		    var n_start3 = $("#r_start3").val().replace(/-/gi, '');
 		    
-		    var n_end1 = $("#p_end1").val().replace(/-/gi, '');
-		    var n_end2 = $("#p_end2").val().replace(/-/gi, '');
-		    var n_end3 = $("#p_end3").val().replace(/-/gi, '');
+		    var n_end1 = $("#r_end1").val().replace(/-/gi, '');
+		    var n_end2 = $("#r_end2").val().replace(/-/gi, '');
+		    var n_end3 = $("#r_end3").val().replace(/-/gi, '');
 		    
 		    var plus1 = n_end1 - n_start1 >= 0;
 		    var plus2 = n_end2 - n_start2 >= 0;
@@ -203,7 +208,7 @@
     
     <section class="container">
 	    <div class="minicon">
-		<form action="/putIn/putIn_done" method="get">
+		<form action="/resume/resume_insert" method="post">
 			<input type="hidden" name="id" value="${id }">
 			<input type="hidden" name="j_bno" value="${j_read.j_bno }">
 			<input type="hidden" name="page" value="${scri.page }">
@@ -238,7 +243,7 @@
 				<tr>
 					<td class="info">이름</td>
 					<td>
-						<input type="text" name="p_name" id="p_name" class="form-control" >
+						<input type="text" name="r_name" id="r_name" class="form-control" >
 						<br>
 						<div id="n_null"></div>
 					</td>
@@ -247,7 +252,7 @@
 				<tr>
 					<td class="info">나이</td>
 					<td>
-						<input type="text" name="p_age" id="p_age" class="form-control" >
+						<input type="text" name="r_age" id="r_age" class="form-control" style="width: 40%">&nbsp;살
 						<br>
 						<div id="a_null"></div>
 					</td>
@@ -257,11 +262,11 @@
 					<td class="info">성별</td>
 					<td>
 						<label>
-							<input type="radio" name="p_gender" id="p_men" value="남">&nbsp;남
+							<input type="radio" name="r_gender" id="r_men" value="남">&nbsp;남
 						</label>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<label>
-							<input type="radio" name="p_gender" id="p_woman" value="여">&nbsp;여
+							<input type="radio" name="r_gender" id="r_woman" value="여">&nbsp;여
 						</label>
 						<br>
 						<div id="g_null"></div>
@@ -271,7 +276,7 @@
 				<tr>
 					<td class="info">전화번호</td>
 					<td>
-						<input type="text" name="p_tel" id="p_tel" class="form-control">
+						<input type="text" name="r_tel" id="r_tel" class="form-control" placeholder="-을 넣어 작성해주세요.">
 						<br>
 						<div id="t_null"></div>
 					</td>
@@ -281,21 +286,21 @@
 					<td class="info">알바 경력(선택)<br>최대 3개 가능</td>
 					<td>
 						<div id="career1" style="display:inline-block; margin-bottom: 5px;">
-							회사명 <input type="text" name="p_company1" id="p_company1" class="form-control" style="display: inline; width: 260px">&nbsp;
-							시작 <input type="text" name="p_start1" id="p_start1" class="form-control" style="display: inline; width: 160px">&nbsp;
-							종료 <input type="text" name="p_end1" id="p_end1" class="form-control" style="display: inline; width: 160px">
+							회사명 <input type="text" name="r_company1" id="r_company1" class="form-control" style="display: inline; width: 260px">&nbsp;
+							시작 <input type="text" name="r_start1" id="r_start1" class="form-control" style="display: inline; width: 160px">&nbsp;
+							종료 <input type="text" name="r_end1" id="r_end1" class="form-control" style="display: inline; width: 160px">
 						</div>
 						<!-- 이 부분 반복문으로 돌리기 -->
 						<%for(int i = 2; i <= 3; i++) {%>
 						<div id="career<%=i%>" style="display:none; margin-bottom: 5px;">
-							회사명 <input type="text" name="p_company<%=i%>" id="p_company<%=i%>" class="form-control" style="display: inline; width: 260px">&nbsp;
-							시작 <input type="text" name="p_start<%=i%>" id="p_start<%=i%>" class="form-control" style="display: inline; width: 160px">&nbsp;
-							종료 <input type="text" name="p_end<%=i%>" id="p_end<%=i%>" class="form-control" style="display: inline; width: 160px">
+							회사명 <input type="text" name="r_company<%=i%>" id="r_company<%=i%>" class="form-control" style="display: inline; width: 260px">&nbsp;
+							시작 <input type="text" name="r_start<%=i%>" id="r_start<%=i%>" class="form-control" style="display: inline; width: 160px">&nbsp;
+							종료 <input type="text" name="r_end<%=i%>" id="r_end<%=i%>" class="form-control" style="display: inline; width: 160px">
 						</div>
 						<%} %>
 						<div style="text-align: center">
 							<button type="button" id="add" class="n_btn3" style="display: inline-block; width: 100px;">경력 추가하기</button>
-							<button type="button" id="reset" class="n_btn3" style="display: inline-block; width: 100px;">경력 지우기</button>
+							<button type="button" id="reset" class="n_btn3" style="display: inline-block; width: 120px;">경력 모두 지우기</button>
 						</div>
 						<div id="max"></div>
 						<br>
@@ -333,12 +338,12 @@
 	    };
 						
 		/* MonthPicker Set */
-		$('#p_start1').monthpicker(options);
-		$('#p_start2').monthpicker(options);
-		$('#p_start3').monthpicker(options);
-		$('#p_end1').monthpicker(options);
-		$('#p_end2').monthpicker(options);
-		$('#p_end3').monthpicker(options);
+		$('#r_start1').monthpicker(options);
+		$('#r_start2').monthpicker(options);
+		$('#r_start3').monthpicker(options);
+		$('#r_end1').monthpicker(options);
+		$('#r_end2').monthpicker(options);
+		$('#r_end3').monthpicker(options);
 						
 	});
 				 

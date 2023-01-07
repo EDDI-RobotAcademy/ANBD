@@ -253,13 +253,13 @@
                   <c:if test="${empty n_list.s_id}">(알수없음)</c:if>
                </td>
                <td>
-                  <a href="/note/note_readView?bno=${n_list.bno}&pno=${n_list.pno }&page=${scri.page }&perPageNum=${scri.perPageNum }&who=${scri.who}">
+                  <a href="/note/note_read?bno=${n_list.bno}&pno=${n_list.pno }&page=${scri.page }&perPageNum=${scri.perPageNum }&who=${scri.who}">
                      <c:if test="${n_list.read_chk eq 1}">
                      <img src="../resources/images/new.png" width="14px" height="14px">
                      </c:if>
                      <c:choose>
-                       <c:when test="${fn:length(n_list.content) >  26}">
-                          <c:out value="${fn:substring(n_list.content, 0, 25)}"/>...
+                       <c:when test="${fn:length(n_list.content) >  20}">
+                          <c:out value="${fn:substring(n_list.content, 0, 20)}"/>...
                        </c:when>
                        <c:otherwise>
                           <c:out value="${n_list.content}"/>
@@ -280,7 +280,7 @@
                   <c:if test="${empty n_list.r_id}">(알수없음)</c:if>
                </td>
                <td>
-                  <a href="/note/note_readView?bno=${n_list.bno}&page=${scri.page }&perPageNum=${scri.perPageNum }&who=${scri.who}">
+                  <a href="/note/note_read?bno=${n_list.bno}&page=${scri.page }&perPageNum=${scri.perPageNum }&who=${scri.who}">
                      <c:choose>
                        <c:when test="${fn:length(n_list.content) >  26}">
                           <c:out value="${fn:substring(n_list.content, 0, 25)}"/>...

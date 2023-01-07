@@ -6,7 +6,7 @@ import java.net.URLEncoder;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-public class PutInPageMaker {
+public class ResumePageMaker {
 	
 	private int totalCount; // 게시글 총 갯수
 	private int startPage; // 10개의 페이지 중 첫번째 ex)[1], [11], [21]
@@ -14,7 +14,7 @@ public class PutInPageMaker {
 	private boolean prev; // 페이지 이전 버튼
 	private boolean next; // 페이지 다음 버튼
 	private int displayPageNum = 10;
-	private PutInCriteria cri; // 페이지 정보 객체
+	private ResumeCriteria cri; // 페이지 정보 객체
 	
 	public int getTotalCount() {
 		return totalCount;
@@ -56,10 +56,10 @@ public class PutInPageMaker {
 	public void setDisplayPageNum(int displayPageNum) {
 		this.displayPageNum = displayPageNum;
 	}
-	public PutInCriteria getCri() {
+	public ResumeCriteria getCri() {
 		return cri;
 	}
-	public void setCri(PutInCriteria cri) {
+	public void setCri(ResumeCriteria cri) {
 		this.cri = cri;
 	}
 	

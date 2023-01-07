@@ -209,12 +209,12 @@
 				   	<td style="width: 130px;">
                         <c:choose>
                         <c:when test="${empty mj_list.j_img}">
-                            <a href="/job/job_readView?j_bno=${mj_list.j_bno }&page=${cri.page }&perPageNum=${cri.perPageNum }">
+                            <a href="/job/job_read?j_bno=${mj_list.j_bno }&page=${cri.page }&perPageNum2=${cri.perPageNum2 }">
                                 <img class="j_img" src="../resources/images/아나바다2.png"/>
                             </a>
                         </c:when>
                         <c:otherwise>
-                            <a href="/job/job_readView?j_bno=${mj_list.j_bno }&page=${cri.page }&perPageNum=${cri.perPageNum }">
+                            <a href="/job/job_read?j_bno=${mj_list.j_bno }&page=${cri.page }&perPageNum2=${cri.perPageNum2 }">
                                 <img class="j_img" src="/upload/${mj_list.j_img }"/>
                             </a>
                         </c:otherwise>

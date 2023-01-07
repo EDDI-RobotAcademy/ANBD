@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 
 	<typeAliases>
 		<typeAlias type="com.anabada.web.vo.JobVO" alias="JobVO" />
-		<typeAlias type="com.anabada.web.vo.PutInVO" alias="PutInVO" />
+		<typeAlias type="com.anabada.web.vo.ResumeVO" alias="ResumeVO" />
 		<typeAlias type="com.anabada.web.vo.NoteVO" alias="NoteVO" />
 		<typeAlias type="com.anabada.web.vo.PBoardVO"
 			alias="PBoardVO" />

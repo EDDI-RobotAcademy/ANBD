@@ -133,6 +133,14 @@
 	  margin-bottom: 5px;
    }
    
+   /*글자 자르게*/
+   .word {
+   	  width:110px;
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	  white-space: nowrap;
+   }
+   
    
 </style>
 <body>
@@ -305,7 +313,7 @@
                           &nbsp;날짜 : ${j_list.j_day }<br>
                           &nbsp;${j_list.j_term }&nbsp;${j_list.j_start }:00 ~ ${j_list.j_end }:00<br>
                           &nbsp;${j_list.j_method }&nbsp;${j_list.j_pay }<br>
-                            &nbsp;${j_list.j_addr1 }
+                          &nbsp;${j_list.j_addr1 }
                        </div>
                    </a>
                   </li>
@@ -343,7 +351,7 @@
       	 	<button class="recent_btn">▼</button>
       	 </div>
       	 <div class="recent_list">
-			 <ul id="recentItemList">
+			 <ul id="recentItemList" style="margin-left:5px; margin-right: 5px; ">
 			 </ul>
 	     </div>
       </div>
@@ -451,18 +459,18 @@
 	    var realitem = JSON.parse(items);
 	    
 	    //파싱된 객체의 길이로 for문 돌리기
-	     for (var i = 0; i < 5; i++) {
+	     for (var i = 0; i < 6; i++) {
 	        var j_bno = realitem[i].j_bno;
 	        var j_title = realitem[i].j_title;
 	        var j_img = realitem[i].j_img;
 	        
 	        if(j_img != null || j_img != ""){
 		        var li = "<li><a href='/job/job_read?j_bno="+j_bno+"'><img width='100' height='100' src='/upload/"+j_img+"'/>"
-		        	+ "<br><font>" +j_bno + j_title+ "</font>" + "</a></li>";
+		        	+ "<br><div class='word'>" + j_title+ "</div>" + "</a></li>";
 	        }
 	        if(j_img == null || j_img == ""){
 	        	var li = "<li><a href='/job/job_read?j_bno="+j_bno+"'><img width='100' height='100' src='../resources/images/아나바다2.png'/>"
-		        	+ "<br><font>" +j_bno + j_title+ "</font>" + "</a></li>";
+		        	+ "<br><div class='word'>" + j_title+ "</divs>" + "</a></li>";
 	        }
 	 
 	        //ul에 붙이기

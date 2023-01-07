@@ -43,11 +43,11 @@
 		});
 		
 		// 알바 지원하기 컨트롤러로 이동
-		$("#putIn").on("click", function () { 
-			location.href= "/putIn/putIn_insert" + 
+		$("#resume").on("click", function () { 
+			location.href= "/resume/resume_insert" + 
 				'?page=' + '${scri.page }' +
 				'&perPageNum=' + '${scri.perPageNum }' +
-				'&j_bno=' + '${j_read.j_bno}' + // putin_job.jsp에서 j_bno이름으로 값 받음
+				'&j_bno=' + '${j_read.j_bno}' + // resume_job.jsp에서 j_bno이름으로 값 받음
 				'&j_addr1=' + encodeURIComponent('${scri.j_addr1}') + 
 				'&j_term=' + encodeURIComponent('${scri.j_term}') + 
 				'&j_day=' + encodeURIComponent('${scri.j_day}') + 
@@ -55,13 +55,10 @@
 		});
 		
 		// 알바 지원자들 보기 컨트롤러로 이동. 페이징 처리 안했음
-		$("#show_putIn").on("click", function () { // 삭제 버튼 눌렀을 때
-			location.href = "/putIn/putIn_list?" + 
+		$("#show_resume").on("click", function () { // 삭제 버튼 눌렀을 때
+			location.href = "/resume/resume_list?" + 
 				"j_bno=" + '${j_read.j_bno}';
 			
-			/* readForm.attr("action", "/putIn/putIn_list"); // 삭제 컨트롤러로
-			readForm.attr("method", "post");
-			readForm.submit(); */
 		});
 		
 		// 알바 지원자들 보기 컨트롤러로 이동. 페이징 처리 안했음
@@ -408,10 +405,10 @@
 			<td colspan="6" style="border-bottom: 0px">
 				<button type="button" id="job_list">게시판으로 돌아가기</button>
 				<c:if test="${j_read.id ne id}"><!-- 로그인한 아이디(세션에 저장된 아이디)와 작성자아이디가 같으면 수정, 삭제 가능 -->
-					<button type="button" id="putIn">지원하기</button>
+					<button type="button" id="resume">지원하기</button>
 				</c:if>
 				<c:if test="${j_read.id eq id}"><!-- 로그인한 아이디(세션에 저장된 아이디)와 작성자아이디가 같으면 수정, 삭제 가능 -->
-					<button type="button" id="show_putIn">지원자들 보기</button>
+					<button type="button" id="show_resume">지원자들 보기</button>
 				</c:if>
 				
 			</td>

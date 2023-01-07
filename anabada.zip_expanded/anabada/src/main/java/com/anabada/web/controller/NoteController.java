@@ -122,8 +122,8 @@ public class NoteController {
 	}
 	
 	// 쪽지 상세보기 + 쪽지보면 읽었다고 표시
-	@RequestMapping(value = "/note_readView", method =RequestMethod.GET)
-	public String note_readView(@ModelAttribute NoteVO noteVO, Model model,@ModelAttribute("scri") NoteSearchCriteria scri, 
+	@RequestMapping(value = "/note_read", method =RequestMethod.GET)
+	public String note_read(@ModelAttribute NoteVO noteVO, Model model,@ModelAttribute("scri") NoteSearchCriteria scri, 
 			HttpSession session) throws Exception{
 		
 		logger.info("쪽지 상세보기로 들어왔으~~");
@@ -144,7 +144,7 @@ public class NoteController {
 		map.put("bno", noteVO.getBno());
 		noteService.read_check(map); // 읽었다고 처리
 		
-		return "/note/note_readView";
+		return "/note/note_read";
 	}
 	
 	// 쪽지 삭제하는 ajax(상세보기에서)
