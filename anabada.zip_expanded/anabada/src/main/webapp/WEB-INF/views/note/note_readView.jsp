@@ -447,7 +447,7 @@
                             	<tr>
 	                            	<td style="text-align: center; padding: 10px;">
 	                            		<label>
-	                            			<input type="radio" name="r_score" value="0.2">별로예요.
+	                            			<input type="radio" name="r_score" value="-0.2">별로예요.
 	                            		</label>
 	                            		&nbsp;&nbsp;&nbsp;
 	                            		<label>

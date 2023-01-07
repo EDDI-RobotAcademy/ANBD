@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import com.anabada.web.vo.PBoardVO;
 import com.anabada.web.vo.PfileVO;
+import com.anabada.web.vo.ReviewCriteria;
+import com.anabada.web.vo.ReviewVO;
 import com.anabada.web.vo.SearchCriteriapro;
 import com.anabada.web.vo.SimilarSearch;
 
@@ -161,6 +163,18 @@ public class PBoardDAOImpl implements PBoardDAO {
 	public void change(Map<String, String> param) throws Exception {
 		sql.update("pBoardMapper.change",param);
 		
+	}
+
+	// id에 해당하는 리뷰 반환 
+	@Override
+	public List<ReviewVO> reviewList(ReviewCriteria rescri) throws Exception {
+		
+		return sql.selectList("pBoardMapper.reviewList",rescri);
+	}
+
+	@Override
+	public int reviewCount(ReviewCriteria rescri) throws Exception {
+		return sql.selectOne("pBoardMapper.reviewCount",rescri);
 	}
 
 }

@@ -158,9 +158,25 @@
 	<select id="myBoardList" parameterType="String" resultType="PBoardVO" >
 	SELECT * FROM PBOARD WHERE ID = #{id}
 	</select>
+	
+	<!-- ID에 해당하는 상점의 리뷰를 받아옴 -->
+	<select id="reviewList" parameterType="com.anabada.web.vo.ReviewCriteria"  resultType="ReviewVO" >
+		SELECT PNO, R_SCORE, R_CONTENT,R_DATE,R_CONSUMER
+		FROM (SELECT R_SCORE, R_CONTENT,PNO ,R_DATE,R_CONSUMER,
+		ROW_NUMBER() OVER(ORDER BY R_DATE DESC) as RNUM
+		FROM REVIEW WHERE 
+		r_seller=#{r_seller}
+		)
+		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+		ORDER BY R_DATE DESC
+	</select>
+	
+	<!-- 상점에서 review의 총 갯수  -->
+	<select id="reviewCount" parameterType="com.anabada.web.vo.ReviewCriteria"  resultType="int" >
+	SELECT COUNT(PNO) FROM REVIEW WHERE R_SELLER =#{r_seller}
+	</select>
 
-	
-	
+
 
 
 </mapper>
