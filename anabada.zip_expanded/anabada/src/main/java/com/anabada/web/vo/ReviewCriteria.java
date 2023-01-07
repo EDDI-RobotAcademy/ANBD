@@ -8,6 +8,7 @@ public class ReviewCriteria {
 	private int rowStart; // 페이지 한행의 첫번째 게시물 rowNum
 	private int rowEnd; // 페이지 한 행의 마지막 게시물 rowNum 
 	private String r_seller; // 상점 주인의 id 
+
 	
 	
 	public ReviewCriteria() { // 디폴트 생성자 

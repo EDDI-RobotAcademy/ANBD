@@ -120,7 +120,6 @@ ul {
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 	$(function() {
-		alert("${id}");
 
 		// 검색어 입력하고 검색 눌렀을떄 
 		$('.searchBtn').on(
@@ -429,7 +428,7 @@ ul {
 							</c:forEach>
 
 
-							<c:if test="${pageMaker.next && pageMakerendPage > 0 }">
+							<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
 								<li class="page-item"><a class="page-link" href="list${pageMaker.makeSearch(pageMaker.endPage + 1)}" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 								</a></li>
 							</c:if>

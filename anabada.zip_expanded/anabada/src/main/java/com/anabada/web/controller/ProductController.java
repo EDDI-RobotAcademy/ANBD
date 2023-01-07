@@ -112,8 +112,7 @@ public class ProductController {
 
 
 		session.setAttribute("id", "coco");
-		System.out.println("리스트 페이징 : "+scri);
-
+		
 
 		List<PBoardVO> list = service.list(scri);
 		// list의 각각의 pno에 해당하는 사진 정보 가져오기
@@ -165,6 +164,7 @@ public class ProductController {
 		int pno = pboardVO.getPno();
 //		PBoardVO read = service.read(pboardVO.getPno());
 		PBoardVO read = service.read(pno);
+		
 
 		// User의 찜 여부 조회
 		Map<String, String> check = new HashMap<>();
@@ -207,8 +207,10 @@ public class ProductController {
 		
 		
 		//판매자 상점의 리뷰 담아오기 
+		if(read.getId() != null) { // 게시글 상세보기 클릭시 resci에 r_seller 세팅 
+			rescri.setR_seller(read.getId());  // rescri 에 serller 이름 세팅 
+		}
 		
-		rescri.setR_seller(read.getId());  // rescri 에 serller 이름 세팅 
 		System.out.println("리뷰 확인 : "+rescri);
 		List<ReviewVO> reviewList = service.reviewList(rescri) ;// id에 해당하는 리뷰 반환 
 		

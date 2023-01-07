@@ -85,12 +85,15 @@ public class ReviewPageMaker {
 	      // 마지막 페이지가 [54]일때, 54*10=540 >= 536(게시글총갯수)
 	   }
 	   
-	   public String makeSearch(int page) { // list.jsp에서 페이지 숫자 눌렀을 때 실행되는 메소드
+	   public String makeSearch(int page,int pno,String p_type) { // list.jsp에서 페이지 숫자 눌렀을 때 실행되는 메소드
 		      UriComponents uriComponents = 
 		            UriComponentsBuilder.newInstance() 
 		          
 		            .queryParam("page", page)
-		            .queryParam("perPageNum", cri.getRe_perPageNum())
+		            .queryParam("re_perPageNum", cri.getRe_perPageNum())
+		            .queryParam("r_seller", cri.getR_seller())
+		            .queryParam("pno", pno)
+		            .queryParam("p_type", p_type)
 		       
 		            .build();
 		      
