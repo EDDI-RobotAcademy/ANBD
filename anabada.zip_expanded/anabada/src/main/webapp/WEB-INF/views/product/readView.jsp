@@ -841,10 +841,7 @@ margin-top: 70px;
 		
 		</c:forEach>
 		
-		<!-- 후기 게시판 페이지 네이션 -->
 		
-		
-		<!-- 페이지 네이션 끝 -->
 			
 		
 		
@@ -854,12 +851,32 @@ margin-top: 70px;
 		
 		
 		<!-- 후기 끝 -->
-		
 
 		
 		
 		
+				
+<!-- 후기 게시판 페이지 네이션 -->
+						<nav style="margin-left: 50%">
+						<ul class="pagination">
+							<li class="page-item"><c:if test="${pageMaker.prev }">
+									<a class="page-link" href="href="readView${pageMaker.makeSearch(pageMaker.startPage - 1,read.pno,read.p_type )}" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+									</a></li>
+							</c:if>
+							<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+								<li class="page-item" <c:out value="${pageMaker.cri.page == idx ? 'class=info' : '' }"/>><a class="page-link" href="readView${pageMaker.makeSearch(idx,read.pno,read.p_type)}">${idx }</a></li>
+							</c:forEach>
+
+
+							<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
+								<li class="page-item"><a class="page-link" href="readView${pageMaker.makeSearch(pageMaker.endPage + 1,read.pno,read.p_type)}" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+								</a></li>
+							</c:if>
+						</ul>
+					</nav>
 		
+		
+		<!-- 페이지 네이션 끝 -->
 		</div> 
 		</td>   
 		
