@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.anabada.web.dao.UserProductDAO;
+import com.anabada.web.vo.HeartVO;
 import com.anabada.web.vo.PBoardVO;
 @Service
 public class UserProductServiceImpl implements UserProductService {
@@ -18,6 +19,12 @@ public class UserProductServiceImpl implements UserProductService {
 	public List<PBoardVO> myBoardList(String ID) throws Exception {
 		
 		return dao.myBoardList(ID);
+	}
+	//ID에 해당하는 찜목록 불러오기 
+	@Override
+	public List<HeartVO> myHeartList(String ID) throws Exception {
+		
+		return dao.myHeartList(ID);
 	}
 
 }
