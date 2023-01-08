@@ -15,9 +15,9 @@ public class UserProductServiceImpl implements UserProductService {
 	UserProductDAO dao;
 	//자기가 쓴 게시물 목록 불러오기 
 	@Override
-	public List<PBoardVO> myBoardList(String id) throws Exception {
+	public List<PBoardVO> myBoardList(String ID) throws Exception {
 		
-		return dao.myBoardList(id);
+		return dao.myBoardList(ID);
 	}
 
 }

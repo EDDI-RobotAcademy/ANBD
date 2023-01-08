@@ -11,6 +11,6 @@ public interface UserProductService {
 
 
 	//자기가 쓴 게시물 목록 불러오기 
-	List<PBoardVO> myBoardList(String id) throws Exception ;
+	List<PBoardVO> myBoardList(String ID) throws Exception ;
 
 }

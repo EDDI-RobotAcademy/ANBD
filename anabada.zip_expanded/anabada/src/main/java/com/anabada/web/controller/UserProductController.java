@@ -25,18 +25,20 @@ public class UserProductController {
 	@Inject
 	UserProductService service;
 	
+	HttpServletRequest req;
+	HttpSession session = req.getSession();
+	private final String ID = (String) session.getAttribute("id");
 
 	//user가 자기가 쓴 글 목록 보기 
 	@RequestMapping(value = "/myBoardList", method=RequestMethod.GET)
-	public String myBoardList(HttpServletRequest req, HttpServletResponse res ) throws Exception{
-		HttpSession session = req.getSession();
-		String id = (String) session.getAttribute("id");
-		List<PBoardVO> list = service.myBoardList(id);
+	public String myBoardList( ) throws Exception{
+		//HttpSession session = req.getSession();
+		//String id = (String) session.getAttribute("id");
+		List<PBoardVO> list = service.myBoardList(ID);
 		
 		return "";
 	}
 	
-	// user가 자기가 찜한 목록 보기 
-	
+
 
 }

@@ -219,6 +219,13 @@ margin-top: 70px;
         border-radius: 10px;
     }
 /*끝 */
+
+.noReview{
+text-align: center;
+color: #AFAFAF;
+margin-top:50px;
+font-size: 20px;
+}
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -226,19 +233,28 @@ margin-top: 70px;
 		var floatPosition = parseInt($(".sideBanner").css('top')); //100
 		var floatHei = parseInt($(".sideBanner").outerHeight()); // 플로팅 배너 길이 450
 		var footerTop = $('#footer').outerHeight(); // footer가 위치한 높이 
+		var headTop = $('#anbdHead').outerHeight();
 		// scroll 인식
 		$(window).scroll(function() {
 			// 현재 스크롤 위치
 			var currentTop = $(window).scrollTop();
 			var bannerTop = currentTop + floatPosition + "px";
 			var val = $(document).height() - footerTop;
-			var hei = currentTop + floatPosition + floatHei;
+			var hei = currentTop +  floatHei;
 			//이동 애니메이션
 			if (hei < footerTop) {
 				$(".sideBanner").stop().animate({
 					"top" : bannerTop
 				}, 500);
 			}
+			
+			if (currentTop < headTop) {
+				$(".sideBanner").stop().animate({
+					"top" : headTop
+				}, 500);
+
+			}
+			
 		}).scroll();
 		
 		
@@ -491,7 +507,6 @@ margin-top: 70px;
 		
 		
 		if(${read.id != id }){
-			alert("여기 ");
 			bookCh();
 		}
 		
@@ -503,7 +518,6 @@ margin-top: 70px;
 		//모달 
 		// 모달창에서 선택 완료 버튼 누르면
 	    $("#review_note").click(function(){
-	    	alert("클릭");
 	    	
 	    	// 사람 선택했는지 체크
 	    	var chk = $('input[name=r_id]').is(":checked");
@@ -571,10 +585,10 @@ margin-top: 70px;
 	});
 	//User가 제품 판매 상태 보기 
  	function bookCh() {
-	   alert("예약 체크 ");
+	  
 	  
 		var p_buy = "${read.p_buy}";
-		const element = document.getElementById("user");
+		const element = document.getElementById("userBK");
 		
 		
 		console.log(element);
@@ -604,11 +618,13 @@ margin-top: 70px;
 
 <!-- header -->
 
+<div id="anbdHead" >
 	<div>
 		<jsp:include page="../includes/nav.jsp" />
 	</div>
-	<div>
+	<div >
 		<jsp:include page="../includes/header.jsp" />
+	</div>
 	</div>
 
 <!-- header end -->
@@ -847,56 +863,7 @@ margin-top: 70px;
 		
 		
 		<td> 
-		<div id="textbox" >
-		
-		<!-- 상점 후기  -->
-		<table>
-		<c:forEach items="${reviewList }"  var="review" >
-		<tr>  <td> ${review.r_consumer}</td>  <td> ${review.r_score} </td> <td> ${review.r_date} </td></tr>
-		<tr>
-		 <td colspan="3" > ${review.r_content } </td>
-		  </tr>
-		
-		
-		</c:forEach>
-		
-		
-			
-		
-		
-		
-		
-		</table>
-		
-		
-		<!-- 후기 끝 -->
-
-		
-		
-		
-				
-<!-- 후기 게시판 페이지 네이션 -->
-						<nav style="margin-left: 50%">
-						<ul class="pagination">
-							<li class="page-item"><c:if test="${pageMaker.prev }">
-									<a class="page-link" href="href="readView${pageMaker.makeSearch(pageMaker.startPage - 1,read.pno,read.p_type )}" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-									</a></li>
-							</c:if>
-							<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
-								<li class="page-item" <c:out value="${pageMaker.cri.page == idx ? 'class=info' : '' }"/>><a class="page-link" href="readView${pageMaker.makeSearch(idx,read.pno,read.p_type)}">${idx }</a></li>
-							</c:forEach>
-
-
-							<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
-								<li class="page-item"><a class="page-link" href="readView${pageMaker.makeSearch(pageMaker.endPage + 1,read.pno,read.p_type)}" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-								</a></li>
-							</c:if>
-						</ul>
-					</nav>
-		
-		
-		<!-- 페이지 네이션 끝 -->
-		</div> 
+	<jsp:include page="review.jsp" />
 		</td>   
 		
 		

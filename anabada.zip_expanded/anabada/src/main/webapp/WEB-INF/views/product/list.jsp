@@ -182,23 +182,40 @@ margin-top: 40px;
 		var floatPosition = parseInt($(".sideBanner").css('top')); //100
 		var floatHei = parseInt($(".sideBanner").outerHeight()); // 플로팅 배너 길이 450
 		var footerTop = $('#footer').outerHeight(); // footer가 위치한 높이 
+		var headTop = $('#anbdHead').outerHeight(); // 294
+		
+		
+		
 
 		// scroll 인식
 		$(window).scroll(function() {
 
 			// 현재 스크롤 위치
-			var currentTop = $(window).scrollTop();
+			var currentTop = $(window).scrollTop(); // 현재 top위치 
 			var bannerTop = currentTop + floatPosition + "px";
 			var val = $(document).height() - footerTop;
 			var hei = currentTop + floatPosition + floatHei;
+			
+			
+			
 
 			//이동 애니메이션
 			if (hei < footerTop) {
+				
 				$(".sideBanner").stop().animate({
 					"top" : bannerTop
 				}, 500);
 
 			}
+			
+		
+				if (currentTop < headTop) {
+				$(".sideBanner").stop().animate({
+					"top" : headTop
+				}, 500);
+
+			}
+		
 
 		}).scroll();
 
@@ -268,11 +285,13 @@ margin-top: 40px;
 <body>
 
 
+<div id="anbdHead" >
 	<div>
 		<jsp:include page="../includes/nav.jsp" />
 	</div>
-	<div>
+	<div >
 		<jsp:include page="../includes/header.jsp" />
+	</div>
 	</div>
 
 

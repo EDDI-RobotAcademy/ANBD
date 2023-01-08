@@ -6,6 +6,6 @@ import com.anabada.web.vo.PBoardVO;
 
 public interface UserProductDAO {
 
-	List<PBoardVO> myBoardList(String id) throws Exception ;
+	List<PBoardVO> myBoardList(String ID) throws Exception ;
 
 }
