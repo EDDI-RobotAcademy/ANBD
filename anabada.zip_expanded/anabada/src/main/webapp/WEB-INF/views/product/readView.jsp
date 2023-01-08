@@ -6,13 +6,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
 
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
@@ -458,7 +458,7 @@ margin-top: 70px;
 		}); // 하트 이벤트 끝
 		//사용자가 상품 판매 상태 변경시 
 		$("#book").on("change", function() {
-			var book = document.getElementById('book');
+			var book = document.getElementById('bookBK');
 			var str = $("#book option:selected").val(); // 선택된 값
 			
 			
@@ -486,12 +486,24 @@ margin-top: 70px;
 				}
 			});
 		}); //상품 상태 변경 끝 
-		bookCh();
+		
+		
+		
+		
+		if(${read.id != id }){
+			alert("여기 ");
+			bookCh();
+		}
+		
+	
+		
+		
 		
 		
 		//모달 
 		// 모달창에서 선택 완료 버튼 누르면
 	    $("#review_note").click(function(){
+	    	alert("클릭");
 	    	
 	    	// 사람 선택했는지 체크
 	    	var chk = $('input[name=r_id]').is(":checked");
@@ -541,13 +553,9 @@ margin-top: 70px;
 	
 	   // 사람 선택하면 색깔 바뀌는 코드
 	   $('input[name=r_id]').change(function(){
-		   alert("11");
 		   $('.m_label').css('background-color', '#fff');
-		   alert("22");
 		   if($(this).is(':checked')){
-			   alert("33");
 	    		$(this).closest('.m_label').css('background-color', '#e9e9e9');
-	    		alert("44");
 		   }
 	    		
 	   });
@@ -562,9 +570,15 @@ margin-top: 70px;
 		
 	});
 	//User가 제품 판매 상태 보기 
-	function bookCh() {
+ 	function bookCh() {
+	   alert("예약 체크 ");
+	  
 		var p_buy = "${read.p_buy}";
-		const element = document.getElementById("userBK");
+		const element = document.getElementById("user");
+		
+		
+		console.log(element);
+	
 		if (p_buy == 'ing') {
 			element.innerText = '판매중';
 		} else if (p_buy == 'book') {
@@ -573,6 +587,11 @@ margin-top: 70px;
 			element.innerText = '판매완료';
 		}
 	}
+	 
+	
+
+	
+	
 	
 	
 	
@@ -702,7 +721,7 @@ margin-top: 70px;
 								</select>
 							</c:when>
 							<c:otherwise>
-								<div  id="userBK"></div>
+								<div     id="userBK"  > </div>
 
 							</c:otherwise>
 
@@ -977,8 +996,8 @@ margin-top: 70px;
 											<input type="radio" name="r_id" class="r_id" value="">
 											해당 사항 없음
 										</label>
-											<input type="radio" name="r_id" class="r_id" value="">
-											해당 사항 없음
+											<input type="radio" name="r_id" class="r_id" value="coco">
+											coco
 										</label>
 									</td>
 								</tr>

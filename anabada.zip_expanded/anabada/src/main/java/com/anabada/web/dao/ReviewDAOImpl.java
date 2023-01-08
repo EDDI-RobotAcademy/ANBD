@@ -25,4 +25,11 @@ public class ReviewDAOImpl implements ReviewDAO {
 		return sqlSession.selectOne("reviewMapper.count", pno);
 	}
 
+	// lev 점수 업데이트 
+	@Override
+	public void updateLev(ReviewVO reviewVO) throws Exception {
+		sqlSession.update("reviewMapper.updateLev",reviewVO);
+		
+	}
+
 }
