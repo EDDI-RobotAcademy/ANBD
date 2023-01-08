@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.anabada.web.dao.ResumeDAO;
+import com.anabada.web.vo.JobVO;
 import com.anabada.web.vo.ResumeVO;
 
 @Service
@@ -39,6 +40,32 @@ public class ResumeServiceImpl implements ResumeService {
 	public int resume_chk(Map map) throws Exception {
 		return dao.resume_chk(map);
 	}
+
+	//마이페이지에서 내가 지원할 알바 목록
+	@Override
+	public List<ResumeVO> my_resumeList(Map map) throws Exception {
+		return dao.my_resumeList(map);
+	}
+
+	//마이페이지 내가 지원한 알바 개수
+	@Override
+	public int my_resumeListCount(String id) throws Exception {
+		return dao.my_resumeListCount(id);
+	}
+
+	//내가 지원한 알바 볼때 어떤 게시물에 대한 알바지원서인지
+	@Override
+	public List<JobVO> my_resumeJob(int[] jbno_array) throws Exception {
+		return dao.my_resumeJob(jbno_array);
+	}
+
+	//내 알바 지원 삭제에서 삭제
+	@Override
+	public void my_resumeDelete(int[] delete_array) throws Exception {
+		dao.my_resumeDelete(delete_array);
+	}
+	
+	
 
 
 }

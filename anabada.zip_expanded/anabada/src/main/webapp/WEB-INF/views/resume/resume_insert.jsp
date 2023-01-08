@@ -269,14 +269,6 @@
 				</tr>
 				
 				<tr>
-					<td class="info">자기소개(선택)</td>
-					<td>
-						<textarea id="r_content" name="r_content" placeholder="본인이 일했던 경험과 할 수 있는 업무에 대해 소개해주세요."
-						style="resize: none; height: 200px;" class="form-control"></textarea>
-					</td>
-				</tr>
-				
-				<tr>
 					<td colspan="2">
 					<input type="checkbox" class="essential">&nbsp;(필수)개인정보 수집 및 이용 동의<br>
 					<input type="checkbox" class="essential">&nbsp;(필수)개인정보 제 2자 제공 동의

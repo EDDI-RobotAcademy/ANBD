@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.anabada.web.vo.JobVO;
 import com.anabada.web.vo.ResumeVO;
 
 @Repository
@@ -39,6 +40,32 @@ public class ResumeDAOImpl implements ResumeDAO {
 	public int resume_chk(Map map) throws Exception {
 		return sqlSession.selectOne("resumeMapper.chk", map);
 	}
+
+	// 마이페이지에서 내가 지원한 알바목록
+	@Override
+	public List<ResumeVO> my_resumeList(Map map) throws Exception {
+		return sqlSession.selectList("resumeMapper.mr_listPage", map);
+	}
+
+	// 마이페이지에서 내가 지원한 알바 개수
+	@Override
+	public int my_resumeListCount(String id) throws Exception {
+		return sqlSession.selectOne("resumeMapper.mr_listCount", id);
+	}
+
+	// 마이페이지에서 내가 지원한 알바 볼 때 어떤 알바 구인공고 게시물인지
+	@Override
+	public List<JobVO> my_resumeJob(int[] jbno_array) throws Exception {
+		return sqlSession.selectList("resumeMapper.mr_job", jbno_array);
+	}
+
+	//마이 알바 지원목록에서 지원서 삭제
+	@Override
+	public void my_resumeDelete(int[] delete_array) throws Exception {
+		sqlSession.delete("resumeMapper.mr_delete", delete_array);
+	}
+	
+	
 
 
 }

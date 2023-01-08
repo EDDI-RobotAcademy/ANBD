@@ -383,7 +383,7 @@
                      [검색] 버튼 누르면 파라미터 값들 가지고 BoardController "/list"로 이동(기본이 get방식)
                      이때 넘어가는 파라미터는 page, perPageNum, serachType, keyword
                      */
-   });
+   	  });
    
    $('.search_cate').click(function () {
       location.href = "job_list" + '${pageMaker.makeQuery(1)}' + 

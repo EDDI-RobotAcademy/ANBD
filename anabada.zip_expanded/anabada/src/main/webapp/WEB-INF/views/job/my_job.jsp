@@ -17,7 +17,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="<c:url value='/css/n_styles.css'/>">
 <style type="text/css">
-   .d_btn {
+   /* .d_btn {
      all: unset;
      width: 45px;
      height: 30px;
@@ -27,7 +27,7 @@
      text-align: center;
      cursor: pointer;
      border: 1px solid gray;
-   }
+   } */
    
    input[type=radio]{
          display: none;
@@ -206,7 +206,7 @@
                 	<td style="text-align: center">
                   		<input type="checkbox" name="delete" class="delete" value="${mj_list.j_bno}">
                		</td>
-				   	<td style="width: 130px;">
+				   	<td style="width: 100px;">
                         <c:choose>
                         <c:when test="${empty mj_list.j_img}">
                             <a href="/job/job_read?j_bno=${mj_list.j_bno }&page=${cri.page }&perPageNum2=${cri.perPageNum2 }">
@@ -219,12 +219,10 @@
                             </a>
                         </c:otherwise>
                         </c:choose>
-                    </td> 
+                    </td>
                     <td>
-                        ${mj_list.j_title }<br>
-                        ${mj_list.j_company }<br>
-                        근무일: ${mj_list.j_day }<br> 
-                        근무시간: ${mj_list.j_start }:00 ~ ${mj_list.j_end }:00<br>
+                        <font style="font-size: 20px;">${mj_list.j_title }</font><br>
+						${mj_list.j_company }<br>
                     </td>
                     <td>
                         ${mj_list.j_date }
@@ -235,15 +233,15 @@
             
             <div style="text-align: center">
                 <c:if test="${pageMaker.prev }">
-                   <a href="my_jobList${pageMaker.makeSearch2(pageMaker.startPage - 1 )}">이전</a>
+                   <a href="my_job${pageMaker.makeSearch2(pageMaker.startPage - 1 )}">이전</a>
                 </c:if>
                               
                 <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
-                &nbsp;<a href="my_jobList${pageMaker.makeSearch2(idx)}">${idx }</a>
+                &nbsp;<a href="my_job${pageMaker.makeSearch2(idx)}">${idx }</a>
                 </c:forEach>
                               
                 <c:if test="${pageMaker.next && pageMakerendPage > 0 }">
-                    <a href="my_jobList${pageMaker.makeSearch2(pageMaker.endPage + 1)}">다음</a>
+                    <a href="my_job${pageMaker.makeSearch2(pageMaker.endPage + 1)}">다음</a>
                 </c:if>
             </div>
             </c:when>

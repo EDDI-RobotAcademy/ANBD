@@ -13,7 +13,6 @@ public class ResumeVO {
 	private String r_company;
 	private String r_start;
 	private String r_end;
-	private String r_content;
 	private Date r_date;
 	private int j_bno;
 	
@@ -72,12 +71,6 @@ public class ResumeVO {
 	public void setR_end(String r_end) {
 		this.r_end = r_end;
 	}
-	public String getR_content() {
-		return r_content;
-	}
-	public void setR_content(String r_content) {
-		this.r_content = r_content;
-	}
 	public Date getR_date() {
 		return r_date;
 	}
@@ -94,7 +87,7 @@ public class ResumeVO {
 	public String toString() {
 		return "ResumeVO [id=" + id + ", r_bno=" + r_bno + ", r_name=" + r_name + ", r_gender=" + r_gender + ", r_tel="
 				+ r_tel + ", r_age=" + r_age + ", r_company=" + r_company + ", r_start=" + r_start + ", r_end=" + r_end
-				+ ", r_content=" + r_content + ", r_date=" + r_date + ", j_bno=" + j_bno + "]";
+				+ ", r_date=" + r_date + ", j_bno=" + j_bno + "]";
 	}
 	
 	

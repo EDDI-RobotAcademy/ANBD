@@ -37,6 +37,7 @@ public interface JobService {
 	public int my_jobListCount(String id) throws Exception;
 	
 	public void my_jobDelete(int[] delete_array) throws Exception;
+
 	
 	
 	

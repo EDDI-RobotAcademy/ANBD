@@ -103,6 +103,6 @@ public class JobServiceImpl implements JobService {
 	public void my_jobDelete(int[] delete_array) throws Exception {
 		dao.my_jobDelete(delete_array);
 	}
-	
+
 
 }

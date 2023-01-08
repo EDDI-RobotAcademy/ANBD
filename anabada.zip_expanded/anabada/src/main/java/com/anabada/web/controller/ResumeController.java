@@ -1,11 +1,13 @@
 package com.anabada.web.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -109,6 +111,67 @@ public class ResumeController {
 		model.addAttribute("pageMaker", pageMaker);
 		
 		return "/resume/resume_list";
+	}
+	
+	// 마이페이지 알바 지원 목록
+	@RequestMapping(value = "/my_resume", method = RequestMethod.GET)
+	public String my_resume(@ModelAttribute JobVO jobVO, @ModelAttribute("cri") ResumeCriteria cri, Model model, HttpSession session) throws Exception{
+			
+		logger.info("내 지원목록 보기");
+				
+		String id = (String)session.getAttribute("id");		
+		
+		ResumePageMaker pageMaker = new ResumePageMaker();
+		pageMaker.setCri(cri); 
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("id", id);
+		map.put("rowStart", cri.getRowStart());
+		map.put("rowEnd", cri.getRowEnd());
+		
+		
+		List<ResumeVO> mr_list = resumeService.my_resumeList(map);
+		model.addAttribute("mr_list", mr_list);
+		
+		System.out.println("하하하하");
+		
+		pageMaker.setTotalCount(resumeService.my_resumeListCount(id));
+		model.addAttribute("pageMaker", pageMaker);
+		
+		//알바 게시물 객체도 보여주기 위해서
+		
+		int[] jbno_array = new int[mr_list.size()]; System.out.println("하하하하");
+		System.out.println(mr_list.size());
+		 
+		// 알바 지원목록이 있을때만 해당 알바 구인 공고 게시물 번호 배열들을 전달함
+		if(mr_list.size() != 0) {
+			
+			for(int i = 0; i < mr_list.size(); i++) {
+				ResumeVO resumeVO = mr_list.get(i);
+				jbno_array[i] = resumeVO.getJ_bno();
+			}
+			
+			List<JobVO> j_list = resumeService.my_resumeJob(jbno_array);
+			model.addAttribute("j_list", j_list);
+		}
+		
+		
+		return "/resume/my_resume"; // 알바 게시판 컨트롤러로 이동
+	}
+	
+	// 마이페이지 게시물 삭제 ajax
+	@RequestMapping(value = "/delete_chk.ajax", method = RequestMethod.GET)
+	@ResponseBody
+	public void delete_chk(HttpServletResponse resp, @RequestParam(value="delete_array") int[] delete_array, 
+		HttpSession session) throws Exception{
+				
+		logger.info("알바 지원 마이페이지에서 삭제 눌렀음"); 
+		// 페이징 처리 안해줬음 
+				
+		resumeService.my_resumeDelete(delete_array); // 마이페이지 게시물들 번호 배열로 받아서 삭제
+			
+		logger.info("삭제 성공");
 	}
 	
 	

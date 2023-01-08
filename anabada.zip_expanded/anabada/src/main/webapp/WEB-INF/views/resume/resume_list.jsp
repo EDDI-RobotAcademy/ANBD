@@ -1,19 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<% pageContext.setAttribute("replaceChar", "\n"); %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <link rel="shortcut icon" href="../resources/images/favicon.ico">
 <link rel="manifest" href="../resources/images/manifest.json">
-<meta name="theme-color" content="#ffffff">
 <link href="../resources/css/jquery-ui.css" rel="stylesheet" type="text/css">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<link rel="stylesheet" href="<c:url value='/css/n_styles.css'/>">
+<meta name="theme-color" content="#ffffff">
 <meta charset="UTF-8">
-<title>지원자들 목록 보기</title>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<title>알바 지원 목록</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="<c:url value='/css/j_styles.css'/>">
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
+	$(document).ready(function () {
+		
+		$(".detail").on("click", function () {
+        	$('#careerModal').modal("show"); 
+        	
+		});
+	})
+
 
 </script>
 <style>
@@ -23,12 +37,18 @@
     	margin-right: 10px;
     	border-radius: 0.25rem;
     }
-    table{
+    table.r_list{
     	width: 1000px;
     }
-    tr,th,td{
+    .r_list tr,.r_list th,.r_list td{
     	border-top: 1px solid #ced4da;
         padding: 10px;
+    }
+    .r_list th{
+    	text-align: center;
+    }
+    .r_list tr .content{
+    	text-align: center;
     }
 </style>
 </head>
@@ -44,7 +64,7 @@
     
     <section class="container">
 	    <div class="minicon">
-		<table>
+		<table class="r_list">
 		
 			<tr>
 			    <td colspan="6"><font style="font-size: 30px;">알바 지원자 목록</font></td>
@@ -68,43 +88,46 @@
 			</tr>
 			
 			<tr>
-				<th>이름</th><th>나이</th><th>성별</th><th>전화번호</th><th colspan="2">경력</th><th>지원날짜</th>
+				<th width="10%">이름</th>
+				<th width="10%">나이</th>
+				<th width="5%">성별</th>
+				<th width="15%">전화번호</th>
+				<th colspan="3" width="45%">경력</th>
+				<th width="15%">지원날짜</th>
 			</tr>
 			
+			<!-- 반복 -->
 			<c:if test="${not empty r_list}">
 			<c:forEach items="${r_list}" var="r_list">
+			
 			<tr>
-				<td>${r_list.r_name }</td>
-				<td>${r_list.r_age }</td>
-				<td>${r_list.r_gender }</td>
-				<td>${r_list.r_tel }</td>
-				<td>
-					<c:if test="${not empty r_list.r_company1 }">
-					${r_list.r_company1 }<br>
-					</c:if>
-					<c:if test="${not empty r_list.r_company2 }">
-					${r_list.r_company2 }<br>
-					</c:if>
-					<c:if test="${not empty r_list.r_company3 }">
-					${r_list.r_company3 }
-					</c:if>
+				<td class="content">${r_list.r_name }</td>
+				<td class="content">${r_list.r_age }</td>
+				<td class="content">${r_list.r_gender }</td>
+				<td class="content">${r_list.r_tel }</td>
+				<td class="content">
+					<c:set var="company_list" value="${fn:split(r_list.r_company, ',')}" />
+					<c:forEach var="company" items="${company_list}" varStatus="varStatus">
+					${company}<br>
+					</c:forEach>
 				</td>
-				<td>
-					<c:if test="${not empty r_list.r_start1 && not empty r_list.r_end1 }">
-					${r_list.r_start1 } ~ ${r_list.r_end1 }<br>
-					</c:if>
-					<c:if test="${not empty r_list.r_start2 && not empty r_list.r_end2 }">
-					${r_list.r_start2 } ~ ${r_list.r_end2 }<br>
-					</c:if>
-					<c:if test="${not empty r_list.r_start3 && not empty r_list.r_end3 }">
-					${r_list.r_start3 } ~ ${r_list.r_end3 }<br>
-					</c:if>
+				<td class="content">
+					<c:set var="start_list" value="${fn:split(r_list.r_start, ',')}" />
+					<c:forEach var="start" items="${start_list}" varStatus="varStatus">
+					${start}<br>
+					</c:forEach>
 				</td>
-				<td>
+				<td class="content">
+					<c:set var="end_list" value="${fn:split(r_list.r_end, ',')}" />
+					<c:forEach var="end" items="${end_list}" varStatus="varStatus">
+					${end}<br>
+					</c:forEach>
+				</td>
+				<td class="content">
 					${r_list.r_date }
 				</td>
 			</tr>
-			</c:forEach>	
+		</c:forEach>	
 			
 			<!-- 페이징 -->
 			<tr>
@@ -137,6 +160,7 @@
 		</table>
 		</div>
 	</section>
+	
 	
 	<div>
       <jsp:include page="../includes/footer.jsp" />
