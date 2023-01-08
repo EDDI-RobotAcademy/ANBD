@@ -33,6 +33,12 @@ public class ResumeServiceImpl implements ResumeService {
 	public int resume_listCount(int j_bno) throws Exception{
 		return dao.resume_listCount(j_bno);
 	}
+	
+	//이미 알바 지원했는지 체크
+	@Override
+	public int resume_chk(Map map) throws Exception {
+		return dao.resume_chk(map);
+	}
 
 
 }

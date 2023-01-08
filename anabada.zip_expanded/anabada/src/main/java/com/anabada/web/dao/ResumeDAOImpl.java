@@ -34,5 +34,11 @@ public class ResumeDAOImpl implements ResumeDAO {
 		return sqlSession.selectOne("resumeMapper.listCount", j_bno);
 	}
 
+	// 알마 이미 지원했는지 체크
+	@Override
+	public int resume_chk(Map map) throws Exception {
+		return sqlSession.selectOne("resumeMapper.chk", map);
+	}
+
 
 }

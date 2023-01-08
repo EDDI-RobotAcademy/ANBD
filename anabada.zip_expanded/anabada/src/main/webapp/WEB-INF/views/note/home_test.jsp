@@ -50,6 +50,9 @@
 			<br>
 			<br>
 		</div>
+		<form action="/resume/my_resume" method="get">
+      		<input type="submit" value="내가 지원한 알바 목록">
+   		</form>
 		<form action="/note/product_note" method="get">
       		<input type="submit" value="쪽지한 사람들 목록 보러 가기">
    		</form>

@@ -6,48 +6,87 @@
 <head>
 <link rel="shortcut icon" href="../resources/images/favicon.ico">
 <link rel="manifest" href="../resources/images/manifest.json">
-<meta name="theme-color" content="#ffffff">
 <link href="../resources/css/jquery-ui.css" rel="stylesheet" type="text/css">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<link rel="stylesheet" href="<c:url value='/css/n_styles.css'/>">
+<meta name="theme-color" content="#ffffff">
 <meta charset="UTF-8">
 <title>알바 지원 페이지</title>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="<c:url value='/css/j_styles.css'/>">
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function () {
 		
 		// 경력 추가하기 버튼 눌렀을 때
 		$("#add").on("click", function () {
-			if($("#career2").css("display") == "none"){
-				$("#career2").css("display", "inline-block");
-				return;
-			}
-				
-			if($("#career3").css("display") == "none"){
-				$("#career3").css("display", "inline-block");
-				return;
-			}
-			
-			if($("#career3").css("display") == "inline-block"){
-				/* $("#max").text("경력은 3개까지만 작성할 수 있습니다.");
-				$("#max").css("color", "red"); */
-				return;
-			}
+			$("#company").attr("placeholder", "");
+	        $("#company").val("");
+	        $("#start").val("");
+	        $("#end").val("");
+	        $('#careerModal').modal("show");  
 			
 		});
 		
-		// 경력 지우기
-		$("#reset").on("click", function () {
-			$("#r_company1").val("");			
-			$("#r_company2").val("");			
-			$("#r_company3").val("");
-			$("#r_start1").val("");
-			$("#r_start2").val("");
-			$("#r_start3").val("");
-			$("#r_end1").val("");
-			$("#r_end2").val("");
-			$("#r_end3").val("");
+		// 모달창에서 경력 등록 눌렀을 때
+		$("#career_insert").on("click", function () {
+			var company = $("#company").val();
+			var start = $("#start").val();
+			var end = $("#end").val();
+			
+			var now = new Date();
+		    var year = now.getFullYear();
+		    var month = now.getMonth() + 1;//1월이 0으로 되기때문에 +1을 함.
+		    var date = now.getDate();
+		    var today = year+"-"+(("00"+month.toString()).slice(-2)); // 오늘 날짜(문자)
+		    var n_today = today.replace(/-/gi,''); //오늘 날짜(숫자로 ex)202012)
+		    var n_start = $("#start").val().replace(/-/gi, '');
+			var n_end = $("#end").val().replace(/-/gi, '');
+		    
+		    var plus = n_end - n_start >= 0;
+		    
+		    // 회사명 null 체크
+		    if(company == null || company == ""){
+		    	$("#c_null").text("회사명을 입력해주세요.");
+	    		$("#c_null").css("color", "red");
+	    		return false;
+		    }else{
+		    	$("#c_null").text("");
+		    }
+		    
+		    // 경력 체크
+			if(company != "" && n_start != "" && n_end != ""){ // 다 기입했을 때
+				if(plus && n_start <= n_today){ // 시작기간이 끝기간보다 먼저일때
+					$("#p_null").text("");
+				}else if(plus && n_start > n_today ){ // 끝기간이 시작기간보다 먼저일때
+					$("#p_null").text("시작기간을 확인해주세요.");
+		    		$("#p_null").css("color", "red");
+		    		return false;
+				}else{
+					$("#p_null").text("경력을 확인해주세요.");
+		    		$("#p_null").css("color", "red");
+		    		return false;
+				}
+			
+			}else if(company != "" || n_start != "" || n_end != ""){
+				$("#p_null").text("경력을 확인해주세요.");
+	    		$("#p_null").css("color", "red");
+	    		return false;
+			}
+		    
+			var career = "<div style='margin:5px;'>" +
+				"회사명&nbsp;" + "<input type='text' name='r_company' class='form-control' style='width: 30%' readonly value=" + company + ">" +
+				"&nbsp;&nbsp;&nbsp;시작&nbsp;" + "<input type='text' name='r_start' class='form-control' style='width: 15%' readonly value=" + start + ">&nbsp;&nbsp;~" +
+				"&nbsp;&nbsp;끝&nbsp;" + "<input type='text' name='r_end' class='form-control' style='width: 15%' readonly value=" + end + ">" +
+				"&nbsp;&nbsp;&nbsp;<button type='button' name='delete_btn' onclick='delete_btn();'>" + "삭제" + "</button>" +
+				"<div>";
+			var $career_list = $("#career_list");
+			$career_list.append(career);
+			
+			$("#careerModal").modal("hide");
 		});
+		
 		
 		// submit할 때 체크해야 할 것들
 		$("button[type='submit']").click(function () {
@@ -57,35 +96,6 @@
 			var age = $("input[name='r_age']").val();
 			var gender = $("input[name='r_gender']").is(":checked");
 			
-			var company1 = $("input[id='r_company1']").val();
-			var company2 = $("input[id='r_company2']").val();
-			var company3 = $("input[id='r_company3']").val();
-			
-			// 경력 추가가 화면에 보여지는지
-			var career2 = $("#career2").css("display") == "inline-block";
-			var career3 = $("#career3").css("display") == "inline-block";
-			
-			// 시작기간, 끝기간 계산위해
-			var now = new Date();
-		    var year = now.getFullYear();
-		    var month = now.getMonth() + 1;//1월이 0으로 되기때문에 +1을 함.
-		    var date = now.getDate();
-		    var today = year+"-"+(("00"+month.toString()).slice(-2)); // 오늘 날짜(문자)
-		    var n_today = today.replace(/-/gi,''); //오늘 날짜(숫자로 ex)202012)
-			
-		    var n_start1 = $("#r_start1").val().replace(/-/gi, '');
-		    var n_start2 = $("#r_start2").val().replace(/-/gi, '');
-		    var n_start3 = $("#r_start3").val().replace(/-/gi, '');
-		    
-		    var n_end1 = $("#r_end1").val().replace(/-/gi, '');
-		    var n_end2 = $("#r_end2").val().replace(/-/gi, '');
-		    var n_end3 = $("#r_end3").val().replace(/-/gi, '');
-		    
-		    var plus1 = n_end1 - n_start1 >= 0;
-		    var plus2 = n_end2 - n_start2 >= 0;
-		    var plus3 = n_end3 - n_start3 >= 0;
-		    
-		    
 			// 1.이름 null 체크
 			if(name == ""){
 				$("#n_null").text("이름을 작성해주세요.");
@@ -122,54 +132,23 @@
 				$("#t_null").text("");
 			}
 			
-			// 5.경력 null 체크(1)
-			if(company1 != "" && n_start1 != "" && n_end1 != ""){ // 다 기입했을 때
-				if(plus1){ // 시작기간이 끝기간보다 먼저일때
-					$("#max").text("");
-				}else{ // 끝기간이 시작기간보다 먼저일때
-					$("#max").text("경력을 확인해주세요.");
-		    		$("#max").css("color", "red");
-		    		return false;
-				}
-			}else if(company1 != "" || n_start1 != "" || n_end1 != ""){
-				$("#max").text("경력을 확인해주세요.");
-	    		$("#max").css("color", "red");
-	    		return false;
-			}
-			
-			// 5.경력 null 체크(2)
-			if(company2 != "" && n_start2 != "" && n_end2 != ""){
-				if(plus2){
-					$("#max").text("");
-				}else{
-					$("#max").text("경력을 확인해주세요.");
-		    		$("#max").css("color", "red");
-		    		return false;
-				}
-			}else if(company2 != "" || n_start2 != "" || n_end2 != ""){
-				$("#max").text("경력을 확인해주세요.");
-	    		$("#max").css("color", "red");
-	    		return false;
-			}
-			// 5.경력 null 체크(3)
-			if(company3 != "" && n_start3 != "" && n_end3 != ""){
-				if(plus3){
-					$("#max").text("");
-				}else{
-					$("#max").text("경력을 확인해주세요.");
-		    		$("#max").css("color", "red");
-		    		return false;
-				}
-			}else if(company3 != "" || n_start3 != "" || n_end3 != ""){
-				$("#max").text("경력을 확인해주세요.");
-	    		$("#max").css("color", "red");
+			//6.필수 항목 모두 선택했는지
+			if($('.essential:checked').length != $('.essential').length){
+				$("#e_null").text("필수 항목에 동의해주세요.");
+				$("#e_null").css("color", "red");
 	    		return false;
 			}
 			
 		});
-	
+		
+		// 경력 지우기
+		$(document).on('click', 'button[name=delete_btn]', function() {
+		    alert('삭제합니다.');
+		    $(this).closest("div").remove();
+		});
 		
 	});
+	
 
 </script>
 <style>
@@ -195,7 +174,6 @@
     	border-radius: 0.25rem;
     }
 </style>
-<link href="../resources/css/jquery-ui.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<div>
@@ -243,7 +221,7 @@
 				<tr>
 					<td class="info">이름</td>
 					<td>
-						<input type="text" name="r_name" id="r_name" class="form-control" >
+						<input type="text" name="r_name" id="r_name" class="form-control" style="width: 40%">
 						<br>
 						<div id="n_null"></div>
 					</td>
@@ -283,27 +261,27 @@
 				</tr>
 				
 				<tr>
-					<td class="info">알바 경력(선택)<br>최대 3개 가능</td>
+					<td class="info">알바 경력(선택)
 					<td>
-						<div id="career1" style="display:inline-block; margin-bottom: 5px;">
-							회사명 <input type="text" name="r_company1" id="r_company1" class="form-control" style="display: inline; width: 260px">&nbsp;
-							시작 <input type="text" name="r_start1" id="r_start1" class="form-control" style="display: inline; width: 160px">&nbsp;
-							종료 <input type="text" name="r_end1" id="r_end1" class="form-control" style="display: inline; width: 160px">
-						</div>
-						<!-- 이 부분 반복문으로 돌리기 -->
-						<%for(int i = 2; i <= 3; i++) {%>
-						<div id="career<%=i%>" style="display:none; margin-bottom: 5px;">
-							회사명 <input type="text" name="r_company<%=i%>" id="r_company<%=i%>" class="form-control" style="display: inline; width: 260px">&nbsp;
-							시작 <input type="text" name="r_start<%=i%>" id="r_start<%=i%>" class="form-control" style="display: inline; width: 160px">&nbsp;
-							종료 <input type="text" name="r_end<%=i%>" id="r_end<%=i%>" class="form-control" style="display: inline; width: 160px">
-						</div>
-						<%} %>
-						<div style="text-align: center">
-							<button type="button" id="add" class="n_btn3" style="display: inline-block; width: 100px;">경력 추가하기</button>
-							<button type="button" id="reset" class="n_btn3" style="display: inline-block; width: 120px;">경력 모두 지우기</button>
-						</div>
-						<div id="max"></div>
-						<br>
+						<div id="career_list"></div>
+						<button type="button" id="add" class="n_btn3" style="display: block; margin: auto; width: 100px">경력 추가하기</button>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="info">자기소개(선택)</td>
+					<td>
+						<textarea id="r_content" name="r_content" placeholder="본인이 일했던 경험과 할 수 있는 업무에 대해 소개해주세요."
+						style="resize: none; height: 200px;" class="form-control"></textarea>
+					</td>
+				</tr>
+				
+				<tr>
+					<td colspan="2">
+					<input type="checkbox" class="essential">&nbsp;(필수)개인정보 수집 및 이용 동의<br>
+					<input type="checkbox" class="essential">&nbsp;(필수)개인정보 제 2자 제공 동의
+					<br>
+					<div id="e_null"></div>
 					</td>
 				</tr>
 				
@@ -318,6 +296,42 @@
 		</div>
 	</section>
 	
+	<!-- 모달내용 -->
+    <div class="modal fade" id="careerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">쪽지</h1>
+                </div>
+                    <div class="modal-body">
+                        <table style="width: 100%">
+                            <tbody>
+                                <tr>
+                                    <th style="width: 10%">회사명</th>
+                                    <td>
+                                       <input type="text" id="company" class="form-control"/><br>
+                                       <div id="c_null"></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>기간</th>
+                                    <td>
+                                    	시작 <input type="text" id="start" class="form-control" style="display: inline-block; width: 40%">&nbsp;
+										종료 <input type="text" id="end" class="form-control" style="display: inline-block; width: 40%"><br>
+										<div id="p_null"></div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" id="career_insert">등록하기</button>
+                    <button class="btn btn-primary" type="button" id="finsh" data-bs-dismiss="modal">취소</button>
+                </div>
+            </div>
+        </div>
+    </div>
+	
 	<div>
       <jsp:include page="../includes/footer.jsp" />
     </div>
@@ -327,25 +341,22 @@
 <script type="text/javascript" src="../resources/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="../resources/js/jquery.mtz.monthpicker.js"></script>
 <script>
-	$(function () {
-	/* MonthPicker 옵션 */
-		options = {
-			pattern: 'yyyy-mm', // Default is 'mm/yyyy' and separator char is not mandatory
-			selectedYear: 2022,
-			startYear: 2000,
-			finalYear: 2022,
-			monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
-	    };
-						
-		/* MonthPicker Set */
-		$('#r_start1').monthpicker(options);
-		$('#r_start2').monthpicker(options);
-		$('#r_start3').monthpicker(options);
-		$('#r_end1').monthpicker(options);
-		$('#r_end2').monthpicker(options);
-		$('#r_end3').monthpicker(options);
-						
-	});
-				 
+   $(function () {
+   /* MonthPicker 옵션 */
+      options = {
+         pattern: 'yyyy-mm', // Default is 'mm/yyyy' and separator char is not mandatory
+         selectedYear: 2023,
+         startYear: 2000,
+         finalYear: 2023,
+         monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+       };
+                  
+      /* MonthPicker Set */
+      $('#start').monthpicker(options);
+      $('#end').monthpicker(options);
+                  
+   });
+             
 </script>
+
 </html>

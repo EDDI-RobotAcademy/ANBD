@@ -13,4 +13,6 @@ public interface ResumeService {
 
 	public int resume_listCount(int j_bno) throws Exception;
 
+	public int resume_chk(Map map) throws Exception;
+
 }

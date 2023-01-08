@@ -44,14 +44,42 @@
 		
 		// 알바 지원하기 컨트롤러로 이동
 		$("#resume").on("click", function () { 
-			location.href= "/resume/resume_insert" + 
-				'?page=' + '${scri.page }' +
-				'&perPageNum=' + '${scri.perPageNum }' +
-				'&j_bno=' + '${j_read.j_bno}' + // resume_job.jsp에서 j_bno이름으로 값 받음
-				'&j_addr1=' + encodeURIComponent('${scri.j_addr1}') + 
-				'&j_term=' + encodeURIComponent('${scri.j_term}') + 
-				'&j_day=' + encodeURIComponent('${scri.j_day}') + 
-				'&j_cate=' + encodeURIComponent('${scri.j_cate}');
+			
+			var resume_chk = 0; 
+			
+			$.ajax({
+		        type: "get",
+		        url : "/resume/resume_chk.ajax",
+		        dataType : "json",
+		        traditional : true,
+		        data : {
+		           	j_bno: ${j_read.j_bno},
+		            id: '${id}'
+		        },
+		        success:function(chk){
+		            if(chk == 1){
+		                if(confirm("이미 지원을 완료한 게시물입니다.\n내 알바 지원목록으로 이동하시겠습니까?")){
+		            		location.href="/resume/my_resume";
+//이 부분 링크 다시 걸기		            		
+		            	}else{
+		            		return false;
+		            	}
+		            }else{
+		                location.href= "/resume/resume_insert" + 
+		    			'?page=' + '${scri.page }' +
+		    			'&perPageNum=' + '${scri.perPageNum }' +
+		    			'&j_bno=' + '${j_read.j_bno}' + // resume_job.jsp에서 j_bno이름으로 값 받음
+		    			'&j_addr1=' + encodeURIComponent('${scri.j_addr1}') + 
+		    			'&j_term=' + encodeURIComponent('${scri.j_term}') + 
+		    			'&j_day=' + encodeURIComponent('${scri.j_day}') + 
+		    			'&j_cate=' + encodeURIComponent('${scri.j_cate}');
+		                }
+		            },
+		        error : function(request, status, error) {
+						alert("오류:" + error);
+				}
+		    });
+				
 		});
 		
 		// 알바 지원자들 보기 컨트롤러로 이동. 페이징 처리 안했음
