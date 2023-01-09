@@ -215,9 +215,7 @@ public class ProductController {
 		List<ReviewVO> reviewList = service.reviewList(rescri) ;// id에 해당하는 리뷰 반환 
 		
 		model.addAttribute("reviewList",reviewList); // 리뷰를 담음 
-		for(int i=0 ; i<reviewList.size() ; i++) {
-			System.out.println("리뷰 : "+reviewList.get(i));
-		}
+		
 		ReviewPageMaker pageMaker = new ReviewPageMaker();
 		pageMaker.setCri(rescri);
 		pageMaker.setTotalCount(service.reviewCount(rescri)); // 갯수 
@@ -225,7 +223,6 @@ public class ProductController {
 		model.addAttribute("reviewList"+reviewList); // 리뷰 리스트 담기 
 		
 		
-		System.out.println("리뷰의 총 갯수 : "+service.reviewCount(rescri));
 		
 
 		

@@ -18,12 +18,7 @@
 <link href="../resources/css/styles.css" rel="stylesheet" />
 <style type="text/css">
 
-/*    
-.card-img-top img {
-	width: 299.33px;
-	height: 300px;
-}
- */
+
 .rach input[type='radio'] {
 	display: none;
 }
@@ -44,11 +39,19 @@
 	border-radius: 10px;
 }
 
-.word {
+ .word {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-}
+} 
+   /*글자 자르게*/
+   .sideword {
+        width:110px;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     white-space: nowrap;
+      
+   }
 
 /*레이아웃 */
 #wapper {
@@ -135,6 +138,7 @@ margin-top: 40px;
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 	$(function() {
+	
 
 		// 검색어 입력하고 검색 눌렀을떄 
 		$('.searchBtn').on(
@@ -236,7 +240,7 @@ margin-top: 40px;
 
 			var realitem = JSON.parse(items);
 			//파싱된 객체의 길이로 for문 돌리기
-			for (var i = 0; i < 5; i++) {
+			for (var i = 0; i < 6; i++) {
 				var pno = realitem[i].pno;
 				var p_title = realitem[i].p_title;
 				var p_img = realitem[i].p_img;
@@ -245,14 +249,14 @@ margin-top: 40px;
 					var li = "<li  ><a href='/product/readView?pno="
 							+ pno
 							+ "'><img width='100' height='100' src='"+p_img+"'/>"
-							+ "<br><font  >" + pno + p_title + "</font>"
+							+ "<br><div class='sideword' >" + pno + p_title + "</div>"
 							+ "</a></li>";
 				}
 				if (p_img == null || p_img == "") {
 					var li = "<li  ><a href='/product/readView?pno="
 							+ pno
 							+ "'><img width='100' height='100' src='../resources/images/아나바다.png'/>"
-							+ "<br><font >" + pno + p_title + "</font>"
+							+ "<br><div class='sideword' >" + pno + p_title + "</div>"
 							+ "</a></li>";
 				}
 
@@ -263,15 +267,14 @@ margin-top: 40px;
 		}
 
 		$(".recent_btn").click(function() {
-			//	var ih = $(this).index() == 0 ? -135 : 135; //위아래로 움직이는 px 숫자
-			var ih = $(this).index() == 0 ? -405 : 405; //위아래로 움직이는 px 숫자
+			
+				var ih = $(this).index() == 0 ? -130 : 130; //위아래로 움직이는 px 숫자
+			//var ih = $(this).index() == 0 ? -405 : 405; //위아래로 움직이는 px 숫자
 			// 위로 : 0 아래로 : 1 
 
 			var obj = $('.recent_list');
 
-			obj.animate({
-				scrollTop : obj.scrollTop() + ih
-			}, 100);
+			 obj.animate({ scrollTop:obj.scrollTop() + ih }, 100);
 		});
 
 		// 이거 젤 마지막에 둬야 함
@@ -481,11 +484,11 @@ margin-top: 40px;
 				<div class="sideBanner">
 					최근 본 상품
 					<div class="r_btn">
-						<button class="recent_btn">▲</button>
-						<button class="recent_btn">▼</button>
+						<button  type="button"  class="recent_btn">▲</button>
+						<button  type="button" class="recent_btn">▼</button>
 					</div>
 					<div class="recent_list ">
-						<ul id="recentItemList">
+						<ul id="recentItemList" style="margin-left:5px; margin-right: 5px; " >
 						</ul>
 					</div>
 				</div>

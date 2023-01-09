@@ -133,6 +133,13 @@ padding: 5px;
 	color: #3D3D3D;
 	font-size: 17px;
 }
+   .sideword {
+        width:110px;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     white-space: nowrap;
+      
+   }
 /*레이아웃 */
 #wapper {
 	width: 1200px;
@@ -345,20 +352,36 @@ font-size: 20px;
 		        var p_img = realitem[i].p_img; 
 		      //  alert(pno+", "+p_title+", "+p_img);
 		      
-		 
-		        var li = "<li  ><a href='/product/readView?pno="
+				if (p_img != null || p_img != "") {
+					var li = "<li  ><a href='/product/readView?pno="
 							+ pno
 							+ "'><img width='100' height='100' src='"+p_img+"'/>"
-							+ "<br><font  >" + pno + p_title + "</font>"
+							+ "<br><div class='sideword' >" + pno + p_title + "</div>"
 							+ "</a></li>";
-		        //ul에 붙이기
-		        $recentItemList.append(li);
-		        
-		    }
+				}
+				if (p_img == null || p_img == "") {
+					var li = "<li  ><a href='/product/readView?pno="
+							+ pno
+							+ "'><img width='100' height='100' src='../resources/images/아나바다.png'/>"
+							+ "<br><div class='sideword' >" + pno + p_title + "</div>"
+							+ "</a></li>";
+				}
+
+				//ul에 붙이기
+				$recentItemList.append(li);
+			}
 		    
 		}
 		
-		
+		$(".recent_btn").click(function() {
+			var ih = $(this).index() == 0 ? -130 : 130; //위아래로 움직이는 px 숫자
+		//var ih = $(this).index() == 0 ? -405 : 405; //위아래로 움직이는 px 숫자
+		// 위로 : 0 아래로 : 1 
+
+		var obj = $('.recent_list');
+
+		 obj.animate({ scrollTop:obj.scrollTop() + ih }, 100);
+	});
 		
 		
 		
@@ -863,7 +886,61 @@ font-size: 20px;
 		
 		
 		<td> 
-	<jsp:include page="review.jsp" />
+		 <div id="textbox" >
+      
+      <c:choose>
+      <c:when test="${reviewList[0] != null }">
+         <!-- 상점 후기  -->
+      <table>
+      <c:forEach items="${reviewList }"  var="review" >
+      <tr>  <td> ${review.r_consumer}</td>  <td> ${review.r_score} </td> <td> ${review.r_date} </td></tr>
+      <tr>
+       <td colspan="3" > ${review.r_content } </td>
+        </tr>
+      </c:forEach>
+      </table>
+      <!-- 후기 끝 -->
+      </c:when>
+      
+      <c:otherwise>
+      <div class="noReview" >
+      등록된 후기가 없습니다. 
+      </div>
+      </c:otherwise>
+      
+      </c:choose>
+      
+      
+      
+   
+
+      
+      
+      
+            
+<!-- 후기 게시판 페이지 네이션 -->
+                  <nav style="margin-left: 50%">
+                  <ul class="pagination">
+                     <li class="page-item"><c:if test="${pageMaker.prev }">
+                           <a class="page-link" href="href="readView${pageMaker.makeSearch(pageMaker.startPage - 1,read.pno,read.p_type )}" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+                           </a></li>
+                     </c:if>
+                     <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+                        <li class="page-item" <c:out value="${pageMaker.cri.page == idx ? 'class=info' : '' }"/>><a class="page-link" href="readView${pageMaker.makeSearch(idx,read.pno,read.p_type)}">${idx }</a></li>
+                     </c:forEach>
+
+
+                     <c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
+                        <li class="page-item"><a class="page-link" href="readView${pageMaker.makeSearch(pageMaker.endPage + 1,read.pno,read.p_type)}" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+                        </a></li>
+                     </c:if>
+                  </ul>
+               </nav>
+      
+      
+      <!-- 페이지 네이션 끝 -->
+      </div> 
+
 		</td>   
 		
 		
