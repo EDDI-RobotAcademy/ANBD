@@ -133,6 +133,13 @@ padding: 5px;
    color: #3D3D3D;
    font-size: 17px;
 }
+ .sideword {
+        width:110px;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     white-space: nowrap;
+     background-color: pink;
+   }
 /*레이아웃 */
 #wapper {
    width: 1200px;
@@ -330,43 +337,59 @@ font-size: 20px;
        
       function get_recent_item(){
           
-          var $recentItemList = $("#recentItemList");
-          
-          var items = sessionStorage.getItem("recent_product");
+    		var $recentItemList = $("#recentItemList");
+
+			var items = sessionStorage.getItem("recent_product");
           //alert(key)
           
           //인수로 전달받은 문자열을 자바스크립트 객체로 변환
           var realitem = JSON.parse(items);
           
           //파싱된 객체의 길이로 for문 돌리기
-           for (var i = 0; i < realitem.length; i++) {
-               var pno = realitem[i].pno;
-              var p_title = realitem[i].p_title;
-              var p_img = realitem[i].p_img; 
-            //  alert(pno+", "+p_title+", "+p_img);
-            
-       
-              var li = "<li  ><a href='/product/readView?pno="
-                     + pno
-                     + "'><img width='100' height='100' src='"+p_img+"'/>"
-                     + "<br><font  >" + pno + p_title + "</font>"
-                     + "</a></li>";
-              //ul에 붙이기
-              $recentItemList.append(li);
-              
+           for (var i = 0; i < 6; i++) {
+       		var pno = realitem[i].pno;
+			var p_title = realitem[i].p_title;
+			var p_img = realitem[i].p_img;
+
+			if (p_img != null || p_img != "") {
+				var li = "<li  ><a href='/product/readView?pno="
+						+ pno
+						+ "'><img width='100' height='100' src='"+p_img+"'/>"
+						+ "<br><div class='sideword' >" + pno + p_title + "</div>"
+						+ "</a></li>";
+			}
+			if (p_img == null || p_img == "") {
+				var li = "<li  ><a href='/product/readView?pno="
+						+ pno
+						+ "'><img width='100' height='100' src='../resources/images/아나바다.png'/>"
+						+ "<br><div class='sideword' >" + pno + p_title + "</div>"
+						+ "</a></li>";
+			}
+
+			//ul에 붙이기
+			$recentItemList.append(li);
           }
           
       }
       
       
       
-      
-      
+
       
       recent_item();
       get_recent_item();
       //최근본 목록 끝
       
+        	$(".recent_btn").click(function() {
+  		alert("zm");
+		var ih = $(this).index() == 0 ? -130 : 130; //위아래로 움직이는 px 숫자
+	//var ih = $(this).index() == 0 ? -405 : 405; //위아래로 움직이는 px 숫자
+	// 위로 : 0 아래로 : 1 
+
+	var obj = $('.recent_list');
+
+	 obj.animate({ scrollTop:obj.scrollTop() + ih }, 100);
+});
       
       
       
@@ -628,17 +651,17 @@ font-size: 20px;
    </div>
 
 <!-- header end -->
-
+<form name="readForm" role="form">
    <div id="wapper" >
    <section class="nav"></section>
    <section class="section" style="border-top: 1px solid #e5e5e5">
 
    
-   
-      <button id="listbtn">목록으로가기</button>
+     <button type="button" onclick="alert('tttt');" >클릭 테스트</button>
+     
 
 
-      <form name="readForm" role="form">
+      <!-- <form name="readForm" role="form"> -->
 
          <input type="hidden" name="pno" value="${read.pno }">
 
@@ -931,31 +954,32 @@ font-size: 20px;
       <!-- 상품 상세 설명 및 구매자 후기  끝  -->
          
          
+       
          
-         
 
 
 
 
-      </form>
+      <!-- </form> -->
       </section>
                      <!-- 사이드바 - 최근본 상품 목록 -->
-         <section class="aside">
-            <div class="sideBanner" >
-               최근 본 상품
-               <div class="r_btn">
-                  <button class="recent_btn">▲</button>
-                  <button class="recent_btn">▼</button>
-               </div>
-               <div class="recent_list ">
-                  <ul id="recentItemList">
-                  </ul>
-               </div>
-            </div>
-         </section>
+      <section class="aside">
+				<div class="sideBanner" >
+				최근 본 상품 
+					<div class="r_btn">
+						<button  type="button" onclick="alert('tt2222t');" class="recent_btn"  >▲</button>
+						<button  type="button" class="recent_btn">▼</button>
+					</div>
+					<div class="recent_list "  >
+						<ul id="recentItemList" style="margin-left:5px; margin-right: 5px;" >
+						</ul>
+					</div>
+				</div>
+			</section>
          <!-- 최근본 상품 끝  -->
       
    </div>
+    </form>
    
    
    
