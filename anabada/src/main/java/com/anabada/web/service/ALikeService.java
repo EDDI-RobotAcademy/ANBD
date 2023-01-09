@@ -1,0 +1,15 @@
+package com.anabada.web.service;
+
+import java.util.Map;
+
+import com.anabada.web.vo.ALikeVO;
+
+public interface ALikeService {
+
+	public int likeCheck(Map<String, String> likeChk) throws Exception;
+
+	public void insertLike(Map<String, String> bnoId) throws Exception;
+
+	public void deleteLike(Map<String, String> bnoId) throws Exception;
+
+}
