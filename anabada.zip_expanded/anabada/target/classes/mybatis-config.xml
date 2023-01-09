@@ -18,8 +18,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.anabada.web.vo.JobVO" alias="JobVO" />
 		<typeAlias type="com.anabada.web.vo.PutInVO" alias="PutInVO" />
 		<typeAlias type="com.anabada.web.vo.NoteVO" alias="NoteVO" />
-		<typeAlias type="com.anabada.web.vo.PBoardVO"
-			alias="PBoardVO" />
+		<typeAlias type="com.anabada.web.vo.PBoardVO"	alias="PBoardVO" />
+		<typeAlias type="com.anabada.web.vo.HeartVO"	alias="HeartVO" />
+		
 		<typeAlias type="com.anabada.web.vo.PfileVO" alias="PfileVO" />
 		<typeAlias type="com.anabada.web.vo.EventBoardVO"
 			alias="EventBoardVO" />

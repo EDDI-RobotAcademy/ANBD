@@ -17,6 +17,9 @@ SELECT COUNT(HNO) FROM HEART WHERE PNO =#{pno} AND ID =#{id}
 DELETE FROM HEART WHERE PNO = #{pno} AND ID = #{id}
 </delete>
 
-
+<!-- ID에 해당하는 사람의 하트 목록 불러오기 -->
+<select id="myHeartList"  parameterType="String"  resultType="HeartVO" >
+SELECT * FROM HEART WHERE ID =#{ID}
+</select>
 
 </mapper>

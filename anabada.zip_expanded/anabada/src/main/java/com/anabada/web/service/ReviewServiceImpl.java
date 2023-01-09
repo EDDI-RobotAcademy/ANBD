@@ -25,4 +25,10 @@ public class ReviewServiceImpl implements ReviewService {
 		return dao.review_chk(pno);
 	}
 
+	// lev 점수 업데이트 
+	@Override
+	public void updateLev(ReviewVO reviewVO) throws Exception {
+		dao.updateLev(reviewVO);
+	}
+
 }
