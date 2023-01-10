@@ -17,18 +17,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="<c:url value='/css/n_styles.css'/>">
 <style type="text/css">
-   /* .d_btn {
-     all: unset;
-     width: 45px;
-     height: 30px;
-     border-radius: 2px 2px;
-     color: black;
-     font-size: 15px;
-     text-align: center;
-     cursor: pointer;
-     border: 1px solid gray;
-   } */
-   
    input[type=radio]{
          display: none;
          margin: 10px; 
@@ -84,6 +72,17 @@
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function () {
+		
+		//지원자 보기 버튼 누르면 지원자 목록 페이지로 이동
+		$(".resume").on("click", function () {
+			
+			var j_bno = $(this).attr("id");
+			
+			location.href = "/resume/resume_list" +
+				'?j_bno=' + j_bno;
+		});
+		
+		
 		
 		// 삭제 전체 선택, 해제
 	    $('#delete_all').on("click", function () {
@@ -183,27 +182,27 @@
         
         <!-- 내용 -->
         <div class="minicon" style="background-color: white; border-top: 1px solid #e9e9e9">
-            <c:choose>
-            <c:when test="${not empty my_jobList}">
         	<table class="mj_list">
         		<tr>
-            		<td colspan="4">
+            		<td colspan="5">
             			<button type="button" name="delete_btn" class="n_btn2">
             			삭제</button>
             		</td>
             	</tr>
             	
         		<tr>
-        			<td width="50px;" style="text-align: center">
+        			<td style="text-align: center">
                   		<input type="checkbox" name="delete" value="0" id="delete_all">
                		</td>
         			<td colspan="2" style="text-align: center">내용</td>
-        			<td>등록일</td>
+        			<td style="text-align: center">등록일</td>
+        			<td>지원자 보기</td>
         		</tr>
                 
+            	<c:if test="${not empty my_jobList}">
                 <c:forEach var="mj_list" items="${my_jobList}">
                 <tr>
-                	<td style="text-align: center">
+                	<td style="text-align: center" width="10px;">
                   		<input type="checkbox" name="delete" class="delete" value="${mj_list.j_bno}">
                		</td>
 				   	<td style="width: 100px;">
@@ -220,38 +219,45 @@
                         </c:otherwise>
                         </c:choose>
                     </td>
-                    <td>
+                    <td width="320px;">
                         <font style="font-size: 20px;">${mj_list.j_title }</font><br>
 						${mj_list.j_company }<br>
                     </td>
-                    <td>
+                    <td width="150px;" style="text-align: center">
                         ${mj_list.j_date }
                     </td>
+                    <td style="text-align: center">
+						<button type="button" class="resume" id="${mj_list.j_bno }">지원자</button>
+					</td>
                 </tr>
             </c:forEach>
-            </table>
+            </c:if>
             
-            <div style="text-align: center">
-                <c:if test="${pageMaker.prev }">
-                   <a href="my_job${pageMaker.makeSearch2(pageMaker.startPage - 1 )}">이전</a>
-                </c:if>
+            <c:if test="${empty my_jobList}">
+            <tr>
+            	<td colspan="4" style="text-align: center">
+				작성한 알바 구인 공고가 없습니다.            	
+            	</td>
+            </tr>
+            </c:if>
+         </table>
+            
+         <c:if test="${not empty my_jobList}">
+         <div style="text-align: center">
+             <c:if test="${pageMaker.prev }">
+                <a href="my_job${pageMaker.makeSearch2(pageMaker.startPage - 1 )}">이전</a>
+             </c:if>
                               
-                <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+             <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
                 &nbsp;<a href="my_job${pageMaker.makeSearch2(idx)}">${idx }</a>
-                </c:forEach>
+             </c:forEach>
                               
-                <c:if test="${pageMaker.next && pageMakerendPage > 0 }">
-                    <a href="my_job${pageMaker.makeSearch2(pageMaker.endPage + 1)}">다음</a>
-                </c:if>
-            </div>
-            </c:when>
-       
-            <c:otherwise><!-- 이거 되는지 실행안해봤음 -->
-                <div style="text-align: center">
-            	   작성한 게시글이 없습니다.
-                </div>
-            </c:otherwise>
-            </c:choose>
+             <c:if test="${pageMaker.next && pageMakerendPage > 0 }">
+                <a href="my_job${pageMaker.makeSearch2(pageMaker.endPage + 1)}">다음</a>
+             </c:if>
+          </div>
+          </c:if>
+          
        </div><!-- 미니콘 -->
    </form>
    </section>

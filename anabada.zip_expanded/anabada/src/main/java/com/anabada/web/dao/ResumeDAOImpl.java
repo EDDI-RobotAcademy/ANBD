@@ -64,6 +64,18 @@ public class ResumeDAOImpl implements ResumeDAO {
 	public void my_resumeDelete(int[] delete_array) throws Exception {
 		sqlSession.delete("resumeMapper.mr_delete", delete_array);
 	}
+
+	// 내 지원서 상세보기(수정할때)
+	@Override
+	public ResumeVO resume_read(int r_bno) throws Exception {
+		return sqlSession.selectOne("resumeMapper.read", r_bno);
+	}
+
+	// 알바 지원서 수정
+	@Override
+	public void resume_update(ResumeVO vo) throws Exception {
+		sqlSession.update("resumeMapper.update", vo);
+	}
 	
 	
 

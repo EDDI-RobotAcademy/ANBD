@@ -14,13 +14,19 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 		
-		// 지원서 상세보기하면 read.jsp로 이동
-		$(".detail").on("click", function () {
+		// 지원서 수정 버튼 누르면 update.jsp로 이동
+		$(".update").on("click", function () {
 			
-			var r_bno = $(this).attr("id");
+			var bno = $(this).attr("id");
+			var [r_bno, j_bno] = bno.split(',');
+			//alert(r_bno + j_bno);
 			
-			location.href = "/resume/resume_read" +
-				'?r_bno=' + r_bno;
+			location.href = "/resume/resume_update_view" +
+				'?r_bno=' + r_bno +
+				'&j_bno=' + j_bno +
+				'&page=' + '${cri.page }' +
+    			'&perPageNum=' + '${cri.perPageNum }';
+			
 		});
 		
 		// 삭제 전체 선택, 해제
@@ -104,7 +110,7 @@
     </div>
     
     <section class="container">
-    <form name="resumeForm" method="get">
+    <form name="resumeForm">
     	<div class="minicon">
 	
 		    <table class="mr_list">
@@ -126,7 +132,7 @@
 		    			지원날짜
 		    		</th>
 		    		<th>
-		    			지원서
+		    			지원 수정
 		    		</th>
 		    	</tr>
 			    
@@ -162,7 +168,7 @@
 						${mr_list.r_date }
 					</td>
 					<td style="width: 100px; text-align: center;">
-						<button type="button" class="detail" id="${mr_list.r_bno }">상세보기</button>
+						<button type="button" class="update" id="${mr_list.r_bno },${j_list[status.index].j_bno}">수정</button>
 					</td>
 				</tr>	
 				</c:forEach>

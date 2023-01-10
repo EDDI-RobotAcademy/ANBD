@@ -24,4 +24,8 @@ public interface ResumeService {
 
 	public void my_resumeDelete(int[] delete_array) throws Exception;
 
+	public ResumeVO resume_read(int r_bno) throws Exception;
+
+	public void resume_update(ResumeVO vo) throws Exception;
+
 }

@@ -64,6 +64,18 @@ public class ResumeServiceImpl implements ResumeService {
 	public void my_resumeDelete(int[] delete_array) throws Exception {
 		dao.my_resumeDelete(delete_array);
 	}
+
+	// 내 지원 상세보기(수정할때)
+	@Override
+	public ResumeVO resume_read(int r_bno) throws Exception {
+		return dao.resume_read(r_bno);
+	}
+
+	// 지원서 수정
+	@Override
+	public void resume_update(ResumeVO vo) throws Exception {
+		dao.resume_update(vo);
+	}
 	
 	
 

@@ -372,18 +372,7 @@
       '&j_term=' + encodeURIComponent($("input[name=j_term]:checked").val()) + 
       '&j_day=' + encodeURIComponent($("input[name=j_day]:checked").val()) + 
       '&j_cate=' + encodeURIComponent($("input[name=j_cate]:checked").val());
-                     /*
-                     ex) 1페이지에서 제목+내용 선택하고 aaaaa 입력 후 검색버튼 눌렀을 때 url
-                     http://localhost:8080/board/list?page=1&perPageNum=10&searchType=tc&keyword=aaaaa
-                     즉, pageMaker.makeQuery(1) => ?page=1&perPageNum=10
-                     
-                     ex) 1페이지에서 작성자 선택하고 아무글도 입력하지 않고 검색버튼 눌렀을 때 url
-                     http://localhost:8080/board/list?page=1&perPageNum=10&searchType=w&keyword=      
-                        
-                     [검색] 버튼 누르면 파라미터 값들 가지고 BoardController "/list"로 이동(기본이 get방식)
-                     이때 넘어가는 파라미터는 page, perPageNum, serachType, keyword
-                     */
-   	  });
+   });
    
    $('.search_cate').click(function () {
       location.href = "job_list" + '${pageMaker.makeQuery(1)}' + 

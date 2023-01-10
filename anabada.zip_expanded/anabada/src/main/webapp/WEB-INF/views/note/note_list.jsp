@@ -300,12 +300,7 @@
          <div style="margin-bottom: 0px; text-align: center">
             <c:if test="${pageMaker.prev }">
                <a href="note_list${pageMaker.makeSearch(pageMaker.startPage - 1 )}">이전</a>
-               <!-- 
-               ex) 1페이지에서 제목+내용 선택하고 aaaaa 입력한 뒤 검색 버튼 누르고 -> 그 검색 목록 중에서 [2]페이지 눌렀을 때 
-               http://localhost:8080/board/list?page=2&perPageNum=10&searchType=tc&keyword=aaaaa 
-               [이전] 누르면 파라미터 값들 가지고 BoardController "/list"로 이동(기본이 get방식)
-               -->
-               </c:if>
+            </c:if>
                            
             <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
                <%-- <c:out value="${pageMaker.cri.page == idx ? 'class=info' : '' }"/> --%>
@@ -316,14 +311,15 @@
                <a href="note_list${pageMaker.makeSearch(pageMaker.endPage + 1)}">다음</a>
             </c:if>
          </div>
-        </div><!-- 미니콘 -->
-        </form>
+        </div>
+      </form>
    </section>
+   
    <div>
       <jsp:include page="../includes/footer.jsp" />
    </div>
    
-    <!-- 모달내용 -->
+   <!-- 쪽지보내기 모달 -->
    <div class="modal fade" id="noteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content ">

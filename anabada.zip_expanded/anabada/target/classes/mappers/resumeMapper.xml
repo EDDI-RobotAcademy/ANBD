@@ -59,4 +59,16 @@ DELETE FROM RESUME_BOARD WHERE R_BNO IN(
 )
 </delete>
 
+<select id="read" parameterType="int" resultType="ResumeVO">
+SELECT * FROM RESUME_BOARD WHERE R_BNO = #{r_bno}
+</select>
+
+<update id="update" parameterType="resumeVO">
+UPDATE RESUME_BOARD SET 
+R_NAME = #{r_name}, R_GENDER = #{r_gender}, R_AGE = #{r_age}, R_TEL = #{r_tel}, 
+R_COMPANY = #{r_company}, R_START = #{r_start}, R_END = #{r_end}
+WHERE R_BNO = #{r_bno}
+</update>
+
+
 </mapper>

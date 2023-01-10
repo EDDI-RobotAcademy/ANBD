@@ -1,5 +1,6 @@
 package com.anabada.web.controller;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -115,7 +116,7 @@ public class ResumeController {
 	
 	// 마이페이지 알바 지원 목록
 	@RequestMapping(value = "/my_resume", method = RequestMethod.GET)
-	public String my_resume(@ModelAttribute JobVO jobVO, @ModelAttribute("cri") ResumeCriteria cri, Model model, HttpSession session) throws Exception{
+	public String my_resume(@ModelAttribute("cri") ResumeCriteria cri, Model model, HttpSession session) throws Exception{
 			
 		logger.info("내 지원목록 보기");
 				
@@ -140,7 +141,6 @@ public class ResumeController {
 		model.addAttribute("pageMaker", pageMaker);
 		
 		//알바 게시물 객체도 보여주기 위해서
-		
 		int[] jbno_array = new int[mr_list.size()]; System.out.println("하하하하");
 		System.out.println(mr_list.size());
 		 
@@ -148,7 +148,7 @@ public class ResumeController {
 		if(mr_list.size() != 0) {
 			
 			for(int i = 0; i < mr_list.size(); i++) {
-				ResumeVO resumeVO = mr_list.get(i);
+			    ResumeVO resumeVO = mr_list.get(i);
 				jbno_array[i] = resumeVO.getJ_bno();
 			}
 			
@@ -172,6 +172,33 @@ public class ResumeController {
 		resumeService.my_resumeDelete(delete_array); // 마이페이지 게시물들 번호 배열로 받아서 삭제
 			
 		logger.info("삭제 성공");
+	}
+	
+	// 마이페이지에서 지원 수정 게시물 페이지로 가는거
+	@RequestMapping(value = "/resume_update_view", method = RequestMethod.GET)
+	public String resume_update_view(ResumeVO resumeVO, JobVO jobVO, @ModelAttribute("cri") ResumeCriteria cri, Model model) throws Exception{
+			
+		logger.info("알비 지원 수정하려고함~~");
+			
+		model.addAttribute("r_read", resumeService.resume_read(resumeVO.getR_bno()));
+		model.addAttribute("j_read", jobService.job_read(jobVO.getJ_bno()));
+		model.addAttribute("cri", cri);
+			
+		return "/resume/resume_update"; // 수정 페이지로 이동
+	}
+	
+	//지원 게시물 수정
+	@RequestMapping(value = "/resume_update", method = RequestMethod.GET)
+	public String resume_update(HttpServletResponse resp, ResumeVO vo, @ModelAttribute("cri") ResumeCriteria cri, Model model) throws Exception{
+			
+		logger.info("알비 지원 수정 완료 버튼 누름~~");
+			
+		System.out.println(vo);
+		resumeService.resume_update(vo);
+			
+	    model.addAttribute("cri", cri);
+	        
+        return "redirect:/resume/my_resume";
 	}
 	
 	

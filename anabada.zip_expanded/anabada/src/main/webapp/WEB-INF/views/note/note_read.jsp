@@ -228,7 +228,6 @@
    	   cursor: pointer;
    }
    
-   
    input[type=who]:radio + label{
    	   background-image: none;
    	   background-color: #3598dc;
@@ -267,7 +266,7 @@
 	
 	<section class="container">
 	<form name="readForm">
-		<!-- 바 -->
+		<!-- 좌측 바 -->
 		<div class="sidemenu">
 			<div class="myImg">
 				<img src="../resources/images/아나바다.png" width="150px" height="150px"/>
