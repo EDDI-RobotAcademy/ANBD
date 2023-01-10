@@ -102,8 +102,6 @@
 	    		return false;
 	    	}
 	    	
-	    	
-	    	
 	        $.ajax({
 	            type: "get",
 	            url : "/note/note_insert.ajax",

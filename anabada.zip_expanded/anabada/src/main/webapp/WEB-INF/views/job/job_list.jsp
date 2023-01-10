@@ -22,35 +22,32 @@
      padding: 0;
    }
    
-   .boxes li {
-     width: 250px; /*이걸로 해야지 1000px에 알바 게시물 4개 보임*/
-     padding: 3px; /*알바 게시물들 양옆 간격 3px*/
+   .boxes > div {
+     width: 244px; /*이걸로 해야지 1000px에 알바 게시물 4개 보임*/
      margin-top: 3px; /*게시물들 위아래 간격 3px*/
      box-sizing: border-box;
-   }
-   
-   .search_format li { /*검색 li*/
-     width: 250px;
-     padding: 0 20px;
-     margin-top: 20px;
-     box-sizing: border-box;
-   }
-   
-   .boxes li a {
-     display: block;
-     padding: 0px; /*알바 게시물 안 4면 여백*/
-     text-align: left; 
-     text-decoration: none;
-     background: white; /*알바 게시물 배경 흰색*/
-     color: #000;
      border: 1px solid #E2E2E2;
+     margin: 3px;
+     border-radius: 5px;
+   }
+   
+   .boxes > div > .read {
+     text-align: left; 
+     color: #000;
+     cursor: pointer;
+   }
+   
+   .boxes > div > div > .word2{
+     padding: 3px 10px;
    }
    
    .j_img { 
-      width: 237px;
-      height: 237px;
+      width: 244px;
+      height: 230px;
+      border-radius: 5px 5px 0px 0px;
    }
    
+   /*선택검색*/
    .search{
       margin: auto; 
       width: 1000px;
@@ -97,9 +94,6 @@
       border-collapse: collapse;
    }
    
-   .aside {
-   }
-   
    .sideBanner {
       width: 120px; 
       position: absolute;
@@ -140,6 +134,15 @@
 	  text-overflow: ellipsis;
 	  white-space: nowrap;
    }
+   
+   .word2{
+   	  width:230px;
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	  white-space: nowrap;
+   }
+   
+   
    
    
 </style>
@@ -293,32 +296,30 @@
          
       <div class="container">
          <!-- 여기부터는 게시물들 -->
-          <ul class="boxes">
+          <div class="boxes">
              <c:forEach var="j_list" items="${j_list}">
-                 <li>
-                   <a href="/job/job_read?j_bno=${j_list.j_bno }&page=${scri.page }&perPageNum=${scri.perPageNum }&j_addr1=${scri.j_addr1 }&j_term=${scri.j_term }&j_day=${scri.j_day}&j_cate=${scri.j_cate}">
+                 <div>
+                   <div class="read" onclick="location.href='/job/job_read?j_bno=${j_list.j_bno }&page=${scri.page }&perPageNum=${scri.perPageNum }&j_addr1=${scri.j_addr1 }&j_term=${scri.j_term }&j_day=${scri.j_day}&j_cate=${scri.j_cate}'">
                     <!-- a태그 누르면  -->   
-                       <div class="details">
-                          <c:choose>
-                             <c:when test="${empty j_list.j_img}">
-                                <img class="j_img" src="../resources/images/아나바다2.png"/>
-                             </c:when>
-                             <c:otherwise>
-                                <img class="j_img" src="/upload/${j_list.j_img }"/>
-                             </c:otherwise>
-                          </c:choose>
-                          &nbsp;${j_list.j_company }<br>
-                          &nbsp;${j_list.j_title }<br>
-                          &nbsp;직종 : ${j_list.j_cate }<br>
-                          &nbsp;날짜 : ${j_list.j_day }<br>
-                          &nbsp;${j_list.j_term }&nbsp;${j_list.j_start }:00 ~ ${j_list.j_end }:00<br>
-                          &nbsp;${j_list.j_method }&nbsp;${j_list.j_pay }<br>
-                          &nbsp;${j_list.j_addr1 }
-                       </div>
-                   </a>
-                  </li>
-              </c:forEach>
-         </ul>
+                       <c:choose>
+                          <c:when test="${empty j_list.j_img}">
+                             <img class="j_img" src="../resources/images/아나바다2.png"/>
+                          </c:when>
+                          <c:otherwise>
+                             <img class="j_img" src="/upload/${j_list.j_img }"/>
+                          </c:otherwise>
+                       </c:choose>
+                       <div class="word2">${j_list.j_company }</div>
+                       <div class="word2">${j_list.j_title }</div>
+                       <div class="word2">직종 : ${j_list.j_cate }</div>
+                       <div class="word2">날짜 : ${j_list.j_day }</div>
+                       <div class="word2">${j_list.j_term }&nbsp;${j_list.j_start }:00 ~ ${j_list.j_end }:00</div>
+                       <div class="word2">${j_list.j_method }&nbsp;${j_list.j_pay }</div>
+                       <div class="word2">${j_list.j_addr1 }</div>
+                    </div>
+                </div>
+             </c:forEach>
+         </div>
       </div>
       
       <!-- 페이징 -->

@@ -1,7 +1,5 @@
 package com.anabada.web.controller;
 
-import java.io.PrintWriter;
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -29,20 +27,14 @@ public class ReviewController {
 	
 	@RequestMapping(value = "/review_register.ajax", method = RequestMethod.GET)
 	@ResponseBody
-    public void review_register(HttpServletResponse resp, @ModelAttribute ReviewVO reviewVO) throws Exception {
+    public boolean review_register(HttpServletResponse resp, @ModelAttribute ReviewVO reviewVO) throws Exception {
         
 		System.out.println("후기" + reviewVO);
 		
-		boolean result = false;
-		
 		reviewService.review_register(reviewVO);
 		
-		result = true;
-        
-        PrintWriter writer = resp.getWriter();
-        resp.setCharacterEncoding("UTF-8"); 
-        resp.setContentType("text/html;charset=UTF-8");
-        writer.println(result);
+		boolean result = true;
+		return result;
     }
 	
 	@RequestMapping(value = "/review_chk.ajax", method = RequestMethod.GET)	

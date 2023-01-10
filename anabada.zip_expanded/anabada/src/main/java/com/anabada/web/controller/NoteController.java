@@ -1,7 +1,5 @@
 package com.anabada.web.controller;
 
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,12 +13,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.anabada.web.service.NoteService;
 import com.anabada.web.vo.NoteCriteria;
@@ -44,21 +40,15 @@ public class NoteController {
 	// 쪽지보내는 ajax
 	@RequestMapping(value="/note_insert.ajax", method = RequestMethod.GET)
 	@ResponseBody
-    public void note_insert(HttpServletResponse resp, @ModelAttribute("noteVO") NoteVO noteVO) throws Exception {
+    public boolean note_insert(HttpServletResponse resp, @ModelAttribute("noteVO") NoteVO noteVO) throws Exception {
         
 		System.out.println("쪽지" + noteVO);
 		noteVO.getPno();
 		
-		boolean result = false;
-        
 		noteService.send(noteVO);
 		
-		result = true;
-        
-        PrintWriter writer = resp.getWriter();
-        resp.setCharacterEncoding("UTF-8"); 
-        resp.setContentType("text/html;charset=UTF-8");
-        writer.println(result);
+		boolean result = true;
+        return result;
     }
 	
 	
@@ -95,13 +85,12 @@ public class NoteController {
 	
 	// 쪽지 삭제하는 ajax(목록에서)
 	@RequestMapping(value = "/delete_chk.ajax", method =RequestMethod.GET)
-	public void delete_chk(HttpServletResponse resp, @RequestParam(value="delete_array") int[] delete_array, 
+	@ResponseBody
+	public boolean delete_chk(HttpServletResponse resp, @RequestParam(value="delete_array") int[] delete_array, 
 			@RequestParam(value="s_id") String s_id, @RequestParam(value="r_id") String r_id, HttpSession session) throws Exception{
 		
 		logger.info("쪽지함에서 삭제 눌렀음"); 
 		// 페이징 처리 안해줬음 
-		
-		boolean result = false;
 		
 		String id = (String)session.getAttribute("id");
 		
@@ -113,12 +102,9 @@ public class NoteController {
 		
 		noteService.delete_all(delete_array); // 보낸 사람, 받는 사람 둘다 삭제했으면 디비에서도 삭제
 	
-		result = true;
+		boolean result = true;
+		return result;
         
-        PrintWriter writer = resp.getWriter();
-        resp.setCharacterEncoding("UTF-8"); 
-        resp.setContentType("text/html;charset=UTF-8");
-        writer.println(result);
 	}
 	
 	// 쪽지 상세보기 + 쪽지보면 읽었다고 표시
@@ -149,12 +135,11 @@ public class NoteController {
 	
 	// 쪽지 삭제하는 ajax(상세보기에서)
 	@RequestMapping(value = "/delete_chk2.ajax", method =RequestMethod.GET)
-	public void delete_chk2(HttpServletResponse resp, @RequestParam(value="bno") int bno,
+	@ResponseBody
+	public boolean delete_chk2(HttpServletResponse resp, @RequestParam(value="bno") int bno,
 			@RequestParam(value="s_id") String s_id, @RequestParam(value="r_id") String r_id, HttpSession session) throws Exception{
 			
 		logger.info("쪽지 상세보기에서 삭제 눌렀음"); 
-			
-		boolean result = false;
 			
 		String id = (String)session.getAttribute("id");
 		
@@ -167,12 +152,8 @@ public class NoteController {
 			
 		noteService.delete_detail(bno); // 보낸 사람, 받는 사람 둘다 삭제했으면 디비에서도 삭제
 				
-		result = true;
-	        
-	    PrintWriter writer = resp.getWriter();
-	    resp.setCharacterEncoding("UTF-8"); 
-	    resp.setContentType("text/html;charset=UTF-8");
-	    writer.println(result);
+		boolean result = true;
+		return result;
 	}	
 	
 	// 특정 중고게시물에 대해 쪽지한 사람 리스트
@@ -224,20 +205,14 @@ public class NoteController {
 	// 판매리뷰 쪽지 보내기 ajax
     @RequestMapping(value="/review_note.ajax", method = RequestMethod.GET)
 	@ResponseBody
-	public void review_note(HttpServletResponse resp, @ModelAttribute("noteVO") NoteVO noteVO) throws Exception {
+	public boolean review_note(HttpServletResponse resp, @ModelAttribute("noteVO") NoteVO noteVO) throws Exception {
 	        
     	System.out.println("쪽지" + noteVO);
 			
-		boolean result = false;
-	        
 		noteService.send(noteVO);
-			
-		result = true;
-	        
-	    PrintWriter writer = resp.getWriter();
-	    resp.setCharacterEncoding("UTF-8"); 
-	    resp.setContentType("text/html;charset=UTF-8");
-	    writer.println(result);
+		
+		boolean result = true;
+		return result;
     }
 	
 }

@@ -197,12 +197,14 @@
 	        	<ul style="margin-top: 5px;">
 		        	<li style="text-align: left">
 		        	<label>
-		        	<input type="radio" class="search_who" name="who" value="receive" <c:out value="${scri.who eq 'receive' ? 'checked' : ''}" />>받은 쪽지함
+		        	<input type="radio" class="search_who" name="who" value="receive" <c:if test="${scri.who eq 'receive'}">checked</c:if>>
+		        		<font <c:if test="${scri.who eq 'receive'}"> style="font-weight: bold;" </c:if>>받은 쪽지함</font>
 		        	</label>
 		        	</li>
 	        		<li style="text-align: left">
 	        		<label>
-	        		<input type="radio" class="search_who" name="who" value="send" <c:out value="${scri.who eq 'send' ? 'checked' : ''}" />>보낸 쪽지함
+	        		<input type="radio" class="search_who" name="who" value="send"  <c:if test="${scri.who eq 'send'}">checked</c:if>>
+        				<font <c:if test="${scri.who eq 'send'}"> style="font-weight: bold;" </c:if>>보낸 쪽지함</font>
         			</label>
         			</li>
         		</ul>
