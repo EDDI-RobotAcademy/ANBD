@@ -186,4 +186,14 @@ public class ABoardController {
 		
 		return "/a_board/readView";
 	}
+	
+	@RequestMapping(value = "/report", method = RequestMethod.GET)
+	public String report() {
+		return "a_board/report";
+	}
+	
+	@RequestMapping(value = "/reportError", method = RequestMethod.GET)
+	public String reportError() {
+		return "a_board/reportError";
+	}
 }

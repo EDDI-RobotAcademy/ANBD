@@ -11,13 +11,15 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		var formObj = $("form[name='readForm']");
-
+		
+		/* 게시글 수정 */
 		$(".update_btn").on("click", function() {
 				formObj.attr("action", "/a_board/updateView");
 				formObj.attr("method", "get");
 				formObj.submit();
 			})
 			
+		/* 게시글 삭제 */
 			$(".delete_btn").on("click", function() {
 				var deleteYN = confirm("삭제 하시겠습니까?");
 				if(deleteYN == true) {
@@ -27,22 +29,30 @@
 				}
 			})
 			
+		/* 게시글 목록 보기 */
 		$(".list_btn").on("click", function() {
 			location.href = "/a_board/list?page=${scri.page}" + "&perPageNum=${scri.perPageNum}" + 
 					"&searchType=${scri.searchType}" + "&keyword=${scri.keyword}";
 		});
+		
+		const button = document.querySelector('.report_btn');
+		
+		button.addEventListener("click", function() {
+			window.open("/a_board/report", "신고", "width=400, height=600, left=0, top=0");
+		});
 	});
 	
+	/* 좋아요 */
 	$(document).ready(function() {
 		
 		var likeVal = ${Chk};
 		
 		if(likeVal > 0) {
-			$("#heart").attr("src", "<c:url value='images/heart.png'/>");
+			$("#heart").attr("src", "<c:url value='/images/heart.png'/>");
 			$(".like").prop("name", likeVal);
 		}
 		else {
-			$("#clear").attr("src", "<c:url value='images/clear.png'/>");
+			$("#clear").attr("src", "<c:url value='/images/clear.png'/>");
 			$(".like").prop("name", likeVal);
 		}  
 		
@@ -88,6 +98,7 @@
 		});
 	}
 });
+	
 </script>
 
 </head>
@@ -132,6 +143,10 @@
 		<button type="button" class="list_btn">목록</button>
 	</div>
 	
+	<div>
+		<button type="button" class="report_btn">신고</button>
+	</div>
+	
 	<div class="like">
 		<c:if test="${Chk == 0 }">
 		<img id="clear" src="<c:url value='/images/clear.png'/>" style="width:40px; height:40px;"/>
@@ -141,7 +156,6 @@
  		</c:if>
 	</div>
 	
-	<%-- <span id='likeCount'>${read.a_like_cnt }</span> --%>
 	
 <div>
 	<%@include file="replyReadView.jsp" %>
