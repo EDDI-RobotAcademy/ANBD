@@ -41,24 +41,27 @@ public class UserProductController {
 
 	// user가 자기가 쓴 글 목록 보기
 
-	@RequestMapping(value = "/myBoardList", method = RequestMethod.GET)
+	@RequestMapping(value = "/myStore", method = RequestMethod.GET)
 	public String myBoardList(Model model,HttpServletRequest req) throws Exception {
 
 		HttpSession session = req.getSession();
 		String id = (String)session.getAttribute("id");
 		List<PBoardVO> list = service.myBoardList(id); // 글정보
+		System.out.println("총 글의 수 : "+list.size());
 		for (int i = 0; i < list.size(); i++) {
 			PBoardVO vo = list.get(i);
 			String path = productService.getImg(vo.getPno()); // 첫번째 사진의 정보를 담음
 			if (path == null) {
 				vo.setP_filepath("/tomcatImg/img.png");
+				System.out.println("제목 : "+vo.getP_title());
 			} else {
 				vo.setP_filepath(path);
 			}
 		}
 		model.addAttribute("list", list);
+	
 
-		return "";
+		return "user/myStore";
 
 	}
 
