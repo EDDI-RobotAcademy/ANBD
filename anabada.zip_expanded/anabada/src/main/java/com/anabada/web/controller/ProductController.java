@@ -111,7 +111,7 @@ public class ProductController {
 		HttpSession session = req.getSession();
 
 
-		session.setAttribute("id", "coco");
+		session.setAttribute("id", "korea");
 		
 
 		List<PBoardVO> list = service.list(scri);
