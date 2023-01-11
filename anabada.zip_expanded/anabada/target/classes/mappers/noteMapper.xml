@@ -4,52 +4,52 @@
 
 <mapper namespace="noteMapper">
 <insert id="insert" parameterType="NoteVO">
-INSERT INTO NOTE (BNO, S_ID, R_ID, CONTENT, S_TIME, READ_CHK, R_DELETE_CHK, S_DELETE_CHK, PNO, CONFIRM)
-	VALUES(NOTE_SEQ.NEXTVAL, #{s_id}, #{r_id}, #{content}, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MM:SS'), 1, 1, 1, #{pno}, #{confirm})
+INSERT INTO NOTE (N_BNO, N_SENDER, N_RECEIVER, N_CONTENT, N_S_TIME, N_READ_CHK, N_R_DELETE_CHK, N_S_DELETE_CHK, PNO, N_REVIEW)
+	VALUES(NOTE_SEQ.NEXTVAL, #{n_sender}, #{n_receiver}, #{n_content}, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MM:SS'), 1, 1, 1, #{pno}, #{n_review})
 </insert>
 
 
 <select id="listPage" resultType="NoteVO" parameterType="java.util.Map">
-SELECT BNO, S_ID, R_ID, CONTENT, S_TIME, READ_CHK, R_DELETE_CHK, S_DELETE_CHK, PNO 
-FROM(SELECT BNO, S_ID, R_ID, CONTENT, S_TIME, READ_CHK, R_DELETE_CHK, S_DELETE_CHK, PNO,
-	ROW_NUMBER() OVER(ORDER BY BNO DESC) AS RNUM  
+SELECT N_BNO, N_SENDER, N_RECEIVER, N_CONTENT, N_S_TIME, N_READ_CHK, N_R_DELETE_CHK, N_S_DELETE_CHK, PNO 
+FROM(SELECT N_BNO, N_SENDER, N_RECEIVER, N_CONTENT, N_S_TIME, N_READ_CHK, N_R_DELETE_CHK, N_S_DELETE_CHK, PNO,
+	ROW_NUMBER() OVER(ORDER BY N_BNO DESC) AS RNUM  
 	FROM NOTE WHERE 1 = 1
 <include refid="who"></include>
 	) NOTE
 WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
-ORDER BY BNO DESC
+ORDER BY N_BNO DESC
 </select>
 
 <select id="listCount" parameterType="java.util.Map" resultType="int">
-SELECT COUNT(BNO) FROM NOTE WHERE 1=1
+SELECT COUNT(N_BNO) FROM NOTE WHERE 1=1
 <include refid="who"></include>
-AND BNO > 0
+AND N_BNO > 0
 </select>
 
 <sql id="who">
-	<if test="who == 'receive'.toString()">AND R_ID = #{id}</if>
-	<if test="who == 'send'.toString()">AND S_ID = #{id}</if>
+	<if test="who == 'receive'.toString()">AND N_RECEIVER = #{id}</if>
+	<if test="who == 'send'.toString()">AND N_SENDER = #{id}</if>
 </sql>
 
 
 <select id="read" parameterType="int" resultType="NoteVO">
-SELECT BNO, R_ID, S_ID, CONTENT, S_TIME, READ_CHK, S_DELETE_CHK, R_DELETE_CHK, PNO, CONFIRM
-FROM NOTE WHERE BNO = #{bno}
+SELECT N_BNO, N_RECEIVER, N_SENDER, N_CONTENT, N_S_TIME, N_READ_CHK, N_S_DELETE_CHK, N_R_DELETE_CHK, PNO, N_REVIEW
+FROM NOTE WHERE N_BNO = #{n_bno}
 </select>
 
 <select id="read_check" parameterType="java.util.Map">
-UPDATE NOTE SET READ_CHK = 0
-WHERE BNO = #{bno} AND R_ID = #{id}
+UPDATE NOTE SET N_READ_CHK = 0
+WHERE N_BNO = #{n_bno} AND N_RECEIVER = #{id}
 </select>
 
 <select id="no_readCount" parameterType="String" resultType="int">
-SELECT COUNT(BNO) FROM NOTE 
-WHERE R_ID = #{id} AND READ_CHK = 1
+SELECT COUNT(N_BNO) FROM NOTE 
+WHERE N_RECEIVER = #{id} AND N_READ_CHK = 1
 </select>
 
 <update id="delete_send" parameterType="java.util.ArrayList">
-UPDATE NOTE SET S_DELETE_CHK = 0
-WHERE BNO IN(
+UPDATE NOTE SET N_S_DELETE_CHK = 0
+WHERE N_BNO IN(
 	<foreach collection="array" item="item" index="index" separator=",">
        #{item}
     </foreach>
@@ -58,7 +58,7 @@ WHERE BNO IN(
 
 <update id="delete_receive" parameterType="java.util.ArrayList">
 UPDATE NOTE SET R_DELETE_CHK = 0
-WHERE BNO IN(
+WHERE N_BNO IN(
 	<foreach collection="array" item="item" index="index" separator=",">
        #{item}
     </foreach>
@@ -67,8 +67,8 @@ WHERE BNO IN(
 
 
 <delete id="delete_all" parameterType="java.util.ArrayList">
-DELETE FROM NOTE WHERE ((R_DELETE_CHK = 0 AND S_DELETE_CHK = 0) OR (S_ID IS NULL AND R_ID IS NULL))
-AND BNO IN(
+DELETE FROM NOTE WHERE ((N_R_DELETE_CHK = 0 AND N_S_DELETE_CHK = 0) OR (N_SENDER IS NULL AND N_RECEIVER IS NULL))
+AND N_BNO IN(
 	<foreach collection="array" item="item" index="index" separator=",">
        #{item}
     </foreach>
@@ -77,22 +77,22 @@ AND BNO IN(
 
 
 <update id="delete_send2" parameterType="int">
-UPDATE NOTE SET S_DELETE_CHK = 0
-WHERE BNO = #{bno}
+UPDATE NOTE SET N_S_DELETE_CHK = 0
+WHERE N_BNO = #{n_bno}
 </update>
 
 <update id="delete_receive2" parameterType="int">
 UPDATE NOTE SET R_DELETE_CHK = 0
-WHERE BNO = #{bno}
+WHERE N_BNO = #{n_bno}
 </update>
 
 <delete id="delete_detail" parameterType="int">
-DELETE FROM NOTE WHERE ((R_DELETE_CHK = 0 AND S_DELETE_CHK = 0) OR (S_ID IS NULL AND R_ID IS NULL))
-AND BNO = #{bno}
+DELETE FROM NOTE WHERE ((N_R_DELETE_CHK = 0 AND N_S_DELETE_CHK = 0) OR (N_SENDER IS NULL AND N_RECEIVER IS NULL))
+AND N_BNO = #{n_bno}
 </delete>
 
 <select id="get_members" parameterType="java.util.Map" resultType="java.lang.String">
-SELECT DISTINCT S_ID FROM NOTE WHERE PNO = #{pno} AND S_ID != #{id}
+SELECT DISTINCT N_SENDER FROM NOTE WHERE PNO = #{pno} AND N_SENDER != #{id}
 </select>
 
 </mapper>

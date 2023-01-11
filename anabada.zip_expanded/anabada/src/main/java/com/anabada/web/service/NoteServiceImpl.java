@@ -39,8 +39,8 @@ public class NoteServiceImpl implements NoteService {
 	}
 
 	@Override
-	public NoteVO note_view(int bno) throws Exception {
-		return dao.note_view(bno);
+	public NoteVO note_view(int n_bno) throws Exception {
+		return dao.note_view(n_bno);
 	}
 
 
@@ -65,18 +65,18 @@ public class NoteServiceImpl implements NoteService {
 	}
 
 	@Override
-	public void delete_send2(int bno) throws Exception {
-		dao.delete_send2(bno);
+	public void delete_send2(int n_bno) throws Exception {
+		dao.delete_send2(n_bno);
 	}
 
 	@Override
-	public void delete_receive2(int bno) throws Exception {
-		dao.delete_receive2(bno);
+	public void delete_receive2(int n_bno) throws Exception {
+		dao.delete_receive2(n_bno);
 	}
 
 	@Override
-	public void delete_detail(int bno) throws Exception {
-		dao.delete_detail(bno);
+	public void delete_detail(int n_bno) throws Exception {
+		dao.delete_detail(n_bno);
 	}
 
 	@Override

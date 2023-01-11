@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.anabada.web.service.NoteService;
+import com.anabada.web.service.ProductService;
 import com.anabada.web.vo.NoteCriteria;
 import com.anabada.web.vo.NotePageMaker;
 import com.anabada.web.vo.NoteSearchCriteria;
@@ -33,8 +34,8 @@ public class NoteController {
 	@Inject
 	NoteService noteService;
 	
-	//@Inject
-	//PorductService productService;
+	@Inject
+	ProductService productService;
 	//이거 쪽지 상세보기에서 중고게시글로 넘어가기위해서 중고게시물 관련 클래스 필요
 
 	// 쪽지보내는 ajax
@@ -87,16 +88,16 @@ public class NoteController {
 	@RequestMapping(value = "/delete_chk.ajax", method =RequestMethod.GET)
 	@ResponseBody
 	public boolean delete_chk(HttpServletResponse resp, @RequestParam(value="delete_array") int[] delete_array, 
-			@RequestParam(value="s_id") String s_id, @RequestParam(value="r_id") String r_id, HttpSession session) throws Exception{
+			@RequestParam(value="n_sender") String n_sender, @RequestParam(value="n_receiver") String n_receiver, HttpSession session) throws Exception{
 		
 		logger.info("쪽지함에서 삭제 눌렀음"); 
 		// 페이징 처리 안해줬음 
 		
 		String id = (String)session.getAttribute("id");
 		
-		if(id.equals(s_id)) {// 보낸 사람이랑 로그인한 회원이 같을 때
+		if(id.equals(n_sender)) {// 보낸 사람이랑 로그인한 회원이 같을 때
 			noteService.delete_send(delete_array); 
-		}else if(id.equals(r_id)){//보낸사람이랑 로그인한 회원이 같을 때 
+		}else if(id.equals(n_receiver)){//보낸사람이랑 로그인한 회원이 같을 때 
 			noteService.delete_receive(delete_array);
 		}
 		
@@ -117,17 +118,17 @@ public class NoteController {
 //		이거 유진언니랑 합칠때 써야함!!!!!!!!!!!!!!!!!!!!!!!!!
 		// list.jsp에서 pno 파라미터로 보냈음
 		// 중고게시글 객체 불러와서 보냄
-		// model.addAttribute("p_read", productService.read(ProductVO.getPno()));
+		//model.addAttribute("p_read", productService.read(ProductVO.getPno()));
 		
-		System.out.println("번호: " + noteVO.getBno());
-		System.out.println("확정쪽지인지: " + noteVO.getConfirm());
+		System.out.println("번호: " + noteVO.getN_bno());
+		System.out.println("확정쪽지인지: " + noteVO.getN_review());
 		
-		model.addAttribute("n_read", noteService.note_view(noteVO.getBno())); // 게시글 번호로 게시글 객체 불러옴
+		model.addAttribute("n_read", noteService.note_view(noteVO.getN_bno())); // 게시글 번호로 게시글 객체 불러옴
 		model.addAttribute("scri", scri);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", (String)session.getAttribute("id"));
-		map.put("bno", noteVO.getBno());
+		map.put("n_bno", noteVO.getN_bno());
 		noteService.read_check(map); // 읽었다고 처리
 		
 		return "/note/note_read";
@@ -136,21 +137,21 @@ public class NoteController {
 	// 쪽지 삭제하는 ajax(상세보기에서)
 	@RequestMapping(value = "/delete_chk2.ajax", method =RequestMethod.GET)
 	@ResponseBody
-	public boolean delete_chk2(HttpServletResponse resp, @RequestParam(value="bno") int bno,
-			@RequestParam(value="s_id") String s_id, @RequestParam(value="r_id") String r_id, HttpSession session) throws Exception{
+	public boolean delete_chk2(HttpServletResponse resp, @RequestParam(value="n_bno") int n_bno,
+			@RequestParam(value="n_sender") String n_sender, @RequestParam(value="n_receiver") String n_receiver, HttpSession session) throws Exception{
 			
 		logger.info("쪽지 상세보기에서 삭제 눌렀음"); 
 			
 		String id = (String)session.getAttribute("id");
 		
 			
-		if(id.equals(s_id)) {// 보낸 사람이랑 로그인한 회원이 같을 때
-			noteService.delete_send2(bno); 
-		}else if(id.equals(r_id)){//보낸사람이랑 로그인한 회원이 같을 때 
-			noteService.delete_receive2(bno);
+		if(id.equals(n_sender)) {// 보낸 사람이랑 로그인한 회원이 같을 때
+			noteService.delete_send2(n_bno); 
+		}else if(id.equals(n_receiver)){//보낸사람이랑 로그인한 회원이 같을 때 
+			noteService.delete_receive2(n_bno);
 		}
 			
-		noteService.delete_detail(bno); // 보낸 사람, 받는 사람 둘다 삭제했으면 디비에서도 삭제
+		noteService.delete_detail(n_bno); // 보낸 사람, 받는 사람 둘다 삭제했으면 디비에서도 삭제
 				
 		boolean result = true;
 		return result;

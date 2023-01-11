@@ -22,7 +22,7 @@ public interface NoteDAO {
  	public void delete_all(int[] delete_array) throws Exception;
 
  	// 쪽지 상세보기
-	public NoteVO note_view(int bno) throws Exception;
+	public NoteVO note_view(int n_bno) throws Exception;
 
 	// 쪽지 읽은 거 처리
 	public void read_check(Map map) throws Exception;
@@ -37,13 +37,13 @@ public interface NoteDAO {
 	public void delete_send(int[] delete_array) throws Exception;
 
 	// 쪽지 상세보기에서 삭제. 보낸 사람꺼
-	public void delete_send2(int bno) throws Exception;
+	public void delete_send2(int n_bno) throws Exception;
 
 	// 쪽지 상세보기에서 삭제. 받은 사람꺼
-	public void delete_receive2(int bno) throws Exception;
+	public void delete_receive2(int n_bno) throws Exception;
 
 	// 쪽지 상세보기에서 쪽지 디비에서 삭제
-	public void delete_detail(int bno) throws Exception;
+	public void delete_detail(int n_bno) throws Exception;
 
 	// 해당 중고게시물에 대한 쪽지를 주고 받은 사람들 리스트
 	public List<String> get_members(Map map) throws Exception;

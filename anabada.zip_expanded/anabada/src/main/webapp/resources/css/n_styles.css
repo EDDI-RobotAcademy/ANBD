@@ -203,7 +203,6 @@ a {
   box-sizing: border-box;
   list-style-type: none;
   text-align: right;
-  border-right: solid 1px #e9e9e9;
   /*쪽지 이미지보이는 부분*/
 }
 
@@ -235,6 +234,7 @@ a {
 .minicon {
   float: left;
   width: 780px;
+  height: auto;
   padding: 0px 0 15px 0;
   box-sizing: border-box;
 }

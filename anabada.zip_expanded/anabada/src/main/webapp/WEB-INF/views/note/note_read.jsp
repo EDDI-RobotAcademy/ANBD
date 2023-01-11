@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<% pageContext.setAttribute("replaceChar", "\n"); %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +22,7 @@
 	$(document).ready(function () {
 		
 		$('.search_who').click(function () {
-			location.href = "note_list" + '${pageMaker.makeQuery(1)}'; 
+			location.href = "note_list" + '?who=' + '${scri.who}';
 		});
 		
 		var readForm = $("form[name='readForm']");
@@ -27,27 +30,27 @@
 			if(confirm("삭제하시겠습니까?")){
 				
 				if("<c:out value='${scri.who}'/>" == "receive"){ // 받은 메시지라면 받은 아이디가 같음
-					var r_id = '${id}';
-					var s_id = "${n_read.s_id}";
+					var n_receiver = '${id}';
+					var n_sender = "${n_read.n_sender}";
  				}else if("<c:out value='${scri.who}'/>" == "send"){ // 보낸 메시지라면 보낸 아이디가 같음
- 					var s_id = '${id}';
- 					var r_id = "${n_read.r_id}";
+ 					var n_sender = '${id}';
+ 					var n_receiver = "${n_read.n_receiver}";
  				}
 
 				$.ajax({
 				        type: "get",
 				        url : "/note/delete_chk2.ajax",
 				        data: {
-				        	bno : '${n_read.bno}',
-				        	r_id : r_id, 
-				        	s_id: s_id
+				        	n_bno : '${n_read.n_bno}',
+				        	n_receiver : n_receiver, 
+				        	n_sender: n_sender
 				        	},
 				        dataType :  'json',   // 데이터 타입을 Json으로 변경
 				        traditional : true,
 				        success: function(data){
 				            alert("삭제했습니다.");
 				          	location.href = "/note/note_list" +
-							'?bno=' + '${n_read.bno}' +
+							'?n_bno=' + '${n_read.n_bno}' +
 							'&page=' + '${scri.page }' +
 							'&perPageNum=' + '${scri.perPageNum }' +
 							'&who=' + '${scri.who}';
@@ -66,26 +69,26 @@
 		// 쪽지 보내기 버튼 눌렀을 떄 모달창 띄우기
 		$("button[name=n_send]").on("click", function () { 
 			$("#pno").val("0"); // 쪽지보낼때 pno은 0
-			$("#content").attr("placeholder", "");
-			$("#content").val("");
-			$("#r_id").attr("placeholder", "");
-			$("#r_id").val("");
-			$("#r_id").attr("readonly", false);
+			$("#n_content").attr("placeholder", "");
+			$("#n_content").val("");
+			$("#n_receiver").attr("placeholder", "");
+			$("#n_receiver").val("");
+			$("#n_receiver").attr("readonly", false);
 			$('#noteModal').modal("show"); 
 		});
 		
 		// 답장 버튼 눌렀을 때 모달창 띄우기
 		$("button[name=n_reply]").on("click", function () { 
 			$("#pno").val('${n_read.pno}'); // 답장할 때는 그 게시글 pno를 적음
-			$("#content").attr("placeholder", "");
-			$("#content").val("");
+			$("#n_content").attr("placeholder", "");
+			$("#n_content").val("");
 			
-			if('${scri.who eq receive}'){ // 받은 사람=로그인한 아이디
-				$("#r_id").val("<c:out value='${n_read.r_id}'/>");
+			if('${scri.who eq receive}'){ // 받는 사람 아이디 부분
+				$("#n_receiver").val("<c:out value='${n_read.n_sender}'/>");
 			}else{
-				$("#r_id").val("<c:out value='${n_read.s_id}'/>");
+				$("#n_receiver").val("<c:out value='${n_read.n_receiver}'/>");
 			}
-			$("#r_id").attr("readonly", true);
+			$("#n_receiver").attr("readonly", true);
 			$('#noteModal').modal("show"); 
 		});
 		
@@ -93,12 +96,12 @@
 		// 모달창에서 쪽지보내기 버튼 눌렀을 때
 	    $("#note_submit").click(function(){
 	    	
-	    	if($("#content").val() == null || $("#content").val() == ""){
-	    		$("#content").attr("placeholder", "내용을 작성해주세요.");
+	    	if($("#n_content").val() == null || $("#n_content").val() == ""){
+	    		$("#n_content").attr("placeholder", "내용을 작성해주세요.");
 	    		return false;
 	    	}
-	    	if($("#r_id").val() == null || $("#r_id").val() == ""){
-	    		$("#r_id").attr("placeholder", "받는 아이디를 작성해주세요.");
+	    	if($("#n_receiver").val() == null || $("#n_receiver").val() == ""){
+	    		$("#n_receiver").attr("placeholder", "받는 아이디를 작성해주세요.");
 	    		return false;
 	    	}
 	    	
@@ -121,7 +124,7 @@
 		
 	    $("button[name=list]").on("click", function () {
 			location.href = "/note/note_list" +
-			'?bno=' + '${n_read.bno}' +
+			'?n_bno=' + '${n_read.n_bno}' +
 			'&page=' + '${scri.page }' +
 			'&perPageNum=' + '${scri.perPageNum }' +
 			'&who=' + '${scri.who}';
@@ -275,21 +278,23 @@
 				<button type="button" name="n_send" class="n_btn1" style="display: block; margin: auto;">쪽지 보내기</button>
 				<ul style="margin-top: 5px;">
 		        	<li style="text-align: left">
-		        	<label>
-		        	<input type="radio" class="search_who" name="who" value="receive" <c:out value="${scri.who eq 'receive' ? 'checked' : ''}" />>받은 쪽지함
-		        	</label>
+		        		<label>
+		        			<input type="radio" class="search_who" name="who" value="receive" <c:if test="${scri.who eq 'receive'}">checked</c:if>>
+		        			<font <c:if test="${scri.who eq 'receive'}"> style="font-weight: bold;" </c:if>>받은 쪽지함</font>
+		        		</label>
 		        	</li>
 	        		<li style="text-align: left">
-	        		<label>
-	        		<input type="radio" class="search_who" name="who" value="send" <c:out value="${scri.who eq 'send' ? 'checked' : ''}" />>보낸 쪽지함
-        			</label>
+	        			<label>
+	        				<input type="radio" class="search_who" name="who" value="send"  <c:if test="${scri.who eq 'send'}">checked</c:if>>
+        					<font <c:if test="${scri.who eq 'send'}"> style="font-weight: bold;" </c:if>>보낸 쪽지함</font>
+        				</label>
         			</li>
         		</ul>
         	</div>
         </div>
 		
 		<!-- 내용 부분 -->
-		<div class="minicon" style="background-color: white; border-top: 1px solid #e9e9e9">
+		<div class="minicon" style="background-color: white; border-top: 1px solid #e9e9e9; border-left: 1px solid #e9e9e9">
 			<table class="n_read">
 				<tr>
 					<td colspan="2">
@@ -299,14 +304,14 @@
 					</td>
 				</tr>
 				<c:choose>
-				<c:when test="${n_read.s_id eq id }"><!-- 보낸 사람과 현재 로그인한 사람이 같을 때 -->
+				<c:when test="${n_read.n_sender eq id }"><!-- 보낸 사람과 현재 로그인한 사람이 같을 때 -->
 				<tr>
 					<td colspan="2">보낸 메시지</td>
 				</tr>
 				<tr>
 					<td colspan="2">
-					받은 사람&nbsp;&nbsp;${n_read.r_id }<br>
-					보낸 시간&nbsp;&nbsp;${n_read.s_time }<br>
+					받은 사람&nbsp;&nbsp;${n_read.n_receiver }<br>
+					보낸 시간&nbsp;&nbsp;${n_read.n_s_time }<br>
 					</td>
 				</tr>
 				</c:when>
@@ -316,8 +321,8 @@
 				</tr>
 				<tr>	
 					<td colspan="2">
-					보낸 사람&nbsp;&nbsp;${n_read.s_id }<br>
-					받은 시간&nbsp;&nbsp;${n_read.s_time }<br>
+					보낸 사람&nbsp;&nbsp;${n_read.n_sender }<br>
+					받은 시간&nbsp;&nbsp;${n_read.n_s_time }<br>
 					</td>
 				</tr>
 				
@@ -325,8 +330,7 @@
 				</c:choose>
 				
 				<!-- 중고게시글과 관련된 쪽지일때 -->
-                <!-- 유진언니한테 검사받기!!!! -->
-				<c:if test="${n_read.pno ne 0 && n_read.confirm eq 'no'}">
+				<c:if test="${n_read.pno ne 0 && n_read.n_review eq 'no'}">
 				<tr>
 					<td width="130px;">
 						<a href="product/readView/pno=${n_read.pno}">
@@ -339,7 +343,6 @@
 						<!-- 
 						${p_read.p_title}<br>
 						${p_read.p_cost}<br>
-						${p_read.p_cost}
 						 -->
 						 <!-- 이 부분은 나중에 -->
 					</td>
@@ -348,8 +351,8 @@
 				
 				<!-- 후기 쪽지일때 -->
 				<!-- 원래는 아래 코드로 실행해야함 -->
-				<%-- <c:if test="${n_read.pno ne 0 && n_read.confirm eq 'yes'}"> --%>
-				<c:if test="${n_read.confirm eq 'yes'}">
+				<%-- <c:if test="${n_read.pno ne 0 && n_read.n_review eq 'yes'}"> --%>
+				<c:if test="${n_read.n_review eq 'yes'}">
 				<tr>
 					<td width="130px;">
 						<a href="product/readView/pno=${n_read.pno}">
@@ -362,10 +365,9 @@
 						<!-- 
 						${p_read.p_title}<br>
 						${p_read.p_cost}<br>
-						${p_read.p_cost}
 						 -->
 						<!-- 받은 사람만 후기 작성하기 버튼 누를수있도록 -->
-						<c:if test="${n_read.r_id eq id }">
+						<c:if test="${n_read.n_receiver eq id }">
 						   <button type="button" class="review" name="review">후기 작성하기</button>
 						</c:if>
 					</td>
@@ -374,7 +376,7 @@
 			</table>
 			
 			<div style="padding:10px">
-			${n_read.content }<br>
+			${fn:replace(n_read.n_content, replaceChar, "<br/>")}
 			</div>
 		</div>
 	</form>
@@ -388,13 +390,8 @@
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">쪽지</h1>
                 </div>
                 <form id="note_form">
-                    <!-- 
-                    <input type="hidden" id="id" name="s_id" vlaue="korea"/>현재 로그인한 아이디.send.임의로함. 원래는 ${id}
-                    <input type="hidden" id="id" name="r_id" value="money"/>글쓴이 아이디.recive. 원래는 ${raea.id} 
-                    -->
-                    <!-- pno값 숫자로 전달하기 위해서.... -->
-                    <input type="hidden" name="confirm" value="no">
-                    <input type="hidden" name="pno" value="${n_read.pno}">
+                    <input type="hidden" name="n_review" value="no">
+                    <input type="hidden" name="pno" id="pno" value="${n_read.pno}">
                     <div class="modal-body">
                         <table style="width: 100%">
                             <tbody>
@@ -402,13 +399,13 @@
                                     <th>보내는 아이디</th>
                                     <td>
                                     	<input type="text" style="margin-left:10%; width:85%;" 
-                                    	id="s_id" name="s_id" class="form-control" value="korea"/>
+                                    	id="n_sender" name="n_sender" class="form-control" value="${id }" readonly/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>내용</th>
                                     <td>
-                                    	<textarea name="content" id="content" class="form-control"
+                                    	<textarea name="n_content" id="n_content" class="form-control"
                                     	style="margin-left:10%; width: 85%; height: 300px; resize: none;">
                                     	</textarea>
                                     </td>
@@ -417,7 +414,7 @@
                                     <th>받는 아이디</th>
                                     <td>
                                     	<input type="text" style="margin-left:10%; width:85%;"  
-                                    	id="r_id" name="r_id" class="form-control"/>
+                                    	id="n_receiver" name="n_receiver" class="form-control"/>
                                     </td>
                                 </tr>
                             </tbody>
@@ -442,7 +439,7 @@
                 <form id="review_form">
                 
                     <input type="hidden" name="pno" value="${n_read.pno}">
-                    <input type="hidden" name="r_seller" value="${n_read.s_id}">
+                    <input type="hidden" name="r_seller" value="${n_read.n_sender}">
                     <input type="hidden" name="r_consumer" value="${id}">
                     
                     <div class="modal-body">
@@ -450,7 +447,7 @@
                             <tbody>
                             	<tr>
                             		<td style="text-align: center; padding: 10px;">
-                            			<h5>${n_read.s_id}님과의 거래가 어떠셨나요?</h5>
+                            			<h5>${n_read.n_sender}님과의 거래가 어떠셨나요?</h5>
                             		</td>
                             	</tr>
                             	<tr>
@@ -474,7 +471,7 @@
 	                            </tr>
 	                            <tr>
 	                            	<td style="text-align: center; padding: 10px;">
-	                            		${n_read.s_id}님에게 감사 인사를 남겨보세요.<br>
+	                            		${n_read.n_sender}님에게 감사 인사를 남겨보세요.<br>
 	                            		<textarea name="r_content" id="r_content" style="resize: none; height: 100px; width: 100%"></textarea>
 	                            	</td>
 	                            </tr>

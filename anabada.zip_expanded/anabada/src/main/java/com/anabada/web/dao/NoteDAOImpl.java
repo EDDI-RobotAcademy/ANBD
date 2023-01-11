@@ -41,8 +41,8 @@ public class NoteDAOImpl implements NoteDAO{
 
 
 	@Override
-	public NoteVO note_view(int bno) throws Exception {
-		return sqlSession.selectOne("noteMapper.read", bno);
+	public NoteVO note_view(int n_bno) throws Exception {
+		return sqlSession.selectOne("noteMapper.read", n_bno);
 	}
 	
 	@Override
@@ -73,18 +73,18 @@ public class NoteDAOImpl implements NoteDAO{
 	}
 
 	@Override
-	public void delete_send2(int bno) throws Exception {
-		sqlSession.update("noteMapper.delete_send2", bno);
+	public void delete_send2(int n_bno) throws Exception {
+		sqlSession.update("noteMapper.delete_send2", n_bno);
 	}
 
 	@Override
-	public void delete_receive2(int bno) throws Exception {
-		sqlSession.update("noteMapper.delete_receive2", bno);
+	public void delete_receive2(int n_bno) throws Exception {
+		sqlSession.update("noteMapper.delete_receive2", n_bno);
 	}
 
 	@Override
-	public void delete_detail(int bno) throws Exception {
-		sqlSession.delete("noteMapper.delete_detail", bno);
+	public void delete_detail(int n_bno) throws Exception {
+		sqlSession.delete("noteMapper.delete_detail", n_bno);
 	}
 
 	@Override
