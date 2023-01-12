@@ -155,8 +155,10 @@
 	</update>
 	
 	<!-- 자기가 쓴 게시물 목록 불러오기 -->
-	<select id="myBoardList" parameterType="String" resultType="PBoardVO" >
-	SELECT * FROM PBOARD WHERE ID = #{ID}
+	<select id="myBoardList" parameterType="com.anabada.web.vo.StoreCriteria" resultType="PBoardVO" >
+	SELECT pno, p_title, p_count,p_regdate, p_heart, id, p_buy   
+FROM (SELECT PNO, P_TITLE,    P_COUNT,P_REGDATE, P_HEART, ID,p_buy  , ROW_NUMBER() OVER(ORDER BY PNO DESC) AS RNUM  FROM PBOARD WHERE  ID =#{id}) PB   
+WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}   ORDER BY pno DESC
 	</select>
 	
 	<!-- ID에 해당하는 상점의 리뷰를 받아옴 -->
@@ -171,11 +173,23 @@
 		ORDER BY R_DATE DESC
 	</select>
 	
+	<!-- id에 해당하는 상점의 총 개시글 수  -->
+	<select id="storeCount" parameterType="com.anabada.web.vo.ReviewCriteria" resultType="int" >
+		SELECT COUNT(PNO) FROM PBOARD WHERE ID = #{id}
+	</select>
+	
 	<!-- 상점에서 review의 총 갯수  -->
 	<select id="reviewCount" parameterType="com.anabada.web.vo.ReviewCriteria"  resultType="int" >
 	SELECT COUNT(PNO) FROM REVIEW WHERE R_SELLER =#{r_seller}
 	</select>
-
+	
+	<!-- 내상점 > 게시글 삭제  -->
+   <delete id="deleteProductList" parameterType="java.util.ArrayList" >
+   DELETE FROM PBOARD 
+   WHERE PNO IN (
+   <foreach collection="array" item="item" index="index" separator="," >   #{item}</foreach>
+   )
+   </delete>
 
 
 

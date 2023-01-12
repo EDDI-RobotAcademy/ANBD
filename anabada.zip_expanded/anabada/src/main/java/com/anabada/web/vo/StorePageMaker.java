@@ -10,7 +10,7 @@ public class StorePageMaker {
 	   private int endPage; 
 	   private boolean prev; 
 	   private boolean next; 
-	   private int displayPageNum = 3;
+	   private int displayPageNum = 5;
 	   private StoreCriteria cri;
 	   
 	   public int getTotalCount() {
@@ -78,18 +78,14 @@ public class StorePageMaker {
 	      prev = startPage == 1 ? false : true;
 	      // 첫번째 페이지가 [1]이면 false를 반환하여 이전버튼이 사라지게 한다.
 	      next = endPage * cri.getPerPageNum() >= totalCount ? false : true;
-	      // 마지막 페이지 다음에는 다음버튼이 사라지게 한다.
-	      // 마지막 페이지가 [54]일때, 54*10=540 >= 536(게시글총갯수)
 	   }
 	   
-	   public String makeSearch(int page,int pno,String p_type) { // list.jsp에서 페이지 숫자 눌렀을 때 실행되는 메소드
+	   public String makeSearch(int page) { // list.jsp에서 페이지 숫자 눌렀을 때 실행되는 메소드
 		      UriComponents uriComponents = 
 		            UriComponentsBuilder.newInstance() 
 		          
 		            .queryParam("page", page)
 		            .queryParam("perPageNum", cri.getPerPageNum())
-		            .queryParam("pno", pno)
-		            .queryParam("p_type", p_type)
 		       
 		            .build();
 		      

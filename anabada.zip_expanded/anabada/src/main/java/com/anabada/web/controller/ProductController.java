@@ -69,7 +69,7 @@ public class ProductController {
 	public String write(PBoardVO pboardVO, MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
 			throws Exception {
 
-		logger.info("write ");
+		logger.info("write111111 ");
 		
 		if (pboardVO.getSell_a() == null) {
 			pboardVO.setSell_a("0");
@@ -111,7 +111,7 @@ public class ProductController {
 		HttpSession session = req.getSession();
 
 
-		session.setAttribute("id", "korea");
+		session.setAttribute("id", "coco");
 		
 
 		List<PBoardVO> list = service.list(scri);
