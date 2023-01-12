@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,30 +24,59 @@ public class MemberController {
 	@Inject
 	MemberService service;
 	
+	// 회원가입 동의 get
+	@RequestMapping(value = "/member/registerAgree", method = RequestMethod.GET)
+	public void getRegisterAgree() throws Exception {
+		logger.info("회원가입 동의 ~ ");
+
+	}
+	
+	// 회원가입 동의 post
+	@RequestMapping(value = "/member/registerAgree", method = RequestMethod.POST)
+	public String postRegisterAgree() throws Exception {
+		logger.info("회원가입 동의 ~ ");
+		
+		return "/member/registerView";
+	}
+	
 	// 회원가입 get
-	@RequestMapping(value = "/member/register", method = RequestMethod.GET)
+	@RequestMapping(value = "/member/registerView", method = RequestMethod.GET)
 	public void getRegister() throws Exception {
 		logger.info("회원가입 get ~ ");
 	}
 	
 	// 회원가입 post
 	@RequestMapping(value = "/member/register", method = RequestMethod.POST)
-	public String postRegister(MemberVO vo) throws Exception {
+	public String postRegister(MemberVO vo, HttpServletRequest req) throws Exception {
 		logger.info("회원가입 post ~ ");
+		service.register(vo);
 		
+		HttpSession session = req.getSession();
+		MemberVO login = service.login(vo);
+		
+		session.setAttribute("member", login);
+		session.setAttribute("id", login);
+		logger.info("회원 가입 후 자동 로그인: " +  login);
+		
+		return "/member/registerEnd";
+	}
+	
+	// 회원가입 완료
+	@RequestMapping(value = "/member/registerEnd", method = RequestMethod.GET)
+	public String getRegisterEnd() throws Exception {
+		logger.info("회원가입 완료 ~ ");
+		
+		return "/member/registerEnd";
+	}
+	
+	
+	// 아이디 중복 체크
+	@ResponseBody
+	@RequestMapping(value="/member/idChk")
+	public int idChk(MemberVO vo) throws Exception {
+		logger.info("아이디 중복 체크 post ~ ");
 		int result = service.idChk(vo);
-		
-		try {
-			if (result == 1) {
-				return "/member/register";
-			} else if (result == 0) {
-				service.register(vo);
-			}
-			
-		} catch (Exception e) {
-			throw new RuntimeException();
-		}
-		return "redirect:/";
+		return result;
 	}
 	
 	// 닉네임 중복 체크
@@ -58,15 +86,6 @@ public class MemberController {
 		logger.info("닉네임 중복 체크 post ~ ");
 		int result = service.nickChk(vo);
 		return result;
-	}
-	
-	// 아이디 중복 체크
-	@ResponseBody
-	@RequestMapping(value="/member/idChk")
-	public int idChk(MemberVO vo) throws Exception {
-		logger.info("아이디 중복 체크 post ~ ");
-		int nresult = service.idChk(vo);
-		return nresult;
 	}
 	
 	// 로그인 get
@@ -84,11 +103,13 @@ public class MemberController {
 		MemberVO login = service.login(vo);
 		
 		if (login == null) {
+			session.setAttribute("member", null);
 			session.setAttribute("id", null);
 			
 			rttr.addFlashAttribute("msg", false);
 			
 		} else {
+			session.setAttribute("member", login);
 			session.setAttribute("id", login);
 			logger.info("member: " +  login);
 		}
@@ -105,9 +126,10 @@ public class MemberController {
 	// 회원 정보 수정 post
 	@RequestMapping(value="/member/memberUpdate", method = RequestMethod.POST)
 	public String registerUpdate(MemberVO vo, HttpSession session) throws Exception {
-		logger.info("회원 정보 수정 post ~ ");
+		logger.info("회원 정보 수정 post ~ ");	
 		service.memberUpdate(vo);
 		session.invalidate();
+		
 		return "redirect:/"; 
 	}
 	
@@ -119,20 +141,11 @@ public class MemberController {
 		return "redirect:/"; 
 	}
 	
-	// 회원 정보 수정 get
-	@RequestMapping(value="/member/myPage", method = RequestMethod.GET)
+	// 마이페이지
+	@RequestMapping(value="/member/myPage")
 	public String myPage() throws Exception {
 		logger.info("마이페이지 get ~ ");
 		return "member/myPage";
-	}
-	
-	// 회원 정보 수정 post
-	@RequestMapping(value="/member/myPage", method = RequestMethod.POST)
-	public String myPage(MemberVO vo, HttpSession session) throws Exception {
-		logger.info("마이페이지 post ~ ");
-		service.memberUpdate(vo);
-		session.invalidate();
-		return "redirect:/"; 
 	}
 
 }

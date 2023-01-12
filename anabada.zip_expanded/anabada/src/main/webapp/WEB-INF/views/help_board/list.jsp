@@ -114,15 +114,21 @@
 						});
 					</script>
 					
+					<div class="fsize-13-w">
+						<c:if test="${member.id == 'admin'}">
+							<a href="/help_board/writeView">글쓰기</a>
+						</c:if>
+					</div>
+					
 					<div>
 				      <ul class="mtm-pagination">
 				         <c:if test="${pageMaker.prev }">
-				            <li><a href="list${pageMaker.makeSearch(pageMaker.startPage - 1 )}">이전</a></li>
+				            <li><a href="list${pageMaker.makeSearch(pageMaker.startPage -1 )}">이전</a></li>
 				         </c:if>
 				                     
-				         <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+				         <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
 				            <li class="list" <c:out value="${pageMaker.cri.page == idx ? 'class=info' : '' }"/>>
-				               <a href="list${pageMaker.makeSearch(idx)}">${idx }</a>
+				               <a href="list${pageMaker.makeSearch(idx)}">${idx}</a>
 				            </li>
 				         </c:forEach>
 				                  
@@ -130,12 +136,6 @@
 				            <li><a href="list${pageMaker.makeSearch(pageMaker.endPage + 1)}">다음</a></li>
 				         </c:if>
 				      </ul>
-				   </div>
-					
-					<div class="fsize-13">
-						<c:if test="${member.id == 'admin'}">
-							<a href="/help_board/writeView">글쓰기</a>
-						</c:if>
 					</div>
 					
 					<div style="height: 80px;"></div>

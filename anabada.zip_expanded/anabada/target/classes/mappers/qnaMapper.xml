@@ -11,8 +11,8 @@
 	
 	<!-- 게시글 목록 조회 -->
 	<select id="listPage" resultType="qnaVO" parameterType="com.anabada.web.vo.SearchCriteria">
-		SELECT q_no, id, q_title, q_date
-		FROM (SELECT q_no, id, q_title, q_date, ROW_NUMBER() OVER(ORDER BY q_no DESC) AS RNUM
+		SELECT q_no, id, q_title, q_replycnt, q_date
+		FROM (SELECT q_no, id, q_title, q_replycnt, q_date, ROW_NUMBER() OVER(ORDER BY q_no DESC) AS RNUM
 		FROM qna_board
 		WHERE 1 = 1
 		) QNA
@@ -30,7 +30,7 @@
 	
 	<!-- 게시글 읽기 -->
 	<select id="read" parameterType="int" resultType="qnaVO">
-		SELECT q_no, id, email, q_title, q_content, q_date
+		SELECT q_no, id, email, q_title, q_content, q_replycnt, q_date
 		FROM qna_board
 		WHERE q_no = #{q_no}
 	</select>
@@ -49,4 +49,11 @@
 		FROM qna_board
 		WHERE q_no = #{q_no}
 	</delete>
+	
+	<!-- 댓글 수 -->
+	<update id="replyCount" parameterType="int">
+		UPDATE qna_board
+		SET q_replycnt = (SELECT count(qr_no) FROM qna_reply WHERE q_no = #{q_no})
+		WHERE q_no = #{q_no}
+	</update>
 </mapper>

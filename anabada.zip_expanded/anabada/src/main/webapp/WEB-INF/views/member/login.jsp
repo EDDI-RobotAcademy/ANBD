@@ -17,7 +17,7 @@
 		})
 
 		$("#registerBtn").on("click", function() {
-			location.href = "member/register";
+			location.href = "member/registerAgree";
 		})
 
 		$("#memberUpdateBtn").on("click", function() {
@@ -29,7 +29,7 @@
 
 <body>
 	<form name='homeForm' method="post" action="/member/login">
-		<c:if test="${member == null}">
+		<c:if test="${id == null}">
 			<div>
 				<label for="id"></label>
 				<input type="text" id="id" name="id">
@@ -42,11 +42,11 @@
 		
 			<div>
 				<button type="submit">로그인</button>
-				<a href="./register">회원가입</a>
+				<a href="./registerAgree">회원가입</a>
 			</div>	
 		</c:if>
 		
-		<c:if test="${member != null}">
+		<c:if test="${id != null}">
 			<div>
 				<p>${member.nick}님 환영합니다.</p>
 				<button id="memberUpdateBtn" type="button">회원 정보 수정</button>

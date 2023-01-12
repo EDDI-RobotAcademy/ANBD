@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.anabada.web.service.QnaReplyService;
@@ -56,6 +57,7 @@ public class QnaController {
 		logger.info("게시글 목록 조회 ~ ");
 			
 		model.addAttribute("list", service.list(scri));
+		model.addAttribute("listCount", service.listCount(scri));
 			
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(scri);
@@ -68,11 +70,13 @@ public class QnaController {
 	
 	// 게시글 본문 조회
 	@RequestMapping(value = "/readView", method = RequestMethod.GET)
-	public String read(QnaVO qnaVO, @ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception {
+	public String read(QnaVO qnaVO, @RequestParam("q_no") int q_no, @ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception {
 		logger.info("게시글 조회 ~ ");
-				
+		
 		model.addAttribute("read", service.read(qnaVO.getQ_no()));
 		model.addAttribute("scri", scri);
+		
+		service.replyCount(q_no);
 		
 		List<QnaReplyVO> replyList = replyService.readReply(qnaVO.getQ_no());
 		model.addAttribute("replyList", replyList);
@@ -121,7 +125,6 @@ public class QnaController {
 	}
 	
 	
-	
 	// 댓글 작성
 	@RequestMapping(value = "/replyWrite", method = RequestMethod.POST)
 	public String replyWrite(QnaReplyVO vo, SearchCriteria scri, RedirectAttributes rttr) throws Exception {
@@ -138,22 +141,14 @@ public class QnaController {
 		return "redirect:/qna_board/readView";
 	}
 		
-	// 댓글 수정 GET
-	@RequestMapping(value = "/replyUpdateView", method = RequestMethod.GET)
-	public String replyUpdateView(QnaReplyVO vo, SearchCriteria scri, Model model) throws Exception {
-		logger.info("댓글 수정 GET ~ ");
+	// 댓글 수정
+	@RequestMapping(value = "/replyUpdate")
+	public String replyUpdate(QnaReplyVO vo, Model model, SearchCriteria scri, RedirectAttributes rttr) throws Exception {
+		logger.info("댓글 수정 POST ~");
 			
 		model.addAttribute("replyUpdate", replyService.selectReply(vo.getQr_no()));
 		model.addAttribute("scri", scri);
-			
-		return "qna_board/replyUpdateView";
-	}
 		
-	// 댓글 수정 POST
-	@RequestMapping(value = "/replyUpdate", method = RequestMethod.POST)
-	public String replyUpdate(QnaReplyVO vo, SearchCriteria scri, RedirectAttributes rttr) throws Exception {
-		logger.info("댓글 수정 POST ~");
-			
 		replyService.updateReply(vo);
 			
 		rttr.addAttribute("q_no", vo.getQ_no());
@@ -165,22 +160,14 @@ public class QnaController {
 		return "redirect:/qna_board/readView";
 	}
 		
-	// 댓글 삭제 GET
-	@RequestMapping(value = "/replyDeleteView", method = RequestMethod.GET)
-	public String replyDelete(QnaReplyVO vo, SearchCriteria scri, Model model) throws Exception {
-		logger.info("댓글 삭제 GET ~ ");
-			
+	// 댓글 삭제
+	@RequestMapping(value = "/replyDelete")
+	public String replyDelete(QnaReplyVO vo, Model model, RedirectAttributes rttr, SearchCriteria scri) throws Exception {
+		logger.info("댓글 삭제 POST ~ ");
+		
 		model.addAttribute("replyDelete", replyService.selectReply(vo.getQr_no()));
 		model.addAttribute("scri", scri);
-			
-		return "qna_board/replyDeleteView";
-	}
 		
-	// 댓글 삭제
-	@RequestMapping(value = "/replyDelete", method = RequestMethod.POST)
-	public String replyDelete(QnaReplyVO vo, RedirectAttributes rttr, SearchCriteria scri) throws Exception {
-		logger.info("댓글 삭제 POST ~ ");
-			
 		replyService.deleteReply(vo);
 			
 		rttr.addAttribute("q_no", vo.getQ_no());

@@ -930,7 +930,7 @@ margin-top: 70px;
 				<tr>
 					<c:forEach items="${listImg}" var="listImg">
 
-						<td  ><c:choose>
+
 
 						<td><c:choose>
 

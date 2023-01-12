@@ -25,4 +25,7 @@ public interface QnaService {
 	// 게시물 삭제
 	public void delete(int q_no) throws Exception;
 	
+	// 댓글 수
+	public void replyCount(int q_no) throws Exception;
+	
 }

@@ -38,34 +38,89 @@
 				+ "&searchType=${scri.searchType}"
 				+ "&keyword=${scri.keyword}";
 		});
+
 		
-		// 답글 쓰기
+		// 댓글 쓰기
+		var formObj = $("form[name='replyForm']");
+		
 		$(".replyWriteBtn").on("click", function() {
-			var formObj = $("form[name='replyForm']");
+			if (fn_valiChk()) {
+				return false;
+			}
+			
 			formObj.attr("action", "/qna_board/replyWrite");
 			formObj.submit();
 		});
 		
-		// 댓글 수정 View
-		$(".replyUpdateBtn").on("click", function() {
-			location.href = "/qna_board/replyUpdateView?q_no=${read.q_no}"
-					+ "&page=${scri.page}"
-					+ "&perPageNum=${scri.perPageNum}"
-					+ "&searchType=${scri.searchType}"
-					+ "&keyword=${scri.keyword}"
-					+ "&qr_no=" + $(this).attr("data-qr_no");
+		// 댓글 수정 저장 ajax
+		$(".replyUpdate").on("click", function() {
+			var qr_no = $(this).attr("data-qr_no");
+			var sendData = {"qr_no": qr_no}
+			
+			$.ajax({
+	 			url : "/qna_board/replyUpdate",
+	 			type : "post",
+	 			data : sendData,
+	 			success : function(data) {
+	 				location.href = "/qna_board/replyUpdate?q_no=${read.q_no}"
+	 					+ "&page=${scri.page}"
+	 					+ "&perPageNum=${scri.perPageNum}"
+	 					+ "&searchType=${scri.searchType}"
+	 					+ "&keyword=${scri.keyword}"
+	 					+ "&qr_no=" + $(this).attr("data-qr_no");
+	 				location.reload();
+	 			},
+	            error : function(data) {
+	                alert("댓글이 수정되지 않았습니다.");
+	            }
+			})
 		});
 
-		//댓글 삭제 View
-	    $(".replyDeleteBtn").on("click", function(){
-			location.href = "/qna_board/replyDeleteView?q_no=${read.q_no}"
-					+ "&page=${scri.page}"
-					+ "&perPageNum=${scri.perPageNum}"
-					+ "&seachType=${scri.searchType}"
-					+ "&keyword=${scri.keyword}"
-					+ "&qr_no=" + $(this).attr("data-qr_no");
-	   });    
+		
+		// 댓글 유효성 검사
+		function fn_valiChk() {
+			var regForm = $("form[name='replyForm'] .chk").length;
+			for (var i = 0; i < regForm; i++) {
+				if ($(".chk").eq(i).val() == "" || $(".chk").eq(i).val() == null) {
+					alert($(".chk").eq(i).attr("title"));
+					return true;
+				}
+			}
+		}
+
+		
+		// 댓글 삭제 Ajax
+		$(".replyDeleteBtn").on("click", function(){
+			var ans = confirm("삭제하시겠습니까?");
+			var qr_no = $(this).attr("data-qr_no");
+			var sendData = {"qr_no": qr_no}
+			
+			if (!ans) {
+				return false;
+			
+			} else {
+				$.ajax({
+		 			url : "/qna_board/replyDelete",
+		 			type : "get",
+		 			data : sendData,
+		 			success : function(data) {
+		 				location.href = "/qna_board/replyDelete?q_no=${read.q_no}"
+		 					+ "&page=${scri.page}"
+		 					+ "&perPageNum=${scri.perPageNum}"
+		 					+ "&searchType=${scri.searchType}"
+		 					+ "&keyword=${scri.keyword}"
+		 					+ "&qr_no=" + $(this).attr("data-qr_no");
+		 				location.reload();
+		 			},
+		            error : function(data) {
+		                alert("댓글이 삭제되지 않았습니다.");
+		            }
+				})
+			}
+		});
+		
 	});
+
 </script>
 
 <body>
@@ -141,7 +196,9 @@
 				<!-- 댓글 -->
 				<div id="reply">
 					<ol class="replyList">
-						<c:forEach items="${replyList}" var="replyList">
+						<c:forEach items="${replyList}" var="replyList" varStatus="i">
+							<input type="hidden" id="qr_no" name="qr_no" value="${replyList.qr_no}"/>
+							
 							<li class="replycon" style="display: flex; align-items: center;">
 								<label class="qna"></label>
 									<div id="qr_content" class="qnacon">
@@ -149,18 +206,71 @@
 										<p style="font-size: 12px; text-align: right;">
 											<fmt:formatDate value="${replyList.qr_date}" pattern="yyyy-MM-dd HH:mm" />
 										</p>
+										
 										<div class="fsize-13">
 											<c:if test="${member.id == 'admin'}">
-												<button type="button" class="replyUpdateBtn btn_reset" data-qr_no="${replyList.qr_no}">수정</button>
+												<button type="button" class="replyUpdateBtn btn_reset" data-qr_no="${replyList.qr_no}" id="modify${i.count}" onclick="modifyView(this.id)">수정&nbsp;</button>
 												<button type="button" class="replyDeleteBtn btn_reset" data-qr_no="${replyList.qr_no}">삭제</button>
 											</c:if>
 										</div>
 									</div>
+
+										
+								<!-- 댓글 수정창 시작 -->
+									<div class="reply-update-area">
+										<form name="updateForm" role="form" method="post" action="/qna_board/replyUpdate">
+											<input type="hidden" name="q_no" value="${read.q_no}" />
+											<input type="hidden" id="qr_no" name="qr_no" value="${replyList.qr_no}" />
+											<input type="hidden" id="page" name="page" value="${scri.page}" />
+											<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}" />
+											<input type="hidden" id="searchType" name="searchType" value="${scri.searchType}" />
+											<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}" />
+									
+										<div>
+											<textarea class="chk reply-update" id="qr_content" name="qr_content"><c:out value="${replyList.qr_content}"></c:out></textarea>
+										</div>
+										
+										<script>
+										$('textarea').on('keyup', function (e) {
+											$(this).css('height', 'auto');
+											$(this).height(this.scrollHeight - 15);
+										});
+										</script>
+							
+										<div class="fsize-13">
+											<button type="submit" class="replyUpdate btn_reset">수정&nbsp;</button>
+											<button type="button" class="btn_reset" onclick="modifyCancle('modify${i.count}')">취소</button>
+										</div>
+										</form>
+									</div>
+								<!-- 댓글 수정창 종료 -->
 							</li>
 						</c:forEach>
 					</ol>
 				</div>
 
+	<script type="text/javascript">
+		var modifyViews = document.getElementsByClassName('reply-update-area')
+	
+		for (var i = 0; i < modifyViews.length; i++) {
+			modifyViews[i].style.display = 'none'
+		}
+		
+		function modifyView(idI) {
+			var modifiId = document.getElementById(idI);
+			modifiId.parentElement.parentElement.style.display = 'none';
+			modifiId.parentElement.parentElement.nextElementSibling.style.display = '';
+
+		}
+		
+		function modifyCancle(idI) {
+			var modifiId = document.getElementById(idI);
+			modifiId.parentElement.parentElement.style.display = '';
+			modifiId.parentElement.parentElement.nextElementSibling.style.display = 'none';
+			
+		}
+		
+	</script>
 				<!-- 댓글 작성 -->
 				<form name="replyForm" method="post" class="form-horizontal">
 					<input type="hidden" id="id" name="id" value="${member.id}"/>
@@ -173,7 +283,7 @@
 				<c:if test="${member.id == 'admin'}">	
 					<div class="reply-write-area">
 						<div>
-							<textarea class="reply-write" id="qr_content" name="qr_content" placeholder="답변 내용을 입력해 주세요."></textarea>
+							<textarea class="chk reply-write" id="qr_content" name="qr_content" placeholder="답변 내용을 입력해 주세요." title="내용을 입력하세요."></textarea>
 						</div>
 						
 						<script>
@@ -188,8 +298,7 @@
 						</div>
 					</div>
 				</c:if>
-						
-					</form>
+				</form>
 					
 				<div>
 					<button type="button" class="list_btn modi_btn">목록</button>

@@ -48,7 +48,7 @@
 				<div class="nav-right">
 					<ul class="profile">
 						<li class="pro-li">쪽지</li>
-						<li class="pro-li"><a href="/member/memberUpdateView"><b>${member.nick}</b> 님</a></li>
+						<li class="pro-li"><a href="/member/myPage"><b>${member.nick}</b> 님</a></li>
 						<li class="pro-li"><a href="/member/logout">로그아웃</a></li>
 						<li class="pro-li"><a href="/help_board/list">고객센터</a></li>
 					</ul>

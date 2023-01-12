@@ -17,7 +17,6 @@
 	<footer class="foot foot-border" style="background-color: #F9F9F9;">
 		<div class="container">
 			<div class="anabada">
-				<b>아나바다</b><br>
 				대표: 아나바다닷컴 | 서울특별시 강남구 테헤란로14길 6<br>
 				서울 강남 제2022-99호 | 999-99-99999 | 1588-9999 | <a href="/qna_board/list">고객문의</a><br>
 				Copyright <b>ANABADA Corp.</b> All Rights Reserved.

@@ -35,7 +35,6 @@
 	<update id="memberUpdate">
 		UPDATE a_member
 		SET id = #{id},
-			pass = #{pass},
 			name = #{name},
 			nick = #{nick},
 			tel = #{tel},

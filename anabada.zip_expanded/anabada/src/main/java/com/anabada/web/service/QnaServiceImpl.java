@@ -52,4 +52,12 @@ public class QnaServiceImpl implements QnaService {
 		dao.delete(q_no);
 	}
 
+	// 댓글 수
+	@Override
+	public void replyCount(int q_no) throws Exception {
+		dao.replyCount(q_no);
+	}
+
+
+
 }

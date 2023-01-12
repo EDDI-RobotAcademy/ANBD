@@ -84,7 +84,7 @@
 							<c:if test="${member.id == 'admin'}">
 								<tr>
 									<td>
-										<input type="text" id="h_title" name="h_title" class="cktitle" pattern=".{2, 50}" placeholder="제목" />
+										<input type="text" id="h_title" name="h_title" class="cktitle" placeholder="제목" required/>
 									</td>
 								</tr>
 	
@@ -101,8 +101,8 @@
 								</tr>
 	
 								<tr>
-									<td class="right">
-										<a class="btfsize-13" href="javascript:addBoard()">글쓰기</a>
+									<td style="text-align: right;">
+										<a class="fsize-13" href="javascript:addBoard()">등록</a>
 									</td>
 								</tr>
 							</c:if>

@@ -2,6 +2,8 @@ package com.anabada.web.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.anabada.web.vo.QnaVO;
 import com.anabada.web.vo.SearchCriteria;
 
@@ -24,5 +26,8 @@ public interface QnaDAO {
 		
 	// 게시물 삭제
 	public void delete(int q_no) throws Exception;
+	
+	// 댓글 수
+	public void replyCount(int q_no) throws Exception;
 	
 }

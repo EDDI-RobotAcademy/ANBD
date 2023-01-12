@@ -51,5 +51,11 @@ public class QnaDAOImpl implements QnaDAO {
 	public void delete(int q_no) throws Exception {
 		sqlSession.delete("qnaMapper.delete", q_no);
 	}
+	
+	// 댓글 수
+	@Override
+	public void replyCount(int q_no) throws Exception {
+		sqlSession.update("qnaMapper.replyCount", q_no);
+	}
 
 }

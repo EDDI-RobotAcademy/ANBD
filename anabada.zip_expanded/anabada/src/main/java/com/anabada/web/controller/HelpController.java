@@ -96,7 +96,7 @@ public class HelpController {
 		}
 		
 	// 게시판 삭제
-	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	@RequestMapping(value = "/delete")
 	public String delete(HelpVO helpVO, @ModelAttribute("scri") SearchCriteria scri, RedirectAttributes rttr) throws Exception {
 		logger.info("delete delete");
 			

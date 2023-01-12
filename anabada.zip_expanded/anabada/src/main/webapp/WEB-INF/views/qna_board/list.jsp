@@ -66,28 +66,84 @@
 				</div>
 			
 				<form role="form" method="get">
+<%-- 					<input type="text" id="q_no" name="q_no" value="${listCount}" /> --%>
 					<!-- 목록 -->
 					<table class="board-table">
 						<thead>
 							<tr>
-								<th scope="col" class="th-num">번호</th>
+								<th scope="col" class="th-date">상태</th>
 								<th scope="col" class="th-title">제목</th>
-								<th scope="col" class="th-date">작성자</th>
 								<th scope="col" class="th-date">등록일</th>
 							</tr>
 						</thead>
-						
+
 						<c:forEach items="${list}" var="list">
-							<tr>
-								<td><c:out value="${list.q_no}" /></td>
-								<td style="text-align: left;">
-									<a href="/qna_board/readView?q_no=${list.q_no}&page=${scri.page}&perPageNum=${scri.perPageNum}&searchType=${scri.searchType}&keyword=${scri.keyword}">
-										<c:out value="${list.q_title}" />
-									</a>
-								</td>
-								<td><c:out value="${list.id}" /></td>
-								<td><fmt:formatDate value="${list.q_date}" pattern="yyyy-MM-dd" /></td>
-							</tr>
+							<c:choose>
+								<c:when test="${member.id eq 'admin'}">
+									<tr>
+										<c:choose>
+											<c:when test="${listCount == 0}">
+												등록된 문의 내역이 없습니다.
+											</c:when>
+											
+											<c:otherwise>
+												<c:choose>
+													<c:when test="${list.q_replycnt == 0}">
+														<td style="font-size: 13px;"><b>답변대기</b></td>
+													</c:when>
+												
+													<c:otherwise>
+														<c:if test="${list.q_replycnt > 0}">
+															<td style="font-size: 13px;"><b>답변완료</b></td>
+														</c:if>
+													</c:otherwise>
+												</c:choose>
+					
+												<td style="text-align: left;">
+													<a href="/qna_board/readView?q_no=${list.q_no}&page=${scri.page}&perPageNum=${scri.perPageNum}">
+														<c:out value="${list.q_title}" />
+													</a>
+												</td>
+												<td><fmt:formatDate value="${list.q_date}" pattern="yyyy-MM-dd" /></td>
+											</c:otherwise>
+										</c:choose>
+									</tr>
+								</c:when>
+								
+								<c:otherwise>
+									<c:if test="${member.id eq list.id}">
+										<tr>
+											<c:choose>
+												<c:when test="${listCount == 0}">
+													<td>등록된 문의 내역이 없습니다.</td>
+												</c:when>
+										
+												<c:otherwise>
+													<c:choose>
+														<c:when test="${list.q_replycnt == 0}">
+															<td style="font-size: 13px;"><b>답변대기</b></td>
+														</c:when>
+													
+													
+														<c:otherwise>
+															<c:if test="${list.q_replycnt > 0}">
+																<td style="font-size: 13px;"><b>답변완료</b></td>
+															</c:if>
+														</c:otherwise>
+													</c:choose>
+												
+													<td style="text-align: left;">
+														<a href="/qna_board/readView?q_no=${list.q_no}&page=${scri.page}&perPageNum=${scri.perPageNum}">
+															<c:out value="${list.q_title}" />
+														</a>
+													</td>
+													<td><fmt:formatDate value="${list.q_date}" pattern="yyyy-MM-dd" /></td>
+												</c:otherwise>
+											</c:choose>
+										</tr>
+									</c:if>
+								</c:otherwise>
+							</c:choose>
 						</c:forEach>
 					</table>
 					

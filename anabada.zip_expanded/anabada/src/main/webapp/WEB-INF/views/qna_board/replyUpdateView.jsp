@@ -45,6 +45,33 @@
 					</tbody>
 				</table>
 				
+				<div class="reply-write-area">
+					<form name="updateForm" role="form" method="post" action="/qna_board/replyUpdate">
+						<input type="text" name="q_no" value="${replyUpdate.q_no}" readonly="readonly" />
+						<input type="text" id="qr_no" name="qr_no" value="${replyUpdate.qr_no}" />
+						<input type="text" id="page" name="page" value="${scri.page}" />
+						<input type="text" id="perPageNum" name="perPageNum" value="${scri.perPageNum}" />
+						<input type="text" id="searchType" name="searchType" value="${scri.searchType}" />
+						<input type="text" id="keyword" name="keyword" value="${scri.keyword}" />
+				
+					<div>
+						<textarea class="chk reply-write" id="qr_content" name="qr_content" value="${replyUpdate.qr_content}"></textarea>
+					</div>
+					
+					<script>
+					$('textarea').on('keyup', function (e) {
+						$(this).css('height', 'auto');
+						$(this).height(this.scrollHeight - 15);
+					});
+					</script>
+
+					<div>
+						<button type="submit" class="update_btn btn_reset">저장</button>
+						<button type="button" class="cancel_btn btn_reset">취소</button>
+					</div>
+					</form>
+				</div>
+				
 				<div>
 					<button type="submit" class="update_btn">저장</button>
 					<button type="button" class="cancel_btn">취소</button>
