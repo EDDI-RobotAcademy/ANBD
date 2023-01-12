@@ -3,12 +3,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>${update.p_title}</title>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+<!-- include summernote css/js -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <style type="text/css">
 .rach input[type='radio'] {
 	display: none;
@@ -36,29 +43,202 @@
 	border-color: yellow;
 }
 
-img{
+/* img{
 width: 150px; height: 150px;
+} */
+#wapper {
+	width: 800px;
+	margin: auto;
+	height: auto;
+	
 }
-
 </style>
 
+<script type="text/javascript">
+
+$(document).ready(function() {
+      
+      
+     $('#summernote').summernote({
+     
+		  disableDragAndDrop:true,
+		placeholder : '내용을 입력하세요',
+		tabsize : 2,
+		height : 500,
+		width : 800,
+		 toolbar: [
+			    // [groupName, [list of button]]
+			    ['style', ['bold', 'italic', 'underline', 'clear']],
+			    ['font', ['strikethrough', 'superscript', 'subscript']],
+			    ['fontsize', ['fontsize']],
+			    ['color', ['color']],
+			    ['para', ['ul', 'ol', 'paragraph']],
+			    ['height', ['height']]
+			  ],
+			  
+	
+
+	});
+      
+      
+      
+	var dlist=[];
+	
+	var formObj = $("form[name='updateForm']");
+
+	$(".write_btn").on("click", function() {
+		if (fn_valiChk() || radio_ch() || ch_ch()) {
+			return false;
+		}
+		
+	
+		if(!(isNaN( $("#p_cost").value ))){
+			alert("가격란에는 숫자만 입력해주세요.");
+			return false;
+		}
+		
+		
+        
+		formObj.attr("action", "/product/update");
+		formObj.attr("method", "post");
+		formObj.submit();
+	});
+	
+	
+	$("#sell_a").change( function() {
+		
+		if($("#sell_a").is(":checked")){
+			$("#p_local").css("display","inline");
+		}else{
+			$("#p_local").css("display","none");
+		}
+		
+		
+	
+	});
+	
+
+	
+	
+	
+	
+	$(".imgbtn").on("click" , function() {
+		var inum = $(this).val(); //버튼에 담은 이미지의 fno 
+	    
+		if(confirm("사진을 삭제하시겠습니까?")){
+		
+			var va =   $("#dlist").val();
+			$("#dlist").attr('value', va+ inum+ ',');
+			$(this).parent().remove();
+			
+			
+			
+		
+		}else{
+			return false;
+		}
+		
+		
+	} );
+	
 
 
-<script type="text/javascript" src="../resources/js/pUpdateView.js"></script>
+
+	
+	
+
+})
+
+
+function radio_ch() {
+
+	if ($("input[type='radio']:checked").val() != null) {
+		return false;
+
+	} else {
+		alert("상품의 상태를 선택하세요");
+		return true;
+	}
+
+}
+
+
+function fn_valiChk() {
+	var regForm = $("form[name='writeForm'] .chk").length;
+	for (var i = 0; i < regForm; i++) {
+		if ($(".chk").eq(i).val() == "" || $(".chk").eq(i).val() == null) {
+			alert($(".chk").eq(i).attr("title"));
+			return true;
+		}
+	}
+}
+
+
+function ch_ch() {
+	const checkPart = document.querySelector('.checkbox-part');
+	const checkboxes = checkPart.querySelectorAll('input');
+
+	for (var i = 0; i < checkboxes.length; i++) {
+		if (checkboxes[i].checked == true) {
+
+			return false;
+
+		}
+	}
+
+	alert("거래 방법을 선택하세요");
+	return true;
+
+}
+
+
+function addFile() {
+	var str = "<div class='file-group'><input type='file' name='file'><a href='#this' name='file-delete'>삭제</a></div>";
+	$("#file-list").append(str);
+	$("a[name='file-delete']").on("click", function(e) {
+		e.preventDefault();
+		deleteFile($(this));
+	});
+}
+
+
+function deleteFile(obj) {
+	obj.parent().remove();
+}
+
+
+
+
+</script>
+
+
+
+<!-- <script type="text/javascript" src="../resources/js/pUpdateView.js"></script> -->
   
 </head>
 <body>
 
 
+<!-- head -->
 	<div>
+		<jsp:include page="../includes/nav.jsp" />
+	</div>
+	<div >
+		<jsp:include page="../includes/header.jsp" />
+	</div>
+	
+<!-- head end -->
+
+	<div  id="wapper" >
 
 		<h2>게시글 수정하기</h2>
+		<br>
 		<a href="/product/list" >목록으로</a>
 
 		<form name="updateForm" enctype="multipart/form-data" method="POST" >
 		<input  name="pno" type="hidden"  value="${update.pno }"  >
 <input id="dlist" name="dlist" type="hidden"  value="" > 
-			<table>
+			<table    >
 				<tr>
 					<td>
 						<h4>[ 상품 카테고리 ]</h4>
@@ -133,7 +313,7 @@ width: 150px; height: 150px;
 
 				</tr>
 				<tr>
-					<td colspan="2"><textarea class="chk" title="내용을 입력하세요" id="p_content" name="p_content" rows="30" cols="80" placeholder="제품의 상세 정보를 기입해주세요. 직거래시 가능한 장소도 알려주세요.">${update.p_content}</textarea></td>
+					<td colspan="2"><textarea id="summernote" class="chk" title="내용을 입력하세요" name="p_content" rows="25" cols="80" placeholder="제품의 상세 정보를 기입해주세요. 직거래시 가능한 장소도 알려주세요.">${update.p_content}</textarea></td>
 				</tr>
 				</table>
 				<!-- 저장된 사진정보 불러오기  -->
@@ -142,7 +322,7 @@ width: 150px; height: 150px;
 					<td>
                          <c:forEach items="${filelist }" var="filelist" >
                         
-						<div style="display: inline-block;"  id="${filelist.fno }" > <img src="${filelist.filepath }"  >  <button  type="button"  class="imgbtn"  value="${filelist.fno }"  >삭제</button> </div> 
+						<div style="display: inline-block;"  id="${filelist.fno }" > <img  width="150px;" height="150px;"  src="${filelist.filepath }"  >  <button  type="button"  class="imgbtn"  value="${filelist.fno }"  >삭제</button> </div> 
                         </c:forEach>
 					</td>
 
@@ -153,9 +333,11 @@ width: 150px; height: 150px;
 				<tr>
 					<td colspan="2">
 						<div class="form-group" id="file-list">
-							<a href="#this" onclick="addFile()"> 파일추가</a>
+				
+							<a href="#this" onclick="addFile()">[ 파일추가 ]</a>
 							<div class="file-group">
-								<input type="file" name="file" > <a href='#this' name='file-delete'>삭제</a>
+							
+								<input  style="display: inline-block;"  type="file" name="file" ><a href='#this' name='file-delete'>[ 삭제 ]</a>
 							</div>
 						</div>
 
@@ -180,7 +362,11 @@ width: 150px; height: 150px;
 		</form>
 	</div>
 
-
+<!-- footer -->
+<div id="footer">
+			<jsp:include page="../includes/footer.jsp" />
+		</div>
+<!-- footer end -->
 
 
 

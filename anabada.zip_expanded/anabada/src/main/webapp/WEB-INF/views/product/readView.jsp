@@ -233,6 +233,17 @@ color: #AFAFAF;
 margin-top:50px;
 font-size: 20px;
 }
+
+.cunsumer{
+
+border-radius: 7px;
+background-color: #AFAFAF;
+display: inline-block;
+color: white;
+font-size:11px;
+padding:  0px 2px 0px 2px;
+}
+
 </style>
 <script type="text/javascript">
    $(document).ready(function() {
@@ -855,10 +866,13 @@ font-size: 20px;
 
 
                <td colspan="3">
+                  <c:if test="${read.id != id }">
                   <div>
-                  채팅 버튼 자리
+                  
                   <button type="button" name="n_send" class="n_btn1" style="display: block; margin: auto;">쪽지 보내기</button>
                   </div>
+                  </c:if>
+                  <c:if test="${read.id == id }"> <br>  <br> </c:if>
                </td>
             </tr>
             <tr>
@@ -929,17 +943,30 @@ font-size: 20px;
       
       
       <td> 
-       <div id="textbox" >
+       <div id="textbox"  style="padding-top: 3px;  ">
       
       <c:choose>
       <c:when test="${reviewList[0] != null }">
          <!-- 상점 후기  -->
-      <table>
+      <table   >
       <c:forEach items="${reviewList }"  var="review" >
-      <tr>  <td> ${review.r_consumer}</td>  <td> ${review.r_score} </td> <td> ${review.r_date} </td></tr>
+      <tr>  <td>  <div class="cunsumer" >작성자</div>  ${review.r_consumer}</td> 
+       <td style="font-size: small;" >       
+       
+       <c:if test="${review.r_score == 0.3 }"> ⭐⭐⭐⭐ </c:if>
+       <c:if test="${review.r_score == 0.2 }"> ⭐⭐⭐ </c:if>
+       <c:if test="${review.r_score == 0.1 }"> ⭐⭐ </c:if>
+       <c:if test="${review.r_score == -0.1 }"> ⭐ </c:if>
+       
+           </td> 
+       
+       
+       
+       <td>  <font style="font-size: small; color: gray;" >🕗  ${review.r_date}</font>  </td></tr>
       <tr>
-       <td colspan="3" > ${review.r_content } </td>
+       <td colspan="3" >  ${review.r_content }  <hr style="margin: 5px 0px 5px 0px" > </td>
         </tr>
+       
       </c:forEach>
       </table>
       <!-- 후기 끝 -->

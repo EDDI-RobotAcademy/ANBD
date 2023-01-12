@@ -122,9 +122,20 @@ public class NoteController {
       System.out.println("확정쪽지인지: " + noteVO.getN_review());
       
       NoteVO n_read = noteService.note_view(noteVO.getN_bno());
+      model.addAttribute("n_read", n_read); // 쪽지
       
-      model.addAttribute("n_read", n_read); // 게시글 번호로 게시글 객체 불러옴
-      model.addAttribute("p_read", productService.read(n_read.getPno()));
+      PBoardVO p_read = productService.read(n_read.getPno());
+      
+       String path = productService.getImg(n_read.getPno()); // 첫번째 사진의 정보를 담음
+       if (path == null) {
+           p_read.setP_filepath("/tomcatImg/img.png");
+           System.out.println("하하하");
+       } else {
+           p_read.setP_filepath(path);
+           System.out.println(path);
+       }
+      
+      model.addAttribute("p_read", p_read); // 중고게시글 객체도 불러옴
       
       model.addAttribute("scri", scri);
       

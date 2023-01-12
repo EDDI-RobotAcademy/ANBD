@@ -39,7 +39,12 @@ public class UserProductDAOImpl implements UserProductDAO{
 	// 내상점 > 게시글 삭제 
 	@Override
 	public void deleteProductList(int[] delete_array) throws Exception {
-            sql.delete("pBoardMapper.deleteProductList",delete_array);		
+            sql.delete("pBoardMapper.deleteProductList",delete_array);		 // pboard에서 게시글 삭제 
+	}
+	// 내 찜목록 삭제 
+	@Override
+	public void deleteHeartList(int[] delete_array) throws Exception {
+           sql.delete("HeartMapper.deleteHeartList",delete_array);		
 	}
 
 }

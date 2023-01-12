@@ -20,4 +20,7 @@ public interface UserProductDAO {
 
 	void deleteProductList(int[] delete_array) throws Exception;
 
+	// 내 찜목록 삭제 
+	void deleteHeartList(int[] delete_array) throws Exception;
+
 }

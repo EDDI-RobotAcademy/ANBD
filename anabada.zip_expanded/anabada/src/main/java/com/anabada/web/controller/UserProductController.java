@@ -1,5 +1,6 @@
 package com.anabada.web.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -26,6 +27,7 @@ import com.anabada.web.service.ProductService;
 import com.anabada.web.service.UserProductService;
 import com.anabada.web.vo.HeartVO;
 import com.anabada.web.vo.PBoardVO;
+import com.anabada.web.vo.PfileVO;
 import com.anabada.web.vo.StoreCriteria;
 import com.anabada.web.vo.StorePageMaker;
 
@@ -34,6 +36,7 @@ import com.anabada.web.vo.StorePageMaker;
 public class UserProductController {
 	private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
+	private static final String CURR_IMAGE_REPO_PATH = "C:\\pimages\\";
 	@Inject
 	UserProductService service;
 
@@ -118,20 +121,54 @@ public class UserProductController {
 	//내상점에서 삭제하기 눌렀을때 
 	   @RequestMapping(value = "/deleteProduct", method =RequestMethod.GET)
 	   @ResponseBody
-	   public boolean delete_chk(HttpServletResponse resp, @RequestParam(value="delete_array") int[] delete_array, 
+	   public boolean deleteProduct(HttpServletResponse resp, @RequestParam(value="delete_array") int[] delete_array, 
 	         HttpSession session) throws Exception{
 	      
 	      logger.info("내상점에서 삭제하기 눌렀을때 "); 
-	      // 페이징 처리 안해줬음 
-	      service.deleteProductList(delete_array);
 	      
-	     System.out.println(delete_array.toString());
+	      
+	      for(int pno : delete_array) {
+	      
+			List<PfileVO> filelist = productService.filelist(pno);
+			if (filelist != null) {
+				for (PfileVO vo : filelist) {
+					deleteRealImg(vo.getFilepath());
+				}
+			}
+	      
+	      }
+	      
+	      
+	      service.deleteProductList(delete_array); //p_file, pboard 둘다 삭제 하는 쿼리를 daoimpl에 작성
 	   
 	      boolean result = true;
 	      return result;
 	        
 	   }
 	
+	   @RequestMapping(value = "/deleteHeart", method =RequestMethod.GET)
+	   @ResponseBody
+	   public boolean deleteHeart(HttpServletResponse resp, @RequestParam(value="delete_array") int[] delete_array, 
+			   HttpSession session) throws Exception{
+		   
+		   logger.info("deleteHeart123123"); 
+		   service.deleteHeartList(delete_array);
+		   
+		   boolean result = true;
+		   return result;
+		   
+	   }
+	   
+	   
+		// 해당 경로의 이미지를 삭제하는 메소드
+		public void deleteRealImg(String filePath) {
+			String realPath = filePath.substring(11);
+			File file = null;
+			file = new File(CURR_IMAGE_REPO_PATH + realPath);
+			file.delete();
+
+		}
+	   
 	
 	
 

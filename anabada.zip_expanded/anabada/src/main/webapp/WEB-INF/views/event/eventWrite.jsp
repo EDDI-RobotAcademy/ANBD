@@ -193,6 +193,13 @@ input[type='file'] {
 
 <body>
 
+	<div>
+		<jsp:include page="../includes/nav.jsp" />
+	</div>
+	<div >
+		<jsp:include page="../includes/header.jsp" />
+	</div>
+
 	<form name="writeForm" enctype="multipart/form-data" method="post">
 		<input type="hidden" name="id" value="${id}">
 		<table style="margin-left: auto; margin-right: auto;">
@@ -250,7 +257,9 @@ input[type='file'] {
 	</form>
 
 
-
+<div id="footer">
+			<jsp:include page="../includes/footer.jsp" />
+		</div>
 
 
 

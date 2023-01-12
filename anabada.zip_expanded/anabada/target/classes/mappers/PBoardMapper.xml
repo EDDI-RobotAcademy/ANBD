@@ -193,4 +193,5 @@ WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}   ORDER BY pno DESC
 
 
 
+
 </mapper>

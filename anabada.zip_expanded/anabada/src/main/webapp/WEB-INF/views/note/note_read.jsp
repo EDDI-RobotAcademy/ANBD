@@ -333,16 +333,13 @@
             <c:if test="${n_read.pno ne 0 && n_read.n_review eq 'no'}">
             <tr>
                <td width="130px;">
-                  <a href="product/readView/pno=${n_read.pno}">
-                     <img class="p_img" src="">
+                  <a href="/product/readView?pno=${n_read.pno}">
+                     <img class="p_img" src="${p_read.p_filepath }">
                   </a>
                </td>
                <td>
-               
                   ${p_read.p_title}<br>
                   ${p_read.p_cost}<br>
-                   
-                   <!-- 이 부분은 나중에 -->
                </td>
             </tr>
             </c:if>
@@ -353,16 +350,13 @@
             <c:if test="${n_read.n_review eq 'yes'}">
             <tr>
                <td width="130px;">
-                  <a href="product/readView/pno=${n_read.pno}">
-                     <img class="p_img" src="">
+                  <a href="/product/readView?pno=${n_read.pno}">
+                     <img class="p_img" src="${p_read.p_filepath }">
                   </a>
                </td>
                <td>
-             
-                   
                   ${p_read.p_title}<br>
                   ${p_read.p_cost}<br>
-                  
                   <!-- 받은 사람만 후기 작성하기 버튼 누를수있도록 -->
                   <c:if test="${n_read.n_receiver eq id }">
                      <button type="button" class="review" name="review">후기 작성하기</button>

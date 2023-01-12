@@ -26,4 +26,7 @@ public interface UserProductService {
 	// 내상점 > 게시글 삭제 
 	void deleteProductList(int[] delete_array) throws Exception;
 
+	// 내 찜목록 삭제 
+	void deleteHeartList(int[] delete_array) throws Exception ;
+
 }

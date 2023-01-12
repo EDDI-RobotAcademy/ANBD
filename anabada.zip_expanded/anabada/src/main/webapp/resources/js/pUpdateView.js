@@ -1,6 +1,30 @@
 
 	$(document).ready(function() {
           
+          
+         $('#summernote').summernote({
+         
+			  disableDragAndDrop:true,
+			placeholder : '내용을 입력하세요',
+			tabsize : 2,
+			height : 500,
+			width : 900,
+			 toolbar: [
+				    // [groupName, [list of button]]
+				    ['style', ['bold', 'italic', 'underline', 'clear']],
+				    ['font', ['strikethrough', 'superscript', 'subscript']],
+				    ['fontsize', ['fontsize']],
+				    ['color', ['color']],
+				    ['para', ['ul', 'ol', 'paragraph']],
+				    ['height', ['height']]
+				  ],
+				  
+		
+
+		});
+          
+          
+          
 		var dlist=[];
 		
 		var formObj = $("form[name='updateForm']");
@@ -36,6 +60,10 @@
 		
 		});
 		
+
+		
+		
+		
 		
 		$(".imgbtn").on("click" , function() {
 			var inum = $(this).val(); //버튼에 담은 이미지의 fno 
@@ -57,6 +85,7 @@
 		} );
 		
 	
+
 
 		
 		
@@ -100,7 +129,7 @@
 			}
 		}
 
-		alert("판매 유형을 선택하세요");
+		alert("거래 방법을 선택하세요");
 		return true;
 
 	}

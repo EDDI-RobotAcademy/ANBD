@@ -57,6 +57,12 @@
 	margin-right: 10px;
 	letter-spacing: 2px;
 }
+#listNull{
+text-align: center;
+background-color: #F2F2F2;
+padding-top: 10px;
+padding-bottom: 10px;
+}
 </style>
 
 <script type="text/javascript">
@@ -113,13 +119,7 @@
 		                alert("삭제 실패:" + error);
 		             }
 		              });
-				  
-				  
 			  }
-			
-			
-			
-			
 		})
 		
 		
@@ -130,11 +130,17 @@
 </head>
 <body>
 	<form action="">
-		<table style="margin: auto;" id="totalTable">
+	
+		<table style="margin: auto; width: 602px; " id="totalTable"  >
+		<tr> <td colspan="7">   <button type="button" id="delbtn" >삭제</button>  </td> </tr>
+		
 			<tr class="headTr">
-				<td colspan="7" ><input type="checkbox"  id="delete_all" > 전체 선택 ${id}   <button type="button" id="delbtn" >삭제 테스트</button>  </td>
+				<td colspan="7" ><input type="checkbox"  id="delete_all" > 전체 선택 ${id}    </td>
 			
 			</tr>
+			<c:if test="${list == null }">
+			<tr> <td colspan="7"  id="listNull" > 작성된 게시글이 없습니다. </td>   </tr>
+			</c:if>
 			<!-- 반복 -->
 
 			<c:forEach items="${list }" var="list">

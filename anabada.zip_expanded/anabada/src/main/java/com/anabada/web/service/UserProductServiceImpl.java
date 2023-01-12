@@ -43,5 +43,10 @@ public class UserProductServiceImpl implements UserProductService {
 		dao.deleteProductList(delete_array);
 		
 	}
+	// 내 찜목록 삭제 
+	@Override
+	public void deleteHeartList(int[] delete_array) throws Exception {
+           dao.deleteHeartList(delete_array);		
+	}
 
 }

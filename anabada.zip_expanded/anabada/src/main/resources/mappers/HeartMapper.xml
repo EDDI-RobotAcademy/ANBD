@@ -29,6 +29,15 @@ WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}   ORDER BY pno DESC
 SELECT COUNT(PNO) FROM HEART WHERE ID=#{id}
 </select>
 
+<!-- 내 찜목록 삭제  -->
+   <delete id="deleteHeartList" parameterType="java.util.ArrayList" >
+   DELETE FROM heart 
+   WHERE PNO IN (
+   <foreach collection="array" item="item" index="index" separator="," >   #{item}</foreach>
+   )
+   </delete>
+
+
 </mapper>
 
 
