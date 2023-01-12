@@ -24,7 +24,7 @@
 <br>
 <a href="/event/list"> 이벤트 리스트가기  </a>
 <br>
-<a href="/userProduct//myStore" >내상점</a>
+<a href="/userProduct/myStore" >내상점</a>
 
 
 

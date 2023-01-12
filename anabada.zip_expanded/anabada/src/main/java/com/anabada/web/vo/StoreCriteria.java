@@ -7,9 +7,18 @@ public class StoreCriteria {
 	private int perPageNum; // 페이지당 보여줄 글의 갯수 
 	private int rowStart; // 페이지 한행의 첫번째 게시물 rowNum
 	private int rowEnd; // 페이지 한 행의 마지막 게시물 rowNum 
+    private String id;
+    
+	
+	
+	public String getId() {
+		return id;
+	}
 
-	
-	
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public StoreCriteria() { // 디폴트 생성자 
 		this.page = 1; // 페이지 1로 초기화
 		this.perPageNum = 10; // 페이지당 게시글 10개 
@@ -70,9 +79,16 @@ public class StoreCriteria {
 		this.rowEnd = rowEnd;
 	}
 
+	@Override
+	public String toString() {
+		return "StoreCriteria [page=" + page + ", perPageNum=" + perPageNum + ", rowStart=" + rowStart + ", rowEnd="
+				+ rowEnd + ", id=" + id + "]";
+	}
+
 	public int getPage() {
 		return page;
 	}
+
 
 
 

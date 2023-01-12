@@ -1,95 +1,88 @@
 package com.anabada.web.vo;
 
-import java.sql.Date;
-
 public class NoteVO {
 
-	private int bno;
-	private String s_id; // 보낸사람 id
-	private String r_id; // 받는 사람 id
-	private String s_time; // 보내는 시간
-	private String content; // 내용
-	private String read_chk; // 읽었는지 체크
-	private int s_delete_chk; 
-	private int r_delete_chk; 
-	private int pno; // 중고게시물 번호
-	private String confirm; // 판매완료된 쪽지이면
-	
-	public int getBno() {
-		return bno;
-	}
-	public void setBno(int bno) {
-		this.bno = bno;
-	}
-	public String getS_id() {
-		return s_id;
-	}
-	public void setS_id(String s_id) {
-		this.s_id = s_id;
-	}
-	public String getR_id() {
-		return r_id;
-	}
-	public void setR_id(String r_id) {
-		this.r_id = r_id;
-	}
-	public String getS_time() {
-		return s_time;
-	}
-	public void setS_time(String s_time) {
-		this.s_time = s_time;
-	}
-	public String getContent() {
-		return content;
-	}
-	public void setContent(String content) {
-		this.content = content;
-	}
-	public String getRead_chk() {
-		return read_chk;
-	}
-	public void setRead_chk(String read_chk) {
-		this.read_chk = read_chk;
-	}
-	public int getS_delete_chk() {
-		return s_delete_chk;
-	}
-	public void setS_delete_chk(int s_delete_chk) {
-		this.s_delete_chk = s_delete_chk;
-	}
-	public int getR_delete_chk() {
-		return r_delete_chk;
-	}
-	public void setR_delete_chk(int r_delete_chk) {
-		this.r_delete_chk = r_delete_chk;
-	}
-	public int getPno() {
-		return pno;
-	}
-	public void setPno(int pno) {
-		this.pno = pno;
-	}
-	public String getConfirm() {
-		return confirm;
-	}
-	public void setConfirm(String confirm) {
-		this.confirm = confirm;
-	}
-	@Override
-	public String toString() {
-		return "NoteVO [bno=" + bno + ", s_id=" + s_id + ", r_id=" + r_id + ", s_time=" + s_time + ", content="
-				+ content + ", read_chk=" + read_chk + ", s_delete_chk=" + s_delete_chk + ", r_delete_chk="
-				+ r_delete_chk + ", pno=" + pno + ", confirm=" + confirm + "]";
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+   private int n_bno;
+   private String n_sender; // 보낸사람 id
+   private String n_receiver; // 받는 사람 id
+   private String n_s_time; // 보내는 시간
+   private String n_content; // 내용
+   private String n_read_chk; // 읽었는지 체크
+   private int n_s_delete_chk; // 기본값이 1, 삭제하면 0 
+   private int n_r_delete_chk; // 기본값이 1, 삭제하면 0
+   private int pno; // 중고게시물 번호
+   private String n_review; // 판매완료된 쪽지이면 review, 아니면 null
+   public int getN_bno() {
+      return n_bno;
+   }
+   public void setN_bno(int n_bno) {
+      this.n_bno = n_bno;
+   }
+   public String getN_sender() {
+      return n_sender;
+   }
+   public void setN_sender(String n_sender) {
+      this.n_sender = n_sender;
+   }
+   public String getN_receiver() {
+      return n_receiver;
+   }
+   public void setN_receiver(String n_receiver) {
+      this.n_receiver = n_receiver;
+   }
+   public String getN_s_time() {
+      return n_s_time;
+   }
+   public void setN_s_time(String n_s_time) {
+      this.n_s_time = n_s_time;
+   }
+   public String getN_content() {
+      return n_content;
+   }
+   public void setN_content(String n_content) {
+      this.n_content = n_content;
+   }
+   public String getN_read_chk() {
+      return n_read_chk;
+   }
+   public void setN_read_chk(String n_read_chk) {
+      this.n_read_chk = n_read_chk;
+   }
+   public int getN_s_delete_chk() {
+      return n_s_delete_chk;
+   }
+   public void setN_s_delete_chk(int n_s_delete_chk) {
+      this.n_s_delete_chk = n_s_delete_chk;
+   }
+   public int getN_r_delete_chk() {
+      return n_r_delete_chk;
+   }
+   public void setN_r_delete_chk(int n_r_delete_chk) {
+      this.n_r_delete_chk = n_r_delete_chk;
+   }
+   public int getPno() {
+      return pno;
+   }
+   public void setPno(int pno) {
+      this.pno = pno;
+   }
+   public String getN_review() {
+      return n_review;
+   }
+   public void setN_review(String n_review) {
+      this.n_review = n_review;
+   }
+   
+   @Override
+   public String toString() {
+      return "NoteVO [n_bno=" + n_bno + ", n_sender=" + n_sender + ", n_receiver=" + n_receiver + ", n_s_time="
+            + n_s_time + ", n_content=" + n_content + ", n_read_chk=" + n_read_chk + ", n_s_delete_chk="
+            + n_s_delete_chk + ", n_r_delete_chk=" + n_r_delete_chk + ", pno=" + pno + ", n_review=" + n_review
+            + "]";
+   }
+   
+   
+   
+   
+   
 }
