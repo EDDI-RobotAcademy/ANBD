@@ -29,29 +29,29 @@
    }
    
    input[type=radio]{
-         display: none;
-         margin: 10px; 
+   	   display: none;
+   	   margin: 10px; 
    }
    
    input[type=radio] + label{
-         display: inline-block;
-         margin:-2px;
-         padding: 8px 10px;
-         background-color: #f5f5f5;
-         border: 1px solid #ccc;
-         font-size: 13px !important;
-         width: 110px;
-         text-align: center;
+   	   display: inline-block;
+   	   margin:-2px;
+   	   padding: 8px 10px;
+   	   background-color: #f5f5f5;
+   	   border: 1px solid #ccc;
+   	   font-size: 13px !important;
+   	   width: 110px;
+   	   text-align: center;
    }
    
    label{ /*보낸 쪽지함, 받은 쪽지함 선택할 떄 마우스 모양 바뀌게*/
-         cursor: pointer;
+   	   cursor: pointer;
    }
    
    input[type=radio]:radio + label{
-         background-image: none;
-         background-color: #3598dc;
-      color:#fff;
+   	   background-image: none;
+   	   background-color: #3598dc;
+	   color:#fff;
    }
    
    .myImg {
@@ -63,13 +63,23 @@
    }
    
    .word {
-
+   	  width:130px;
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	  white-space: nowrap;
+   }
+   .word2 {
+   	  width:330px;
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	  white-space: nowrap;
    }
 </style>
 <script type="text/javascript">
    $(document).ready(function () {
      
-
+	  // 보낸 쪽지함, 받은 쪽지함
+	  $('.search_who').click(function () {
          location.href = "note_list" + '${pageMaker.makeQuery(1)}' + 
          '&who=' + $("input[name=who]:checked").val(); 
       });
@@ -123,7 +133,8 @@
                      window.location.reload();
                  },
                  error : function(request, status, error) {
-
+					 alert("삭제 실패:" + error);
+				 }
               });
          
          }else{
@@ -165,7 +176,8 @@
                    window.location.reload();
                },
                error : function(request, status, error) {
-
+				   alert("쪽지 전송 실패:" + error);
+			   }
            });
            
            $("#noteModal").modal("hide");
@@ -189,22 +201,54 @@
    <form name="noteForm" action="/note/note_list" method="get">
         <!-- 바 -->
         <div class="sidemenu">
-
+        	<div class="myImg">
+        		<img src="../resources/images/아나바다2.png" width="150px" height="150px"/>
+        		<br>
+        		${id } 님
+        	</div>
+        	<div style="padding-top: 10px">
+	        	<button type="button" name="send" id="send" class="n_btn1" style="display: block; margin: auto;">쪽지 보내기</button>
+	        	<ul style="margin-top: 5px;">
+		        	<li style="text-align: left">
+		        		<label>
+		        			<input type="radio" class="search_who" name="who" value="receive" <c:if test="${scri.who eq 'receive'}">checked</c:if>>
+		        			<font <c:if test="${scri.who eq 'receive'}"> style="font-weight: bold;" </c:if>>받은 쪽지함</font>
+		        		</label>
+		        	</li>
+	        		<li style="text-align: left">
+	        			<label>
+	        				<input type="radio" class="search_who" name="who" value="send"  <c:if test="${scri.who eq 'send'}">checked</c:if>>
+        					<font <c:if test="${scri.who eq 'send'}"> style="font-weight: bold;" </c:if>>보낸 쪽지함</font>
+        				</label>
+        			</li>
+        		</ul>
+        	</div>
         </div>
         
         <!-- 내용 -->
         <div class="minicon" style="background-color: white; border-top: 1px solid #e9e9e9">
-          
+		    
             <table class="n_list">
             <tr>
-
+            	<td colspan="4">
+            	<button type="button" name="delete_btn" class="n_btn2">
+            	삭제</button>
+            	<c:if test="${who eq 'receive'}">
+            	&nbsp;읽지 않은 메시지 ${no_read }
+            	</c:if>
+            	</td>
             </tr>
             <tr>
                <td width="30px;" style="text-align: center">
                   <input type="checkbox" name="delete" value="0" id="delete_all">
                </td>
                <c:choose>
-
+	               <c:when test="${who eq 'receive'}">
+	                  <td width="150px" style="text-align: center">보낸 사람</td>
+	               </c:when>
+	               <c:otherwise>
+	                  <td width="150px" style="text-align: center">받는 사람</td>
+	               </c:otherwise>
                </c:choose>
                <td width="350px" style="text-align: center">내용</td>
                <td width="170px" style="text-align: center">날짜</td>
@@ -221,13 +265,14 @@
                   <input type="checkbox" name="delete" class="delete" value="${n_list.n_bno}">
                </td>
                <td>
-
+               	  <div class="word">
                   <c:if test="${not empty n_list.n_sender}">${n_list.n_sender }</c:if>
                   </div>
                   <c:if test="${empty n_list.n_sender}">(알수없음)</c:if>
                </td>
                <td>
-
+               	  <div class="word2">
+                  <a href="/note/note_read?n_bno=${n_list.n_bno}&n_rno=${n_list.n_rno }&n_type=${n_lsit.n_type}&page=${scri.page }&perPageNum=${scri.perPageNum }&who=${scri.who}">
                      <c:if test="${n_list.n_read_chk eq 1}">
                      <img src="../resources/images/new.png" width="14px" height="14px">
                      </c:if>
@@ -245,12 +290,13 @@
                </td>
                <td>
                   <c:if test="${not empty n_list.n_receiver}">
-
+                  	<div class="word">${n_list.n_receiver }</div>
                   </c:if>
                   <c:if test="${empty n_list.n_receiver}">(알수없음)</c:if>
                </td>
                <td>
-
+               	  <div class="word2">
+                  <a href="/note/note_read?n_bno=${n_list.n_bno}&n_rno=${n_list.n_rno }&n_type=${n_lsit.n_type}&page=${scri.page }&perPageNum=${scri.perPageNum }&who=${scri.who}">
                      ${n_list.n_content }
                   </a>
                   </div>
@@ -291,7 +337,8 @@
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">쪽지</h1>
                 </div>
                 <form id="note_form">
-
+                    <input type="hidden" name="n_type" value="no">
+                    <input type="hidden" name="n_rno" value="0">
                     <div class="modal-body">
                         <table style="width: 100%">
                             <tbody>

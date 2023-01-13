@@ -36,10 +36,9 @@
 			
 			<div>
 				<ul class="cate-ul">
-					<li class="cate-li">아르바이트</li>
-					<li class="cate-li">동네생활</li>
-					<li class="cate-li">맛집추천</li>
-					<li class="cate-li">동호회</li>
+					<li class="cate-li"><a href="/product/list">중고게시판</a></li>
+					<li class="cate-li"><a href="/job/job_list">알바게시판</a></li>
+					<li class="cate-li"><a href="a_board/list">동네생활</a></li>
 				</ul>
 			</div>
 		</div>
