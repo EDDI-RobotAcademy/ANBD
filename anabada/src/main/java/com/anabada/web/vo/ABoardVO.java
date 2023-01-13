@@ -1,5 +1,5 @@
 package com.anabada.web.vo;
-
+//
 import java.util.Date;
 
 public class ABoardVO {

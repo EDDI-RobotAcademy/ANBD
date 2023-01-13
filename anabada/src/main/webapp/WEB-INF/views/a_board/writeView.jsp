@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>board write</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <style>
 	.chk input[type='radio'] {
 		display:none;
@@ -24,7 +25,19 @@
 		color:white;
 		border-radius:10px;
 	}
+	.container {
+		width: 100%;
+  		min-width: 1000px;
+  		max-width: 1000px;
+  		margin: 0 auto 0 auto;
+	}
+	.mcont {
+ 		margin: 0 auto;
+  		padding: 15px 20px 50px 20px;
+ 		box-sizing: border-box;
+}
 </style>
+<script src="//cdn.ckeditor.com/4.19.0/standard/ckeditor.js"></script>
 </head>
 <body>
 
@@ -33,7 +46,9 @@
 	<jsp:include page="../includes/header.jsp"/>
 </div>
 
-<form name="writeForm" method="post" action="/a_board/write">
+<!-- 게시글 작성 -->
+<section class="container">
+<form name="writeForm" method="post" action="/a_board/write" class="mcont">
 <table>
 		<tr>
 			<td>
@@ -45,33 +60,44 @@
 		
 		<tr>
 			<td>
-				<label for="title">제목</label><br>
-				<input type="text" id="title" name="a_title" placeholder="제목을 입력하세요."/>
+				<label for="title" class="form-label">제목</label><br>
+				<input type="text" id="title" name="a_title" class="form-control" placeholder="제목을 입력하세요."/>
 			</td>
 		</tr>
+		
+		<br>
 		
 		<tr>
 			<td>
 				<label for="content">내용</label><br>
 				<textarea id="content" name="a_content" rows="15" cols="50" placeholder="내용을 입력하세요."></textarea>
+				<script type="text/javascript">
+					CKEDITOR.replace('content', {filebrowserUploadUrl: '/a_board/fileUpload', 
+						enterMode: CKEDITOR.ENTER_BR,
+						shiftEnterMode: CKEDITOR.ENTER_P,
+						width:930, height:300});
+				</script>
 			</td>
 		</tr>
 		
 		<tr>
 			<td>
-				<label for="id">작성자</label><br>
-				<input type="text" id="id" name="id" value="${member.id}" readonly/>
-			</td>
-		</tr>
-		
-		<tr>
-			<td>
-				<button type="submit">등록</button>
-				<button type="reset">취소</button>
+				<label for="id" class="form-label">작성자</label><br>
+				<input type="text" id="id" name="id" class="form-control" value="${id}" readonly/>
 			</td>
 		</tr>
 </table>
+	<!-- 게시글 작성 끝 -->
+		
+		
+	<!-- 등록 및 취소 버튼 -->
+		<div style="text-align:right;">
+				<br>
+				<button type="submit">등록</button>
+				<button type="reset" onclick="javascript:history.go(-1)">취소</button>
+		</div>
 </form>
+</section>
 
 <div>
 	<jsp:include page="../includes/footer.jsp" />

@@ -1,5 +1,5 @@
 package com.anabada.web.vo;
-
+//
 public class ALikeVO {
 	
 	private int like_no;

@@ -1,5 +1,5 @@
 package com.anabada.web.vo;
-
+//
 public class ASearchCriteria extends ACriteria {
 
 	private String searchType = "";

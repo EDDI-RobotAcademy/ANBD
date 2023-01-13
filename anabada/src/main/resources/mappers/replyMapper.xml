@@ -4,7 +4,7 @@
 
 <mapper namespace="replyMapper">
 
-<!-- 댓글 보기 -->
+<!-- 댓글 보기 조회 -->
 <select id="readReply" resultType="replyVO">
 SELECT A_BNO, R_RNO, R_CONTENT, R_REGDATE, ID
 FROM A_REPLY

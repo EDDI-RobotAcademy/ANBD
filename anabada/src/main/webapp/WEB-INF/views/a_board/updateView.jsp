@@ -7,8 +7,25 @@
 <head>
 <meta charset="UTF-8">
 <title>게시글 수정하기</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<style>
+.container {
+	width: 100%;
+  	min-width: 1000px;
+  	max-width: 1000px;
+  	margin: 0 auto 0 auto;
+}
+.mcont {
+ 	margin: 0 auto;
+  	padding: 15px 20px 50px 20px;
+ 	box-sizing: border-box;
+}
+</style>
+<script src="//cdn.ckeditor.com/4.19.0/standard/ckeditor.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
+
+	/* 수정 버튼 스크립트 */
 	$(function() {
 		var formObj = $("form[name='updateForm']")d;
 		
@@ -30,11 +47,11 @@
 			}
 		}
 		
-		$(".cancel_btn").on("click", function() {
+		/* $(".cancel_btn").on("click", function() {
 			event.preventDefault();
 			location.href="/a_board/readView?a_bno=${update.a_bno}" + "&page=${scri.page}" + "&perPageNum=${scri.perPageNum}" + 
 			"&searchType=${scri.searchType}" + "&keyword=${scri.keyword}" + "&cateType=${scri.cateType}";
-		});
+		}); */
 	});
 </script>
 </head>
@@ -45,7 +62,9 @@
 	<jsp:include page="../includes/header.jsp"/>
 </div>
 
-<form name="updateForm" method="post" action="/a_board/update">
+<!-- 게시글 수정 -->
+<section class="container">
+<form name="updateForm" method="post" action="/a_board/update" class="mcont">
 	<input type="hidden" name="a_bno" value="${update.a_bno }" readonly="readonly"/>
 	<input type="hidden" name="page" value="${scri.page }"/>
 	<input type="hidden" name="perPageNume" value="${scri.perPageNum }"/>
@@ -56,28 +75,41 @@
 	<table>
 		<tr>
 			<td>
-				제목 <input type="text" id="a_title" name="a_title" class="chk" value="${update.a_title }" placeholder="제목을 입력해주세요."/>
+				<label for="a_title" class="form-label">제목</label>
+				<input type="text" id="a_title" name="a_title" class="chk form-control" value="${update.a_title }" placeholder="제목을 입력해주세요."/>
 			</td>
 		</tr>
 		
 		<tr>
 			<td>
-				내용 <textarea id="a_content" name="a_content" class="chk" placeholder="내용을 입력해주세요."><c:out value="${update.a_content }"/></textarea>
+				<label for="a_content" class="form-label">내용</label>
+				<textarea id="a_content" name="a_content" placeholder="내용을 입력해주세요."><c:out value="${update.a_content }"/></textarea>
+			<script type="text/javascript">
+				CKEDITOR.replace('a_content', {filebrowserUploadUrl: '/a_board/fileUpload', width:930, height:300});
+			</script>
 			</td>
+			
 		</tr>
 		
 		<tr>
 			<td>
-				작성자 <input type="text" id="id" name="id" value="${update.id }" readonly="readonly"/>
+				<label for="id" class="form-label">작성자</label>
+				<input type="text" id="id" name="id" class="form-control" value="${update.id }" readonly/>
 			</td>
 		</tr>
 	</table>
+	<!-- 게시글 수정 끝 -->
 	
-	<div>
-		<button type="submit" class="update_btn">저장</button>
-		<button type="reset" class="cancel_btn">취소</button>
+	
+	<!-- 저장 및 취소 버튼 -->
+	<div style="text-align:right;">
+		<br>
+		<button type="submit" class="update_btn">저장</button>&nbsp;
+		<!-- .cancel_btn이 안먹어서 history.go(-2)로 변경, 게시글 목록으로 넘어가게 함 -->
+		<button type="reset" onclick="javascript:history.go(-2)">취소</button>
 	</div>
 </form>
+</section>
 
 <div>
 	<jsp:include page="../includes/footer.jsp" />
