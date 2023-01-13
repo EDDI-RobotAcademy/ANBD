@@ -48,4 +48,8 @@ public interface NoteDAO {
 	// 해당 중고게시물에 대한 쪽지를 주고 받은 사람들 리스트
 	public List<String> get_members(Map map) throws Exception;
 
+	
+	// 이벤트 쪽지만 보내는 메소으
+	public void send_event(Map map) throws Exception;
+
 }

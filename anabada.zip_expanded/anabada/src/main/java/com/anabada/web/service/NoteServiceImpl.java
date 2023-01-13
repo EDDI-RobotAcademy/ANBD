@@ -84,6 +84,12 @@ public class NoteServiceImpl implements NoteService {
 		return dao.get_members(map);
 	}
 
+	//이벤트 쪽지만 보내느 메소드
+	@Override
+	public void send_event(Map map) throws Exception {
+		dao.send_event(map);
+	}
+
 	
 	
 	

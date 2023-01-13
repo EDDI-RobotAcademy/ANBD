@@ -4,14 +4,14 @@
 
 <mapper namespace="noteMapper">
 <insert id="insert" parameterType="NoteVO">
-INSERT INTO NOTE (N_BNO, N_SENDER, N_RECEIVER, N_CONTENT, N_S_TIME, N_READ_CHK, N_R_DELETE_CHK, N_S_DELETE_CHK, PNO, N_REVIEW)
-	VALUES(NOTE_SEQ.NEXTVAL, #{n_sender}, #{n_receiver}, #{n_content}, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MM:SS'), 1, 1, 1, #{pno}, #{n_review})
+INSERT INTO NOTE (N_BNO, N_SENDER, N_RECEIVER, N_CONTENT, N_S_TIME, N_READ_CHK, N_R_DELETE_CHK, N_S_DELETE_CHK, N_RNO, n_type)
+	VALUES(NOTE_SEQ.NEXTVAL, #{n_sender}, #{n_receiver}, #{n_content}, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MM:SS'), 1, 1, 1, #{n_rno}, #{n_type})
 </insert>
 
 
 <select id="listPage" resultType="NoteVO" parameterType="java.util.Map">
-SELECT N_BNO, N_SENDER, N_RECEIVER, N_CONTENT, N_S_TIME, N_READ_CHK, N_R_DELETE_CHK, N_S_DELETE_CHK, PNO 
-FROM(SELECT N_BNO, N_SENDER, N_RECEIVER, N_CONTENT, N_S_TIME, N_READ_CHK, N_R_DELETE_CHK, N_S_DELETE_CHK, PNO,
+SELECT N_BNO, N_SENDER, N_RECEIVER, N_CONTENT, N_S_TIME, N_READ_CHK, N_R_DELETE_CHK, N_S_DELETE_CHK, n_rno
+FROM(SELECT N_BNO, N_SENDER, N_RECEIVER, N_CONTENT, N_S_TIME, N_READ_CHK, N_R_DELETE_CHK, N_S_DELETE_CHK, n_rno,
 	ROW_NUMBER() OVER(ORDER BY N_BNO DESC) AS RNUM  
 	FROM NOTE WHERE 1 = 1
 <include refid="who"></include>
@@ -33,7 +33,7 @@ AND N_BNO > 0
 
 
 <select id="read" parameterType="int" resultType="NoteVO">
-SELECT N_BNO, N_RECEIVER, N_SENDER, N_CONTENT, N_S_TIME, N_READ_CHK, N_S_DELETE_CHK, N_R_DELETE_CHK, PNO, N_REVIEW
+SELECT N_BNO, N_RECEIVER, N_SENDER, N_CONTENT, N_S_TIME, N_READ_CHK, N_S_DELETE_CHK, N_R_DELETE_CHK, n_rno, n_type
 FROM NOTE WHERE N_BNO = #{n_bno}
 </select>
 
@@ -92,7 +92,14 @@ AND N_BNO = #{n_bno}
 </delete>
 
 <select id="get_members" parameterType="java.util.Map" resultType="java.lang.String">
-SELECT DISTINCT N_SENDER FROM NOTE WHERE PNO = #{pno} AND N_SENDER != #{id}
+SELECT DISTINCT N_SENDER FROM NOTE WHERE n_rno= #{n_rno} AND N_SENDER != #{id} AND N_TYPE = #{n_type}
 </select>
+
+
+<insert id="send_event" parameterType="java.util.Map">
+INSERT INTO NOTE (N_BNO, N_SENDER, N_RECEIVER, N_CONTENT, N_S_TIME, N_READ_CHK, N_R_DELETE_CHK, N_S_DELETE_CHK, N_RNO, n_type)
+	VALUES(NOTE_SEQ.NEXTVAL, 'admin', #{n_receiver}, #{n_content}, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MM:SS'), 1, 1, 1, #{n_rno}, 'event')
+
+</insert>
 
 </mapper>

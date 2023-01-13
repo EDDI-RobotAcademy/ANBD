@@ -93,4 +93,11 @@ public class NoteDAOImpl implements NoteDAO{
 	}
 
 
+	// 이벤트 쪽지
+	@Override
+	public void send_event(Map map) throws Exception {
+		sqlSession.insert("noteMapper.send_event", map);
+	}
+
+
 }

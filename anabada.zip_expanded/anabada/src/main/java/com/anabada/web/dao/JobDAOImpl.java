@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.anabada.web.vo.JheartVO;
 import com.anabada.web.vo.JobCriteria;
 import com.anabada.web.vo.JobSearchCriteria;
 import com.anabada.web.vo.JobVO;
@@ -105,5 +106,24 @@ public class JobDAOImpl implements JobDAO{
 	public void my_jobDelete(int[] delete_array) throws Exception{
 		sqlSession.delete("jobMapper.mj_delete", delete_array);
 	}
+
+	// 알바찜 목록
+	@Override
+	public List<JheartVO> heart_jobLIst(Map<String, Object> map) throws Exception {
+		return sqlSession.selectList("jobMapper.h_listPage" , map);
+	}
+
+	// 알바 찜 개수
+	@Override
+	public int heart_jobLisCount(String id) throws Exception {
+		return sqlSession.selectOne("jobMapper.h_listCount", id);
+	}
+
+	// 알바 찜 목록에 저장된 알바 게시물들 목록 불러오기
+	@Override
+	public List<JobVO> heart_jobBoard(int[] heart_array) throws Exception {
+		return sqlSession.selectList("jobMapper.h_list", heart_array);
+	}
+	
 
 }

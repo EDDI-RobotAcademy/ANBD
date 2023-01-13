@@ -2,6 +2,7 @@ package com.anabada.web.controller;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -23,10 +24,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.anabada.web.service.JobService;
+import com.anabada.web.vo.JheartVO;
 import com.anabada.web.vo.JobCriteria;
 import com.anabada.web.vo.JobPageMaker;
 import com.anabada.web.vo.JobSearchCriteria;
 import com.anabada.web.vo.JobVO;
+import com.anabada.web.vo.ResumeVO;
 
 @Controller
 @RequestMapping("/job/*") 
@@ -143,10 +146,10 @@ public class JobController {
 	
 	// 알바 게시글 수정게시글에서 수정 버튼 눌렀을 때 실행
 	@RequestMapping(value = "/job_update", method = RequestMethod.POST)
-	public String job_update(@ModelAttribute JobVO vo, RedirectAttributes rttr) throws Exception{
+	public String job_update(@ModelAttribute JobVO vo, RedirectAttributes rttr, @RequestParam String d_img) throws Exception{
 		
 		logger.info("수정완료 버튼 눌렀음");
-		
+		System.out.println(d_img);
 		System.out.println(vo);
 		
 		MultipartFile uploadImg = vo.getJ_uploadImg(); // 업로드한 이미지 불러옴. 이미지 선택안해도 아래와 같이 저장됨
@@ -177,6 +180,13 @@ public class JobController {
 		System.out.println(vo);
 		jobService.job_update(vo);
 		
+		if(d_img != null || d_img != "") { // 이전 사진 컴퓨터에서 삭제
+			File file = null;
+			file = new File("C:\\upload\\"+ d_img);
+			System.out.println("파일 경로:"+"C:\\upload\\" + d_img);
+			file.delete();
+		}
+		
 		rttr.addAttribute("j_bno", vo.getJ_bno());
 		
 		return "redirect:/job/job_read"; // 컨트롤러로 이동
@@ -197,7 +207,7 @@ public class JobController {
 		
 		jobService.job_delete(vo.getJ_bno()); // 디비 삭제 
 		
-		if(j_image != null || j_image != "") {
+		if(j_image != null || j_image != "") { // 컴퓨터에서 삭제
 			File file = null;
 			file = new File("C:\\upload\\"+j_image);
 			System.out.println("파일 경로:"+"C:\\upload\\"+j_image);
@@ -286,9 +296,42 @@ public class JobController {
 		boolean result = true;
 		return result;
 	}
-
 	
-	
-	
+	// 알바 찜목록페이지로 가기
+	@RequestMapping(value = "/heart_job", method = RequestMethod.GET)
+	public String heart_job(HttpSession session, Model model, @ModelAttribute("cri") JobCriteria cri) throws Exception{
+		
+		logger.info("알바 찜~");
+		
+		String id = (String)session.getAttribute("id");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("id", id); // 세션에 저장된 아이디
+		map.put("rowStart2", cri.getRowStart2());
+		map.put("rowEnd2", cri.getRowEnd2());
+		
+		List<JheartVO> heart_list = jobService.heart_jobList(map);
+		int[] heart_array =  new int[heart_list.size()];
+		
+		if(heart_list.size() != 0) { // 찜목록이 있을 때만 실행
+			
+			for(int i = 0; i < heart_list.size(); i++) {
+			    JheartVO jheartVO = heart_list.get(i);
+				heart_array[i] = jheartVO.getJ_bno();
+			}
+			
+			List<JobVO> h_list = jobService.heart_jobBoard(heart_array);
+			model.addAttribute("h_list", h_list);
+		}
+		
+		JobPageMaker pageMaker = new JobPageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount2(jobService.heart_jobListCount(id));
+		model.addAttribute("pageMaker", pageMaker);
+		
+		return "/job/heart_job";
+		
+	}
 	
 }

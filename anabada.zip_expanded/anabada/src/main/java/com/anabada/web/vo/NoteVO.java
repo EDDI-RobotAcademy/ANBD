@@ -1,7 +1,5 @@
 package com.anabada.web.vo;
 
-import java.sql.Date;
-
 public class NoteVO {
 
 	private int n_bno;
@@ -12,8 +10,8 @@ public class NoteVO {
 	private String n_read_chk; // 읽었는지 체크
 	private int n_s_delete_chk; // 기본값이 1, 삭제하면 0 
 	private int n_r_delete_chk; // 기본값이 1, 삭제하면 0
-	private int pno; // 중고게시물 번호
-	private String n_review; // 판매완료된 쪽지이면 review, 아니면 null
+	private int n_rno; // 중고게시물 번호
+	private String n_type; // 판매완료된 쪽지이면 review, 아니면 null
 	public int getN_bno() {
 		return n_bno;
 	}
@@ -62,26 +60,29 @@ public class NoteVO {
 	public void setN_r_delete_chk(int n_r_delete_chk) {
 		this.n_r_delete_chk = n_r_delete_chk;
 	}
-	public int getPno() {
-		return pno;
+	public int getN_rno() {
+		return n_rno;
 	}
-	public void setPno(int pno) {
-		this.pno = pno;
+	public void setN_rno(int n_rno) {
+		this.n_rno = n_rno;
 	}
-	public String getN_review() {
-		return n_review;
+	public String getN_type() {
+		return n_type;
 	}
-	public void setN_review(String n_review) {
-		this.n_review = n_review;
+	public void setN_type(String n_type) {
+		this.n_type = n_type;
 	}
-	
 	@Override
 	public String toString() {
 		return "NoteVO [n_bno=" + n_bno + ", n_sender=" + n_sender + ", n_receiver=" + n_receiver + ", n_s_time="
 				+ n_s_time + ", n_content=" + n_content + ", n_read_chk=" + n_read_chk + ", n_s_delete_chk="
-				+ n_s_delete_chk + ", n_r_delete_chk=" + n_r_delete_chk + ", pno=" + pno + ", n_review=" + n_review
+				+ n_s_delete_chk + ", n_r_delete_chk=" + n_r_delete_chk + ", n_rno=" + n_rno + ", n_type=" + n_type
 				+ "]";
 	}
+	
+	
+	
+	
 	
 	
 	

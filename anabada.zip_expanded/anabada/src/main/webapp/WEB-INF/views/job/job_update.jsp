@@ -207,9 +207,24 @@
 		
 		});
 	
-		$("#cancel").click(function name() {
+		$("#cancel").click(function () {
 			location.href="job_list?";
 			// 페이징 처리 없이 리스트 처음 화면으로 돌아감
+		});
+		
+		// 이미지 수정하기
+		$(document).on('click', 'button[name=delete_img]', function() {
+		    alert('삭제합니다.');
+		    
+		    var di = $(this).val();
+		    $("#d_img").attr('value', di);
+		    alert(di);
+		    
+		    $(this).closest("div").remove();
+		    
+		    var input_img = "<input type='file' name='j_uploadImg'>";
+			var $add = $("#add_img");
+			$add.append(input_img);
 		});
 		
 	});
@@ -462,13 +477,31 @@
 			</tr>
 			
 			<tr>
-				<td class="info">사진(선택)</td>
+				<td class="info">
+					사진(선택)
+					<input id="d_img" name="d_img" type="hidden"  value="">
+				</td>
 			</tr>
+			
+			<c:choose>
+			<c:when test="${empty j_update.j_img }">
 			<tr>
 				<td>
 					<input type="file" name="j_uploadImg">
 				</td>
 			</tr>
+			</c:when>
+			<c:otherwise>
+			<tr>
+				<td id="add_img">
+				<div style="display: inline-block;">
+					<img src="/upload/${j_update.j_img }" width="100px" height="100px"> 
+					<button type="button" name="delete_img" value="${j_update.j_img }">삭제</button> 
+				</div> 
+				</td>
+			</tr>
+			</c:otherwise>
+			</c:choose>
 			
 			<tr>
 				<td colspan="4" style="text-align: center">

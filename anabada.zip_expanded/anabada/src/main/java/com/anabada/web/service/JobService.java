@@ -3,6 +3,7 @@ package com.anabada.web.service;
 import java.util.List;
 import java.util.Map;
 
+import com.anabada.web.vo.JheartVO;
 import com.anabada.web.vo.JobCriteria;
 import com.anabada.web.vo.JobSearchCriteria;
 import com.anabada.web.vo.JobVO;
@@ -37,6 +38,14 @@ public interface JobService {
 	public int my_jobListCount(String id) throws Exception;
 	
 	public void my_jobDelete(int[] delete_array) throws Exception;
+
+	
+	// 알바 찜 관련
+	public List<JheartVO> heart_jobList(Map<String, Object> map) throws Exception;
+
+	public int heart_jobListCount(String id) throws Exception;
+
+	public List<JobVO> heart_jobBoard(int[] heart_array) throws Exception;
 
 	
 	

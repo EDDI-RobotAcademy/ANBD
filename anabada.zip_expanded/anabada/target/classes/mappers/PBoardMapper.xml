@@ -123,6 +123,7 @@
 	<delete id="delete"  parameterType="int" >
 	DELETE FROM PBOARD WHERE PNO = #{pno}
 	</delete>
+	
 	<!--fno에 해당하는 pfile의 filePath를 리턴 (게시글 수정에서 사진 삭제시 사용)-->
 	<select id="imgPath" parameterType="int" resultType="String"  >
 	SELECT FILEPATH FROM PFILE WHERE FNO = #{fno}

@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.anabada.web.dao.JobDAO;
+import com.anabada.web.vo.JheartVO;
 import com.anabada.web.vo.JobCriteria;
 import com.anabada.web.vo.JobSearchCriteria;
 import com.anabada.web.vo.JobVO;
@@ -102,6 +103,24 @@ public class JobServiceImpl implements JobService {
 	@Override
 	public void my_jobDelete(int[] delete_array) throws Exception {
 		dao.my_jobDelete(delete_array);
+	}
+
+	// 알바 찜 목록 불러오기
+	@Override
+	public List<JheartVO> heart_jobList(Map<String, Object> map) throws Exception {
+		return dao.heart_jobLIst(map);
+	}
+
+	// 알바찜 개수
+	@Override
+	public int heart_jobListCount(String id) throws Exception {
+		return dao.heart_jobLisCount(id);
+	}
+	
+	// 알바찜에 있는 알바 게시물 목록
+	@Override
+	public List<JobVO> heart_jobBoard(int[] heart_array) throws Exception {
+		return dao.heart_jobBoard(heart_array);
 	}
 
 

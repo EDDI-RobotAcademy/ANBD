@@ -139,7 +139,8 @@ public class ResumeController {
 		model.addAttribute("pageMaker", pageMaker);
 		
 		//알바 게시물 객체도 보여주기 위해서
-		int[] jbno_array = new int[mr_list.size()]; System.out.println("하하하하");
+		int[] jbno_array = new int[mr_list.size()]; 
+		System.out.println("하하하하");
 		System.out.println(mr_list.size());
 		 
 		// 알바 지원목록이 있을때만 해당 알바 구인 공고 게시물 번호 배열들을 전달함

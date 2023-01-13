@@ -22,17 +22,17 @@
 	$(document).ready(function () {
 		
 		$('.search_who').click(function () {
-			location.href = "note_list" + '?who=' + '${scri.who}';
+			location.href = "note_list" + '?who=' + $(this).val();
 		});
 		
 		var readForm = $("form[name='readForm']");
 		$("button[name=n_delete]").on("click", function () {
 			if(confirm("삭제하시겠습니까?")){
 				
-				if("<c:out value='${scri.who}'/>" == "receive"){ // 받은 메시지라면 받은 아이디가 같음
+				if("${scri.who}" == "receive"){ // 받은 메시지라면 받은 아이디가 같음
 					var n_receiver = '${id}';
 					var n_sender = "${n_read.n_sender}";
- 				}else if("<c:out value='${scri.who}'/>" == "send"){ // 보낸 메시지라면 보낸 아이디가 같음
+ 				}else if("${scri.who}" == "send"){ // 보낸 메시지라면 보낸 아이디가 같음
  					var n_sender = '${id}';
  					var n_receiver = "${n_read.n_receiver}";
  				}
@@ -68,7 +68,7 @@
 		
 		// 쪽지 보내기 버튼 눌렀을 떄 모달창 띄우기
 		$("button[name=n_send]").on("click", function () { 
-			$("#pno").val("0"); // 쪽지보낼때 pno은 0
+			$("#n_rno").val("0"); // 그냥 쪽지보낼때 n_rno은 0
 			$("#n_content").attr("placeholder", "");
 			$("#n_content").val("");
 			$("#n_receiver").attr("placeholder", "");
@@ -79,11 +79,11 @@
 		
 		// 답장 버튼 눌렀을 때 모달창 띄우기
 		$("button[name=n_reply]").on("click", function () { 
-			$("#pno").val('${n_read.pno}'); // 답장할 때는 그 게시글 pno를 적음
+			$("#n_rno").val('${n_read.n_rno}'); // 답장할 때는 그 게시글 n_rno를 적음
 			$("#n_content").attr("placeholder", "");
 			$("#n_content").val("");
 			
-			if('${scri.who eq receive}'){ // 받는 사람 아이디 부분
+			if("${scri.who}" == "receive"){ // 받는 사람 아이디 부분
 				$("#n_receiver").val("<c:out value='${n_read.n_sender}'/>");
 			}else{
 				$("#n_receiver").val("<c:out value='${n_read.n_receiver}'/>");
@@ -112,7 +112,7 @@
 	            data : $("#note_form").serialize(),
 	            success:function(data){
 	                alert("쪽지 전송 완료");
-	                alert($("#pno").val());
+	                alert($("#n_rno").val());
 	            },
 	            error : function(request, status, error) {
 					alert("쪽지 전송 실패:" + error);
@@ -140,7 +140,7 @@
 	          	dataType : "json",
 	          	traditional : true,
 	            data : {
-	            	pno: ${n_read.pno}
+	            	n_rno: ${n_read.n_rno}
 	            },
 	            success:function(chk){
 	                if(chk == 1){
@@ -182,7 +182,7 @@
 	        
 	        $("#reviewModal").modal("hide");
 	    });
-	    
+		
 		
 	})
 </script>
@@ -269,14 +269,14 @@
 	<form name="readForm">
 		<!-- 좌측 바 -->
 		<div class="sidemenu">
-			<div class="myImg">
-				<img src="../resources/images/아나바다.png" width="150px" height="150px"/>
+        	<div class="myImg">
+        		<img src="../resources/images/아나바다2.png" width="150px" height="150px"/>
         		<br>
         		${id } 님
         	</div>
         	<div style="padding-top: 10px">
-				<button type="button" name="n_send" class="n_btn1" style="display: block; margin: auto;">쪽지 보내기</button>
-				<ul style="margin-top: 5px;">
+	        	<button type="button" name="send" id="send" class="n_btn1" style="display: block; margin: auto;">쪽지 보내기</button>
+	        	<ul style="margin-top: 5px;">
 		        	<li style="text-align: left">
 		        		<label>
 		        			<input type="radio" class="search_who" name="who" value="receive" <c:if test="${scri.who eq 'receive'}">checked</c:if>>
@@ -329,50 +329,68 @@
 				</c:otherwise>
 				</c:choose>
 				
-				<!-- 중고게시글과 관련된 쪽지일때 -->
-				<c:if test="${n_read.pno ne 0 && n_read.n_review eq 'no'}">
+				<!--1) 중고게시글과 관련된 쪽지일때. 후기요청 x -->
+				<!--2) 후기 쪽지일때 -->
+				<!--3) 삭제된 중고 게시물과 연관된 쪽지일때 -->
+				<!--4) 이벤트 게시물일때 -->
+				<!--5) 삭제된 이벤트 게시물일때 -->
+				<c:choose>
+				<c:when test="${not empty p_read && n_read.n_rno ne 0 && n_read.n_type eq 'no'}">
 				<tr>
 					<td width="130px;">
-						<a href="product/readView/pno=${n_read.pno}">
-							<img class="p_img" src="">
+						<a href="/product/readView?pno=${n_read.n_rno}">
+							<img class="p_img" src="${p_read.p_filepath }">
 						</a>
 					</td>
 					<td>
-						제목<br>
-						비용<br>
-						<!-- 
 						${p_read.p_title}<br>
 						${p_read.p_cost}<br>
-						 -->
-						 <!-- 이 부분은 나중에 -->
 					</td>
 				</tr>
-				</c:if>
+				</c:when>
 				
-				<!-- 후기 쪽지일때 -->
-				<!-- 원래는 아래 코드로 실행해야함 -->
-				<%-- <c:if test="${n_read.pno ne 0 && n_read.n_review eq 'yes'}"> --%>
-				<c:if test="${n_read.n_review eq 'yes'}">
+				<c:when test="${not empty p_read && n_read.n_rno ne 0 && n_read.n_type eq 'review'}">
 				<tr>
 					<td width="130px;">
-						<a href="product/readView/pno=${n_read.pno}">
-							<img class="p_img" src="">
+						<a href="/product/readView?pno=${n_read.n_rno}">
+							<img class="p_img" src="${p_read.p_filepath }">
 						</a>
 					</td>
 					<td>
-						제목<br>
-						비용<br><br>
-						<!-- 
 						${p_read.p_title}<br>
 						${p_read.p_cost}<br>
-						 -->
 						<!-- 받은 사람만 후기 작성하기 버튼 누를수있도록 -->
 						<c:if test="${n_read.n_receiver eq id }">
 						   <button type="button" class="review" name="review">후기 작성하기</button>
 						</c:if>
 					</td>
 				</tr>
-				</c:if>
+				</c:when>
+				
+				<c:when test="${empty p_read && n_read.n_rno ne 0 && (n_read.n_type eq 'no' || n_read.n_type eq 'review')}">
+				<tr>
+					<td colspan="2">
+						<font>*삭제된 게시물과 관련된 쪽지입니다.</font>
+					</td>
+				</tr>
+				</c:when>
+			
+				<c:when test="${not empty eno && empty p_read && n_read.n_rno ne 0 && n_read.n_type eq 'event'}">
+				<tr>
+					<td colspan="2">
+					<a href="/event/readView?eno=${eno }">이벤트 상세보기</a>
+					</td>
+				</tr>
+				</c:when>
+				
+				<c:when test="${empty eno && empty p_read && n_read.n_rno ne 0 && n_read.n_type eq 'event'}">
+				<tr>
+					<td colspan="2">
+						<font>*삭제된 이벤트와 관련된 쪽지입니다.</font>
+					</td>
+				</tr>
+				</c:when>
+				</c:choose>
 			</table>
 			
 			<div style="padding:10px">
@@ -390,8 +408,8 @@
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">쪽지</h1>
                 </div>
                 <form id="note_form">
-                    <input type="hidden" name="n_review" value="no">
-                    <input type="hidden" name="pno" id="pno" value="${n_read.pno}">
+                    <input type="hidden" name="n_type" value="no">
+                    <input type="hidden" name="n_rno" id="n_rno" value="">
                     <div class="modal-body">
                         <table style="width: 100%">
                             <tbody>
@@ -438,7 +456,7 @@
                 </div>
                 <form id="review_form">
                 
-                    <input type="hidden" name="pno" value="${n_read.pno}">
+                    <input type="hidden" name="pno" value="${n_read.n_rno}">
                     <input type="hidden" name="r_seller" value="${n_read.n_sender}">
                     <input type="hidden" name="r_consumer" value="${id}">
                     

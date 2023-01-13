@@ -47,5 +47,8 @@ public interface NoteService {
 
 	// 해당 중고 게시글에 대해 쪽지한 사람들 리스트
 	public List<String> get_members(Map map) throws Exception;
+	
+	// 이벤트 쪽지만 보내는 메소드
+	public void send_event(Map map) throws Exception;
 
 }

@@ -18,12 +18,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.anabada.web.service.EventService;
 import com.anabada.web.service.NoteService;
 import com.anabada.web.service.ProductService;
+import com.anabada.web.vo.EventBoardVO;
 import com.anabada.web.vo.NoteCriteria;
 import com.anabada.web.vo.NotePageMaker;
 import com.anabada.web.vo.NoteSearchCriteria;
 import com.anabada.web.vo.NoteVO;
+import com.anabada.web.vo.PBoardVO;
+
+import oracle.net.aso.n;
 
 @Controller
 @RequestMapping("/note/*") 
@@ -37,6 +42,9 @@ public class NoteController {
 	@Inject
 	ProductService productService;
 	//이거 쪽지 상세보기에서 중고게시글로 넘어가기위해서 중고게시물 관련 클래스 필요
+	
+	@Inject
+	EventService eventService;
 
 	// 쪽지보내는 ajax
 	@RequestMapping(value="/note_insert.ajax", method = RequestMethod.GET)
@@ -44,7 +52,8 @@ public class NoteController {
     public boolean note_insert(HttpServletResponse resp, @ModelAttribute("noteVO") NoteVO noteVO) throws Exception {
         
 		System.out.println("쪽지" + noteVO);
-		noteVO.getPno();
+		
+		noteVO.getN_rno();
 		
 		noteService.send(noteVO);
 		
@@ -115,24 +124,61 @@ public class NoteController {
 		
 		logger.info("쪽지 상세보기로 들어왔으~~");
 		
-//		이거 유진언니랑 합칠때 써야함!!!!!!!!!!!!!!!!!!!!!!!!!
-		// list.jsp에서 pno 파라미터로 보냈음
-		// 중고게시글 객체 불러와서 보냄
-		//model.addAttribute("p_read", productService.read(ProductVO.getPno()));
+		System.out.println("하하하하");
 		
 		System.out.println("번호: " + noteVO.getN_bno());
-		System.out.println("확정쪽지인지: " + noteVO.getN_review());
 		
-		model.addAttribute("n_read", noteService.note_view(noteVO.getN_bno())); // 게시글 번호로 게시글 객체 불러옴
+		NoteVO n_read = noteService.note_view(noteVO.getN_bno());
+		System.out.println(n_read);
+		
+		model.addAttribute("n_read", n_read); // 쪽지
+		
+		int n_rno = n_read.getN_rno(); // 쪽지에 게시물 번호
+		String n_type = n_read.getN_type(); // 어떤 타입의 쪽지인지(일반, 중고, 이벤트)
+		System.out.println("엔타입:" + n_type);
+		
+		
+		if(n_type.equals("evnet")){ // 이벤트 쪽지일때
+			
+			EventBoardVO e_read = eventService.read(n_rno);
+			
+			if(e_read != null) { // 이벤트 삭제되지 않았을 때
+				int eno = n_rno;
+				model.addAttribute("eno", eno);
+			}
+			
+		}else if(n_type.equals("no") || n_type.equals("review")) { // 일반 쪽지일때(그냥, 중고)
+			
+			PBoardVO p_read = productService.read(n_read.getN_rno()); // 게시글 관련 쪽지면 게시글 객체 저장
+			System.out.println("p_read"+p_read);
+			
+			if(p_read != null && n_rno > 0) { // 중고 쪽지가 삭제되지 않았을 때삭제되지 않았을 때
+				String path = productService.getImg(n_read.getN_rno()); // 첫번째 사진의 정보를 담음
+				
+				if (path == null) {
+					p_read.setP_filepath("/tomcatImg/img.png");
+				} else {
+					p_read.setP_filepath(path);
+					System.out.println(path);
+				}
+				model.addAttribute("p_read", p_read); // 중고게시글 객체도 불러옴
+			}
+			
+		}
+			
+		// 만약 삭제된 중고, 이벤트 쪽지라면 model로 넘기지 않음
+		
 		model.addAttribute("scri", scri);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", (String)session.getAttribute("id"));
 		map.put("n_bno", noteVO.getN_bno());
+		
 		noteService.read_check(map); // 읽었다고 처리
 		
+		
 		return "/note/note_read";
-	}
+	}////////////////////////////////////////지애 추가가함
 	
 	// 쪽지 삭제하는 ajax(상세보기에서)
 	@RequestMapping(value = "/delete_chk2.ajax", method =RequestMethod.GET)
@@ -162,19 +208,14 @@ public class NoteController {
 	public String product_note(@ModelAttribute NoteVO noteVO, Model model, HttpSession session,
 			@ModelAttribute("cri") NoteCriteria cri) throws Exception{
 		
-		//int pno = ProductService.getPno()
+		logger.info("해당 중고게시글에 쪽지한 사람들 목록");
+		System.out.println("중고게시물 번호: " +noteVO.getN_rno());
 		//중고게시물에서 pno번호가 넘어와야함!!
 		
-		logger.info("해당 중고게시글에 쪽지한 사람들 목록");
-		
-		// 임의로 설정했음!!
-		// 0번 게시물에 대해서
-	    int pno = 0;
-	    System.out.println("중고게시물 번호: " + pno);
-	    
 	    Map<String, Object> map = new HashMap<String, Object>();
 	    map.put("id", (String)session.getAttribute("id"));
-		map.put("pno", pno);
+		map.put("n_rno", noteVO.getN_rno());
+		map.put("n_type", noteVO.getN_type());
 		
 		// 페이징 처리 10개씩! 아직 확인안해봄 나중에 확인해보기!!!
 		NotePageMaker pageMaker = new NotePageMaker();
@@ -184,6 +225,7 @@ public class NoteController {
 		List<String> members = noteService.get_members(map); // 쪽지한 사람 전체 리스트
 		pageMaker.setTotalCount(members.size());
 		
+		/*
 		if(members.size() > 10) { // 우선 페이지 처리 4까지만 했음
 			if(cri.getPage() == 2) {
 				members = members.subList(10, 20);
@@ -193,11 +235,11 @@ public class NoteController {
 				members = members.subList(30, 40);
 			}
 		}
+		*/
 		
-		// 안읽으면 1, 읽으면 0
 		model.addAttribute("pageMaker", pageMaker);
 	    model.addAttribute("m_list", members); // 쪽지한 아이디 리스트들 반환
-	    // model.addAttribute("p_read", productService.read(ProductVO.getPno()));
+	    model.addAttribute("p_read", productService.read(noteVO.getN_rno()));
 	    // 중고 게시물 정보도 넘겨줘야함.
 	    
 	    return "/note/product_note";

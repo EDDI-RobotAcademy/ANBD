@@ -272,7 +272,7 @@
                </td>
                <td>
                	  <div class="word2">
-                  <a href="/note/note_read?n_bno=${n_list.n_bno}&pno=${n_list.pno }&page=${scri.page }&perPageNum=${scri.perPageNum }&who=${scri.who}">
+                  <a href="/note/note_read?n_bno=${n_list.n_bno}&n_rno=${n_list.n_rno }&n_type=${n_lsit.n_type}&page=${scri.page }&perPageNum=${scri.perPageNum }&who=${scri.who}">
                      <c:if test="${n_list.n_read_chk eq 1}">
                      <img src="../resources/images/new.png" width="14px" height="14px">
                      </c:if>
@@ -296,7 +296,7 @@
                </td>
                <td>
                	  <div class="word2">
-                  <a href="/note/note_read?n_bno=${n_list.n_bno}&page=${scri.page }&perPageNum=${scri.perPageNum }&who=${scri.who}">
+                  <a href="/note/note_read?n_bno=${n_list.n_bno}&n_rno=${n_list.n_rno }&n_type=${n_lsit.n_type}&page=${scri.page }&perPageNum=${scri.perPageNum }&who=${scri.who}">
                      ${n_list.n_content }
                   </a>
                   </div>
@@ -337,7 +337,8 @@
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">쪽지</h1>
                 </div>
                 <form id="note_form">
-                    <input type="hidden" name="n_review" value="no">
+                    <input type="hidden" name="n_type" value="no">
+                    <input type="hidden" name="n_rno" value="0">
                     <div class="modal-body">
                         <table style="width: 100%">
                             <tbody>

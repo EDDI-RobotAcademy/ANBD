@@ -60,7 +60,6 @@
 		            if(chk == 1){
 		                if(confirm("이미 지원을 완료한 게시물입니다.\n내 알바 지원목록으로 이동하시겠습니까?")){
 		            		location.href="/resume/my_resume";
-//이 부분 링크 다시 걸기		            		
 		            	}else{
 		            		return false;
 		            	}
@@ -94,6 +93,30 @@
 			location.href = "/job/my_jobList?" +
 				"id=" + "${id}";
 		});
+		
+		 // 최근 본 알바 플로팅배너
+		   // 기본 위치(top)값
+			var floatPosition = parseInt($(".sideBanner").css('top'));
+			var floatHei = parseInt($(".sideBanner").outerHeight()); // 플로팅 배너 길이
+			var footerTop = $('#footer').outerHeight(); // footer가 높이한 위치
+			
+			// scroll 인식
+			$(window).scroll(function() {
+			  
+			    // 현재 스크롤 위치
+			    var currentTop = $(window).scrollTop(); // 현재 윈도우 스크린 위치
+			    var bannerTop = currentTop + floatPosition + "px"; // 
+			    var val = $(document).height() - footerTop;
+			    var hei = currentTop + floatPosition + floatHei;
+			    
+			    //이동 애니메이션
+			    if (hei < footerTop){
+			    	$(".sideBanner").stop().animate({
+			   	    	"top" : bannerTop
+			   	    }, 500);
+			    }
+		
+			}).scroll(); 
 		
 		
 		// 최근 본 알바!!!!!!!!sessionStroage
@@ -158,23 +181,38 @@
 		    //JSON으로 저장
 		    sessionStorage.setItem("recent_job", JSON.stringify(data));
 		}     
-		 
-		function get_recent_item(){
-		    
+		
+		// 최근 본 알바 불러오기. sessionStorage
+	    function get_recent_item(){
+	    	
+		    //sessionStorage.clear(); 
 		    var $recentItemList = $("#recentItemList");
 		    
 		    var items = sessionStorage.getItem("recent_job");
+		    
+		    if(items == null){
+		    	var li = "<br><br><li>최근 본 상품이 없습니다.</li>"
+		    	$recentItemList.append(li);
+		    }
+		
 		    //alert(key)
 		    
 		    var realitem = JSON.parse(items);
 		    
 		    //파싱된 객체의 길이로 for문 돌리기
-		     for (var i = 0; i < realitem.length; i++) {
-		        var no = realitem[i].no;
-		        var name = realitem[i].name;
-		        var image = realitem[i].image;
-		 
-		        var li = "<li><a href='/item_detail/"+no+"'><img width='70' height='70' src='"+image+"' alt='' title='"+name+"' /></a></li>";
+		     for (var i = 0; i < 6; i++) {
+		        var j_bno = realitem[i].j_bno;
+		        var j_title = realitem[i].j_title;
+		        var j_img = realitem[i].j_img;
+		        
+		        if(j_img != null || j_img != ""){
+			        var li = "<li><a href='/job/job_read?j_bno="+j_bno+"'><img width='100' height='100' src='/upload/"+j_img+"'/>"
+			        	+ "<br><div class='word'>" + j_title+ "</div>" + "</a></li>";
+		        }
+		        if(j_img == null || j_img == ""){
+		        	var li = "<li><a href='/job/job_read?j_bno="+j_bno+"'><img width='100' height='100' src='../resources/images/아나바다2.png'/>"
+			        	+ "<br><div class='word'>" + j_title+ "</divs>" + "</a></li>";
+		        }
 		 
 		        //ul에 붙이기
 		        $recentItemList.append(li);
@@ -183,9 +221,11 @@
 		    
 		}
 		
-		recent_item();
-		get_recent_item();
-		
+		$(".recent_btn").click(function () {
+			var ih = $(this).index() == 0 ? -135 : 135; //위아래로 움직이는 px 숫자
+			var obj = $('.recent_list');
+			obj.animate({ scrollTop:obj.scrollTop() + ih }, 100);
+	    });
 		
 		//찜버튼 이벤트 
 		$("#heart").on("click", function() {
@@ -245,6 +285,9 @@
 			}
 		}); // 하트 이벤트 끝
 		
+		recent_item();
+		get_recent_item();
+		
 		 
 	});
 
@@ -283,6 +326,68 @@
 		color: white;
 		border-radius: 10px;
 	}
+	
+	/*레이아웃*/
+   #wapper {
+      width: 1200px;
+      margin: auto;
+      height: auto;
+   }
+   .nav, .aside, .section {
+      margin: 3px;/*간격*/
+   }
+   .nav, .section, .aside {
+      float: left;
+   }
+   .nav {
+      width: 70px;
+   }
+   .section {
+      /* background-color: #f9f9f9;    */
+      width: 1000px; 
+      border: 0px; 
+      border-collapse: collapse;
+   }
+   
+   .sideBanner {
+      width: 120px; 
+      position: absolute;
+      height: 450px;
+      top: 100px;
+      background-color: white;
+      border: 1px solid #0C6BBC;
+      text-align: center;
+      margin-left: 10px;
+      margin-top: 10px;
+   }
+   .recent_list{
+      height: 405px; 
+      /*
+      396인 이유: li높이 128(검사에서 확인)+margin bottom 5px이 3개씩 보일거라
+      132*3 = 396임.
+      */
+      overflow: hidden;
+   }
+   
+   /*최근 본 알바 ul*/
+   #recentItemList{
+   	  list-style: none;
+   	  float: left;
+   	  text-align: center;
+   }
+   #recentItemList li{
+      height: 130px;
+	  display: inline-block;
+	  text-align: center;
+	  margin-bottom: 5px;
+   }
+   
+   .word {
+   	  width:110px;
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	  white-space: nowrap;
+   }
 </style>
 </head>
 <body>
@@ -293,162 +398,180 @@
     <div>
        <jsp:include page="../includes/header.jsp" />
     </div>
+    
+    <div id="wapper" >
+   		<section class="nav"></section>
 
-	<section class="container">
-	<form name="readForm" role="form" method="post">
-		<input type="hidden" name="j_bno" value="${j_read.j_bno }">
-		<input type="hidden" name="page" value="${scri.page }">
-		<input type="hidden" name="perPageNum" value="${scri.perPageNum }">
-		<input type="hidden" name="j_term" value="${scri.j_term }">
-		<input type="hidden" name="j_addr1" value="${scri.j_addr1 }">
-		<input type="hidden" name="j_day" value="${scri.j_day }">
-		<input type="hidden" name="j_cate" value="${scri.j_cate }">
-		<input type="hidden" name="j_img"" value="${j_read.j_img }"><!-- 삭제할때 사용하려고 -->
+		<section class="section">
+		<form name="readForm" role="form" method="post">
+			<input type="hidden" name="j_bno" value="${j_read.j_bno }">
+			<input type="hidden" name="page" value="${scri.page }">
+			<input type="hidden" name="perPageNum" value="${scri.perPageNum }">
+			<input type="hidden" name="j_term" value="${scri.j_term }">
+			<input type="hidden" name="j_addr1" value="${scri.j_addr1 }">
+			<input type="hidden" name="j_day" value="${scri.j_day }">
+			<input type="hidden" name="j_cate" value="${scri.j_cate }">
+			<input type="hidden" name="j_img"" value="${j_read.j_img }"><!-- 삭제할때 사용하려고 -->
 	
 	
-	<table style="width: 1000px">
-		<tr>
-			<td colspan="4">
-			    ${j_read.j_date }&nbsp;&nbsp;
-				<c:if test="${j_read.id eq id}"><!-- 로그인한 아이디(세션에 저장된 아이디(id))와 작성자아이디(j_read.id)가 같으면 수정, 삭제 가능 -->
-					<button type="button" id="update">수정</button>
-					<button type="button" id="delete">삭제</button>
-				</c:if>
-			</td>
-			<td>
-				<label class="rach">
-					<input type="checkbox" id="heart" name="j_heart" value="${j_read.j_heart }" /> 					
+			<table style="width: 1000px">
+				<tr>
+					<td colspan="4">
+					    ${j_read.j_date }&nbsp;&nbsp;
+						<c:if test="${j_read.id eq id}"><!-- 로그인한 아이디(세션에 저장된 아이디(id))와 작성자아이디(j_read.id)가 같으면 수정, 삭제 가능 -->
+							<button type="button" id="update">수정</button>
+							<button type="button" id="delete">삭제</button>
+						</c:if>
+					</td>
+					<td>
+						<label class="rach">
+							<input type="checkbox" id="heart" name="j_heart" value="${j_read.j_heart }" /> 					
+							<c:choose>
+							<c:when test="${heart == 0 }">
+								<img class="himg" style="width: 60px; height: 60px;" src="../../resources/images/heartA.png">
+							</c:when>
+							<c:otherwise>
+								<img class="himg" style="width: 60px; height: 60px;" src="../../resources/images/heartB.png">
+							</c:otherwise>
+						    </c:choose>
+						</label>
+					</td>
+					<td style="text-align: right">
+						<span style="color: red; font-size: 30px;"> ❤</span>
+						<div style="inline-block" id="heartCh">${j_read.j_heart }</div>
+					</td>
+				</tr>
+		
+				<tr>
+					<td colspan="6">${j_read.j_company }</td>
+				</tr>
+				
+				<tr>
+					<td colspan="6">${j_read.j_title }</td>
+				</tr>
+				
+				<tr>
+					<td rowspan="2">
 					<c:choose>
-					<c:when test="${heart == 0 }">
-						<img class="himg" style="width: 60px; height: 60px;" src="../../resources/images/heartA.png">
-					</c:when>
-					<c:otherwise>
-						<img class="himg" style="width: 60px; height: 60px;" src="../../resources/images/heartB.png">
-					</c:otherwise>
-				    </c:choose>
-				</label>
-			</td>
-			<td style="text-align: right">
-				<span style="color: red; font-size: 30px;"> ❤</span>
-				<div style="inline-block" id="heartCh">${j_read.j_heart }</div>
-			</td>
-		</tr>
-
-		<tr>
-			<td colspan="6">${j_read.j_company }</td>
-		</tr>
-		
-		<tr>
-			<td colspan="6">${j_read.j_title }</td>
-		</tr>
-		
-		<tr>
-			<td rowspan="2">
-			<c:choose>
-				<c:when test="${empty j_read.j_img}">
-					<img src="../resources/images/아나바다2.png" width="250px" height="250px"/>
-				</c:when>
-				<c:otherwise>
-					<img src="/upload/${j_read.j_img }" width="250px" height="250px"/>
-				</c:otherwise>
-			</c:choose>
-			</td>
-			<td>${j_read.j_method }</td>
-			<td>근무기간</td>
-			<td>카테고리</td>
-			<td>날짜</td>
-			<td>시간</td>
-		</tr>
-		
-		<tr>
-			<td style="border-left: 1px solid #c9cdd2;">${j_read.j_pay }</td>
-			<td>${j_read.j_term }</td>
-			<td>${j_read.j_cate }</td>
-			<td>${j_read.j_day }</td>
-			<td>${j_read.j_start }:00 ~ ${j_read.j_end }:00</td>
-		</tr>
-		
-		<!-- 내용 있을 때만 출력 -->
-		<c:if test="${j_read.j_content ne null}">
-		<tr>
-			<td colspan="6">
-			${fn:replace(j_read.j_content, replaceChar, "<br/>")}
-			</td>
-		</tr>
-		</c:if>
-		
-		<tr>
-			<td colspan="6">
-				<div id="addr">${j_read.j_addr1 } ${j_read.j_addr2 }</div>
-				<br>
-				<div id="map" style="width:100%;height:200px; margin: auto"></div>
-			
-			<!-- 해당 주소에 해당하는 지도 띄우기 -->	
-				<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cd033a39a25f6e21dbc70db3f498f6e8&libraries=services"></script>
-				<script>
-				var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-				    mapOption = {
-				        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-				        level: 3 // 지도의 확대 레벨
-				    };  
+						<c:when test="${empty j_read.j_img}">
+							<img src="../resources/images/아나바다2.png" width="250px" height="250px"/>
+						</c:when>
+						<c:otherwise>
+							<img src="/upload/${j_read.j_img }" width="250px" height="250px"/>
+						</c:otherwise>
+					</c:choose>
+					</td>
+					<td>${j_read.j_method }</td>
+					<td>근무기간</td>
+					<td>카테고리</td>
+					<td>날짜</td>
+					<td>시간</td>
+				</tr>
 				
-				// 지도를 생성합니다    
-				var map = new kakao.maps.Map(mapContainer, mapOption); 
+				<tr>
+					<td style="border-left: 1px solid #c9cdd2;">${j_read.j_pay }</td>
+					<td>${j_read.j_term }</td>
+					<td>${j_read.j_cate }</td>
+					<td>${j_read.j_day }</td>
+					<td>${j_read.j_start }:00 ~ ${j_read.j_end }:00</td>
+				</tr>
 				
-				// 주소-좌표 변환 객체를 생성합니다
-				var geocoder = new kakao.maps.services.Geocoder();
+				<!-- 내용 있을 때만 출력 -->
+				<c:if test="${j_read.j_content ne null}">
+				<tr>
+					<td colspan="6">
+					${fn:replace(j_read.j_content, replaceChar, "<br/>")}
+					</td>
+				</tr>
+				</c:if>
 				
-				var addr = document.getElementById('addr').innerText;
-				// 주소로 좌표를 검색합니다
-				geocoder.addressSearch(addr, function(result, status) {
-				
-				    // 정상적으로 검색이 완료됐으면 
-				     if (status === kakao.maps.services.Status.OK) {
-				
-				        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-				
-				        // 결과값으로 받은 위치를 마커로 표시합니다
-				        var marker = new kakao.maps.Marker({
-				            map: map,
-				            position: coords
-				        });
+				<tr>
+					<td colspan="6">
+						<div id="addr">${j_read.j_addr1 } ${j_read.j_addr2 }</div>
+						<br>
+						<div id="map" style="width:100%;height:200px; margin: auto"></div>
+					
+					<!-- 해당 주소에 해당하는 지도 띄우기 -->	
+						<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cd033a39a25f6e21dbc70db3f498f6e8&libraries=services"></script>
+						<script>
+						var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+						    mapOption = {
+						        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+						        level: 3 // 지도의 확대 레벨
+						    };  
 						
-				        /*
-				        // 인포윈도우로 장소에 대한 설명을 표시합니다
-				        var infowindow = new kakao.maps.InfoWindow({
-				            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
-				        });
-				        infowindow.open(map, marker);
-				        */
+						// 지도를 생성합니다    
+						var map = new kakao.maps.Map(mapContainer, mapOption); 
+						
+						// 주소-좌표 변환 객체를 생성합니다
+						var geocoder = new kakao.maps.services.Geocoder();
+						
+						var addr = document.getElementById('addr').innerText;
+						// 주소로 좌표를 검색합니다
+						geocoder.addressSearch(addr, function(result, status) {
+						
+						    // 정상적으로 검색이 완료됐으면 
+						     if (status === kakao.maps.services.Status.OK) {
+						
+						        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+						
+						        // 결과값으로 받은 위치를 마커로 표시합니다
+						        var marker = new kakao.maps.Marker({
+						            map: map,
+						            position: coords
+						        });
+								
+						        /*
+						        // 인포윈도우로 장소에 대한 설명을 표시합니다
+						        var infowindow = new kakao.maps.InfoWindow({
+						            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+						        });
+						        infowindow.open(map, marker);
+						        */
+						
+						        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+						        map.setCenter(coords);
+						    } 
+						});    
+						</script>
+					
+					</td>
+				</tr>
+				<tr style="border-bottom: 0px">
+					<td colspan="6" style="border-bottom: 0px">
+						<button type="button" id="job_list">게시판으로 돌아가기</button>
+						<c:if test="${j_read.id ne id}"><!-- 로그인한 아이디(세션에 저장된 아이디)와 작성자아이디가 같으면 수정, 삭제 가능 -->
+							<button type="button" id="resume">지원하기</button>
+						</c:if>
+						<c:if test="${j_read.id eq id}"><!-- 로그인한 아이디(세션에 저장된 아이디)와 작성자아이디가 같으면 수정, 삭제 가능 -->
+							<button type="button" id="show_resume">지원자들 보기</button>
+						</c:if>
+						
+					</td>
+				</tr>
 				
-				        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-				        map.setCenter(coords);
-				    } 
-				});    
-				</script>
+			</table>
+			<br><br>
 			
-			</td>
-		</tr>
-		<tr style="border-bottom: 0px">
-			<td colspan="6" style="border-bottom: 0px">
-				<button type="button" id="job_list">게시판으로 돌아가기</button>
-				<c:if test="${j_read.id ne id}"><!-- 로그인한 아이디(세션에 저장된 아이디)와 작성자아이디가 같으면 수정, 삭제 가능 -->
-					<button type="button" id="resume">지원하기</button>
-				</c:if>
-				<c:if test="${j_read.id eq id}"><!-- 로그인한 아이디(세션에 저장된 아이디)와 작성자아이디가 같으면 수정, 삭제 가능 -->
-					<button type="button" id="show_resume">지원자들 보기</button>
-				</c:if>
-				
-			</td>
-		</tr>
+		</form>
+		</section>
 		
-	</table>
-	<br><br>
-			
-	</form>
-	</section>
+		<section class="aside">
+      	   <div class="sideBanner">
+   	  	   최근 본 알바
+	      	  <div class="r_btn">
+	      	 	 <button class="recent_btn">▲</button>
+	      	 	 <button class="recent_btn">▼</button>
+	      	  </div>
+	      	  <div class="recent_list">
+				 <ul id="recentItemList" style="margin-left:5px; margin-right: 5px; ">
+				 </ul>
+		      </div>
+          </div>
+   	   </section>
+   	</div>
 	
-	<div>
+	<div id="footer">
       <jsp:include page="../includes/footer.jsp" />
     </div>
 

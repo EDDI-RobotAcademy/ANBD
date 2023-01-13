@@ -140,5 +140,29 @@ DELETE FROM JOB_BOARD WHERE J_BNO IN(
 )
 </delete>
 
+<!-- 찜 관련 -->
+<select id="h_listPage" parameterType="com.anabada.web.vo.JobCriteria" resultType="JheartVO">
+SELECT ID, J_BNO, H_BNO
+FROM(SELECT ID, J_BNO, H_BNO, 
+	ROW_NUMBER() OVER(ORDER BY H_BNO DESC) AS RNUM
+	FROM HEART_JOB) HEART
+WHERE (RNUM BETWEEN #{rowStart2} AND #{rowEnd2}) AND ID = #{id}
+ORDER BY H_BNO DESC
+</select>
+
+<select id="h_listCount" parameterType="com.anabada.web.vo.JobCriteria" resultType="int">
+SELECT COUNT(H_BNO) FROM HEART_JOB WHERE ID = #{id}
+</select>
+
+<select id="h_list" parameterType="java.util.ArrayList" resultType="JobVO">
+SELECT * FROM JOB_BOARD WHERE J_BNO IN(
+	<foreach collection="array" item="item" index="index" separator=",">
+		#{item}
+    </foreach>
+)
+</select>
+
+
+
 
 </mapper>
