@@ -6,7 +6,6 @@ public class MemberVO {
    private String pass;
    private String name;
    private String nick;
-   private String gender;
    private String tel;
    private String email;
    private String loca;
@@ -36,12 +35,6 @@ public class MemberVO {
    public void setNick(String nick) {
       this.nick = nick;
    }
-   public String getGender() {
-      return gender;
-   }
-   public void setGender(String gender) {
-      this.gender = gender;
-   }
    public String getTel() {
       return tel;
    }
@@ -67,10 +60,9 @@ public class MemberVO {
       this.lev = lev;
    }
    
-   @Override
-   public String toString() {
-      return "MemberVO [id=" + id + ", pass=" + pass + ", name=" + name + ", nick=" + nick + ", gender=" + gender
-            + ", tel=" + tel + ", email=" + email + ", loca=" + loca + ", lev=" + lev + "]";
-   }
-   
+	@Override
+	public String toString() {
+		return "MemberVO [id=" + id + ", pass=" + pass + ", name=" + name + ", nick=" + nick + ", tel=" + tel + ", email="
+				+ email + ", loca=" + loca + ", lev=" + lev + "]";
+	}
 }

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="helpMapper">
+	<!-- 게시판 글 작성 -->
+	<insert id="insert">
+		INSERT INTO help_board (h_no, id, h_title, h_content)
+				VALUES(help_board_seq.nextval, #{id}, #{h_title}, #{h_content})
+	</insert>
+	
+	<!-- 게시글 목록 조회 -->
+	<select id="listPage" resultType="helpVO" parameterType="com.anabada.web.vo.SearchCriteria">
+		SELECT h_no, id, h_title, h_content
+		FROM (SELECT h_no, id, h_title, h_content, ROW_NUMBER() OVER(ORDER BY h_no DESC) AS RNUM
+		FROM help_board
+		WHERE 1 = 1
+		<include refid="search"></include>
+		) HP
+		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+		ORDER BY h_no DESC
+	</select>
+	
+	<!-- 게시글 총 개수 -->
+	<select id="listCount" parameterType="com.anabada.web.vo.SearchCriteria" resultType="int">
+		SELECT COUNT(h_no)
+		FROM help_board
+		WHERE 1 = 1
+		<include refid="search"></include>
+		AND h_no > 0
+	</select>
+	
+	<!-- 검색 -->
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">AND h_title LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'c'.toString()">AND h_content LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'all'.toString()">AND (h_title LIKE '%' || #{keyword} || '%') or (h_content LIKE '%' || #{keyword} || '%')</if>
+		</if>
+	</sql>
+	
+	<!-- 게시글 읽기 -->
+	<select id="read" parameterType="int" resultType="helpVO">
+		SELECT h_no, id, h_title, h_content
+		FROM help_board
+		WHERE h_no = #{h_no}
+	</select>
+	
+	<!-- 게시글 수정 -->
+	<update id="update" parameterType="helpVO">
+		UPDATE help_board
+		SET h_title = #{h_title},
+			h_content = #{h_content}
+		WHERE h_no = #{h_no}
+	</update>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="delete" parameterType="int">
+		DELETE
+		FROM help_board
+		WHERE h_no = #{h_no}
+	</delete>
+</mapper>

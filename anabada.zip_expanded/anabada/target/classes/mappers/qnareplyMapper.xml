@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="qnareplyMapper">
+	<!-- 댓글 조회 -->
+	<select id="readReply" resultType="qnareplyVO">
+		SELECT q_no, qr_no, id, qr_content, qr_date
+		FROM qna_reply
+		WHERE q_no = #{q_no}
+	</select>
+
+	<!-- 댓글 작성 -->
+	<insert id="writeReply">
+		INSERT INTO qna_reply (q_no, qr_no, id, qr_content)
+				VALUES(#{q_no}, qna_reply_seq.NEXTVAL, #{id}, #{qr_content})
+	</insert>
+
+	<!-- 댓글 수정 -->
+	<update id="updateReply" parameterType="qnareplyVO">
+		UPDATE qna_reply
+		SET qr_content = #{qr_content}
+		WHERE qr_no = #{qr_no}
+	</update>
+
+	<!-- 댓글 삭제 -->
+	<delete id="deleteReply" parameterType="qnareplyVO">
+		DELETE FROM qna_reply
+		WHERE qr_no = #{qr_no}
+	</delete>
+
+	<!-- 선택된 댓글 조회 -->
+	<select id="selectReply" resultType="qnareplyVO">
+		SELECT q_no, qr_no, id, qr_content, qr_date 
+		FROM qna_reply 
+		WHERE qr_no = #{qr_no}
+	</select>
+</mapper>
