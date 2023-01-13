@@ -34,7 +34,7 @@ import com.anabada.web.vo.StorePageMaker;
 @Controller
 @RequestMapping("/userProduct/*")
 public class UserProductController {
-	private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
+	private static final Logger logger = LoggerFactory.getLogger(UserProductController.class);
 
 	private static final String CURR_IMAGE_REPO_PATH = "C:\\pimages\\";
 	@Inject

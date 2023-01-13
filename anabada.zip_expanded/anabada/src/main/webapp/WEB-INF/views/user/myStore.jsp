@@ -129,6 +129,17 @@ padding-bottom: 10px;
 
 </head>
 <body>
+
+	<!-- header -->
+	<div>
+		<jsp:include page="../includes/nav.jsp" />
+	</div>
+	<div>
+		<jsp:include page="../includes/header.jsp" />
+	</div>
+	<!-- header end  -->
+
+
 	<form action="">
 	
 		<table style="margin: auto; width: 602px; " id="totalTable"  >
@@ -211,7 +222,11 @@ padding-bottom: 10px;
 
 	</form>
 
-
+	<!-- footer -->
+	<div id="footer">
+		<jsp:include page="../includes/footer.jsp" />
+	</div>
+	<!-- footer end -->
 
 
 </body>

@@ -8,8 +8,8 @@
 <meta charset="UTF-8">
 <title>아나바다</title>
 <link rel="stylesheet" href="<c:url value='/css/r_styles.css'/>">
-<script
-	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- <script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 </head>
 
 <body>
@@ -38,7 +38,8 @@
 				<ul class="cate-ul">
 					<li class="cate-li"><a href="/product/list">중고게시판</a></li>
 					<li class="cate-li"><a href="/job/job_list">알바게시판</a></li>
-					<li class="cate-li"><a href="a_board/list">동네생활</a></li>
+					<li class="cate-li"><a href="/a_board/list">동네생활</a></li>
+					<li class="cate-li"><a href="/event/list">이벤트</a></li>
 				</ul>
 			</div>
 		</div>
