@@ -49,10 +49,12 @@
 </head>
 <body>
 
+   <div>
+      <jsp:include page="../includes/nav.jsp" />
+   </div>
 
 
-
-	<section class="home_gallery_area p_120">
+	<section class="home_gallery_area p_120"   >
 		<div class="container">
 			<div class="main_title">
 				<h2>🌎아나바다와 함께하는 이벤트🌎</h2>

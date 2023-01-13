@@ -8,8 +8,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 public class PBPageMaker {
 	private int totalCount; // 게시글 총 갯수
-	   private int startPage; // 10개의 페이지 중 첫번째 ex)[1], [11], [21]
-	   private int endPage; // 10개의 페이지 중 마지막 ex) [10], [20], [30]
+	   private int startPage; 
+	   private int endPage; 
 	   private boolean prev; // 페이지 이전 버튼
 	   private boolean next; // 페이지 다음 버튼
 	   private int displayPageNum = 10;
@@ -21,10 +21,7 @@ public class PBPageMaker {
 	   public void setTotalCount(int totalCount) {
 	      this.totalCount = totalCount;
 	      calData();
-	      System.out.println("end : "+endPage);
-	      System.out.println("start : "+startPage);
-	      System.out.println("전 : "+prev);
-	      System.out.println("후 : "+next);
+	 
 	   }
 	   
 	   public int getStartPage() {

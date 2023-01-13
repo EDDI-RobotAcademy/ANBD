@@ -439,8 +439,6 @@ a {
   display: block; 
 }
 
-
-
 /* 푸터 */
 .foot {
   width: 100%;
@@ -469,25 +467,38 @@ a {
   box-sizing: border-box;
 }
 
-.ask_btn {
+.n_btn1 { /*파란 버튼*/
   all: unset;
   width: 150px;
-  height: 50px;
+  height: 40px;
   border-radius: 8px 8px;
   background-color: #0C6BBC;
   color: #fff;
-  font-size: 18px;
+  font-size: 15px;
   text-align: center;
   cursor: pointer;
+  margin: 5px;
 }
-
-.n_delete_btn {
-  /* all: unset;
-  width: 50px;
+.n_btn2 { /*하얀 버튼*/
+  all: unset;
+  width: 45px;
   height: 30px;
   border-radius: 2px 2px;
   color: black;
   font-size: 15px;
   text-align: center;
-  cursor: pointer; */
+  cursor: pointer;
+  border: 1px solid gray;
+}
+.n_btn3 { /*회색 버튼*/
+  all: unset;
+  width: 100px;
+  height: 30px;
+  border-radius: 5px 5px;
+  color: black;
+  font-size: 15px;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid #ced4da;
+  background-color: #ced4da;
 }

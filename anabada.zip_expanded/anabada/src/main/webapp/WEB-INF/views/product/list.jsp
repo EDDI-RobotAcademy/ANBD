@@ -18,12 +18,7 @@
 <link href="../resources/css/styles.css" rel="stylesheet" />
 <style type="text/css">
 
-/*    
-.card-img-top img {
-	width: 299.33px;
-	height: 300px;
-}
- */
+
 .rach input[type='radio'] {
 	display: none;
 }
@@ -44,11 +39,19 @@
 	border-radius: 10px;
 }
 
-.word {
+ .word {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-}
+} 
+   /*글자 자르게*/
+   .sideword {
+        width:110px;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     white-space: nowrap;
+      
+   }
 
 /*레이아웃 */
 #wapper {
@@ -84,7 +87,6 @@
 	width: 120px;
 	position: absolute;
 	height: 470px;
-	height: 450px;
 	top: 100px;
 	background-color: white;
 	border: 1px solid #0C6BBC;
@@ -95,10 +97,6 @@
 
 .recent_list {
 	height: 405px;
-    /*
-      396인 이유: li높이 128(검사에서 확인)+margin bottom 5px이 3개씩 보일거라
-      132*3 = 396임.
-      */
 	overflow: hidden;
 }
 
@@ -115,16 +113,32 @@
 	text-align: center;
 	margin-bottom: 5px;
 }
+
 ul {
-    list-style: none;
-    margin:0px; padding:0px;
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
 }
+
+.searchDIV {
+	margin: auto;
+	margin-top: 10px;
+	width: 650px;
+}
+.searchTable{
+text-align: center;
+width:600px;
+margin: auto;
+margin-top: 40px;
+}
+
 
 /*끝 */
 </style>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 	$(function() {
+	
 
 		// 검색어 입력하고 검색 눌렀을떄 
 		$('.searchBtn').on(
@@ -172,23 +186,40 @@ ul {
 		var floatPosition = parseInt($(".sideBanner").css('top')); //100
 		var floatHei = parseInt($(".sideBanner").outerHeight()); // 플로팅 배너 길이 450
 		var footerTop = $('#footer').outerHeight(); // footer가 위치한 높이 
+		var headTop = $('#anbdHead').outerHeight(); // 294
+		
+		
+		
 
 		// scroll 인식
 		$(window).scroll(function() {
 
 			// 현재 스크롤 위치
-			var currentTop = $(window).scrollTop();
+			var currentTop = $(window).scrollTop(); // 현재 top위치 
 			var bannerTop = currentTop + floatPosition + "px";
 			var val = $(document).height() - footerTop;
 			var hei = currentTop + floatPosition + floatHei;
+			
+			
+			
 
 			//이동 애니메이션
 			if (hei < footerTop) {
+				
 				$(".sideBanner").stop().animate({
 					"top" : bannerTop
 				}, 500);
 
 			}
+			
+		
+				if (currentTop < headTop) {
+				$(".sideBanner").stop().animate({
+					"top" : headTop
+				}, 500);
+
+			}
+		
 
 		}).scroll();
 
@@ -209,37 +240,23 @@ ul {
 
 			var realitem = JSON.parse(items);
 			//파싱된 객체의 길이로 for문 돌리기
-			for (var i = 0; i < 5; i++) {
-				   var pno = realitem[i].pno;
-			        var p_title = realitem[i].p_title;
-			        var p_img = realitem[i].p_img; 
+			for (var i = 0; i < 6; i++) {
+				var pno = realitem[i].pno;
+				var p_title = realitem[i].p_title;
+				var p_img = realitem[i].p_img;
 
 				if (p_img != null || p_img != "") {
-
 					var li = "<li  ><a href='/product/readView?pno="
 							+ pno
 							+ "'><img width='100' height='100' src='"+p_img+"'/>"
-							+ "<br><font  >" + pno + p_title + "</font>"
+							+ "<br><div class='sideword' >" + pno + p_title + "</div>"
 							+ "</a></li>";
 				}
 				if (p_img == null || p_img == "") {
 					var li = "<li  ><a href='/product/readView?pno="
 							+ pno
 							+ "'><img width='100' height='100' src='../resources/images/아나바다.png'/>"
-							+ "<br><font >" + pno + p_title + "</font>"
-
-					var li = "<li><a href='/product/readView?pno="
-							+ pno
-							+ "'><img width='100' height='100' src='"+p_img+"'/>"
-							+ "<br><font>" + pno + p_title + "</font>"
-							+ "</a></li>";
-				}
-				if (p_img == null || p_img == "") {
-					var li = "<li><a href='/product/readView?pno="
-							+ pno
-							+ "'><img width='100' height='100' src='../resources/images/아나바다2.png'/>"
-							+ "<br><font>" + pno + p_title + "</font>"
-
+							+ "<br><div class='sideword' >" + pno + p_title + "</div>"
 							+ "</a></li>";
 				}
 
@@ -250,21 +267,14 @@ ul {
 		}
 
 		$(".recent_btn").click(function() {
-
-		//	var ih = $(this).index() == 0 ? -135 : 135; //위아래로 움직이는 px 숫자
-			var ih = $(this).index() == 0 ? -405 : 405; //위아래로 움직이는 px 숫자
-	        // 위로 : 0 아래로 : 1 
-	        
-			var obj = $('.recent_list');
 			
-			obj.animate({scrollTop : obj.scrollTop() + ih}, 100);
+				var ih = $(this).index() == 0 ? -130 : 130; //위아래로 움직이는 px 숫자
+			//var ih = $(this).index() == 0 ? -405 : 405; //위아래로 움직이는 px 숫자
+			// 위로 : 0 아래로 : 1 
 
-			var ih = $(this).index() == 0 ? -135 : 135; //위아래로 움직이는 px 숫자
 			var obj = $('.recent_list');
-			obj.animate({
-				scrollTop : obj.scrollTop() + ih
-			}, 100);
 
+			 obj.animate({ scrollTop:obj.scrollTop() + ih }, 100);
 		});
 
 		// 이거 젤 마지막에 둬야 함
@@ -276,13 +286,15 @@ ul {
 
 </head>
 <body>
-	
 
+
+<div id="anbdHead" >
 	<div>
 		<jsp:include page="../includes/nav.jsp" />
 	</div>
-	<div>
+	<div >
 		<jsp:include page="../includes/header.jsp" />
+	</div>
 	</div>
 
 
@@ -291,7 +303,8 @@ ul {
 		<div id="wapper">
 			<section class="nav"></section>
 			<section class="section" style="border-top: 1px solid #e5e5e5">
-				<div style="text-align: center;">
+
+				<div  class="searchTable" >
 
 					<table>
 						<tr>
@@ -312,70 +325,71 @@ ul {
 
 				</div>
 
-
-				<div>
-
-
-					<div style="display: inline;">
-
-						<label class="rach"> <input type="radio" id="con" name="p_type" value="" <c:out value="${ empty scri.productType ? 'checked' :''} "/> /><span>전체</span></label>
-
-					</div>
+				<div class="searchDIV">
+				
 
 
-					<div style="display: inline;">
+						<div style="display: inline;">
 
-						<label class="rach"><input type="radio" id="con" name="p_type" value="전자기기" <c:out value="${scri.productType eq '전자기기' ? 'checked' :''} "/> /><span>전자기기</span></label>
+							<label class="rach"> <input type="radio" id="con" name="p_type" value="" <c:out value="${ empty scri.productType ? 'checked' :''} "/> /><span>전체</span></label>
 
-					</div>
+						</div>
 
-					<div style="display: inline;">
 
-						<label class="rach"><input type="radio" id="con" name="p_type" value="상품권/쿠폰" <c:out value="${scri.productType eq '상품권/쿠폰' ? 'checked' :''} "/> /><span>상품권/쿠폰</span></label>
+						<div style="display: inline;">
 
-					</div>
+							<label class="rach"><input type="radio" id="con" name="p_type" value="전자기기" <c:out value="${scri.productType eq '전자기기' ? 'checked' :''} "/> /><span>전자기기</span></label>
 
-					<div style="display: inline;">
+						</div>
 
-						<label class="rach"><input type="radio" id="con" name="p_type" value="남성의류" <c:out value="${scri.productType eq '남성의류' ? 'checked' :''} "/> /><span>남성 의류</span></label>
+						<div style="display: inline;">
 
-					</div>
+							<label class="rach"><input type="radio" id="con" name="p_type" value="상품권/쿠폰" <c:out value="${scri.productType eq '상품권/쿠폰' ? 'checked' :''} "/> /><span>상품권/쿠폰</span></label>
 
-					<div style="display: inline;">
+						</div>
 
-						<label class="rach"><input type="radio" id="con" name="p_type" value="여성의류" <c:out value="${scri.productType eq '여성의류' ? 'checked' :''} "/> /><span>여성 의류</span></label>
+						<div style="display: inline;">
 
-					</div>
+							<label class="rach"><input type="radio" id="con" name="p_type" value="남성의류" <c:out value="${scri.productType eq '남성의류' ? 'checked' :''} "/> /><span>남성 의류</span></label>
 
-					<div style="display: inline;">
+						</div>
 
-						<label class="rach"><input type="radio" id="con" name="p_type" value="아동용품" <c:out value="${scri.searchType eq '아동용품' ? 'checked' :''} "/> /><span>아동 용품</span></label>
+						<div style="display: inline;">
 
-					</div>
+							<label class="rach"><input type="radio" id="con" name="p_type" value="여성의류" <c:out value="${scri.productType eq '여성의류' ? 'checked' :''} "/> /><span>여성 의류</span></label>
 
-					<div style="display: inline;">
+						</div>
 
-						<label class="rach"><input type="radio" id="con" name="p_type" value="가구" <c:out value="${scri.searchType eq '가구' ? 'checked' :''} "/> /><span>가구</span></label>
+						<div style="display: inline;">
 
-					</div>
+							<label class="rach"><input type="radio" id="con" name="p_type" value="아동용품" <c:out value="${scri.searchType eq '아동용품' ? 'checked' :''} "/> /><span>아동 용품</span></label>
 
-					<div style="display: inline;">
+						</div>
 
-						<label class="rach"><input type="radio" id="con" name="p_type" value="신발" <c:out value="${scri.searchType eq '신발' ? 'checked' :''} "/> /><span>신발</span></label>
+						<div style="display: inline;">
 
-					</div>
+							<label class="rach"><input type="radio" id="con" name="p_type" value="가구" <c:out value="${scri.searchType eq '가구' ? 'checked' :''} "/> /><span>가구</span></label>
 
-					<div style="display: inline;">
+						</div>
 
-						<label class="rach"><input type="radio" id="con" name="p_type" value="가방" <c:out value="${scri.searchType eq '가방' ? 'checked' :''} "/> /><span>가방</span></label>
+						<div style="display: inline;">
 
-					</div>
+							<label class="rach"><input type="radio" id="con" name="p_type" value="신발" <c:out value="${scri.searchType eq '신발' ? 'checked' :''} "/> /><span>신발</span></label>
 
-					<div style="display: inline;">
+						</div>
 
-						<label class="rach"><input type="radio" id="con" name="p_type" value="기타" <c:out value="${scri.searchType eq '기타' ? 'checked' :''} "/> /><span>기타</span></label>
+						<div style="display: inline;">
 
-					</div>
+							<label class="rach"><input type="radio" id="con" name="p_type" value="가방" <c:out value="${scri.searchType eq '가방' ? 'checked' :''} "/> /><span>가방</span></label>
+
+						</div>
+
+						<div style="display: inline;">
+
+							<label class="rach"><input type="radio" id="con" name="p_type" value="기타" <c:out value="${scri.searchType eq '기타' ? 'checked' :''} "/> /><span>기타</span></label>
+
+						</div>
+					
 				</div>
 
 				<!-- 내용 박스 부분 -->
@@ -400,40 +414,24 @@ ul {
 													<h5 class="fw-bolder">${list.p_title }</h5>
 												</div>
 
-													
-													<%-- <div>
+												<%-- <div>
 														<img  style="width: 30px; height: 30px;" src="../../resources/images/heartB.png"> &nbsp;&nbsp;${list.p_heart }
 													</div>
 													 --%>
-												
-									
+
+
 												<!-- Product price-->
 												₩ ${list.p_cost}
-													<div style="margin-top: 10px;" >
-													<fmt:formatDate pattern="yyyy.MM.dd"    value="${list.p_regdate }"/>
-													
-													</div>
+												<div style="margin-top: 10px;">
+													<fmt:formatDate pattern="yyyy.MM.dd" value="${list.p_regdate }" />
 
-												<!-- Product reviews-->
-												<div class="d-flex justify-content-center small text-warning mb-2">
-													<div class="bi-star-fill"></div>
-													<div class="bi-star-fill"></div>
-													<div class="bi-star-fill"></div>
-													<div class="bi-star-fill"></div>
-													<div class="bi-star-fill"></div>
 												</div>
-												<!-- Product price-->
-												₩ ${list.p_cost}
-
 											</div>
 										</div>
 										<!-- Product actions-->
 										<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 											<div class="text-center">
-
 												<a class="btn btn-outline-dark mt-auto" href="#"> 살펴보기</a>
-
-												<a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
 											</div>
 										</div>
 									</div>
@@ -471,7 +469,7 @@ ul {
 							</c:forEach>
 
 
-							<c:if test="${pageMaker.next && pageMakerendPage > 0 }">
+							<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
 								<li class="page-item"><a class="page-link" href="list${pageMaker.makeSearch(pageMaker.endPage + 1)}" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 								</a></li>
 							</c:if>
@@ -483,18 +481,14 @@ ul {
 			</section>
 			<!-- 사이드바 - 최근본 상품 목록 -->
 			<section class="aside">
-				<div class="sideBanner" >
+				<div class="sideBanner">
 					최근 본 상품
 					<div class="r_btn">
-						<button class="recent_btn">▲</button>
-						<button class="recent_btn">▼</button>
+						<button  type="button"  class="recent_btn">▲</button>
+						<button  type="button" class="recent_btn">▼</button>
 					</div>
-
 					<div class="recent_list ">
-
-					<div class="recent_list">
-
-						<ul id="recentItemList">
+						<ul id="recentItemList" style="margin-left:5px; margin-right: 5px; " >
 						</ul>
 					</div>
 				</div>

@@ -17,6 +17,27 @@ SELECT COUNT(HNO) FROM HEART WHERE PNO =#{pno} AND ID =#{id}
 DELETE FROM HEART WHERE PNO = #{pno} AND ID = #{id}
 </delete>
 
+<!-- ID에 해당하는 사람의 하트 목록 불러오기 -->
+<select id="myHeartList"  parameterType="com.anabada.web.vo.StoreCriteria"  resultType="HeartVO" >
+SELECT PNO FROM (SELECT pno, ROW_NUMBER() OVER(ORDER BY PNO DESC) RNUM FROM HEART WHERE ID=#{id} ) h 
+WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}   ORDER BY pno DESC
+</select>
+
+
+<!-- ID에 해당하는 사람의 총 Heart 갯수 리턴 -->
+<select id="totalHeart" parameterType="com.anabada.web.vo.StoreCriteria"  resultType="int" >
+SELECT COUNT(PNO) FROM HEART WHERE ID=#{id}
+</select>
+
+<!-- 내 찜목록 삭제  -->
+   <delete id="deleteHeartList" parameterType="java.util.ArrayList" >
+   DELETE FROM heart 
+   WHERE PNO IN (
+   <foreach collection="array" item="item" index="index" separator="," >   #{item}</foreach>
+   )
+   </delete>
 
 
 </mapper>
+
+

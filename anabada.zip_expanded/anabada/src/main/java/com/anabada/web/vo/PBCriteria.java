@@ -36,7 +36,6 @@ public class PBCriteria {
 	}
 
 	public int getPerPageNum() {
-		System.out.println("perPageNum : "+perPageNum);
 		return perPageNum;
 	}
 
@@ -64,9 +63,7 @@ public class PBCriteria {
 
 	public int getRowEnd() {
 		rowEnd = rowStart + perPageNum - 1;
-		//예를들어 5번페이지 클릭 하면 rowStart : 41이다. 
-		//rowEnd = 41+10-1 = 50 즉 50번글이 마지막이다. 
-		// page =1 이면 RowEnd = 1+10-1 = 10
+
 		return rowEnd;
 	}
 

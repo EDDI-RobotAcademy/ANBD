@@ -23,13 +23,15 @@
 <a href="/event/writeView"> 이벤트 글쓰기 가기  </a>
 <br>
 <a href="/event/list"> 이벤트 리스트가기  </a>
+<br>
+<a href="/userProduct/myStore" >내상점</a>
 
 
 
 </div>
 
 
-	<%@include file="./test/korea.jsp" %>
+	
 	<form action="/job/writeView_boss" method="get">
 		<input type="submit" value="알바 구인 공고 쓰러가기">
 	</form>
@@ -98,7 +100,10 @@
 		<button type="submit">내 쪽지함</button>
 	</form>
 	
-
+	<form action="/review/home_test" method="get">
+		<button type="submit">지애</button>
+	</form>
+	
 
 
 </body>
