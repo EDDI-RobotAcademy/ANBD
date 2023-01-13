@@ -46,7 +46,7 @@ public class EventController {
 	
 	
 
-	private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
+	private static final Logger logger = LoggerFactory.getLogger(EventController.class);
 	// 이미지 파일 저장 폴더 설정
 	private static final String CURR_IMAGE_REPO_PATH = "C:\\eventImg\\";
 

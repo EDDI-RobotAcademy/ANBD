@@ -116,30 +116,47 @@
 
 </head>
 <body>
+
+	<!-- header -->
+	<div>
+		<jsp:include page="../includes/nav.jsp" />
+	</div>
+	<div>
+		<jsp:include page="../includes/header.jsp" />
+	</div>
+	<!-- header end  -->
+
+
+
+
 	<form action="">
 
 		<table style="margin: auto; width: 602px;" id="totalTable">
-			
-			<tr> <td colspan="7" ><button type="button" id="delbtn">삭제</button></td> </tr>
+
+			<tr>
+				<td colspan="7"><button type="button" id="delbtn">삭제</button></td>
+			</tr>
 			<tr class="headTr">
 				<td colspan="7"><input type="checkbox" id="delete_all"> 전체 선택 ${id}</td>
-				
+
 			</tr>
 			<c:if test="${list == null }">
-			<tr> <td colspan="7"  id="listNull" > 찜 목록이 비어있습니다. </td>   </tr>
+				<tr>
+					<td colspan="7" id="listNull">찜 목록이 비어있습니다.</td>
+				</tr>
 			</c:if>
-			
+
 			<!-- 반복 -->
 
 			<c:forEach items="${list }" var="list">
 				<tr>
-<td width="40px;"><input type="checkbox"  name="deletes" value="${list.pno}">  </td>
+					<td width="40px;"><input type="checkbox" name="deletes" value="${list.pno}"></td>
 
 					<td colspan="6">
 						<table class="infoTable" onclick="location.href='/product/readView?pno=${list.pno}'" onmouseover="this.style.backgroundColor = '#F4F4F4' " onmouseout="this.style.backgroundColor = ''">
 
 							<tr>
-								
+
 								<td colspan="2" rowspan="2"><img width="100px;" height="100px;" src="${list.p_filepath} "></td>
 								<td colspan="4" class="title">${list.p_title }</td>
 							</tr>
@@ -200,8 +217,11 @@
 
 	</form>
 
-
-
+	<!-- footer -->
+	<div id="footer">
+		<jsp:include page="../includes/footer.jsp" />
+	</div>
+	<!-- footer end -->
 
 </body>
 </html>

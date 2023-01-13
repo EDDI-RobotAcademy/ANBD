@@ -674,15 +674,7 @@ padding:  0px 2px 0px 2px;
          element.innerText = '판매완료';
       }
    }
-    
-   
-
-   
-   
-   
-   
-   
-   
+ 
    
 </script>
 
