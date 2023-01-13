@@ -23,6 +23,13 @@
 		WHERE nick = #{nick}
 	</select>
 	
+	<!-- 닉네임 업데이트 중복 체크 -->
+	<select id="nickUpdateChk" resultType="int">
+		SELECT COUNT(1)
+		FROM a_member
+		WHERE nick = #{nick} and id != #{id}
+	</select>
+	
 	<!-- 로그인 -->
 	<select id="login" resultType="memberVO">
 		SELECT id, pass, name, nick, tel, email, loca

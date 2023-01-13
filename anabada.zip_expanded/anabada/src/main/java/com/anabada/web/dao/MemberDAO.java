@@ -21,4 +21,7 @@ public interface MemberDAO {
 
 	// 닉네임 중복 체크
 	public int nickChk(MemberVO vo) throws Exception;
+	
+	// 닉네임 업데이트 중복 체크
+	public int nickUpdateChk(MemberVO vo) throws Exception;
 }

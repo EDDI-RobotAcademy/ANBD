@@ -16,4 +16,6 @@ public interface MemberService {
 
 	public int nickChk(MemberVO vo) throws Exception;
 	
+	public int nickUpdateChk(MemberVO vo) throws Exception;
+	
 }

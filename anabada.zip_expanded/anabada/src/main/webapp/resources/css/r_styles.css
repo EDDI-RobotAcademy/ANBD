@@ -542,6 +542,18 @@ input[id="termsService3"]:checked + label::before{
   color: #474747;
 }
 
+.modi-box-readonly {
+  display: inline-block;
+  width: 350px;
+  height: 40px;
+  border: 0;
+  border-radius: 5px 5px;
+  padding: 0 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+  color: #474747;
+}
+
 .modi-box {
   display: inline-block;
   width: 350px;
@@ -583,6 +595,35 @@ input[id="termsService3"]:checked + label::before{
   text-align: center;
   cursor: pointer;
   line-height: 35px;
+}
+
+
+/* 정보 수정 완료 */
+.modi-end {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  height: 300px;
+  text-align: center;
+}
+
+.modi-end-item {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.modi-end-btn {
+  display : flex;
+  justify-content : center;
+  align-items : center;
+  width: 200px;
+  height: 55px;
+  margin: 30px auto;
+  border-radius: 5px 5px;
+  background: #0C6BBC;
+  color: #ffffff;
+  font-size: 17px;
+  cursor: pointer;
 }
 
 

@@ -41,8 +41,14 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public int nickChk(MemberVO vo) throws Exception {
-		int nresult = sql.selectOne("memberMapper.nickChk", vo);
-		return nresult;
+		int result = sql.selectOne("memberMapper.nickChk", vo);
+		return result;
+	}
+
+	@Override
+	public int nickUpdateChk(MemberVO vo) throws Exception {
+		int result = sql.selectOne("memberMapper.nickUpdateChk", vo);
+		return result;
 	}
 
 }

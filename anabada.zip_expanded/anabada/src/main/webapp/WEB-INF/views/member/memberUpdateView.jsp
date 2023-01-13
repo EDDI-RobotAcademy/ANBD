@@ -18,7 +18,7 @@
 // 		});
 		
  		// 유효성 검사
-		var nameOk = false;
+ 		var nickOk = false;
 		var telOk = false;
 		var emailOk = false;
 		
@@ -26,10 +26,49 @@
 		var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
 		var getTel = RegExp(/^[0-9]{10,11}$/);
 		
-		// 닉네임 유효성 검사
-		$(function() {
-			$("#nick").keyup(function() {
-				if ($("#nick").val() == "") {
+// 		// 닉네임 유효성 검사
+// 		function nickchk() {
+// 			if ($("#nick").val() == "") {
+// 				$("#nickChk").attr("style", "color:#FF0000; padding-left: 5px;");
+// 				$("#nickChk").text("닉네임을 입력해 주세요.");
+// 				nickOk = false;
+				
+// 			} else if (!getNick.test($("#nick").val())) {
+// 				$("#nickChk").attr("style", "color:#FF0000; padding-left: 5px;");
+// 				$("#nickChk").text("닉네임은 영어 대 소문자, 한글, 숫자만 사용 가능합니다.");
+// 				nickOk = false;
+			
+// 			// 닉네임 중복 체크
+// 			} else {
+// 				$.ajax({
+// 		 			url : "/member/nickUpdateChk",
+// 		 			type : "post",
+// 		 			dataType : "json",
+// 		 			data : {"nick" : $("#nick").val(),
+// 		 					"id" : $("#id").val()
+// 		 				},
+// 		 			success : function(data){
+// 		 				if (data == 1) {
+// 		 					$("#nickChk").attr("style", "color:#FF0000; padding-left: 5px;");
+// 		 		            $("#nickChk").text("사용 중인 닉네임입니다.");
+// 							nickOk = false;
+
+// 		 				} else if (data == 0) {
+// 		 					document.getElementById("nickChk").style.display="none";
+// 		 					nickOk = true;
+// 		 				}
+// 		 			}
+// 				})
+// 			}
+// 		}
+		
+
+		// submit 버튼
+		var formObj = $("form[name='updateForm']");
+ 		
+		$("#submit").on("click", function() {
+			// 닉네임 유효성 검사
+			if ($("#nick").val() == "") {
 					$("#nickChk").attr("style", "color:#FF0000; padding-left: 5px;");
 					$("#nickChk").text("닉네임을 입력해 주세요.");
 					nickOk = false;
@@ -42,10 +81,12 @@
 				// 닉네임 중복 체크
 				} else {
 					$.ajax({
-			 			url : "/member/nickChk",
+			 			url : "/member/nickUpdateChk",
 			 			type : "post",
 			 			dataType : "json",
-			 			data : {"nick" : $("#nick").val()},
+			 			data : {"nick" : $("#nick").val(),
+			 					"id" : $("#id").val()
+			 				},
 			 			success : function(data){
 			 				if (data == 1) {
 			 					$("#nickChk").attr("style", "color:#FF0000; padding-left: 5px;");
@@ -59,13 +100,15 @@
 			 			}
 					})
 				}
-			})
-		});
-		
-		// 휴대폰 번호 유효성 검사
-		$(function() {
-			$("#tel").keyup(function() {
-				if ($("#tel").val() == "") {
+			
+			if (nickOk == false) {
+				$("#nick").focus();
+				return false;
+			}
+			
+			
+			// 휴대폰 유효성 검사
+			if ($("#tel").val() == "") {
 					$("#telChk").attr("style", "color:#FF0000; padding-left: 5px;");
 					$("#telChk").text("휴대폰 번호를 입력해 주세요.");
 					telOk = false;
@@ -78,15 +121,17 @@
 				} else {
 					document.getElementById("telChk").style.display="none";
 					telOk = true;
-				}
-			})
-		});
-		
-		
-		// 이메일 유효성 검사
-		$(function() {
-			$("#email").keyup(function() {
-				if ($("#email").val() == "") {
+			}
+			
+			if (telOk == false) {
+				$("#tel").focus();
+				return false;
+
+			}
+			
+			
+			// 이메일 유효성 검사
+			if ($("#email").val() == "") {
 					$("#mailChk").attr("style", "color:#FF0000; padding-left: 5px;");
 					$("#mailChk").text("이메일을 입력해 주세요.");
 					emailOk = false;
@@ -99,28 +144,15 @@
 				} else {
 					document.getElementById("mailChk").style.display="none";
 					emailOk = true;
-				}
-			})
-		});
-		
- 		
-		// submit 버튼
-		var formObj = $("form[name='updateForm']");
- 		
-		$("#submit").on("click", function() {
-			if (nickOk == false) {
-				$("#nick").focus();
-				return false;
-				
-			} else if (telOk == false) {
-				$("#tel").focus();
-				return false;
-
-			} else if (emailOk == false) {
+			}
+			
+			if (emailOk == false) {
 				$("#email").focus();
 				return false;
 	
-			} else {
+			} 
+
+			if (nickOk && telOk && emailOk == true) {
 				formObj.attr("action", "/member/memberUpdate");
 				formObj.submit();
 			}
@@ -157,41 +189,31 @@
 					회원 정보 수정
 				</div>
 			
-				<form name="updateForm" method="post">
-					<input type="hidden" id="id" name="id" value="${member.id}"/>
-					<input type="hidden" id="name" name="name" value="${member.name}"/>
-					<input type="hidden" id="nick" name="nick" value="${member.nick}"/>
-					<input type="hidden" id="tel" name="tel" value="${member.tel}"/>
-					<input type="hidden" id="email" name="email" value="${member.email}"/>
-					<input type="hidden" id="loca" name="loca" value="${member.loca}"/>
-				
+				<form name="updateForm" method="post" action="/member/memberUpdate" >
 					<div style="margin-top: 20px">	
 						<div>
 							<label class="membermodify" for="id">아이디</label>
-							<div class="mmodify" id="id"><c:out value="${member.id}"/></div>
+							<input class="modi-box-readonly" type="text" id="id" name="id" value="${member.id}" readonly />
 						</div>
 						
 						<div>
 							<label class="membermodify" for="name">이름</label>
-							<div class="mmodify" id="name"><c:out value="${member.name}" /></div>
+							<input class="modi-box-readonly" type="text" id="name" name="name" value="${member.name}" readonly />
 						</div>
 						
 						<div>
 							<label class="membermodify" for="nick">닉네임</label>
 							<input class="modi-box" type="text" id="nick" name="nick" value="${member.nick}" />
-							<font id="nickChk" size="2"></font>
 						</div>
 						
 						<div>
 							<label class="membermodify" for="tel">휴대폰 번호</label>
 							<input class="modi-box" type="text" id="tel" name="tel" value="${member.tel}" />
-							<font id="telChk" size="2"></font>
 						</div>
 						
 						<div>
 							<label class="membermodify" for="email">이메일</label>
 							<input class="modi-box" type="text" id="email" name="email" value="${member.email}" />
-							<font id="mailChk" size="2"></font>
 						</div>
 						
 						<div>
@@ -215,6 +237,11 @@
 					</div>
 					
 					<div>
+						<div style="text-align: center;">
+							<font id="nickChk" size="2"></font>
+							<font id="telChk" size="2"></font>
+							<font id="mailChk" size="2"></font>
+						</div>
 						<button type="submit" id="submit" class="modi_btn">수정</button>
 					</div>	
 				</form>

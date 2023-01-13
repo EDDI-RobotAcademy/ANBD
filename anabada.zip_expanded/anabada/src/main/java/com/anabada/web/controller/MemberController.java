@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -62,8 +63,8 @@ public class MemberController {
 	}
 	
 	// 회원가입 완료
-	@RequestMapping(value = "/member/registerEnd", method = RequestMethod.GET)
-	public String getRegisterEnd() throws Exception {
+	@RequestMapping(value = "/member/registerEnd")
+	public String RegisterEnd() throws Exception {
 		logger.info("회원가입 완료 ~ ");
 		
 		return "/member/registerEnd";
@@ -85,6 +86,15 @@ public class MemberController {
 	public int nickChk(MemberVO vo) throws Exception {
 		logger.info("닉네임 중복 체크 post ~ ");
 		int result = service.nickChk(vo);
+		return result;
+	}
+	
+	// 닉네임 업데이트 중복 체크
+	@ResponseBody
+	@RequestMapping(value="/member/nickUpdateChk")
+	public int nickUpdateChk(MemberVO vo) throws Exception {
+		logger.info("닉네임 업데이트 중복 체크 post ~ ");
+		int result = service.nickUpdateChk(vo);
 		return result;
 	}
 	
@@ -120,17 +130,25 @@ public class MemberController {
 	@RequestMapping(value="/member/memberUpdateView", method = RequestMethod.GET)
 	public String registerUpdateView() throws Exception {
 		logger.info("회원 정보 수정 get ~ ");
-		return "member/memberUpdateView";
+		return "/member/memberUpdateView";
 	}
 	
 	// 회원 정보 수정 post
 	@RequestMapping(value="/member/memberUpdate", method = RequestMethod.POST)
 	public String registerUpdate(MemberVO vo, HttpSession session) throws Exception {
-		logger.info("회원 정보 수정 post ~ ");	
+		logger.info("회원 정보 수정 post ~ ");
 		service.memberUpdate(vo);
 		session.invalidate();
+
+		return "redirect:/member/memberUpdateEnd"; 
+	}
+	
+	// 회원 정보 수정 완료
+	@RequestMapping(value = "/member/memberUpdateEnd", method = RequestMethod.GET)
+	public String registerUpdateEnd() throws Exception {
+		logger.info("정보 수정 완료 ~ ");
 		
-		return "redirect:/"; 
+		return "/member/memberUpdateEnd";
 	}
 	
 	// 로그아웃
@@ -144,7 +162,7 @@ public class MemberController {
 	// 마이페이지
 	@RequestMapping(value="/member/myPage")
 	public String myPage() throws Exception {
-		logger.info("마이페이지 get ~ ");
+		logger.info("마이페이지 ~ ");
 		return "member/myPage";
 	}
 
