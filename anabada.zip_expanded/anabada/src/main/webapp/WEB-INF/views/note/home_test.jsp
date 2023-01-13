@@ -50,16 +50,22 @@
 			<br>
 			<br>
 		</div>
+		<form action="/job/heart_job" method="get">
+      		<input type="submit" value="알바 찜 목록">
+   		</form>
+		<form action="/resume/my_resume" method="get">
+      		<input type="submit" value="내가 지원한 알바 목록">
+   		</form>
 		<form action="/note/product_note" method="get">
       		<input type="submit" value="쪽지한 사람들 목록 보러 가기">
    		</form>
-		<form action="/job/writeView_boss" method="get">
+		<form action="/job/job_insert" method="get">
       		<input type="submit" value="알바 구인 공고 쓰러가기">
    		</form>
    		<form action="/job/job_list" method="get">
       		<input type="submit" value="알바 구인 게시판">
    		</form>
-   		<form action="/job/my_jobList" method="get">
+   		<form action="/job/my_job" method="get">
       		<button type="submit" id="show_writeList">내 알바글 목록으로 돌아가기</button>
    		</form>
    		<form action="/note/note_list" method="get">

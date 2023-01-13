@@ -22,35 +22,32 @@
      padding: 0;
    }
    
-   .boxes li {
-     width: 250px; /*이걸로 해야지 1000px에 알바 게시물 4개 보임*/
-     padding: 3px; /*알바 게시물들 양옆 간격 3px*/
+   .boxes > div {
+     width: 244px; /*이걸로 해야지 1000px에 알바 게시물 4개 보임*/
      margin-top: 3px; /*게시물들 위아래 간격 3px*/
      box-sizing: border-box;
-   }
-   
-   .search_format li { /*검색 li*/
-     width: 250px;
-     padding: 0 20px;
-     margin-top: 20px;
-     box-sizing: border-box;
-   }
-   
-   .boxes li a {
-     display: block;
-     padding: 0px; /*알바 게시물 안 4면 여백*/
-     text-align: left; 
-     text-decoration: none;
-     background: white; /*알바 게시물 배경 흰색*/
-     color: #000;
      border: 1px solid #E2E2E2;
+     margin: 3px;
+     border-radius: 5px;
+   }
+   
+   .boxes > div > .read {
+     text-align: left; 
+     color: #000;
+     cursor: pointer;
+   }
+   
+   .boxes > div > div > .word2{
+     padding: 3px 10px;
    }
    
    .j_img { 
-      width: 237px;
-      height: 237px;
+      width: 244px;
+      height: 230px;
+      border-radius: 5px 5px 0px 0px;
    }
    
+   /*선택검색*/
    .search{
       margin: auto; 
       width: 1000px;
@@ -97,9 +94,6 @@
       border-collapse: collapse;
    }
    
-   .aside {
-   }
-   
    .sideBanner {
       width: 120px; 
       position: absolute;
@@ -133,6 +127,23 @@
 	  margin-bottom: 5px;
    }
    
+   /*글자 자르게*/
+   .word {
+   	  width:110px;
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	  white-space: nowrap;
+   }
+   
+   .word2{
+   	  width:230px;
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	  white-space: nowrap;
+   }
+   
+   
+   
    
 </style>
 <body>
@@ -148,9 +159,9 @@
    
    <!-- 콘텐츠부분 -->
    <section class="section" style="border-top: 1px solid #e5e5e5">
-   <form name="job_board" method="get">
+   <form name="jobForm" method="get">
       
-      <input type="button" class="j_btn1" id="write" value="알바 구인 공고 작성하기" style="float: right;">
+      <input type="button" class="j_btn1" id="job_insert" value="알바 구인 공고 작성하기" style="float: right;">
       <br><br>
       
       <table class="search">
@@ -285,32 +296,30 @@
          
       <div class="container">
          <!-- 여기부터는 게시물들 -->
-          <ul class="boxes">
+          <div class="boxes">
              <c:forEach var="j_list" items="${j_list}">
-                 <li>
-                   <a href="/job/job_readView?j_bno=${j_list.j_bno }&page=${scri.page }&perPageNum=${scri.perPageNum }&j_addr1=${scri.j_addr1 }&j_term=${scri.j_term }&j_day=${scri.j_day}&j_cate=${scri.j_cate}">
+                 <div>
+                   <div class="read" onclick="location.href='/job/job_read?j_bno=${j_list.j_bno }&page=${scri.page }&perPageNum=${scri.perPageNum }&j_addr1=${scri.j_addr1 }&j_term=${scri.j_term }&j_day=${scri.j_day}&j_cate=${scri.j_cate}'">
                     <!-- a태그 누르면  -->   
-                       <div class="details">
-                          <c:choose>
-                             <c:when test="${empty j_list.j_img}">
-                                <img class="j_img" src="../resources/images/아나바다2.png"/>
-                             </c:when>
-                             <c:otherwise>
-                                <img class="j_img" src="/upload/${j_list.j_img }"/>
-                             </c:otherwise>
-                          </c:choose>
-                          &nbsp;${j_list.j_company }<br>
-                          &nbsp;${j_list.j_title }<br>
-                          &nbsp;직종 : ${j_list.j_cate }<br>
-                          &nbsp;날짜 : ${j_list.j_day }<br>
-                          &nbsp;${j_list.j_term }&nbsp;${j_list.j_start }:00 ~ ${j_list.j_end }:00<br>
-                          &nbsp;${j_list.j_method }&nbsp;${j_list.j_pay }<br>
-                            &nbsp;${j_list.j_addr1 }
-                       </div>
-                   </a>
-                  </li>
-              </c:forEach>
-         </ul>
+                       <c:choose>
+                          <c:when test="${empty j_list.j_img}">
+                             <img class="j_img" src="../resources/images/아나바다2.png"/>
+                          </c:when>
+                          <c:otherwise>
+                             <img class="j_img" src="/upload/${j_list.j_img }"/>
+                          </c:otherwise>
+                       </c:choose>
+                       <div class="word2">${j_list.j_company }</div>
+                       <div class="word2">${j_list.j_title }</div>
+                       <div class="word2">직종 : ${j_list.j_cate }</div>
+                       <div class="word2">날짜 : ${j_list.j_day }</div>
+                       <div class="word2">${j_list.j_term }&nbsp;${j_list.j_start }:00 ~ ${j_list.j_end }:00</div>
+                       <div class="word2">${j_list.j_method }&nbsp;${j_list.j_pay }</div>
+                       <div class="word2">${j_list.j_addr1 }</div>
+                    </div>
+                </div>
+             </c:forEach>
+         </div>
       </div>
       
       <!-- 페이징 -->
@@ -343,7 +352,7 @@
       	 	<button class="recent_btn">▼</button>
       	 </div>
       	 <div class="recent_list">
-			 <ul id="recentItemList">
+			 <ul id="recentItemList" style="margin-left:5px; margin-right: 5px; ">
 			 </ul>
 	     </div>
       </div>
@@ -358,129 +367,128 @@
 
 <script>
    $(document).ready(function () {
+	   
       $('#search_addr1').change(function () {
       location.href = "job_list" + '${pageMaker.makeQuery(1)}' + 
       '&j_addr1=' + encodeURIComponent($("#search_addr1 option:selected").val()) + 
       '&j_term=' + encodeURIComponent($("input[name=j_term]:checked").val()) + 
       '&j_day=' + encodeURIComponent($("input[name=j_day]:checked").val()) + 
       '&j_cate=' + encodeURIComponent($("input[name=j_cate]:checked").val());
-                     /*
-                     ex) 1페이지에서 제목+내용 선택하고 aaaaa 입력 후 검색버튼 눌렀을 때 url
-                     http://localhost:8080/board/list?page=1&perPageNum=10&searchType=tc&keyword=aaaaa
-                     즉, pageMaker.makeQuery(1) => ?page=1&perPageNum=10
-                     
-                     ex) 1페이지에서 작성자 선택하고 아무글도 입력하지 않고 검색버튼 눌렀을 때 url
-                     http://localhost:8080/board/list?page=1&perPageNum=10&searchType=w&keyword=      
-                        
-                     [검색] 버튼 누르면 파라미터 값들 가지고 BoardController "/list"로 이동(기본이 get방식)
-                     이때 넘어가는 파라미터는 page, perPageNum, serachType, keyword
-                     */
-   });
+   	  });
    
-   $('.search_cate').click(function () {
-      location.href = "job_list" + '${pageMaker.makeQuery(1)}' + 
-      '&j_addr1=' + encodeURIComponent($("#search_addr1 option:selected").val()) + 
-      '&j_term=' + encodeURIComponent($("input[name=j_term]:checked").val()) + 
-      '&j_day=' + encodeURIComponent($("input[name=j_day]:checked").val()) + 
-      '&j_cate=' + encodeURIComponent($("input[name=j_cate]:checked").val());
-      
-   });
+	   $('.search_cate').click(function () {
+	      location.href = "job_list" + '${pageMaker.makeQuery(1)}' + 
+	      '&j_addr1=' + encodeURIComponent($("#search_addr1 option:selected").val()) + 
+	      '&j_term=' + encodeURIComponent($("input[name=j_term]:checked").val()) + 
+	      '&j_day=' + encodeURIComponent($("input[name=j_day]:checked").val()) + 
+	      '&j_cate=' + encodeURIComponent($("input[name=j_cate]:checked").val());
+	      
+	   });
    
-   $('.search_day').click(function () {
-      location.href = "job_list" + '${pageMaker.makeQuery(1)}' + 
-      '&j_addr1=' + encodeURIComponent($("#search_addr1 option:selected").val()) + 
-      '&j_term=' + encodeURIComponent($("input[name=j_term]:checked").val()) + 
-      '&j_day=' + encodeURIComponent($("input[name=j_day]:checked").val()) + 
-      '&j_cate=' + encodeURIComponent($("input[name=j_cate]:checked").val());
-      
-   });
+	   $('.search_day').click(function () {
+	      location.href = "job_list" + '${pageMaker.makeQuery(1)}' + 
+	      '&j_addr1=' + encodeURIComponent($("#search_addr1 option:selected").val()) + 
+	      '&j_term=' + encodeURIComponent($("input[name=j_term]:checked").val()) + 
+	      '&j_day=' + encodeURIComponent($("input[name=j_day]:checked").val()) + 
+	      '&j_cate=' + encodeURIComponent($("input[name=j_cate]:checked").val());
+	      
+	   });
    
-   $('.search_term').click(function () {
-      location.href = "job_list" + '${pageMaker.makeQuery(1)}' + 
-      '&j_addr1=' + encodeURIComponent($("#search_addr1 option:selected").val()) + 
-      '&j_term=' + encodeURIComponent($("input[name=j_term]:checked").val()) + 
-      '&j_day=' + encodeURIComponent($("input[name=j_day]:checked").val()) + 
-      '&j_cate=' + encodeURIComponent($("input[name=j_cate]:checked").val());
-      
-   });
-   
-   $("#write").click(function () {
-      location.href = "writeView_boss";
-   })
-   
-   
-   // 최근 본 알바 플로팅배너
-   // 기본 위치(top)값
-	var floatPosition = parseInt($(".sideBanner").css('top'));
-	var floatHei = parseInt($(".sideBanner").outerHeight()); // 플로팅 배너 길이
-	var footerTop = $('#footer').outerHeight(); // footer가 높이한 위치
-	
-	// scroll 인식
-	$(window).scroll(function() {
-	  
-	    // 현재 스크롤 위치
-	    var currentTop = $(window).scrollTop(); // 현재 윈도우 스크린 위치
-	    var bannerTop = currentTop + floatPosition + "px"; // 
-	    var val = $(document).height() - footerTop;
-	    var hei = currentTop + floatPosition + floatHei;
-	    
-	    //이동 애니메이션
-	    if (hei < footerTop){
-	    	$(".sideBanner").stop().animate({
-	   	    	"top" : bannerTop
-	   	    }, 500);
-	    }
-
-	}).scroll(); 
-   
-    // 최근 본 알바 불러오기. sessionStorage
-    function get_recent_item(){
+	   $('.search_term').click(function () {
+	      location.href = "job_list" + '${pageMaker.makeQuery(1)}' + 
+	      '&j_addr1=' + encodeURIComponent($("#search_addr1 option:selected").val()) + 
+	      '&j_term=' + encodeURIComponent($("input[name=j_term]:checked").val()) + 
+	      '&j_day=' + encodeURIComponent($("input[name=j_day]:checked").val()) + 
+	      '&j_cate=' + encodeURIComponent($("input[name=j_cate]:checked").val());
+	      
+	   });
 	   
-	    //sessionStorage.clear(); 
-	    var $recentItemList = $("#recentItemList");
-	    
-	    var items = sessionStorage.getItem("recent_job");
-	    
-	    if(items == null){
-	    	var li = "<br><br><li>최근 본 상품이 없습니다.</li>"
-	    	$recentItemList.append(li);
-	    }
+	   $("#job_insert").click(function () {
+	      location.href = "job_insert";
+	   })
+	   
+	   
+	   // 최근 본 알바 플로팅배너
+	   // 기본 위치(top)값
+		var floatPosition = parseInt($(".sideBanner").css('top'));
+		var floatHei = parseInt($(".sideBanner").outerHeight()); // 플로팅 배너 길이
+		var footerTop = $('#footer').outerHeight(); // footer가 높이한 위치
+		
+		// scroll 인식
+		$(window).scroll(function() {
+		  
+		    // 현재 스크롤 위치
+		    var currentTop = $(window).scrollTop(); // 현재 윈도우 스크린 위치
+		    var bannerTop = currentTop + floatPosition + "px"; // 
+		    var val = $(document).height() - footerTop;
+		    var hei = currentTop + floatPosition + floatHei;
+		    
+		    //이동 애니메이션
+		    if (hei < footerTop){
+		    	$(".sideBanner").stop().animate({
+		   	    	"top" : bannerTop
+		   	    }, 500);
+		    }
 	
-	    //alert(key)
-	    
-	    var realitem = JSON.parse(items);
-	    
-	    //파싱된 객체의 길이로 for문 돌리기
-	     for (var i = 0; i < 5; i++) {
-	        var j_bno = realitem[i].j_bno;
-	        var j_title = realitem[i].j_title;
-	        var j_img = realitem[i].j_img;
-	        
-	        if(j_img != null || j_img != ""){
-		        var li = "<li><a href='/job/job_readView?j_bno="+j_bno+"'><img width='100' height='100' src='/upload/"+j_img+"'/>"
-		        	+ "<br><font>" +j_bno + j_title+ "</font>" + "</a></li>";
-	        }
-	        if(j_img == null || j_img == ""){
-	        	var li = "<li><a href='/job/job_readView?j_bno="+j_bno+"'><img width='100' height='100' src='../resources/images/아나바다2.png'/>"
-		        	+ "<br><font>" +j_bno + j_title+ "</font>" + "</a></li>";
-	        }
-	 
-	        //ul에 붙이기
-	        $recentItemList.append(li);
-	    }
-	    
-	}
-	
-	$(".recent_btn").click(function () {
-		var ih = $(this).index() == 0 ? -135 : 135; //위아래로 움직이는 px 숫자
-		var obj = $('.recent_list');
-		obj.animate({ scrollTop:obj.scrollTop() + ih }, 100);
-    });
-	
-	// 이거 젤 마지막에 둬야 함
-	get_recent_item();
+		}).scroll(); 
+	   
+		
+	    // 최근 본 알바 불러오기. sessionStorage
+	    function get_recent_item(){
+	    	
+		    //sessionStorage.clear(); 
+		    var $recentItemList = $("#recentItemList");
+		    
+		    var items = sessionStorage.getItem("recent_job");
+		    
+		    if(items == null){
+		    	var li = "<br><br><li>최근 본 상품이 없습니다.</li>"
+		    	$recentItemList.append(li);
+		    }
+		
+		    //alert(key)
+		    
+		    var realitem = JSON.parse(items);
+		    
+		    //파싱된 객체의 길이로 for문 돌리기
+		     for (var i = 0; i < 6; i++) {
+		        var j_bno = realitem[i].j_bno;
+		        var j_title = realitem[i].j_title;
+		        var j_img = realitem[i].j_img;
+		        
+		        if(j_img != null || j_img != ""){
+			        var li = "<li><a href='/job/job_read?j_bno="+j_bno+"'><img width='100' height='100' src='/upload/"+j_img+"'/>"
+			        	+ "<br><div class='word'>" + j_title+ "</div>" + "</a></li>";
+		        }
+		        if(j_img == null || j_img == ""){
+		        	var li = "<li><a href='/job/job_read?j_bno="+j_bno+"'><img width='100' height='100' src='../resources/images/아나바다2.png'/>"
+			        	+ "<br><div class='word'>" + j_title+ "</divs>" + "</a></li>";
+		        }
+		 
+		        //ul에 붙이기
+		        $recentItemList.append(li);
+		        
+		    }
+		    
+		}
+		
+		$(".recent_btn").click(function () {
+			var ih = $(this).index() == 0 ? -135 : 135; //위아래로 움직이는 px 숫자
+			var obj = $('.recent_list');
+			obj.animate({ scrollTop:obj.scrollTop() + ih }, 100);
+	    });
+		
+		
+		/* $(window).bind("pageshow", function (event) {
+			if (event.originalEvent.persisted) {
+				get_recent_item();
+			}
+		}); */
+		
+		// 이거 젤 마지막에 둬야지 정상적으로 실행됨
+		get_recent_item();
 
    
-});
+	});
 </script>
 </html>

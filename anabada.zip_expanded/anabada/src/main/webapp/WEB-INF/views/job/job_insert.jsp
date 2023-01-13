@@ -9,7 +9,7 @@
 <meta name="theme-color" content="#ffffff">
 <link rel="stylesheet" href="<c:url value='/css/j_styles.css'/>">
 <meta charset="UTF-8">
-<title>알바 공고 쓰기</title>
+<title>알바 공고 쓰기!!!</title>
 <link href="../resources/css/jquery-ui.css" rel="stylesheet" type="text/css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <style>
@@ -109,17 +109,17 @@
 	       
 	       // 근무기간/요일
 	       var now = new Date();
-	        var year = now.getFullYear();
-	        var month = now.getMonth() + 1;//1월이 0으로 되기때문에 +1을 함.
-	        var date = now.getDate();
-	        var today = year+"-"+(("00"+month.toString()).slice(-2))+"-"+(("00"+date.toString()).slice(-2)); // 오늘 날짜(문자)
-	        var n_today = today.replace(/-/gi,''); //오늘 날짜(숫자로 ex)20201212)
+	       var year = now.getFullYear();
+	       var month = now.getMonth() + 1;//1월이 0으로 되기때문에 +1을 함.
+	       var date = now.getDate();
+	       var today = year+"-"+(("00"+month.toString()).slice(-2))+"-"+(("00"+date.toString()).slice(-2)); // 오늘 날짜(문자)
+	       var n_today = today.replace(/-/gi,''); //오늘 날짜(숫자로 ex)20201212)
 	       var n_select = $("#ymdpicker").val().replace(/-/gi, '');
-	        var plus = parseInt(n_select - n_today);
+	       var plus = parseInt(n_select - n_today);
 	       
-	        var start = $("select[name='j_start']").val();
-	        var end = $("select[name='j_end']").val();
-	        var content = $("textarea[name='j_content']").val();
+	       var start = $("select[name='j_start']").val();
+	       var end = $("select[name='j_end']").val();
+	       var content = $("textarea[name='j_content']").val();
 	        
 	       // 1.제목 null 체크
 	       if(title == ""){
@@ -206,16 +206,7 @@
 	       }else{
 	          $("#se_null").text("");
 	       }
-	       
-	       // 10.내용 null 체크
-	       if(content == ""){
-	          $("#con_null").text("내용을 작성해주세요.");
-	           $("#con_null").css("color", "red");
-	           return false;
-	       }else{
-	          $("#con_null").text("");
-	       }
-	    
+	      
 	    });
 		
 	});
@@ -232,7 +223,7 @@
     </div>
     
     <section class="container">
-   	<form name="write_boss" action="/job/write_boss" method="post" enctype="multipart/form-data">
+   	<form name="insertForm" action="/job/job_insert" method="post" enctype="multipart/form-data">
        <input type="hidden" name="id" value="${id }">
        <!-- bno(게시글 번호), date(등록일자), heart(찜 개수)는 mapper에서 설정할 것임 -->
       
@@ -271,7 +262,7 @@
                </td>
            </tr>
            <tr>
-               <td class="info">상세 주소</td>
+               <td class="info">상세 주소(선택)</td>
             </tr>
             <tr>   
                <td>
@@ -381,13 +372,12 @@
          </tr>
          
          <tr>
-            <td class="info">내용</td>
+            <td class="info">내용(선택)</td>
          </tr>
          <tr>
             <td>
                <textarea id="j_content" name="j_content" style="resize: none; height: 200px;" class="form-control"></textarea>
                <!-- textarea height 다시 설정하기 -->
-               <div id="con_null"></div>
             </td>
          </tr>
                   

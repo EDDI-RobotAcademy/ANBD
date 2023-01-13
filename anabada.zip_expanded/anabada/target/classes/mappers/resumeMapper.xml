@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="resumeMapper">
+<!-- 알바 구인 게시물 작성 -->
+<insert id="insert" parameterType="ResumeVO">
+INSERT INTO RESUME_BOARD
+(ID, R_BNO, R_NAME, R_GENDER, R_AGE, R_TEL, R_COMPANY, R_START, R_END, J_BNO)
+VALUES(#{id}, RESUME_BOARD_SEQ.NEXTVAL, #{r_name}, #{r_gender}, #{r_age}, #{r_tel}, 
+	#{r_company}, #{r_start}, #{r_end}, #{j_bno})
+</insert>
+
+<select id="listPage" resultType="ResumeVO" parameterType="java.util.Map">
+SELECT J_BNO, R_BNO, R_NAME, R_GENDER, R_TEL, R_AGE, 
+	R_COMPANY, R_START, R_END, R_DATE 
+FROM(SELECT J_BNO, R_BNO, R_NAME, R_GENDER, R_TEL, R_AGE, R_COMPANY, R_START, R_END, R_DATE,
+    ROW_NUMBER() OVER(ORDER BY R_BNO ASC) AS RNUM
+    FROM RESUME_BOARD) JOB
+WHERE (RNUM BETWEEN #{rowStart} AND #{rowEnd}) AND (J_BNO = #{j_bno})
+ORDER BY R_BNO ASC
+</select>
+
+<select id="listCount" resultType="int" parameterType="int">
+SELECT COUNT(J_BNO) FROM RESUME_BOARD WHERE J_BNO = #{j_bno}
+</select>
+
+<select id="chk" resultType="int" parameterType="java.util.Map">
+SELECT COUNT(*) FROM RESUME_BOARD WHERE J_BNO = #{j_bno} and ID = #{id}
+</select>
+
+<select id="mr_listPage" resultType="ResumeVO" parameterType="java.util.Map">
+SELECT J_BNO, R_BNO, R_COMPANY, R_START, R_END, R_DATE, ID  
+FROM(SELECT J_BNO, R_BNO, R_COMPANY, R_START, R_END, R_DATE, ID, 
+    ROW_NUMBER() OVER(ORDER BY R_BNO ASC) AS RNUM
+    FROM RESUME_BOARD) JOB
+WHERE (RNUM BETWEEN #{rowStart} AND #{rowEnd}) AND (ID = #{id})
+ORDER BY R_BNO ASC
+</select>
+
+<select id="mr_listCount" resultType="int" parameterType="String">
+SELECT COUNT(J_BNO) FROM RESUME_BOARD WHERE ID = #{id}
+</select>
+
+<select id="mr_job" resultType="JobVO" parameterType="java.util.ArrayList">
+SELECT J_BNO, J_TITLE, J_COMPANY FROM JOB_BOARD
+WHERE J_BNO IN (
+	<foreach collection="array" item="item" index="index" separator=",">
+       #{item}
+    </foreach>
+) ORDER BY ROWNUM DESC
+</select>
+
+<delete id="mr_delete" parameterType="java.util.ArrayList">
+DELETE FROM RESUME_BOARD WHERE R_BNO IN(
+	<foreach collection="array" item="item" index="index" separator=",">
+       #{item}
+    </foreach>
+)
+</delete>
+
+<select id="read" parameterType="int" resultType="ResumeVO">
+SELECT * FROM RESUME_BOARD WHERE R_BNO = #{r_bno}
+</select>
+
+<update id="update" parameterType="resumeVO">
+UPDATE RESUME_BOARD SET 
+R_NAME = #{r_name}, R_GENDER = #{r_gender}, R_AGE = #{r_age}, R_TEL = #{r_tel}, 
+R_COMPANY = #{r_company}, R_START = #{r_start}, R_END = #{r_end}
+WHERE R_BNO = #{r_bno}
+</update>
+
+
+</mapper>

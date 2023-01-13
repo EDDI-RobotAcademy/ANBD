@@ -17,18 +17,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="<c:url value='/css/n_styles.css'/>">
 <style type="text/css">
-   .d_btn {
-     all: unset;
-     width: 45px;
-     height: 30px;
-     border-radius: 2px 2px;
-     color: black;
-     font-size: 15px;
-     text-align: center;
-     cursor: pointer;
-     border: 1px solid gray;
-   }
-   
    input[type=radio]{
          display: none;
          margin: 10px; 
@@ -80,8 +68,73 @@
       padding: 10px;
    }
    
-
 </style>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function () {
+		
+		//지원자 보기 버튼 누르면 지원자 목록 페이지로 이동
+		$(".resume").on("click", function () {
+			
+			var j_bno = $(this).attr("id");
+			
+			location.href = "/resume/resume_list" +
+				'?j_bno=' + j_bno;
+		});
+		
+		
+		
+		// 삭제 전체 선택, 해제
+	    $('#delete_all').on("click", function () {
+	    	if($("#delete_all").is(":checked")){
+	           $("input[name=delete]").prop("checked", true);
+	        }else{
+	           $("input[name=delete]").prop("checked", false);
+	        }
+	     });
+	     
+	     //삭제 버튼 눌렀을 때. ajax 처리
+	     $('button[name=delete_btn]').on("click", function () {
+	        
+	        if($("input:checkbox[name=delete]").is(":checked") == false) {
+	           alert("선택된 쪽지가 없습니다.");
+	           return;
+	        }
+	        
+	        
+	        if(confirm("삭제하시겠습니까?")){
+	           // 배열로 선언
+	           var delete_array = new Array(); //j_bno를 담음
+	           $('input[name=delete]:checked').each(function (i) {
+	              delete_array.push($(this).val());
+	              //alert($(this).val());
+	           });
+	           
+	           $.ajax({
+	               type: "get",
+	               url : "/job/delete_chk.ajax",
+	               data: {
+	                  delete_array : delete_array, 
+	               },
+	               traditional : true,
+	               success: function(data){
+	                   alert("삭제했습니다.");
+	                   window.location.reload();
+	               },
+	               error : function(request, status, error) {
+						alert("삭제 실패:" + error);
+				   }
+	             });
+	        
+	        }else{
+	           return;
+	        }
+	     });
+        
+    });
+  
+	
+</script>
 </head>
 <body>
    <div>
@@ -129,65 +182,82 @@
         
         <!-- 내용 -->
         <div class="minicon" style="background-color: white; border-top: 1px solid #e9e9e9">
-            <c:choose>
-            <c:when test="${not empty my_jobList}">
         	<table class="mj_list">
         		<tr>
+            		<td colspan="5">
+            			<button type="button" name="delete_btn" class="n_btn2">
+            			삭제</button>
+            		</td>
+            	</tr>
+            	
+        		<tr>
+        			<td style="text-align: center">
+                  		<input type="checkbox" name="delete" value="0" id="delete_all">
+               		</td>
         			<td colspan="2" style="text-align: center">내용</td>
-        			<td>등록일</td>
+        			<td style="text-align: center">등록일</td>
+        			<td>지원자 보기</td>
         		</tr>
                 
+            	<c:if test="${not empty my_jobList}">
                 <c:forEach var="mj_list" items="${my_jobList}">
                 <tr>
-				   	<td style="width: 130px;">
+                	<td style="text-align: center" width="10px;">
+                  		<input type="checkbox" name="delete" class="delete" value="${mj_list.j_bno}">
+               		</td>
+				   	<td style="width: 100px;">
                         <c:choose>
                         <c:when test="${empty mj_list.j_img}">
-                            <a href="/job/job_readView?j_bno=${mj_list.j_bno }&page=${cri.page }&perPageNum=${cri.perPageNum }">
+                            <a href="/job/job_read?j_bno=${mj_list.j_bno }&page=${cri.page }&perPageNum2=${cri.perPageNum2 }">
                                 <img class="j_img" src="../resources/images/아나바다2.png"/>
                             </a>
                         </c:when>
                         <c:otherwise>
-                            <a href="/job/job_readView?j_bno=${mj_list.j_bno }&page=${cri.page }&perPageNum=${cri.perPageNum }">
+                            <a href="/job/job_read?j_bno=${mj_list.j_bno }&page=${cri.page }&perPageNum2=${cri.perPageNum2 }">
                                 <img class="j_img" src="/upload/${mj_list.j_img }"/>
                             </a>
                         </c:otherwise>
                         </c:choose>
-                    </td> 
-                    <td>
-                        ${mj_list.j_title }<br>
-                        ${mj_list.j_company }<br>
-                        ${mj_list.j_day }&nbsp;${mj_list.j_start }:00 ~ ${mj_list.j_end }:00<br>
-                        ${mj_list.j_method }&nbsp;${mj_list.j_pay }<br>
-                        ${mj_list.j_addr1 }&nbsp;${mj_list.j_addr2 }
                     </td>
-                    <td>
-                        
+                    <td width="320px;">
+                        <font style="font-size: 20px;">${mj_list.j_title }</font><br>
+						${mj_list.j_company }<br>
                     </td>
+                    <td width="150px;" style="text-align: center">
+                        ${mj_list.j_date }
+                    </td>
+                    <td style="text-align: center">
+						<button type="button" class="resume" id="${mj_list.j_bno }">지원자</button>
+					</td>
                 </tr>
             </c:forEach>
-            </table>
+            </c:if>
             
-            <div style="text-align: center">
-                <c:if test="${pageMaker.prev }">
-                   <a href="my_jobList${pageMaker.makeSearch2(pageMaker.startPage - 1 )}">이전</a>
-                </c:if>
+            <c:if test="${empty my_jobList}">
+            <tr>
+            	<td colspan="4" style="text-align: center">
+				작성한 알바 구인 공고가 없습니다.            	
+            	</td>
+            </tr>
+            </c:if>
+         </table>
+            
+         <c:if test="${not empty my_jobList}">
+         <div style="text-align: center">
+             <c:if test="${pageMaker.prev }">
+                <a href="my_job${pageMaker.makeSearch2(pageMaker.startPage - 1 )}">이전</a>
+             </c:if>
                               
-                <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
-                &nbsp;<a href="my_jobList${pageMaker.makeSearch2(idx)}">${idx }</a>
-                </c:forEach>
+             <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+                &nbsp;<a href="my_job${pageMaker.makeSearch2(idx)}">${idx }</a>
+             </c:forEach>
                               
-                <c:if test="${pageMaker.next && pageMakerendPage > 0 }">
-                    <a href="my_jobList${pageMaker.makeSearch2(pageMaker.endPage + 1)}">다음</a>
-                </c:if>
-            </div>
-            </c:when>
-       
-            <c:otherwise><!-- 이거 되는지 실행안해봤음 -->
-                <div style="text-align: center">
-            	   작성한 게시글이 없습니다.
-                </div>
-            </c:otherwise>
-            </c:choose>
+             <c:if test="${pageMaker.next && pageMakerendPage > 0 }">
+                <a href="my_job${pageMaker.makeSearch2(pageMaker.endPage + 1)}">다음</a>
+             </c:if>
+          </div>
+          </c:if>
+          
        </div><!-- 미니콘 -->
    </form>
    </section>
