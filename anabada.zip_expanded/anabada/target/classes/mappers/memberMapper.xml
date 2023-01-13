@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="memberMapper">
+	<!-- 회원가입 -->
+	<insert id="register">
+		INSERT INTO a_member (id, pass, name, nick, tel, email, loca)
+				VALUES (#{id}, #{pass}, #{name}, #{nick}, #{tel}, #{email}, #{loca})
+	</insert>
+	
+	<!-- 아이디 중복 체크 -->
+	<select id="idChk" resultType="int">
+		SELECT COUNT(*)
+		FROM a_member
+		WHERE id = #{id}
+	</select>
+	
+	<!-- 닉네임 중복 체크 -->
+	<select id="nickChk" resultType="int">
+		SELECT COUNT(*)
+		FROM a_member
+		WHERE nick = #{nick}
+	</select>
+	
+	<!-- 닉네임 업데이트 중복 체크 -->
+	<select id="nickUpdateChk" resultType="int">
+		SELECT COUNT(1)
+		FROM a_member
+		WHERE nick = #{nick} and id != #{id}
+	</select>
+	
+	<!-- 로그인 -->
+	<select id="login" resultType="memberVO">
+		SELECT id, pass, name, nick, tel, email, loca
+		FROM a_member
+		WHERE id = #{id}
+		AND pass = #{pass}
+	</select>
+	
+	<!-- 회원 정보 수정 -->
+	<update id="memberUpdate">
+		UPDATE a_member
+		SET id = #{id},
+			name = #{name},
+			nick = #{nick},
+			tel = #{tel},
+			email = #{email},
+			loca = #{loca}
+		WHERE id = #{id}
+	</update>
+	
+	<!-- 회원 탈퇴 -->
+	<delete id="memberDelete">
+		DELETE FROM a_member
+		WHERE id = #{id}
+		AND pass = #{pass}
+	</delete>
+</mapper>

@@ -2,8 +2,6 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 <!DOCTYPE html>
 <html>
@@ -19,6 +17,8 @@
 <!-- 데이피커 -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <!--   <script src="https://code.jquery.com/jquery-3.6.0.js"></script> -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
   <!-- 여기까지 -->
 
@@ -193,6 +193,13 @@ input[type='file'] {
 
 <body>
 
+	<div>
+		<jsp:include page="../includes/nav.jsp" />
+	</div>
+	<div >
+		<jsp:include page="../includes/header.jsp" />
+	</div>
+
 	<form name="writeForm" enctype="multipart/form-data" method="post">
 		<input type="hidden" name="id" value="${id}">
 		<table style="margin-left: auto; margin-right: auto;">
@@ -250,7 +257,9 @@ input[type='file'] {
 	</form>
 
 
-
+<div id="footer">
+			<jsp:include page="../includes/footer.jsp" />
+		</div>
 
 
 

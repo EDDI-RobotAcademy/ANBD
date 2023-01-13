@@ -8,4 +8,7 @@ public interface ReviewService {
 
 	int review_chk(int pno) throws Exception;
 
+	// lev 점수 업데이트 
+	void updateLev(ReviewVO reviewVO) throws Exception;
+
 }

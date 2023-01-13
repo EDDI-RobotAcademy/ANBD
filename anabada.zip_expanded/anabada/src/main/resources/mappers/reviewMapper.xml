@@ -11,4 +11,9 @@ VALUES (#{pno}, #{r_seller}, #{r_consumer}, #{r_score}, #{r_content})
 <select id="count" parameterType="int" resultType="int">
 SELECT COUNT(PNO) FROM REVIEW WHERE PNO = #{pno}
 </select>
+
+<!-- Lev 업데이트 -->
+<update id="updateLev" parameterType="ReviewVO" >
+UPDATE A_MEMBER SET LEV = LEV + #{r_score} WHERE ID = #{r_seller}
+</update>
 </mapper>

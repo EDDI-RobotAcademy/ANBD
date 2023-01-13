@@ -5,6 +5,8 @@ import java.util.Map;
 
 import com.anabada.web.vo.PBoardVO;
 import com.anabada.web.vo.PfileVO;
+import com.anabada.web.vo.ReviewCriteria;
+import com.anabada.web.vo.ReviewVO;
 import com.anabada.web.vo.SearchCriteriapro;
 
 public interface ProductService {
@@ -60,6 +62,13 @@ public interface ProductService {
 
 	//pno, p_buy 전달해서 상품 판매 상태 변경 
 	public void change(Map<String, String> param) throws Exception;
+
+	// id에 해당하는 리뷰 반환 
+	public List<ReviewVO> reviewList(ReviewCriteria rescri) throws Exception;
+
+	public int reviewCount(ReviewCriteria rescri) throws Exception ;
+
+	
 
 
 	

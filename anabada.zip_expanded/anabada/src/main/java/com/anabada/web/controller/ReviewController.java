@@ -30,6 +30,8 @@ public class ReviewController {
     public boolean review_register(HttpServletResponse resp, @ModelAttribute ReviewVO reviewVO) throws Exception {
         
 		System.out.println("후기" + reviewVO);
+		//review에 해당하는 사람의 새싹점수 반영하기 
+		reviewService.updateLev(reviewVO); 
 		
 		reviewService.review_register(reviewVO);
 		

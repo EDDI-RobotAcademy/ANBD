@@ -3,6 +3,7 @@ package com.anabada.web.controller;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -34,6 +35,9 @@ import com.anabada.web.service.ProductService;
 import com.anabada.web.vo.PBPageMaker;
 import com.anabada.web.vo.PBoardVO;
 import com.anabada.web.vo.PfileVO;
+import com.anabada.web.vo.ReviewCriteria;
+import com.anabada.web.vo.ReviewPageMaker;
+import com.anabada.web.vo.ReviewVO;
 import com.anabada.web.vo.SearchCriteriapro;
 import com.anabada.web.vo.SimilerVO;
 import com.fasterxml.jackson.databind.util.JSONPObject;
@@ -107,12 +111,8 @@ public class ProductController {
 		HttpSession session = req.getSession();
 
 
-		session.setAttribute("id", "korea");
-
-
-		session.setAttribute("id", "korea");
-
 		session.setAttribute("id", "admin");
+		
 
 		List<PBoardVO> list = service.list(scri);
 		// list의 각각의 pno에 해당하는 사진 정보 가져오기
@@ -132,7 +132,6 @@ public class ProductController {
 		PBPageMaker pageMaker = new PBPageMaker();
 		pageMaker.setCri(scri);
 		pageMaker.setTotalCount(service.listCount(scri));
-		System.out.println("list count : "+ pageMaker.getTotalCount());
 		model.addAttribute("pageMaker", pageMaker);
 
 		return "product/list";
@@ -159,12 +158,13 @@ public class ProductController {
 	// 게시판 글조회
 	@RequestMapping(value = "/readView", method = RequestMethod.GET)
 	public String read(PBoardVO pboardVO, @ModelAttribute("scri") SearchCriteriapro scri, Model model,
-			HttpServletRequest req, HttpServletResponse res) throws Exception {
+			HttpServletRequest req, HttpServletResponse res, @ModelAttribute("rescri") ReviewCriteria rescri ) throws Exception {
 		HttpSession session = req.getSession();
 		String id = (String) session.getAttribute("id");
 		int pno = pboardVO.getPno();
 //		PBoardVO read = service.read(pboardVO.getPno());
 		PBoardVO read = service.read(pno);
+		
 
 		// User의 찜 여부 조회
 		Map<String, String> check = new HashMap<>();
@@ -204,7 +204,29 @@ public class ProductController {
 		// 유사 제품들의 사진 정보 담기
 		model.addAttribute("listImg", listImg); // 사진당 제일 먼저 올린 1장을 받아옴 (s_title, s_filePath)
 		
-		System.out.println("날짜 : "+read.getP_regdate());
+		
+		
+		//판매자 상점의 리뷰 담아오기 
+		if(read.getId() != null) { // 게시글 상세보기 클릭시 resci에 r_seller 세팅 
+			rescri.setR_seller(read.getId());  // rescri 에 serller 이름 세팅 
+		}
+		
+		System.out.println("리뷰 확인 : "+rescri);
+		List<ReviewVO> reviewList = service.reviewList(rescri) ;// id에 해당하는 리뷰 반환 
+		
+		model.addAttribute("reviewList",reviewList); // 리뷰를 담음 
+		
+		ReviewPageMaker pageMaker = new ReviewPageMaker();
+		pageMaker.setCri(rescri);
+		pageMaker.setTotalCount(service.reviewCount(rescri)); // 갯수 
+		model.addAttribute("pageMaker",pageMaker);
+		model.addAttribute("reviewList"+reviewList); // 리뷰 리스트 담기 
+		
+		
+		
+
+		
+		
 		
 		return "product/readView";
 	}
@@ -402,6 +424,7 @@ public class ProductController {
 		file.delete();
 
 	}
+	
 
 	
 

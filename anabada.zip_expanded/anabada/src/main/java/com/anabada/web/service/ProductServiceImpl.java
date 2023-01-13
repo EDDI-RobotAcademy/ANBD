@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.anabada.web.dao.PBoardDAO;
 import com.anabada.web.vo.PBoardVO;
 import com.anabada.web.vo.PfileVO;
+import com.anabada.web.vo.ReviewCriteria;
+import com.anabada.web.vo.ReviewVO;
 import com.anabada.web.vo.SearchCriteriapro;
 import com.anabada.web.vo.SimilarSearch;
 
@@ -166,6 +168,18 @@ public class ProductServiceImpl implements ProductService {
 	public void change(Map<String, String> param) throws Exception {
 		dao.change(param);
 		
+	}
+
+	// id에 해당하는 리뷰 반환 
+	@Override
+	public List<ReviewVO> reviewList(ReviewCriteria rescri) throws Exception {
+		return dao.reviewList(rescri);
+	}
+
+	@Override
+	public int reviewCount(ReviewCriteria rescri) throws Exception {
+		
+		return dao.reviewCount(rescri);
 	}
 
 	

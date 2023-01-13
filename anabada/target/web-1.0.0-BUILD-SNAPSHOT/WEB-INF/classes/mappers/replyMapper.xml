@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="replyMapper">
+
+<!-- 댓글 보기 -->
+<select id="readReply" resultType="replyVO">
+SELECT A_BNO, R_RNO, R_CONTENT, R_REGDATE, ID
+FROM A_REPLY
+WHERE A_BNO = #{a_bno}
+</select>
+
+<!-- 댓글 작성 -->
+<insert id="writeReply">
+INSERT INTO A_REPLY (
+	A_BNO, R_RNO, R_CONTENT, ID
+)
+VALUES (#{a_bno}, A_REPLY_SEQ.NEXTVAL, #{r_content}, #{id})
+</insert>
+
+<select id="selectReply" resultType="replyVO">
+SELECT A_BNO, R_RNO, R_CONTENT, R_REGDATE, ID
+FROM A_REPLY
+WHERE R_RNO = #{r_rno}
+</select>
+
+<update id="updateReply" parameterType="replyVO">
+UPDATE A_REPLY
+SET R_CONTENT = #{r_content}, R_REGDATE = #{r_regdate}
+WHERE R_RNO = #{r_rno}
+</update>
+
+<delete id="deleteReply" parameterType="replyVO">
+DELETE FROM A_REPLY
+WHERE R_RNO = #{r_rno}
+</delete>
+</mapper>

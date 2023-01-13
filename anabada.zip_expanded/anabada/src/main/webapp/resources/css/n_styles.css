@@ -417,17 +417,6 @@ a {
   line-height: 1.6;
 }
   
-.anw::before {
-  display: inline-block;
-  content: "";
-  left: 24px;
-  top: 28px;
-  width: 8px;
-  height: 9px;
-  background: url("../images/arw_reply.png") 0% 0% no-repeat;
-  background-size: 8px 9px;
-}
-
 .arrow-wrap {
   position: absolute;
   top:50%; right: 10px;

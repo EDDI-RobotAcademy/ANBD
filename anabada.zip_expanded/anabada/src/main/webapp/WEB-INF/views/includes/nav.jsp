@@ -10,8 +10,9 @@
 <meta name="theme-color" content="#ffffff">
 <meta charset="UTF-8">
 <title>아나바다</title>
-<link rel="stylesheet" href="<c:url value='/css/n_styles.css'/>">
-<!-- <script	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+<link rel="stylesheet" href="<c:url value='/css/r_styles.css'/>">
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -34,7 +35,7 @@
 	<!-- nav 영역 -->
 	<nav class="navbar navbar-border">
 		<form class="container" name='homeForm' method="post" action="/member/login">
-			<c:if test="${member == null}">
+			<c:if test="${id == null}">
 					<div class="nav-right">
 						<ul class="profile">
 							<li class="pro-li"><a href="/member/login">로그인</a></li>
@@ -43,11 +44,11 @@
 					</div>
 			</c:if>
 				
-			<c:if test="${member != null}">
+			<c:if test="${id != null}">
 				<div class="nav-right">
 					<ul class="profile">
 						<li class="pro-li">쪽지</li>
-						<li class="pro-li"><a href="/member/memberUpdateView"><b>${member.nick}</b> 님</a></li>
+						<li class="pro-li"><a href="/member/myPage"><b>${member.nick}</b> 님</a></li>
 						<li class="pro-li"><a href="/member/logout">로그아웃</a></li>
 						<li class="pro-li"><a href="/help_board/list">고객센터</a></li>
 					</ul>

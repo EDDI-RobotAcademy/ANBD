@@ -101,6 +101,26 @@
 	border-radius: 20px;
 	color: #707070;
 }
+
+
+.homeArea{
+
+width: 1000px;
+margin: auto;
+margin-top: 30px;
+padding-top: 30px;
+padding-bottom: 30px;
+border-radius: 20px;
+
+  box-shadow: 0px 5px 5px 5px #DEDEDE;
+  background-color: white;
+  
+
+}
+
+
+
+
 </style>
 </head>
 
@@ -108,11 +128,22 @@
 
 <body>
 
+	<div>
+		<jsp:include page="../includes/nav.jsp" />
+	</div>
+	<div >
+		<jsp:include page="../includes/header.jsp" />
+	</div>
+	</div>
 
-	<form name="readForm" role="form">
+
+<div  style="background-color: #EEEEEE; padding-top: 50px;  " >
+
+	<form name="readForm" role="form" >
 		<input type="hidden" name="eno" value="${read.eno}">
 		<!--================광고 이미지 칸  =================-->
-		<section class="home_banner_area">
+		<!-- <section class="home_banner_area"   > -->
+		<section class="homeArea" >
 
 			<div class="container box_1620" style="width: 1000px;">
 				<c:if test="${id=='admin' }">
@@ -268,7 +299,7 @@
 					</div>
 
 					<c:if test="${read.e_winner != null }">
-						<div class="col-lg-6" style="width: 585px; height: 348px; border: 1px #E6E6E6 solid; border-radius: 8px;">
+						<div class="col-lg-6" style="width: 585px; height: 348px; border: 1px #CDCDCD solid; border-radius: 8px;">
 							<div class="tools_expert">
 								<div class="skill_main" style="text-align: center;">
 									<span style="font-weight: bold; font-size: 20px;">[ 당첨자 발표 ]</span>
@@ -284,7 +315,10 @@
 		<!--================참여정보 칸  =================-->
 
 	</form>
-
+	</div>
+	<div id="footer">
+			<jsp:include page="../includes/footer.jsp" />
+		</div>
 
 	<!-- 슬라이드 -->
 	<script src="../resources/eve_list/js/jquery-3.3.1.min.js"></script>
