@@ -20,6 +20,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.anabada.web.vo.NoteVO" alias="NoteVO" />
 		<typeAlias type="com.anabada.web.vo.JheartVO" alias="JheartVO" />
 		
+		<typeAlias type="com.anabada.web.vo.HeartVO"   alias="HeartVO" />
 		<typeAlias type="com.anabada.web.vo.PBoardVO"
 			alias="PBoardVO" />
 		<typeAlias type="com.anabada.web.vo.PfileVO" alias="PfileVO" />
@@ -30,6 +31,16 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.anabada.web.vo.HelpVO" alias="helpVO"/>
 		<typeAlias type="com.anabada.web.vo.QnaVO" alias="qnaVO"/>
 		<typeAlias type="com.anabada.web.vo.QnaReplyVO" alias="qnareplyVO"/>
+		
+		<typeAlias type="com.anabada.web.vo.ReviewVO" alias="ReviewVO"/>
+		
+		<typeAlias type="com.anabada.web.vo.ABoardVO" alias="boardVO"/>
+		<typeAlias type="com.anabada.web.vo.AReplyVO" alias="replyVO"/>
+		<typeAlias type="com.anabada.web.vo.KakaoVO" alias="kakaoVO"/>
+		<typeAlias type="com.anabada.web.vo.ALikeVO" alias="likeVO"/>
+		
+		
+		
 	</typeAliases>
 
 </configuration>

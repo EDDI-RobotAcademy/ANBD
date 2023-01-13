@@ -120,7 +120,7 @@ public class MemberController {
 			
 		} else {
 			session.setAttribute("member", login);
-			session.setAttribute("id", login);
+			session.setAttribute("id", login.getId());
 			logger.info("member: " +  login);
 		}
 		return "redirect:/";

@@ -30,10 +30,12 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.anabada.web.service.EventService;
+import com.anabada.web.service.NoteService;
 import com.anabada.web.vo.EfileVO;
 import com.anabada.web.vo.EvPageMaker;
 import com.anabada.web.vo.EvSearchCriteria;
 import com.anabada.web.vo.EventBoardVO;
+import com.anabada.web.vo.NoteVO;
 import com.anabada.web.vo.PfileVO;
 import com.anabada.web.vo.SearchCriteriapro;
 
@@ -50,6 +52,11 @@ public class EventController {
 
 	@Inject
 	EventService service;
+	
+	@Inject
+	NoteService noteService;
+	
+	
 
 	// 이벤트 게시판에서 게시글 쓰기 눌렀을때
 	@RequestMapping(value = "/writeView", method = RequestMethod.GET)
@@ -203,70 +210,71 @@ public class EventController {
 
 	}
 
-	// 당첨자 발표 게시글번호 eno , 당첨자수 num 이 넘어온다.
 	@RequestMapping(value = "/winner")
-	@ResponseBody
-	public Map<String, String> winner(@RequestParam Map<String, String> param) throws Exception {
-		logger.info("winner");
-		Map<String, String> winner = new HashMap<>();
-		int num = Integer.parseInt(param.get("num"));
-		int eno = Integer.parseInt(param.get("eno"));
-		//int num = param.get("num"); // 당첨자 수
-		//int eno = param.get("eno");
-		/*
-		 * 1. 설정된 당첨자 보다 응모인원이 적은 경우 : 모든 인원 당첨으로 돌리기 2. 설정된 당첨자 보다 응모 인원이 많은 경우 랜덤으로
-		 * 당첨자를 선택해서 리턴하기
-		 * 
-		 */
-		
+	   @ResponseBody
+	   public Map<String, String> winner(@RequestParam Map<String, String> param) throws Exception {
+	      logger.info("winner");
+	      Map<String, String> winner = new HashMap<>();
+	      int num = Integer.parseInt(param.get("num"));
+	      int eno = Integer.parseInt(param.get("eno"));
+	      //int num = param.get("num"); // 당첨자 수
+	      //int eno = param.get("eno");
+	      /*
+	       * 1. 설정된 당첨자 보다 응모인원이 적은 경우 : 모든 인원 당첨으로 돌리기 2. 설정된 당첨자 보다 응모 인원이 많은 경우 랜덤으로
+	       * 당첨자를 선택해서 리턴하기
+	       * 
+	       */
+	      
 
-		int total = service.getTotal(eno); // 총 응모자 수
-		StringBuilder sb = new StringBuilder();
-		if (num >= total) { // 당첨자 >= 응모자 (모든사람 당첨시키기)
+	      int total = service.getTotal(eno); // 총 응모자 수
+	      StringBuilder sb = new StringBuilder();
+	      if (num >= total) { // 당첨자 >= 응모자 (모든사람 당첨시키기)
 
-			List<String> winnerList = service.getAll(eno); // 모든 사람의 id 불러움
+	         List<String> winnerList = service.getAll(eno); // 모든 사람의 id 불러움
 
-			for (String win : winnerList) {
-				sb.append(win);
-				sb.append(", ");
-			}
+	         for (String win : winnerList) {
+	            sb.append(win);
+	            sb.append(", ");
+	         }
 
-		} else { // 당첨자(num) < 응모자(e_total)
+	      } else { // 당첨자(num) < 응모자(e_total)
 
-			Random r = new Random();
-			int random[] = new int[num]; // 랜덤된 당첨자의 번호를 적음 
-			for (int i = 0; i < num; i++) {
-				random[i] = r.nextInt(total) + 1;
+	         Random r = new Random();
+	         int random[] = new int[num]; // 랜덤된 당첨자의 번호를 적음 
+	         for (int i = 0; i < num; i++) {
+	            random[i] = r.nextInt(total) + 1;
 
-				for (int j = 0; j < i; j++) {
-					if (random[i] == random[j]) {
-						i--;
-					}
-				}
-			}
+	            for (int j = 0; j < i; j++) {
+	               if (random[i] == random[j]) {
+	                  i--;
+	               }
+	            }
+	         }
 
-			// 각번호에 해당하는 사람들의 id를 뽑아오기 
-			for(int i : random) {
-				System.out.println("숫자 : "+i);
-				sb.append(service.getWin(i));
-				sb.append(", ");
-				
-			}
-		}
-		
-		//db에 winenr 저장 
-		System.out.println("당첨자 : "+sb);
-	
-		EventBoardVO vo = new EventBoardVO();
-		vo.setEno(eno);
-		vo.setE_winner(sb.toString());
-		
-		service.winner(vo); 
-		
-		winner.put("winlist", sb.toString());
+	         // 각번호에 해당하는 사람들의 id를 뽑아오기 
+	         for(int i : random) {
+	            System.out.println("숫자 : "+i);
+	            sb.append(service.getWin(i));
+	            sb.append(", ");
+	            
+	         }
+	         
+	      }
+	      
+	      //db에 winenr 저장 
+	      System.out.println("당첨자 : "+sb);
+	   
+	      EventBoardVO vo = new EventBoardVO();
+	      vo.setEno(eno);
+	      vo.setE_winner(sb.toString());
+	      
+	      service.winner(vo); 
+	      
+	      winner.put("winlist", sb.toString());
 
-		return winner;
-	}
+	      return winner;
+	   }
+	   
 	
 	
 	//이벤트 게시글 수정하기 클릭했을때 
