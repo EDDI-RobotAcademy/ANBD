@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="likeMapper">
+
+<select id="likeCheck" parameterType="java.util.HashMap" resultType="int">
+SELECT COUNT(LIKE_CHK) FROM A_LIKE WHERE ID = #{id} AND A_BNO = #{a_bno}
+</select>
+
+<insert id="insertLike" parameterType="java.util.HashMap">
+INSERT INTO A_LIKE (LIKE_NO, LIKE_CHK, ID, A_BNO)
+VALUES (A_LIKE_SEQ.NEXTVAL, 1, #{id}, #{a_bno})
+</insert>
+
+<!-- <delete id="deleteLike" parameterType="likeVO">
+DELETE FROM A_LIKE WHERE ID = #{id} AND A_BNO = #{a_bno} 
+</delete> -->
+</mapper>
