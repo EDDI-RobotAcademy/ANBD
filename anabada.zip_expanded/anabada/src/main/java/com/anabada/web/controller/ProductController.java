@@ -54,6 +54,8 @@ public class ProductController {
 	private static final String CURR_IMAGE_REPO_PATH = "C:\\pimages\\";
 	@Inject
 	ProductService service;
+	@Inject
+	NoteService noteService;
 
 	@RequestMapping(value = "/writeView", method = RequestMethod.GET)
 	public String writeView(HttpServletRequest req, HttpServletResponse res) {
@@ -111,7 +113,7 @@ public class ProductController {
 		HttpSession session = req.getSession();
 
 
-		session.setAttribute("id", "admin");
+		session.setAttribute("id", "korea");
 		
 
 		List<PBoardVO> list = service.list(scri);
@@ -223,7 +225,16 @@ public class ProductController {
 		model.addAttribute("reviewList"+reviewList); // 리뷰 리스트 담기 
 		
 		
-		
+		   logger.info("해당 중고게시글에 쪽지한 사람들 목록");
+		      System.out.println("중고게시물 번호: " + pboardVO.getPno());
+		      
+		      Map<String, Object> map = new HashMap<String, Object>();
+		       map.put("id", id);
+		      map.put("n_rno", pboardVO.getPno()); // 중고게시글 번호
+		      map.put("n_type", "no"); // 게시글에 관한 일반 쪽지
+		      
+		      List<String> members = noteService.get_members(map);
+		      model.addAttribute("m_list", members);
 
 		
 		
