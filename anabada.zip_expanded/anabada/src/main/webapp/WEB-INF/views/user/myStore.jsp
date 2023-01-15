@@ -140,6 +140,7 @@ padding-bottom: 10px;
 	<!-- header end  -->
 
 
+<div style="width: 1500px;" >
 	<form action="">
 	
 		<table style="margin: auto; width: 602px; " id="totalTable"  >
@@ -221,6 +222,7 @@ padding-bottom: 10px;
 
 
 	</form>
+	</div>
 
 	<!-- footer -->
 	<div id="footer">

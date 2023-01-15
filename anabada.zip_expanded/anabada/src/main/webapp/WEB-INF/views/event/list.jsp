@@ -85,7 +85,7 @@
 		</div>
 
 		<div class="container">
-			<div class="gallery_f_inner row imageGallery1">
+			<div  style="width: 1200px;"  class="gallery_f_inner row imageGallery1">
 
 
 
