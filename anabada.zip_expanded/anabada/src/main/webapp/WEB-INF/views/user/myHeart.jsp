@@ -127,7 +127,7 @@
 	<!-- header end  -->
 
 
-
+<div style="width: 1500px;" >
 
 	<form action="">
 
@@ -216,6 +216,7 @@
 
 
 	</form>
+	</div>
 
 	<!-- footer -->
 	<div id="footer">

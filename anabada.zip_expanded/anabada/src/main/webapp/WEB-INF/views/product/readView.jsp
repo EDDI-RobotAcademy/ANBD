@@ -243,6 +243,12 @@ color: white;
 font-size:11px;
 padding:  0px 2px 0px 2px;
 }
+#alarm{
+   background:  no-repeat;
+   border: none;
+ 
+  
+}
 
 </style>
 <script type="text/javascript">
@@ -572,7 +578,7 @@ padding:  0px 2px 0px 2px;
             success : function(res) {
             },
             error : function(request, status, error) {
-               alert("error:" + error);
+             
             }
          });
       }); //상품 상태 변경 끝 
@@ -649,8 +655,7 @@ padding:  0px 2px 0px 2px;
       
       //모달 끝 
       
-      
-      
+   
       
       
       
@@ -675,6 +680,31 @@ padding:  0px 2px 0px 2px;
       }
    }
  
+   function complaint() {
+	   alert("신고버튼 클릭");
+	
+	  
+	   if(  "${id}" ==""){
+		   alert('로그인 후 이용해주세요');
+		   return; 
+	   }else{
+		   if(confirm("게시글을 신고하시겠습니까?")){
+			   
+			   window.open("/product/report?pno=${read.pno}", "신고", "width=400, height=600, left=0, top=0");
+			   
+		   }else{
+			   return;
+		   }
+		   
+	   }
+	   
+	   
+	   
+	   
+	   
+	   
+	
+}
    
 </script>
 
@@ -733,7 +763,7 @@ padding:  0px 2px 0px 2px;
                         <img src="../resources/images/edit.png" style="width: 40px; height: 40px;">
                      </button>
                      <button id="delbtn" style="background-color: white; border: none;" title="삭제">
-                        <img src="../resources/images/garbage.png" style="width: 40px; height: 40px;">
+                       <img src="../resources/images/garbage.png" style="width: 40px; height: 40px;"> 
                      </button>
 
                   </c:if>
@@ -802,7 +832,7 @@ padding:  0px 2px 0px 2px;
                         </select>
                      </c:when>
                      <c:otherwise>
-                        <div     id="userBK"  > </div>
+                        <div   id="userBK"  > </div>
 
                      </c:otherwise>
 
@@ -813,19 +843,22 @@ padding:  0px 2px 0px 2px;
             
 
             <tr>
-               <td colspan="4">
-                  <hr>
+               <td colspan="4"  >
+                  <hr style="margin-top: 0px; margin-bottom: 0px; " >
                </td>
             </tr>
 
 
 
-            <tr>
+            <tr height="60px;" >
                <td>&nbsp;</td>
-               <td><span style="font-size: 30px;">👀</span> ${read.p_count }</td>
-               <td>&nbsp;</td>
-               <td><span style="color: red; font-size: 30px;"> ❤</span>
+               <td ><span style="font-size: 20px;">👀</span> ${read.p_count }
+               &nbsp;&nbsp;&nbsp;
+               <span style="color: red; font-size: 20px;"> ❤</span>
                   <div style="display: inline-block;" id="heartCh">${read.p_heart }</div> <br></td>
+                  <td>&nbsp;</td>
+                   
+                  <td>  <button type="button"  id="alarm" onclick="complaint()" > <img width="30px;" height="30px;" src="../resources/images/u_alarm.png"> <font style="color: gray; " > 신고하기 </font>   </button>  </td>
 
             </tr>
 

@@ -109,12 +109,9 @@ public class ProductController {
 
    // 게시판 목록 조회
    @RequestMapping(value = "/list", method = RequestMethod.GET)
-   public String list(Model model, @ModelAttribute("scri") SearchCriteriapro scri, HttpServletRequest req,
-         HttpServletResponse res) throws Exception {
-      HttpSession session = req.getSession();
-
-
-      //session.setAttribute("id", "korea");
+   public String list(Model model, @ModelAttribute("scri") SearchCriteriapro scri
+         ) throws Exception {
+    
       
 
       List<PBoardVO> list = service.list(scri);
@@ -375,7 +372,14 @@ public class ProductController {
        service.change(param); // pno , p_buy 전달 
    }
    
-   
+	//신고 팝업 띄우기
+	@RequestMapping(value = "/report", method = RequestMethod.GET)
+	public String report(@RequestParam int pno,Model model) {
+	
+		model.addAttribute("pno",pno);
+		
+		return "product/report";
+	}
    
    
 
