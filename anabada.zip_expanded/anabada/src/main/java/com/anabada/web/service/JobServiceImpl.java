@@ -116,12 +116,13 @@ public class JobServiceImpl implements JobService {
 	public int heart_jobListCount(String id) throws Exception {
 		return dao.heart_jobLisCount(id);
 	}
-	
-	// 알바찜에 있는 알바 게시물 목록
+
+	// 알바 찜 삭제
 	@Override
-	public List<JobVO> heart_jobBoard(int[] heart_array) throws Exception {
-		return dao.heart_jobBoard(heart_array);
+	public void heart_delete(int[] delete_array) throws Exception {
+		dao.heart_delete(delete_array);
 	}
+	
 
 
 }

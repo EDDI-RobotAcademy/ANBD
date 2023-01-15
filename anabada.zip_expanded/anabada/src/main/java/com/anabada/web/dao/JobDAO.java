@@ -44,6 +44,7 @@ public interface JobDAO {
 
 	public int heart_jobLisCount(String id) throws Exception;
 
-	public List<JobVO> heart_jobBoard(int[] heart_array) throws Exception;
+	public Object heart_delete(int[] delete_array) throws Exception;
+
 	
 }

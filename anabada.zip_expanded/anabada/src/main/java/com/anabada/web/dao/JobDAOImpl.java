@@ -119,11 +119,10 @@ public class JobDAOImpl implements JobDAO{
 		return sqlSession.selectOne("jobMapper.h_listCount", id);
 	}
 
-	// 알바 찜 목록에 저장된 알바 게시물들 목록 불러오기
 	@Override
-	public List<JobVO> heart_jobBoard(int[] heart_array) throws Exception {
-		return sqlSession.selectList("jobMapper.h_list", heart_array);
+	public Object heart_delete(int[] delete_array) throws Exception {
+		return sqlSession.delete("jobMapper.h_delete", delete_array);
 	}
-	
+
 
 }

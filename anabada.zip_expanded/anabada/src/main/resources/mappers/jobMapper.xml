@@ -154,13 +154,15 @@ ORDER BY H_BNO DESC
 SELECT COUNT(H_BNO) FROM HEART_JOB WHERE ID = #{id}
 </select>
 
-<select id="h_list" parameterType="java.util.ArrayList" resultType="JobVO">
-SELECT * FROM JOB_BOARD WHERE J_BNO IN(
-	<foreach collection="array" item="item" index="index" separator=",">
-		#{item}
-    </foreach>
+<delete id="h_delete" parameterType="java.util.ArrayList" >
+DELETE FROM HEART_JOB 
+WHERE J_BNO IN (
+	<foreach collection="array" item="item" index="index" separator="," >   
+	#{item}
+	</foreach>
 )
-</select>
+</delete>
+
 
 
 
