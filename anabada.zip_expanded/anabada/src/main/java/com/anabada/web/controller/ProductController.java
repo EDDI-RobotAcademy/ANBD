@@ -380,6 +380,12 @@ public class ProductController {
 		
 		return "product/report";
 	}
+	
+	
+	@RequestMapping(value = "/sumit_report", method = RequestMethod.POST)
+	public void report_submit(@RequestParam int pno, @RequestParam String c_content,@RequestParam String id) {
+		
+	}
    
    
 

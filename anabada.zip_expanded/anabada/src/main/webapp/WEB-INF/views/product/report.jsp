@@ -109,18 +109,49 @@ $(document).ready(function() {
 function reportSubmit() {
 	var chkValue = document.getElementsByName("report");
 	
-	for(var i=0; i<chkValue.length; i++) {
-		if(chkValue[i].checked == true) {
-			location.href="#";
+	var	 c_content="";
+		
+		if($('input:radio[name=report]').is(':checked')) {
+		 var inputValue = $("input[name='report']:checked").val(); // 체크한 것의 value
+		
+		 if(inputValue=="1"){
+			 c_content ="판매 금지 물품 판매";
+		 }else if(inputValue=="2"){
+			 c_content ="홍보,영리목적";
+		 }else if(inputValue=="3"){
+			 c_content ="불법 정보";
+		 }else if(inputValue=="4"){
+			 c_content ="음란, 청소년 유해";
+		 }else if(inputValue=="5"){
+			 c_content ="사기 글이에요";
+		 }else if(inputValue=="6"){
+			 c_content ="도배 스팸";
+		 }else if(inputValue=="7"){
+			 c_content =$("#reson").val();
+		 }
+		 
+			
+			$("#c_content").attr('value', c_content);
+		 
+		 
+		 alert(c_content);
+		 $("form[name='reportForm']").submit();
 		}
 		else{
 			window.open("/a_board/reportError", "경고", "width=250, height=100, left=50, top=50");
 		}
-	}
+	
 }
 </script>
 </head>
 <body>
+<form  name="reportForm" action="/product/sumit_report" method="post" >
+
+<!-- 넘길 정보 값들 -->
+<input   type="hidden" name="pno" value="${pno}" >
+<input   type="hidden" name="id" value="${id}" >
+<input type="hidden" name="c_content"  id="c_content" >
+
 	<!-- 신고 팝업창 -->
 	<div class="report-background">
 	<h3>신고하기</h3>
@@ -196,12 +227,13 @@ function reportSubmit() {
 
 	<label for="report7"><input type="radio" name="report" id="report7" value="7"> 기타 </label> 
 	<div id="7c" style="display:none;">
-		<textarea cols="45" rows="3" placeholder="신고 사유 직접 입력 (최대 250자)"></textarea>
+		<textarea cols="45" rows="3"  id="reson" placeholder="신고 사유 직접 입력 (최대 250자)"></textarea>
 	</div>
 	</div>
+	</form>
 
 	<!-- 신고, 취소 버튼 -->
-	<button type="submit" onclick="reportSubmit();">신고</button>
+	<button type="button" onclick="reportSubmit();">신고</button>
 	<button type="reset" onclick="javascript:window.close();">취소</button>	
 
 	<p id="warn"></p>
