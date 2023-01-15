@@ -140,7 +140,7 @@
 	          	dataType : "json",
 	          	traditional : true,
 	            data : {
-	            	n_rno: ${n_read.n_rno}
+	            	pno: ${n_read.n_rno}
 	            },
 	            success:function(chk){
 	                if(chk == 1){

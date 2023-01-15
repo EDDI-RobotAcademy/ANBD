@@ -285,7 +285,7 @@ $(document).ready(function () {
 				<tr>
 					<td colspan="2">
 					<input type="checkbox" class="essential" checked>&nbsp;(필수)개인정보 수집 및 이용 동의<br>
-					<input type="checkbox" class="essential" checked>&nbsp;(필수)개인정보 제 2자 제공 동의
+					<input type="checkbox" class="essential" checked>&nbsp;(필수)개인정보 제 3자 제공 동의
 					<br>
 					<div id="e_null"></div>
 					</td>

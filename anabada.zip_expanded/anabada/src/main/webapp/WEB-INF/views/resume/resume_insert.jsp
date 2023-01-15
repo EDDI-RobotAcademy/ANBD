@@ -14,7 +14,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="<c:url value='/css/j_styles.css'/>">
+<link rel="stylesheet" href="../resources/css/j_styles.css">
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function () {
@@ -153,7 +153,7 @@
 </script>
 <style>
 	table{
-		width: 900px;
+		width: 100%;
 		margin: auto;
 	}
 	tr, td{ 
@@ -185,7 +185,6 @@
     </div>
     
     <section class="container">
-	    <div class="minicon">
 		<form action="/resume/resume_insert" method="post">
 			<input type="hidden" name="id" value="${id }">
 			<input type="hidden" name="j_bno" value="${j_read.j_bno }">
@@ -270,8 +269,8 @@
 				
 				<tr>
 					<td colspan="2">
-					<input type="checkbox" class="essential">&nbsp;(필수)개인정보 수집 및 이용 동의<br>
-					<input type="checkbox" class="essential">&nbsp;(필수)개인정보 제 2자 제공 동의
+					<input type="checkbox" class="essential" style="display: inline-block;">&nbsp;(필수)개인정보 수집 및 이용 동의<br>
+					<input type="checkbox" class="essential" style="display: inline-block;">&nbsp;(필수)개인정보 제 3자 제공 동의
 					<br>
 					<div id="e_null"></div>
 					</td>
@@ -285,7 +284,6 @@
 			</table>
 			<br>
 		</form>
-		</div>
 	</section>
 	
 	<!-- 모달내용 -->
