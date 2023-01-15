@@ -68,6 +68,7 @@
       padding: 10px;
    }
    
+   
 </style>
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
@@ -181,7 +182,7 @@
             	
         		<tr>
         			<td style="text-align: center">
-                  		<input type="checkbox" name="delete" value="0" id="delete_all">
+                  		<input type="checkbox" name="delete" value="0" id="delete_all" style="display: inline-block;">
                		</td>
         			<td colspan="2" style="text-align: center">내용</td>
         			<td style="text-align: center">등록일</td>
@@ -191,7 +192,7 @@
                 <c:forEach var="h_list" items="${h_list}">
                 <tr>
                 	<td style="text-align: center" width="10px;">
-                  		<input type="checkbox" name="delete" class="delete" value="${h_list.j_bno}">
+                  		<input type="checkbox" name="delete" class="delete" value="${h_list.j_bno}" style="display: inline-block;">
                		</td>
 				   	<td style="width: 100px;">
                         <c:choose>

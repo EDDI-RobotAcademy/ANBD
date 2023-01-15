@@ -195,15 +195,6 @@
 			}else{
 				$("#se_null").text("");
 			}
-			
-			// 10.내용 null 체크
-			if(content == ""){
-				$("#con_null").text("내용을 작성해주세요.");
-	    		$("#con_null").css("color", "red");
-	    		return false;
-			}else{
-				$("#con_null").text("");
-			}
 		
 		});
 	

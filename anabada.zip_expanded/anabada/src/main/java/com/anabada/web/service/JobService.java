@@ -45,7 +45,8 @@ public interface JobService {
 
 	public int heart_jobListCount(String id) throws Exception;
 
-	public List<JobVO> heart_jobBoard(int[] heart_array) throws Exception;
+	public void heart_delete(int[] delete_array) throws Exception;
+
 
 	
 	

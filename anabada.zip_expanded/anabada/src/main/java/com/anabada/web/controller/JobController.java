@@ -1,6 +1,7 @@
 package com.anabada.web.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -311,17 +312,17 @@ public class JobController {
 		map.put("rowStart2", cri.getRowStart2());
 		map.put("rowEnd2", cri.getRowEnd2());
 		
-		List<JheartVO> heart_list = jobService.heart_jobList(map);
-		int[] heart_array =  new int[heart_list.size()];
+		List<JheartVO> list = jobService.heart_jobList(map); // 유저가 찜한 j_bno 받아옴
+		List<JobVO> h_list =  new ArrayList<JobVO>(); // 찜 목록 담을 리스트
 		
-		if(heart_list.size() != 0) { // 찜목록이 있을 때만 실행
+		if(list.size() != 0) { // 찜목록이 있을 때만 실행
 			
-			for(int i = 0; i < heart_list.size(); i++) {
-			    JheartVO jheartVO = heart_list.get(i);
-				heart_array[i] = jheartVO.getJ_bno();
+			for(int i = 0; i < list.size(); i++) {
+			    int j_bno = list.get(i).getJ_bno(); 
+				JobVO jobVO = jobService.job_read(j_bno);
+				h_list.add(jobVO);
 			}
 			
-			List<JobVO> h_list = jobService.heart_jobBoard(heart_array);
 			model.addAttribute("h_list", h_list);
 		}
 		
@@ -332,6 +333,22 @@ public class JobController {
 		
 		return "/job/heart_job";
 		
+	}
+	
+	// 마이페이지 게시물 삭제 ajax
+	@RequestMapping(value = "/delete_chk2.ajax", method = RequestMethod.GET)
+	@ResponseBody
+	public boolean delete_chk2(HttpServletResponse resp, @RequestParam(value="delete_array") int[] delete_array, 
+			HttpSession session) throws Exception{
+				
+		logger.info("찜 목록에서 삭제 눌렀음"); 
+		// 페이징 처리 안해줬음 
+				
+		jobService.heart_delete(delete_array); // 마이페이지 게시물들 번호 배열로 받아서 삭제
+		logger.info("삭제 성공");
+			
+		boolean result = true;
+		return result;
 	}
 	
 }
