@@ -257,5 +257,22 @@ public class NoteController {
 		boolean result = true;
 		return result;
     }
+    
+    
+    // 쪽지 신고하기 창 뜨게하기
+    @RequestMapping(value = "/note_report", method = RequestMethod.GET)
+	public String note_report(@RequestParam int n_bno, Model model) {
+	
+		model.addAttribute("n_bno", n_bno);
+		
+		return "/note/report";
+	}
+    
+    
+    // 쪽지 디비에 저장하기
+    @RequestMapping(value = "/report_insert", method = RequestMethod.GET)
+    public void report_insert() {
+    	
+    }
 	
 }

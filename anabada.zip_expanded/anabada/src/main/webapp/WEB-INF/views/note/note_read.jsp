@@ -10,7 +10,7 @@
 <link rel="shortcut icon" href="resources/images/favicon.ico">
 <link rel="manifest" href="resources/images/manifest.json">
 <meta name="theme-color" content="#ffffff">
-<link rel="stylesheet" href="<c:url value='/css/n_styles.css'/>">
+<link rel="stylesheet" href="../resources/css/n_styles.css">
 <meta charset="UTF-8">
 <title>쪽지 상세보기</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -104,6 +104,10 @@
 	    		$("#n_receiver").attr("placeholder", "받는 아이디를 작성해주세요.");
 	    		return false;
 	    	}
+	    	if($("#n_receiver").val() == '${id}'){
+	        	  alert("자기에게 쪽지를 보낼 수 없습니다.");
+	        	  return false;
+	        }
 	    	
 	        $.ajax({
 	            type: "get",
@@ -184,77 +188,14 @@
 	    });
 		
 		
+		// 신고버튼 눌렀을 때
+		$("#report").click(function(){
+			window.open("/note/note_report?n_bno=${n_read.n_bno}", "신고", "width=400, height=600, left=0, top=0");
+		});		   
+		
+		
 	})
 </script>
-<style type="text/css">
-	.n_read{
-		margin: auto;
-      	width: 100%;
-    	
-	}
-	.n_read tr, .n_read td{
-		 border-bottom: 1px solid #e5e5e5;
-      	 padding: 10px;
-	}
-	
-	.d_btn {
-	  all: unset;
-	  width: 45px;
-	  height: 30px;
-	  border-radius: 2px 2px;
-	  color: black;
-	  font-size: 15px;
-	  text-align: center;
-	  cursor: pointer;
-	  border: 1px solid gray;
-   }
-   
-   input[name=who]{
-   	   display: none;
-   	   margin: 10px; 
-   }
-   
-   input[name=who] + label{
-   	   display: inline-block;
-   	   margin:-2px;
-   	   padding: 8px 10px;
-   	   background-color: #f5f5f5;
-   	   border: 1px solid #ccc;
-   	   font-size: 13px !important;
-   	   width: 110px;
-   	   text-align: center;
-   }
-   
-   label{ /*보낸 쪽지함, 받은 쪽지함 선택할 떄 마우스 모양 바뀌게*/
-   	   cursor: pointer;
-   }
-   
-   input[type=who]:radio + label{
-   	   background-image: none;
-   	   background-color: #3598dc;
-	   color:#fff;
-   }
-   
-   .myImg {
-       background-color: #f9f9f9; 
-       text-align: center; 
-       padding-bottom: 5px; 
-       border-bottom: 1px solid #e9e9e9; 
-       border-top: 1px solid #e9e9e9;
-   }
-   .p_img { 
-      width: 110px;
-      height: 110px;
-      border-radius: 10px;
-   }
-   
-   /*후기 테이블*/
-   .review_table{
-   	  width: 100%
-   }
-   
-
-</style>
 </head>
 <body>
 	<div>
@@ -268,7 +209,7 @@
 	<section class="container">
 	<form name="readForm">
 		<!-- 좌측 바 -->
-		<div class="sidemenu">
+		<div class="sidemenu3">
         	<div class="myImg">
         		<img src="../resources/images/아나바다2.png" width="150px" height="150px"/>
         		<br>
@@ -294,13 +235,16 @@
         </div>
 		
 		<!-- 내용 부분 -->
-		<div class="minicon" style="background-color: white; border-top: 1px solid #e9e9e9; border-left: 1px solid #e9e9e9">
+		<div class="minicon3">
 			<table class="n_read">
 				<tr>
 					<td colspan="2">
 						<button type="button" name="n_delete" class="d_btn">삭제</button>
 						<button type="button" name="n_reply" class="d_btn">답장</button>
 						<button type="button" name="list" class="d_btn">목록</button>
+						<c:if test="${scri.who eq 'receive'}">
+						<button type="button" id="report" class="d_btn">신고</button>
+						</c:if>
 					</td>
 				</tr>
 				<c:choose>
