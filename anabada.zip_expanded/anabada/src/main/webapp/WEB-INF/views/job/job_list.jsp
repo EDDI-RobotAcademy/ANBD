@@ -50,7 +50,7 @@
    /*선택검색*/
    .search{
       margin: auto; 
-      width: 1000px;
+      width: 1500px;
    }
    .search label{
       padding: 10px;
@@ -74,22 +74,22 @@
    
    /*레이아웃*/
    #wapper {
-      width: 1200px;
+      width: 1700px; /*1500px + 플로팅 배너까지 포함 = 1700px */
       margin: auto;
       height: auto;
    }
-   .nav, .aside, .section {
+   .nav, .section {
       margin: 3px;/*간격*/
    }
    .nav, .section, .aside {
       float: left;
    }
    .nav {
-      width: 70px;
+      width: 0px;
    }
    .section {
       /* background-color: #f9f9f9;    */
-      width: 1000px; 
+      width: 1500px; 
       border: 0px; 
       border-collapse: collapse;
    }

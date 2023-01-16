@@ -38,7 +38,7 @@
     	border-radius: 0.25rem;
     }
     table.r_list{
-    	width: 1000px;
+    	width: 100%;
     }
     .r_list tr,.r_list th,.r_list td{
     	border-top: 1px solid #ced4da;
@@ -63,7 +63,6 @@
     </div>
     
     <section class="container">
-	    <div class="minicon">
 		<table class="r_list">
 		
 			<tr>
@@ -131,7 +130,7 @@
 			
 			<!-- 페이징 -->
 			<tr>
-				<td colspan="6" style="text-align: center">
+				<td colspan="8" style="text-align: center">
 					<c:if test="${pageMaker.prev }">
 						<a href="resume_list${pageMaker.makeSearch(pageMaker.startPage - 1 )}&j_bno=${j_bno}">이전</a>
 						<!-- j_title을 보내줘야지 새로고침하거나 페이지 달라져도 제목 유지됨. 11줄 -->
@@ -151,14 +150,13 @@
 			
 			<c:if test="${empty r_list }">
 			<tr>
-				<td colspan="6" style="text-align: center">지원자가 없습니다.
+				<td colspan="8" style="text-align: center">지원자가 없습니다.
 				<br>
 				</td>
 			</tr>
 			</c:if>
 				
 		</table>
-		</div>
 	</section>
 	
 	

@@ -7,7 +7,7 @@
 <link rel="shortcut icon" href="../resources/images/favicon.ico">
 <link rel="manifest" href="../resources/images/manifest.json">
 <meta name="theme-color" content="#ffffff">
-<link rel="stylesheet" href="<c:url value='/css/n_styles.css'/>">
+<link rel="stylesheet" href="../resources/css/j_styles.css">
 <meta charset="UTF-8">
 <title>내 지원목록</title>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -87,7 +87,7 @@
       border-radius: 10px;
    }
    .mr_list{
-      width: 1000px;
+      width: 100%;
       border-top: 1px solid #e5e5e5;
    }
    .mr_list tr, .mr_list td, .mr_list th{
@@ -97,6 +97,19 @@
    }
    .mr_list th{
    	  text-align: center;
+   }
+   
+   .update{
+   	all: unset;
+	width: 50px;
+	height: 30px;
+	border-radius: 5px 5px;
+	color: black;
+	font-size: 15px;
+	text-align: center;
+	cursor: pointer;
+	border: 1px solid #ced4da;
+	background-color: #ced4da;
    }
 </style>
 </head>
@@ -111,13 +124,16 @@
     
     <section class="container">
     <form name="resumeForm">
+    
+    	<div class="sidemenu2"> 
+    	</div>
+    	
     	<div class="minicon">
-	
 		    <table class="mr_list">
 		    	<tr>
 		    		<td colspan="5">
 		    			<font style="font-size: 30px;">알바 지원 목록</font>&nbsp;&nbsp;
-            			<button type="button" name="delete_btn" class="n_btn2">
+            			<button type="button" name="delete_btn" class="j_btn3">
             			삭제</button>
             		</td>
 		    	</tr>
@@ -185,7 +201,7 @@
 		    </table>
 		    
 		    <c:if test="${not empty mr_list}">
-			<div style="width:1000px; text-align: center;">
+			<div style="text-align: center;">
                 <c:if test="${pageMaker.prev }">
                    <a href="my_resume${pageMaker.makeSearch(pageMaker.startPage - 1 )}">이전</a>
                 </c:if>
@@ -199,9 +215,8 @@
 		   		</c:if>
 		   	</div>
 		   	</c:if>
-		
 		</div>
-    
+		
     </form>
     </section>
     

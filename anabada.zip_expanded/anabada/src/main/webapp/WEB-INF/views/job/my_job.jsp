@@ -146,7 +146,7 @@
    
    <section class="container">
    <form>
-      <div class="sidemenu">
+      <div class="sidemenu2">
          <!-- 여기부터는 게시물들 -->
            <div class="myImg">
               <img src="../resources/images/아나바다2.png" width="150px" height="150px"/>
@@ -170,11 +170,6 @@
                  		<input type="radio" class="" name="" value="">알바 지원
                  	</label>
                  </li>
-                 <li style="text-align: left">
-                 	<label>
-                 		<input type="radio" class="" name="" value="">내 쪽지함
-                 	</label>
-                 </li>
               </ul>
            </div>
         </div>
@@ -196,7 +191,7 @@
                		</td>
         			<td colspan="2" style="text-align: center">내용</td>
         			<td style="text-align: center">등록일</td>
-        			<td>지원자 보기</td>
+        			<td style="text-align: center">지원자 보기</td>
         		</tr>
                 
             	<c:if test="${not empty my_jobList}">
@@ -219,11 +214,11 @@
                         </c:otherwise>
                         </c:choose>
                     </td>
-                    <td width="320px;">
+                    <td width="700px;">
                         <font style="font-size: 20px;">${mj_list.j_title }</font><br>
 						${mj_list.j_company }<br>
                     </td>
-                    <td width="150px;" style="text-align: center">
+                    <td width="200px;" style="text-align: center">
                         ${mj_list.j_date }
                     </td>
                     <td style="text-align: center">

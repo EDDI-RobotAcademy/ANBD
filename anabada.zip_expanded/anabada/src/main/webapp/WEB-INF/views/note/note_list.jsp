@@ -16,65 +16,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="<c:url value='/css/n_styles.css'/>">
+<link rel="stylesheet" href="../resources/css/n_styles.css">
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-<style type="text/css">
-   .n_list{
-      margin: auto;
-      width: 95%;
-   }
-   .n_list tr, .n_list td{
-      border-bottom: 1px solid #e5e5e5;
-      padding: 10px;
-   }
-   
-   input[type=radio]{
-   	   display: none;
-   	   margin: 10px; 
-   }
-   
-   input[type=radio] + label{
-   	   display: inline-block;
-   	   margin:-2px;
-   	   padding: 8px 10px;
-   	   background-color: #f5f5f5;
-   	   border: 1px solid #ccc;
-   	   font-size: 13px !important;
-   	   width: 110px;
-   	   text-align: center;
-   }
-   
-   label{ /*보낸 쪽지함, 받은 쪽지함 선택할 떄 마우스 모양 바뀌게*/
-   	   cursor: pointer;
-   }
-   
-   input[type=radio]:radio + label{
-   	   background-image: none;
-   	   background-color: #3598dc;
-	   color:#fff;
-   }
-   
-   .myImg {
-       background-color: #f9f9f9; 
-       text-align: center; 
-       padding-bottom: 5px; 
-       border-bottom: 1px solid #e9e9e9; 
-       border-top: 1px solid #e9e9e9;
-   }
-   
-   .word {
-   	  width:130px;
-	  overflow: hidden;
-	  text-overflow: ellipsis;
-	  white-space: nowrap;
-   }
-   .word2 {
-   	  width:330px;
-	  overflow: hidden;
-	  text-overflow: ellipsis;
-	  white-space: nowrap;
-   }
-</style>
 <script type="text/javascript">
    $(document).ready(function () {
      
@@ -166,6 +109,12 @@
              return false;
           }
           
+          
+          if($("#n_receiver").val() == '${id}'){
+        	  alert("자기에게 쪽지를 보낼 수 없습니다.");
+        	  return false;
+          }
+          
            $.ajax({
                type: "get",
                url : "/note/note_insert.ajax",
@@ -200,7 +149,7 @@
    <section class="container">
    <form name="noteForm" action="/note/note_list" method="get">
         <!-- 바 -->
-        <div class="sidemenu">
+        <div class="sidemenu3">
         	<div class="myImg">
         		<img src="../resources/images/아나바다2.png" width="150px" height="150px"/>
         		<br>
@@ -226,7 +175,7 @@
         </div>
         
         <!-- 내용 -->
-        <div class="minicon" style="background-color: white; border-top: 1px solid #e9e9e9">
+        <div class="minicon3" style="background-color: white; border-top: 1px solid #e9e9e9">
 		    
             <table class="n_list">
             <tr>

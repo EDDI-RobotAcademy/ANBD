@@ -7,6 +7,7 @@
 <link rel="shortcut icon" href="../resources/images/favicon.ico">
 <link rel="manifest" href="../resources/images/manifest.json">
 <link href="../resources/css/jquery-ui.css" rel="stylesheet" type="text/css">
+<link href="../resources/css/j_styles.css" rel="stylesheet" type="text/css">
 <meta name="theme-color" content="#ffffff">
 <meta charset="UTF-8">
 <title>알바 지원 등록 페이지</title>
@@ -263,14 +264,14 @@
 					<td class="info">알바 경력(선택)
 					<td>
 						<div id="career_list"></div>
-						<button type="button" id="add" class="n_btn3" style="display: block; margin: auto; width: 100px">경력 추가하기</button>
+						<button type="button" id="add" class="j_btn2">경력 추가하기</button>
 					</td>
 				</tr>
 				
 				<tr>
 					<td colspan="2">
-					<input type="checkbox" class="essential" style="display: inline-block;">&nbsp;(필수)개인정보 수집 및 이용 동의<br>
-					<input type="checkbox" class="essential" style="display: inline-block;">&nbsp;(필수)개인정보 제 3자 제공 동의
+					<input type="checkbox" class="essential">&nbsp;(필수)개인정보 수집 및 이용 동의<br>
+					<input type="checkbox" class="essential">&nbsp;(필수)개인정보 제 3자 제공 동의
 					<br>
 					<div id="e_null"></div>
 					</td>
@@ -278,7 +279,7 @@
 				
 				<tr>
 					<td colspan="2">
-						<button type="submit" class="n_btn1" style="display: block; margin: auto">지원하기</button>
+						<button type="submit" class="j_btn1">지원하기</button>
 					</td>
 				</tr>
 			</table>

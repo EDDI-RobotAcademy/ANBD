@@ -11,7 +11,7 @@
 <link rel="shortcut icon" href="../resources/images/favicon.ico">
 <link rel="manifest" href="../resources/images/manifest.json">
 <meta name="theme-color" content="#ffffff">
-<link rel="stylesheet" href="<c:url value='/css/j_styles.css'/>">
+<link rel="stylesheet" href="../resources/css/j_styles.css">
 <meta charset="UTF-8">
 <title>알바 공고 상세보기</title>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -294,7 +294,7 @@
 </script>
 <style>
 	table{
-		width: 1000px;
+		width: 100%;
 		border-top: 1px solid #c9cdd2;
 	}
 	tr, td{
@@ -306,45 +306,23 @@
     	border-left: none;
   	}
   	
-  	.rach input[type='checkbox'] {
-	    display: none;
-	}
-	
-	.rach input[type='checkbox']+span {
-		display: inline-block;
-		padding: 5px 5px;
-		border: 1px solid #AEB6BF;
-		border-radius: 10px;
-		background-color: #F7ECEC;
-		text-align: center;
-		cursor: pointer;
-		color: #E55555;
-	}
-	
-	.rach input[type='checkbox']:checked+span {
-		background-color: #FD7D7D;
-		color: white;
-		border-radius: 10px;
-	}
-	
 	/*레이아웃*/
    #wapper {
-      width: 1200px;
+      width: 1700px;
       margin: auto;
       height: auto;
    }
-   .nav, .aside, .section {
+   .nav, .section {
       margin: 3px;/*간격*/
    }
    .nav, .section, .aside {
       float: left;
    }
    .nav {
-      width: 70px;
+      width: 0px;
    }
    .section {
-      /* background-color: #f9f9f9;    */
-      width: 1000px; 
+      width: 1500px; 
       border: 0px; 
       border-collapse: collapse;
    }
@@ -414,7 +392,7 @@
 			<input type="hidden" name="j_img"" value="${j_read.j_img }"><!-- 삭제할때 사용하려고 -->
 	
 	
-			<table style="width: 1000px">
+			<table>
 				<tr>
 					<td colspan="4">
 					    ${j_read.j_date }&nbsp;&nbsp;
@@ -422,6 +400,10 @@
 							<button type="button" id="update">수정</button>
 							<button type="button" id="delete">삭제</button>
 						</c:if>
+						<c:if test="${id eq 'admin'}"><!-- 로그인한 아이디(세션에 저장된 아이디(id))와 작성자아이디(j_read.id)가 같으면 수정, 삭제 가능 -->
+							<button type="button" id="delete">삭제</button>
+						</c:if>
+						
 					</td>
 					<td>
 						<label class="rach">
