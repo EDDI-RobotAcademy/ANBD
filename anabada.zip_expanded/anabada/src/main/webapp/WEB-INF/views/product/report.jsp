@@ -31,6 +31,19 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 $(document).ready(function() {
+	
+	// 유효성 체크 부분 
+	if("${msg}" == "이미 신고한 게시물입니다." ){
+		alert("${msg}");
+		window.close();
+	}
+	if("${msg}" == "ok" ){
+		alert("신고가 접수되었습니다.");
+		window.close();
+	}
+	
+	
+	
 	$('input[name="report"]').change(function() {
 		if($('input[name="report"]:checked').val() == '1') {
 			$("#1c").css('display', 'block');
@@ -145,12 +158,13 @@ function reportSubmit() {
 </script>
 </head>
 <body>
-<form  name="reportForm" action="/product/sumit_report" method="post" >
+<form  name="reportForm" action="/product/submit_report" method="post" >
 
 <!-- 넘길 정보 값들 -->
-<input   type="hidden" name="pno" value="${pno}" >
+<input   type="hidden" name="c_bno" value="${pno}" >
 <input   type="hidden" name="id" value="${id}" >
 <input type="hidden" name="c_content"  id="c_content" >
+<input type="hidden" name="board_type" value="pboard" >
 
 	<!-- 신고 팝업창 -->
 	<div class="report-background">
