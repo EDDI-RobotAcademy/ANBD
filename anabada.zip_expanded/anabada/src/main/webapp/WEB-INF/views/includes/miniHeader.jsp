@@ -17,7 +17,7 @@
 	<div class="container">
 		<div class="header">
 			<div class="logo-miniheader">
-				<a href="/"><img src="<c:url value='/images/minilogo.png'/>"></a>
+				<a href="/"><img src="<c:url value='/images/minilogo.png'/>" style="width: 200px; height: 60px;"></a>
 			</div>
 			
 			<div class="sbox">

@@ -17,7 +17,7 @@
 	<div class="container">
 		<div class="header">
 			<div class="logo-header">
-				<a href="/"><img src="<c:url value='/images/logo.png'/>"></a>
+				<a href="/"><img src="<c:url value='/images/logo.png'/>" style="width: 220px; height: 141px;"></a>
 			</div>
 			
 			<div class="sbox">

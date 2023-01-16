@@ -68,7 +68,7 @@
 			<div class="checkbox_group">
 				<div style="border-bottom: 1px solid #d8d9df;">
 					<span class="agree-chk">
-					<input type="checkbox" id="termsService" name="termsService" class="terms-chk">
+					<input type="checkbox" id="termsService" name="termsService" class="terms-chk terms_none">
 						<label for="termsService">
 							<b>전체 동의</b>
 						</label>
@@ -77,7 +77,7 @@
 				
 				<div>
 					<span class="agree-chk">
-						<input type="checkbox" id="termsService1" name="termsService1" class="terms-chk normal">
+						<input type="checkbox" id="termsService1" name="termsService1" class="terms-chk normal terms_none">
 						<label for="termsService1">
 							이용약관 동의 <span class="terms_necessary">(필수)</span>
 						</label>
@@ -107,7 +107,7 @@
 			
 				<div>	
 					<span class="agree-chk">
-						<input type="checkbox" id="termsService2" name="termsService2" class="terms-chk normal">
+						<input type="checkbox" id="termsService2" name="termsService2" class="terms-chk normal terms_none">
 						<label for="termsService2">
 							개인정보 수집 및 이용 동의 <span class="terms_necessary">(필수)</span>
 						</label>
@@ -253,7 +253,7 @@
 
 				<div>	
 					<span class="agree-chk">
-						<input type="checkbox" id="termsService3" name="termsService3" class="terms-chk normal">
+						<input type="checkbox" id="termsService3" name="termsService3" class="terms-chk normal terms_none">
 						<label for="termsService3">
 							개인정보 광고 활용 동의 <span class="terms_choice">(선택)</span>
 						</label>
