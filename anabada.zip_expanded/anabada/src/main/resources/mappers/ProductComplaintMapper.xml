@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProductComplaintMapper">
+
+<!-- 신고여부 유효성 검사 -->
+<select id="validation" parameterType="ComplaintVO"  resultType="int" >
+SELECT COUNT(COM_NUM) FROM COMPLAINT 
+WHERE ID =#{id} AND BOARD_TYPE =#{board_type} AND C_BNO=#{c_bno}
+</select>
+
+<!--신고 접수 -->
+<insert id="insert" parameterType="ComplaintVO">
+INSERT INTO COMPLAINT (COM_NUM, ID, C_CONTENT, C_BNO, BOARD_TYPE)
+VALUES(complaint_seq.nextval, #{id}, #{c_content}, #{c_bno}, #{board_type})
+</insert>
+
+
+</mapper>

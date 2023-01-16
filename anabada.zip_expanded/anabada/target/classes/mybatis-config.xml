@@ -26,7 +26,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.anabada.web.vo.PfileVO" alias="PfileVO" />
 		<typeAlias type="com.anabada.web.vo.EventBoardVO"
 			alias="EventBoardVO" />
+			
 		<typeAlias type="com.anabada.web.vo.EfileVO" alias="EfileVO" />
+		<typeAlias type="com.anabada.web.vo.ComplaintVO" alias="ComplaintVO" />
 		<typeAlias type="com.anabada.web.vo.MemberVO" alias="memberVO"/>
 		<typeAlias type="com.anabada.web.vo.HelpVO" alias="helpVO"/>
 		<typeAlias type="com.anabada.web.vo.QnaVO" alias="qnaVO"/>
