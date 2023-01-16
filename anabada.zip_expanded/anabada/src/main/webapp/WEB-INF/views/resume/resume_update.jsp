@@ -8,6 +8,7 @@
 <link rel="shortcut icon" href="../resources/images/favicon.ico">
 <link rel="manifest" href="../resources/images/manifest.json">
 <link href="../resources/css/jquery-ui.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="../resources/css/j_styles.css">
 <meta name="theme-color" content="#ffffff">
 <meta charset="UTF-8">
 <title>알바 지원 수정 페이지</title>
@@ -15,7 +16,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="<c:url value='/css/j_styles.css'/>">
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function () {
@@ -32,6 +32,7 @@ $(document).ready(function () {
 	
 	// 모달창에서 경력 등록 눌렀을 때
 	$("#career_insert").on("click", function () {
+		
 		var company = $("#company").val();
 		var start = $("#start").val();
 		var end = $("#end").val();
@@ -153,7 +154,7 @@ $(document).ready(function () {
 </script>
 <style>
 	table{
-		width: 900px;
+		width: 100%;
 		margin: auto;
 	}
 	tr, td{ 
@@ -186,7 +187,6 @@ $(document).ready(function () {
     </div>
     
     <section class="container">
-	    <div class="minicon">
 		<form action="/resume/resume_update" method="get">
 			<input type="hidden" name="r_bno" value="${r_read.r_bno }">
 			<input type="hidden" name="page" value="${cri.page }">
@@ -262,7 +262,8 @@ $(document).ready(function () {
 				<tr>
 					<td class="info">알바 경력(선택)
 					<td>
-						<c:if test="${not empty r_read.r_company}">
+						<c:choose>
+						<c:when test="${not empty r_read.r_company}">
 							<c:set var="r_company" value="${fn:split(r_read.r_company, ',') }"/>
 							<c:set var="start" value="${fn:split(r_read.r_start, ',') }"/>
 							<c:set var="end" value="${fn:split(r_read.r_end, ',') }"/>
@@ -277,8 +278,13 @@ $(document).ready(function () {
 								</div>
 								</c:forEach>
 							</div>
-						</c:if>
-						<button type="button" id="add" class="n_btn3" style="display: block; margin: auto; width: 100px">경력 추가하기</button>
+						</c:when>
+						<c:otherwise>
+							<div id="career_list">
+							</div>
+						</c:otherwise>
+						</c:choose>
+						<button type="button" id="add" class="j_btn2">경력 추가하기</button>
 					</td>
 				</tr>
 				
@@ -293,13 +299,12 @@ $(document).ready(function () {
 				
 				<tr>
 					<td colspan="2">
-						<button type="submit" class="n_btn1" style="display: block; margin: auto">수정완료</button>
+						<button type="submit" class="j_btn1">수정완료</button>
 					</td>
 				</tr>
 			</table>
 
 		</form>
-		</div>
 	</section>
 	
 	<!-- 모달내용 -->

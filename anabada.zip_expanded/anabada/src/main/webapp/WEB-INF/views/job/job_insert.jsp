@@ -7,54 +7,14 @@
 <link rel="shortcut icon" href="../resources/images/favicon.ico">
 <link rel="manifest" href="../resources/images/manifest.json">
 <meta name="theme-color" content="#ffffff">
-<link rel="stylesheet" href="<c:url value='/css/j_styles.css'/>">
+<link rel="stylesheet" href="../resources/css/j_styles.css">
 <meta charset="UTF-8">
 <title>알바 공고 쓰기!!!</title>
 <link href="../resources/css/jquery-ui.css" rel="stylesheet" type="text/css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <style>
-   .chk input[type='radio'] {
-      display:none;
-   }
-   .chk input[type='radio']+span {
-      display:inline-block;
-      padding:5px 10px;
-      border:1px solid #c9cdd2;
-      border-radius:5px;
-      background-color:white;
-      text-align:center;
-      cursor:pointer;
-      margin-left: 5px;
-   }
-   .chk input[type='radio']:checked+span {
-      background-color:skyblue;
-      color:white;
-      border-radius:5px;
-      border: skyblue;
-   }
-   
-   .chk input[type='checkbox'] {
-      display:none;
-   }
-   .chk input[type='checkbox']+span {
-      display:inline-block;
-      padding:5px 10px;
-      border:1px solid #c9cdd2;
-      border-radius:5px;
-      background-color:white;
-      text-align:center;
-      cursor:pointer;
-      margin-left: 5px;
-   }
-   .chk input[type='checkbox']:checked+span {
-      background-color:skyblue;
-      color:white;
-      border-radius:5px;
-      border-color: skyblue;
-   }
-   
    table{
-      width: 900px;
+      width: 90%;
       margin: auto;
    }
    tr, td{
