@@ -378,20 +378,53 @@ public class ProductController {
 		logger.info("product_submitReport");
 		System.out.println("신고내용 vo : "+vo);
 		//유효성 검사 
-	 int check = complaintService.validation(vo); // id에 해당하는 사람이 이미 신고한 적 있는지 유효성 검사
-	 if(check == 0) { // 신고한적 없음으로 신고하기 
-		 complaintService.insert(vo);
-		  model.addAttribute("msg","ok");
-		  return "product/report";
-		 
-	 }else { // 신고한적 있음 
-		 model.addAttribute("msg","이미 신고한 게시물입니다.");
-		 return "product/report";
-	 }
+		/*
+		 * int check = complaintService.validation(vo); // id에 해당하는 사람이 이미 신고한 적 있는지 유효성
+		 * 검사 if(check == 0) { // 신고한적 없음으로 신고하기 complaintService.insert(vo);
+		 * model.addAttribute("msg","ok"); return "product/report";
+		 * 
+		 * }else { // 신고한적 있음 model.addAttribute("msg","이미 신고한 게시물입니다."); return
+		 * "product/report"; }
+		 */
 	 
+		String msg = complaint(vo);
+		model.addAttribute("msg",msg);
+		return "product/report";
 	
 	 
 	}
+	
+	
+	// 신고에 대한 유효성 검사 밑 신고 접수 메소드
+	private String complaint (ComplaintVO vo) throws Exception{
+		
+       if(vo.getBoard_type() =="pboard") { // pboard에 대한 신고일때
+    	   int check = complaintService.validation(vo); 
+    	   if(check == 0) { // 신고한적 없음으로 신고하기 
+    			 complaintService.insert(vo);
+    			 return "ok";
+    		 }else { // 신고한적 있음 
+    			 return "이미 신고한 게시물입니다.";
+    		 }
+    	   
+    	   
+       }else { // 리뷰에 대한 신고 
+    	   
+    	   
+    	   
+    	   
+       }
+		
+		
+		
+		return null;
+	}
+	
+	
+	
+	
+	
+	
 
 	// 이미지 저장
 	private List<String> fileProcess(MultipartHttpServletRequest multipartRequest) throws Exception {
