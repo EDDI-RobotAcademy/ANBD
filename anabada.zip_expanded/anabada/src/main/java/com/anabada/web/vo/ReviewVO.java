@@ -4,12 +4,19 @@ import java.sql.Date;
 
 public class ReviewVO {
 
+	private int r_no;
 	private int pno;
 	private String r_seller;
 	private String r_consumer;
 	private double r_score;
 	private String r_content;
 	private Date r_date;
+	public int getR_no() {
+		return r_no;
+	}
+	public void setR_no(int r_no) {
+		this.r_no = r_no;
+	}
 	public int getPno() {
 		return pno;
 	}
@@ -48,9 +55,11 @@ public class ReviewVO {
 	}
 	@Override
 	public String toString() {
-		return "ReviewVO [pno=" + pno + ", r_seller=" + r_seller + ", r_consumer=" + r_consumer + ", r_score=" + r_score
-				+ ", r_content=" + r_content + ", r_date=" + r_date + "]";
-	} 
+		return "ReviewVO [r_no=" + r_no + ", pno=" + pno + ", r_seller=" + r_seller + ", r_consumer=" + r_consumer
+				+ ", r_score=" + r_score + ", r_content=" + r_content + ", r_date=" + r_date + "]";
+	}
+	
+	
 	
 	
 }
