@@ -55,5 +55,9 @@ public interface NoteDAO {
 
 	// 쪽지 신고 디비 저장
 	public void report_insert(ComplaintVO vo) throws Exception;
+	
+	// 쪽지 신고 여부 체크
+	public int report_chk(ComplaintVO vo) throws Exception;
+
 
 }
