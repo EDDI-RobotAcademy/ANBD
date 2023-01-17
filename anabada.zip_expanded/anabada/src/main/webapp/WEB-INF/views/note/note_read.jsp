@@ -190,7 +190,32 @@
 		
 		// 신고버튼 눌렀을 때
 		$("#report").click(function(){
-			window.open("/note/note_report?n_bno=${n_read.n_bno}", "신고", "width=400, height=600, left=0, top=0");
+			
+			// 신고된 적 있는지 확인
+			$.ajax({
+	            type: "get",
+	            url : "/note/report_chk.ajax",
+	            dataType :  'json',
+		        traditional : true,
+	            data : {
+	            	id: '${id}',
+	            	c_bno: ${n_read.n_bno},
+	            	board_type: 'note'
+	            },
+	            success:function(data){
+	            	
+	            	if(data == 1){
+	            		alert("이미 신고했습니다.");
+	            	}else{
+	                	window.open("/note/note_report?n_bno=${n_read.n_bno}", "신고", "width=400, height=600, left=0, top=0");
+	            	}
+	                
+	            },
+	            error : function(request, status, error) {
+					alert("후기 작성 실패:" + error);
+				}
+	        });
+			
 		});		   
 		
 		

@@ -284,5 +284,18 @@ public class NoteController {
     	
     	return "/note/report";
     }
+    
+    // 쪽지 신고한적 있는지 체크
+    @RequestMapping(value = "/report_chk.ajax", method = RequestMethod.GET)
+    @ResponseBody
+    public int report_chk(@ModelAttribute ComplaintVO vo) throws Exception{
+       
+       logger.info("쪽지 신고 한적 있는지 체크");
+       System.out.println(vo);
+       
+       int result = noteService.report_chk(vo);
+       return result;
+    }
+
 	
 }

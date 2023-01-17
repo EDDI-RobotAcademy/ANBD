@@ -105,6 +105,12 @@ public class NoteDAOImpl implements NoteDAO{
 		sqlSession.insert("noteMapper.report_insert", vo);
 		
 	}
+	
+	@Override
+	public int report_chk(ComplaintVO vo) throws Exception {
+	    return sqlSession.selectOne("noteMapper.report_chk", vo);
+	}
+
 
 
 
