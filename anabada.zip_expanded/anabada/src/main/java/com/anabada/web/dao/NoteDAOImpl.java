@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.anabada.web.vo.ComplaintVO;
 import com.anabada.web.vo.NoteCriteria;
 import com.anabada.web.vo.NoteSearchCriteria;
 import com.anabada.web.vo.NoteVO;
@@ -23,7 +24,6 @@ public class NoteDAOImpl implements NoteDAO{
 	
 	@Override
 	public void send(NoteVO vo) throws Exception {
-		System.out.println("쪽지 보내는 매퍼 직전까지 왔음!!");
 		sqlSession.insert("noteMapper.insert", vo);
 	}
 
@@ -98,6 +98,14 @@ public class NoteDAOImpl implements NoteDAO{
 	public void send_event(Map map) throws Exception {
 		sqlSession.insert("noteMapper.send_event", map);
 	}
+
+
+	@Override
+	public void report_insert(ComplaintVO vo) throws Exception {
+		sqlSession.insert("noteMapper.report_insert", vo);
+		
+	}
+
 
 
 }

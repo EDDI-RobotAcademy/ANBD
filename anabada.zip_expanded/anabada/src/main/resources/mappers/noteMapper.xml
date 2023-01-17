@@ -102,4 +102,12 @@ INSERT INTO NOTE (N_BNO, N_SENDER, N_RECEIVER, N_CONTENT, N_S_TIME, N_READ_CHK, 
 
 </insert>
 
+<!-- 신고 -->
+<insert id="report_insert" parameterType="ComplaintVO">
+INSERT INTO COMPLAINT (COM_NUM, ID, C_CONTENT, C_BNO, BOARD_TYPE)
+VALUES(COMPLAINT_SEQ.NEXTVAL, #{id}, #{c_content}, #{c_bno}, #{board_type})
+</insert>
+
+
+
 </mapper>

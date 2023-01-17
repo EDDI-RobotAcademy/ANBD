@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.anabada.web.service.EventService;
 import com.anabada.web.service.NoteService;
 import com.anabada.web.service.ProductService;
+import com.anabada.web.vo.ComplaintVO;
 import com.anabada.web.vo.EventBoardVO;
 import com.anabada.web.vo.NoteCriteria;
 import com.anabada.web.vo.NotePageMaker;
@@ -261,18 +263,26 @@ public class NoteController {
     
     // 쪽지 신고하기 창 뜨게하기
     @RequestMapping(value = "/note_report", method = RequestMethod.GET)
-	public String note_report(@RequestParam int n_bno, Model model) {
+	public String note_report(@RequestParam int n_bno, Model model) throws Exception{
 	
 		model.addAttribute("n_bno", n_bno);
 		
 		return "/note/report";
 	}
     
-    
     // 쪽지 디비에 저장하기
     @RequestMapping(value = "/report_insert", method = RequestMethod.GET)
-    public void report_insert() {
+    public String report_insert(@ModelAttribute ComplaintVO vo, Model model) throws Exception{
     	
+    	
+    	logger.info("쪽지 신고 디비에 저장하려고 함~~");
+    	
+    	noteService.report_insert(vo);
+    	
+    	model.addAttribute("success", "success");
+    	
+    	
+    	return "/note/report";
     }
 	
 }

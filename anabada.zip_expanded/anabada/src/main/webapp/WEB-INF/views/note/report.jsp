@@ -31,6 +31,14 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 $(document).ready(function() {
+	
+	
+	// 신고된 후면 창 닫히게
+	if(${not empty success}){
+		alert("신고되었습니다.");
+		window.close();
+	}
+	
 	$('input[name="report"]').change(function() {
 		if($('input[name="report"]:checked').val() == '1') {
 			$("#1c").css('display', 'block');
@@ -137,7 +145,6 @@ function reportSubmit() {
 	}else{
 		alert("선택해주세요.");
 		return false;
-	    //window.open("/a_board/reportError", "경고", "width=250, height=100, left=50, top=50");
 	}
 	
 }
@@ -147,9 +154,10 @@ function reportSubmit() {
 	
 	<form name="reportForm" action="/note/report_insert">
 	
-	<input type="hidden" name="n_bno" value="${n_bno }">
 	<input type="hidden" name="id" value="${id }">
 	<input type="hidden" name="c_content" id="c_content" value="">
+	<input type="hidden" name="c_bno" value="${n_bno }">
+	<input type="hidden" name="board_type" value="note">
 	
 	<!-- 신고 팝업창 -->
 	<div class="report-background">

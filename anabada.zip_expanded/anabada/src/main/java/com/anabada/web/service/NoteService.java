@@ -3,6 +3,7 @@ package com.anabada.web.service;
 import java.util.List;
 import java.util.Map;
 
+import com.anabada.web.vo.ComplaintVO;
 import com.anabada.web.vo.NoteCriteria;
 import com.anabada.web.vo.NoteSearchCriteria;
 import com.anabada.web.vo.NoteVO;
@@ -50,5 +51,9 @@ public interface NoteService {
 	
 	// 이벤트 쪽지만 보내는 메소드
 	public void send_event(Map map) throws Exception;
+
+	// 쪽지 신고 디비 저장
+	public void report_insert(ComplaintVO vo) throws Exception;
+
 
 }

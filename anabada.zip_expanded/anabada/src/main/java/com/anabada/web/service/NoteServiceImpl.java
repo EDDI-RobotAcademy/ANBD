@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.anabada.web.dao.NoteDAO;
+import com.anabada.web.vo.ComplaintVO;
 import com.anabada.web.vo.NoteCriteria;
 import com.anabada.web.vo.NoteSearchCriteria;
 import com.anabada.web.vo.NoteVO;
@@ -84,11 +85,17 @@ public class NoteServiceImpl implements NoteService {
 		return dao.get_members(map);
 	}
 
-	//이벤트 쪽지만 보내느 메소드
+	//이벤트 쪽지만 보내는 메소드
 	@Override
 	public void send_event(Map map) throws Exception {
 		dao.send_event(map);
 	}
+
+	@Override
+	public void report_insert(ComplaintVO vo) throws Exception {
+		dao.report_insert(vo);
+	}
+
 
 	
 	
