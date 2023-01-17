@@ -681,9 +681,7 @@ padding:  0px 2px 0px 2px;
    }
  
    function complaint() {
-	   alert("신고버튼 클릭");
-	
-	  
+	   
 	   if(  "${id}" ==""){
 		   alert('로그인 후 이용해주세요');
 		   return; 
@@ -697,6 +695,30 @@ padding:  0px 2px 0px 2px;
 		   }
 		   
 	   }
+	   
+	   
+	   function complaint2() {
+		   
+		   if(  "${id}" ==""){
+			   alert('로그인 후 이용해주세요');
+			   return; 
+		   }else{
+			   if(confirm("리뷰를 신고하시겠습니까?")){
+				   
+				   window.open("/product/reviewReport?pno=${read.pno}", "신고", "width=400, height=600, left=0, top=0");
+				   
+			   }else{
+				   return;
+			   }
+			   
+		   }
+		   
+	   
+
+	   
+	   
+	   
+
 	   
 	   
 	   
@@ -858,7 +880,7 @@ padding:  0px 2px 0px 2px;
                   <div style="display: inline-block;" id="heartCh">${read.p_heart }</div> <br></td>
                   <td>&nbsp;</td>
                    
-                  <td>  <button type="button"  id="alarm" onclick="complaint()" > <img width="30px;" height="30px;" src="../resources/images/u_alarm.png"> <font style="color: gray; " > 신고하기 </font>   </button>  </td>
+                  <td>  <button type="button" value="1" id="alarm" onclick="complaint()" > <img width="30px;" height="30px;" src="../resources/images/u_alarm.png"> <font style="color: gray; " > 신고하기 </font>   </button>  </td>
 
             </tr>
 
@@ -986,9 +1008,12 @@ padding:  0px 2px 0px 2px;
        
        
        
-       <td>  <font style="font-size: small; color: gray;" >🕗  ${review.r_date}</font>  </td></tr>
+       <td>  <font style="font-size: small; color: gray;" >🕗  ${review.r_date}</font>  </td>
+       <td>  <button type="button" value="2"  id="alarm" onclick="complaint2()" > <img width="15px;" height="15px;" src="../resources/images/u_alarm.png"> <font style="font-size: small; color: gray; " > 신고하기 </font>   </button>    </td>
+       
+       </tr>
       <tr>
-       <td colspan="3" >  ${review.r_content }  <hr style="margin: 5px 0px 5px 0px" > </td>
+       <td colspan="4" >  ${review.r_content }  <hr style="margin: 5px 0px 5px 0px" > </td>
         </tr>
        
       </c:forEach>
