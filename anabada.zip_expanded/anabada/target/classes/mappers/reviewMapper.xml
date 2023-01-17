@@ -4,8 +4,8 @@
 
 <mapper namespace="reviewMapper">
 <insert id="register" parameterType="NoteVO">
-INSERT INTO REVIEW (PNO, R_SELLER, R_CONSUMER, R_SCORE, R_CONTENT)
-VALUES (#{pno}, #{r_seller}, #{r_consumer}, #{r_score}, #{r_content})
+INSERT INTO REVIEW (R_NO, PNO, R_SELLER, R_CONSUMER, R_SCORE, R_CONTENT)
+VALUES (REVIEW_SEQ.NEXTVAL, #{pno}, #{r_seller}, #{r_consumer}, #{r_score}, #{r_content})
 </insert>
 
 <select id="count" parameterType="int" resultType="int">
