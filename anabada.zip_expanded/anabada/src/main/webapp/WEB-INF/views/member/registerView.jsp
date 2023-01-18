@@ -327,7 +327,7 @@ button:disabled, button[disabled] {
 				<div class="mt-22">
 					<label class="reg-font" for="tel">휴대폰 번호</label><br />
 					<div class="reg-box">
-						<input class="reg-in" type="tel" id="tel" name="tel" />
+						<input class="reg-in" type="tel" id="tel" name="tel" placeholder="01000000000" />
 					</div>
 					<div>
 						<font id="telChk" size="2"></font>
@@ -337,7 +337,7 @@ button:disabled, button[disabled] {
 				<div class="mt-22">
 					<label class="reg-font" for="email">이메일</label><br />
 					<div class="reg-box">
-						<input class="reg-in" type="email" id="email" name="email" />
+						<input class="reg-in" type="email" id="email" name="email" placeholder="example@gmail.com" />
 					</div>
 					<div>
 						<font id="mailChk" size="2"></font>
