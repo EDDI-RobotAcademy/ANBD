@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>아나바다 커뮤니티</title>
+<link rel="stylesheet" href="<c:url value='/css/r_styles.css'/>">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <style>
 .chk input[type='radio'] {
@@ -25,17 +26,6 @@
    background-color:#8E9091;
    color:white;
    border-radius:10px;
-}
-.container {
-	width: 100%;
-  	min-width: 1000px;
-  	max-width: 1000px;
-  	margin: 0 auto 0 auto;
-}
-.mcont {
- 	margin: 0 auto;
-  	padding: 15px 20px 50px 20px;
- 	box-sizing: border-box;
 }
 </style>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -89,67 +79,31 @@
 
 
 <section class="container">
-<form class="mcont">
-   <table class="table">
-   
+<form>
    <!-- 지역 카테고리 -->
-   	  <div>
-   	  	<label class="chk">
-   	  		<input type="radio" id="all_loca" name="all_loca"/><span>전국</span>
-   	  	</label>
-   	  	
-   	  	<label class="chk">
-   	  		<input type="radio" id="gyeonggi" name="a_loca" value="1"/><span>강원</span>
-   	  	</label>
-   	  	
-   	  	<label class="chk">
-   	  		<input type="radio" id="gyeongnam" name="a_loca" value="2"/><span>경기</span>
-   	  	</label>
-   	  	
-   	  	<label class="chk">
-   	  		<input type="radio" id="gyeongbuk" name="a_loca" value="3"/><span>경남</span>
-   	  	</label>
-   	  	
-   	  	<label class="chk">
-   	  		<input type="radio" id="busan" name="a_loca" value="4"/><span>경북</span>
-   	  	</label>
-   	  	
-   	  	<label class="chk">
-   	  		<input type="radio" id="seoul" name="a_loca" value="5"/><span>부산</span>
-   	  	</label>
-   	  	
-   	  	<label class="chk">
-   	  		<input type="radio" id="incheon" name="a_loca" value="6"/><span>서울</span>
-   	  	</label>
-   	  	
-   	  	<label class="chk">
-   	  		<input type="radio" id="jeonnam" name="a_loca" value="7"/><span>인천</span>
-   	  	</label>
-   	  	
-   	  	<label class="chk">
-   	  		<input type="radio" id="jeonbuk" name="a_loca" value="8"/><span>전남</span>
-   	  	</label>
-   	  	
-   	  	<label class="chk">
-   	  		<input type="radio" id="kangwon" name="a_loca" value="9"/><span>전북</span>
-   	  	</label>
-   	  	
-   	  	<label class="chk">
-   	  		<input type="radio" id="jeju" name="a_loca" value="10"/><span>제주</span>
-   	  	</label>
-   	  	
-   	  	<label class="chk">
-   	  		<input type="radio" id="chungnam" name="a_loca" value="11"/><span>충남</span>
-   	  	</label>
-   	  	
-   	  	<label class="chk">
-   	  		<input type="radio" id="chungbuk" name="a_loca" value="12"/><span>충북</span>
-   	  	</label>
+   	  <div class="sidemenu2">
+		<p class="side-t">커뮤니티</p>   	  	
+   	  		<ul class="side-ul">
+				<li class="side-li"><a href="#">전국</a></li>   	  		
+				<li class="side-li"><a href="#">강원</a></li>   	  		
+				<li class="side-li"><a href="#">경기</a></li>   	  		
+				<li class="side-li"><a href="#">경남</a></li>   	  		
+				<li class="side-li"><a href="#">경북</a></li>   	  		
+				<li class="side-li"><a href="#">부산</a></li>   	  		
+				<li class="side-li"><a href="#">서울</a></li>   	  		
+				<li class="side-li"><a href="#">인천</a></li>   	  		
+				<li class="side-li"><a href="#">전남</a></li>   	  		
+				<li class="side-li"><a href="#">전북</a></li>   	  		
+				<li class="side-li"><a href="#">제주</a></li>   	  		
+				<li class="side-li"><a href="#">충남</a></li>   	  		
+				<li class="side-li"><a href="#">충북</a></li>   	  		
+   	  		</ul>
    	  </div>
       <!-- 지역 카테고리 끝 -->
       
       
       <!-- 말머리 카테고리 -->
+     <div class="minicon">
       <div>
          <label class="chk">
             <input type="radio" id="all" name="all"/><span>전체</span>
@@ -170,6 +124,7 @@
       
       
       <!-- 게시글 목록 컬럼명 -->
+     <table class="table">
       <thead>
          <tr>
          <th scope="col">말머리</th>
@@ -203,7 +158,7 @@
                <c:out value="${list.a_title }"/>
                </a>
             </td>
-            <td><c:out value="${list.id }"/></td>
+            <td><c:out value="${list.nick }"/></td>
             <td><fmt:formatDate value="${list.a_regdate }" pattern="yyyy-MM-dd"/></td>
             <td><c:out value="${list.a_cnt }"/></td>
          </tr>
@@ -258,7 +213,8 @@
          </c:if>
    </div>
    <!-- 페이징 처리 끝 -->
-   
+
+</div>
 </form> 
 </section>
 

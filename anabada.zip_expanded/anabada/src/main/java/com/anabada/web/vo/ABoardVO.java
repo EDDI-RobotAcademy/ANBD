@@ -13,6 +13,7 @@ public class ABoardVO {
 	private int a_cnt;
 	private String a_type;
 	private String id;
+	private String nick;
 	
 	public int getA_bno() {
 		return a_bno;
@@ -68,12 +69,18 @@ public class ABoardVO {
 	public void setId(String id) {
 		this.id = id;
 	}
+	public String getNick() {
+		return nick;
+	}
+	public void setNick(String nick) {
+		this.nick = nick;
+	}
 	
 	@Override
 	public String toString() {
-		return "BoardVO [a_bno=" + a_bno + ", a_title=" + a_title + ", a_content=" + a_content + ", a_image=" + a_image
+		return "ABoardVO [a_bno=" + a_bno + ", a_title=" + a_title + ", a_content=" + a_content + ", a_image=" + a_image
 				+ ", a_regdate=" + a_regdate + ", a_like_cnt=" + a_like_cnt + ", a_cnt=" + a_cnt + ", a_type=" + a_type
-				+ ", id=" + id + "]";
+				+ ", id=" + id + ", nick=" + nick + "]";
 	}
 	
 }

@@ -82,8 +82,9 @@
 		
 		<tr>
 			<td>
-				<label for="id" class="form-label">작성자</label><br>
-				<input type="text" id="id" name="id" class="form-control" value="${id}" readonly/>
+				<label for="nick" class="form-label">작성자</label><br>
+				<input type="hidden" id="id" name="id" value="${id}"/>
+				<input type="text" id="nick" name="nick" class="form-control" value="${member.nick}" readonly/>
 			</td>
 		</tr>
 </table>

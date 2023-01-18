@@ -93,8 +93,8 @@
 		
 		<tr>
 			<td>
-				<label for="id" class="form-label">작성자</label>
-				<input type="text" id="id" name="id" class="form-control" value="${update.id }" readonly/>
+				<label for="nick" class="form-label">작성자</label>
+				<input type="text" id="nick" name="nick" class="form-control" value="${update.nick }" readonly/>
 			</td>
 		</tr>
 	</table>
