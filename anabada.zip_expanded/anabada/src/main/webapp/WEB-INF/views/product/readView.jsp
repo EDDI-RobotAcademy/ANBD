@@ -1101,7 +1101,12 @@ padding:  0px 2px 0px 2px;
                             <tbody>
                                 <tr class="info">
                               <td width="130px;">
-                                    <img class="p_img" src="${filelist[0].filepath }"><!-- 해당 썸네일 이미지 경로 -->
+                              	<c:if test="${empty filelist[0].filepath }">
+                              	<img class="p_img" src="/tomcatImg/img.png"><!-- 해당 썸네일 이미지 경로 -->
+                              	</c:if>
+                              	<c:if test="${not empty filelist[0].filepath }">
+                              	<img class="p_img" src="${filelist[0].filepath }"><!-- 해당 썸네일 이미지 경로 -->
+                              	</c:if>
                               </td>
                               <td>
                                  ${read.p_title}<br>
