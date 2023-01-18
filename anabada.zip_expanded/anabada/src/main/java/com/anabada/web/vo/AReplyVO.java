@@ -9,6 +9,7 @@ public class AReplyVO {
 	private String r_content;
 	private Date r_regdate;
 	private String id;
+	private String nick;
 	
 	public int getA_bno() {
 		return a_bno;
@@ -40,11 +41,17 @@ public class AReplyVO {
 	public void setId(String id) {
 		this.id = id;
 	}
-
+	public String getNick() {
+		return nick;
+	}
+	public void setNick(String nick) {
+		this.nick = nick;
+	}
+	
 	@Override
 	public String toString() {
 		return "AReplyVO [a_bno=" + a_bno + ", r_rno=" + r_rno + ", r_content=" + r_content + ", r_regdate=" + r_regdate
-				+ ", id=" + id + "]";
+				+ ", id=" + id + ", nick=" + nick + "]";
 	}
 	
 }

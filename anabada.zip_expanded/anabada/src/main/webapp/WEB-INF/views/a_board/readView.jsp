@@ -205,8 +205,8 @@
 	</form>
 	
 		<div>
-			<label for="id" class="form-label">작성자</label>
-			<input type="text" id="id" name="id" class="form-control" value="${read.id}" readonly/>
+			<label for="nick" class="form-label">작성자</label>
+			<input type="text" id="nick" name="nick" class="form-control" value="${read.nick}" readonly/>
 		</div>
 		
 		<br>
@@ -268,7 +268,7 @@
 				 	</p>
 					<p>${replyList.r_content }</p> --%>
 				 	<div>
-				 		<input type="text" class="id" value="${replyList.id }" readonly/>
+				 		<input type="text" class="id" value="${replyList.nick }" readonly/>
 				 		<input type="date" value="<fmt:formatDate value='${replyList.r_regdate }' pattern='yyyy-MM-dd'/>" readonly/>
 				 		<input type="text" class="r_content" value="${replyList.r_content }" readonly/>
 				 		
@@ -295,8 +295,9 @@
 		<input type="hidden" id="cateType" name="cateType" value="${scri.cateType }"/>
 		
 		<div>
-			<label for="id">작성자</label>
-			<input type="text" id="id" name="id" value="${id }" readonly/>
+			<label for="nick">작성자</label>
+			<input type="hidden" id="id" name="id" value="${id }"/>
+			<input type="text" id="nick" name="nick" value="${member.nick }" readonly/>
 			<label for="r_content">내용</label>
 			<input type="text" id="r_content" name="r_content"/>
 		

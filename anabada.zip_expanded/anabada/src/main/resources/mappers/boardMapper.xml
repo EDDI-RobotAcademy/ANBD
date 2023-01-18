@@ -6,14 +6,14 @@
 
 <!-- 게시판 글 작성 -->
 <insert id="insert">
-INSERT INTO A_BOARD(A_BNO, A_TITLE, A_CONTENT, A_TYPE, ID)
-VALUES(A_BOARD_SEQ.NEXTVAL, #{a_title}, #{a_content}, #{a_type}, #{id})
+INSERT INTO A_BOARD(A_BNO, A_TITLE, A_CONTENT, A_TYPE, ID, NICK)
+VALUES(A_BOARD_SEQ.NEXTVAL, #{a_title}, #{a_content}, #{a_type}, #{id}, #{nick})
 </insert>
 
 <select id="list" resultType="boardVO" parameterType="com.anabada.web.vo.ASearchCriteria">
 <!-- MP : 테이블 별칭, 생략 가능 / ROW_NUMBER() : 게시판 번호를 순차적으로 반환해주는 함수 -->
-SELECT A_BNO, A_TITLE, A_REGDATE, A_CNT, A_TYPE, ID
-FROM(SELECT A_BNO, A_TITLE, A_REGDATE, A_CNT, A_TYPE, ID, 
+SELECT A_BNO, A_TITLE, A_REGDATE, A_CNT, A_TYPE, NICK
+FROM(SELECT A_BNO, A_TITLE, A_REGDATE, A_CNT, A_TYPE, NICK, 
 	ROW_NUMBER() OVER(ORDER BY A_BNO DESC) AS RNUM 
 	FROM A_BOARD WHERE 1 = 1
 <include refid="search"></include>
@@ -53,7 +53,7 @@ AND a_BNO > 0
 </update>
 
 <select id="read" parameterType="int" resultType="boardVO">
-	SELECT A_BNO, A_TITLE, A_CONTENT, ID, A_LIKE_CNT
+	SELECT A_BNO, A_TITLE, A_CONTENT, ID, NICK, A_LIKE_CNT
 	FROM A_BOARD
 	WHERE A_BNO = #{a_bno}
 </select>
