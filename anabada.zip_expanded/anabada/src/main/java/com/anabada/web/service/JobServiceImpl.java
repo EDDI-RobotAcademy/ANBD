@@ -129,6 +129,12 @@ public class JobServiceImpl implements JobService {
 	public void report_insert(ComplaintVO vo) throws Exception {
 		dao.report_insert(vo);
 	}
+
+	// 알바 신고 내역 체크
+	@Override
+	public int report_chk(ComplaintVO vo) throws Exception {
+		return dao.report_chk(vo);
+	}
 	
 
 

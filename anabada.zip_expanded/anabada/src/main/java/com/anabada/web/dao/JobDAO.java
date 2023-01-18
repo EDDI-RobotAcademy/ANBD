@@ -50,5 +50,7 @@ public interface JobDAO {
 	// 알바 신고 관련
 	public void report_insert(ComplaintVO vo) throws Exception;
 
+	public int report_chk(ComplaintVO vo) throws Exception;
+
 	
 }

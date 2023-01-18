@@ -352,7 +352,7 @@ public class JobController {
 		return result;
 	}
 	
-	// 쪽지 신고하기 창 뜨게하기
+	// 알바 신고하기 창 뜨게하기
     @RequestMapping(value = "/job_report", method = RequestMethod.GET)
 	public String note_report(@RequestParam int j_bno, Model model) throws Exception{
 	
@@ -361,12 +361,12 @@ public class JobController {
 		return "/job/report";
 	}
     
-    // 쪽지 디비에 저장하기
+    // 알바 디비에 저장하기
     @RequestMapping(value = "/report_insert", method = RequestMethod.GET)
     public String report_insert(@ModelAttribute ComplaintVO vo, Model model) throws Exception{
     	
     	
-    	logger.info("쪽지 신고 디비에 저장하려고 함~~");
+    	logger.info("알바 신고 디비에 저장하려고 함~~");
     	
     	jobService.report_insert(vo);
     	
@@ -374,5 +374,17 @@ public class JobController {
     	
     	
     	return "/job/report";
+    }
+    
+    // 쪽지 신고한적 있는지 체크
+    @RequestMapping(value = "/report_chk.ajax", method = RequestMethod.GET)
+    @ResponseBody
+    public int report_chk(@ModelAttribute ComplaintVO vo) throws Exception{
+       
+       logger.info("알바 신고 한적 있는지 체크");
+       System.out.println(vo);
+       
+       int result = jobService.report_chk(vo);
+       return result;
     }
 }
