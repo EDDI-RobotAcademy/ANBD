@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.anabada.web.vo.ComplaintVO;
 import com.anabada.web.vo.JheartVO;
 import com.anabada.web.vo.JobCriteria;
 import com.anabada.web.vo.JobSearchCriteria;
@@ -119,10 +120,17 @@ public class JobDAOImpl implements JobDAO{
 		return sqlSession.selectOne("jobMapper.h_listCount", id);
 	}
 
+	// 알바 찜에서 삭제
 	@Override
 	public Object heart_delete(int[] delete_array) throws Exception {
 		return sqlSession.delete("jobMapper.h_delete", delete_array);
 	}
+
+	@Override
+	public void report_insert(ComplaintVO vo) throws Exception {
+		sqlSession.insert("jobMapper.report_insert", vo);
+	}
+	
 
 
 }

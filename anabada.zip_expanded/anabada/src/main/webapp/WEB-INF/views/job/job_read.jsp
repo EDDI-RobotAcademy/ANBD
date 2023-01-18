@@ -285,6 +285,20 @@
 			}
 		}); // 하트 이벤트 끝
 		
+		// 신고버튼 눌렀을 때
+		$("#report").click(function(){
+			
+			if(${empty id}){
+				alert("로그인 후 이용해주세요.");
+				return false;
+			}else{
+				window.open("/job/job_report?j_bno=${j_read.j_bno}", "신고", "width=400, height=600, left=0, top=0");
+				
+			}
+			
+			
+		});	
+		
 		recent_item();
 		get_recent_item();
 		
@@ -402,6 +416,9 @@
 						</c:if>
 						<c:if test="${id eq 'admin'}"><!-- 로그인한 아이디(세션에 저장된 아이디(id))와 작성자아이디(j_read.id)가 같으면 수정, 삭제 가능 -->
 							<button type="button" id="delete">삭제</button>
+						</c:if>
+						<c:if test="${j_read.id ne id && j_read.id ne 'admin'}">
+							<button type="button" id="report" class="j_btn3">신고</button>
 						</c:if>
 						
 					</td>

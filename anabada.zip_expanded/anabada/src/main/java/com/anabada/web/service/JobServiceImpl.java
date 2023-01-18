@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.anabada.web.dao.JobDAO;
+import com.anabada.web.vo.ComplaintVO;
 import com.anabada.web.vo.JheartVO;
 import com.anabada.web.vo.JobCriteria;
 import com.anabada.web.vo.JobSearchCriteria;
@@ -121,6 +122,12 @@ public class JobServiceImpl implements JobService {
 	@Override
 	public void heart_delete(int[] delete_array) throws Exception {
 		dao.heart_delete(delete_array);
+	}
+
+	// 알바 신고 등록
+	@Override
+	public void report_insert(ComplaintVO vo) throws Exception {
+		dao.report_insert(vo);
 	}
 	
 
