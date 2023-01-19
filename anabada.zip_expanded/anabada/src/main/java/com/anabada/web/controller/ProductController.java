@@ -162,7 +162,6 @@ public class ProductController {
 		HttpSession session = req.getSession();
 		String id = (String) session.getAttribute("id");
 		int pno = pboardVO.getPno();
-//      PBoardVO read = service.read(pboardVO.getPno());
 		PBoardVO read = service.read(pno);
 
 		// User의 찜 여부 조회
@@ -207,7 +206,6 @@ public class ProductController {
 			rescri.setR_seller(read.getId()); // rescri 에 serller 이름 세팅
 		}
 
-		System.out.println("리뷰 확인 : " + rescri);
 		List<ReviewVO> reviewList = service.reviewList(rescri);// id에 해당하는 리뷰 반환
 
 		model.addAttribute("reviewList", reviewList); // 리뷰를 담음
@@ -373,26 +371,37 @@ public class ProductController {
 		return "product/report";
 	}
 
+	// 신고 끝내기 
 	@RequestMapping(value = "/submit_report", method = RequestMethod.POST)
 	public String report_submit(ComplaintVO vo, Model model) throws Exception{
 		logger.info("product_submitReport");
 		System.out.println("신고내용 vo : "+vo);
-		//유효성 검사 
-		/*
-		 * int check = complaintService.validation(vo); // id에 해당하는 사람이 이미 신고한 적 있는지 유효성
-		 * 검사 if(check == 0) { // 신고한적 없음으로 신고하기 complaintService.insert(vo);
-		 * model.addAttribute("msg","ok"); return "product/report";
-		 * 
-		 * }else { // 신고한적 있음 model.addAttribute("msg","이미 신고한 게시물입니다."); return
-		 * "product/report"; }
-		 */
-	 
-		String msg = complaint(vo);
+		 complaintService.insert(vo);
+		String msg = "ok";
 		model.addAttribute("msg",msg);
 		return "product/report";
 	
 	 
 	}
+	
+	
+    @RequestMapping(value = "/report_chk", method = RequestMethod.GET)
+    @ResponseBody
+    public int report_chk(@ModelAttribute ComplaintVO vo) throws Exception{
+       
+       logger.info("상품 신고 한적 있는지 체크");
+       System.out.println(vo);
+       
+       int result = complaintService.validation(vo); // 신고 여부체크 
+       return result;
+    }
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	// 신고에 대한 유효성 검사 밑 신고 접수 메소드

@@ -163,8 +163,8 @@ WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}   ORDER BY pno DESC
 	
 	<!-- ID에 해당하는 상점의 리뷰를 받아옴 -->
 	<select id="reviewList" parameterType="com.anabada.web.vo.ReviewCriteria"  resultType="ReviewVO" >
-		SELECT PNO, R_SCORE, R_CONTENT,R_DATE,R_CONSUMER
-		FROM (SELECT R_SCORE, R_CONTENT,PNO ,R_DATE,R_CONSUMER,
+		SELECT R_NO,PNO, R_SCORE, R_CONTENT,R_DATE,R_CONSUMER
+		FROM (SELECT R_NO, R_SCORE, R_CONTENT,PNO ,R_DATE,R_CONSUMER,
 		ROW_NUMBER() OVER(ORDER BY R_DATE DESC) as RNUM
 		FROM REVIEW WHERE 
 		r_seller=#{r_seller}
