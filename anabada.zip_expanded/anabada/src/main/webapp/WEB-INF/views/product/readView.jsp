@@ -658,6 +658,46 @@ padding:  0px 2px 0px 2px;
    
       
       
+      //리뷰 신고 
+      $(".reviewCom").on("click", function() {
+		var btn_val = $(this).val(); 
+		alert(btn_val);
+		   if(  "${id}" ==""){
+			   alert('로그인 후 이용해주세요');
+			   return; 
+		   }else{
+			   if(confirm("리뷰를 신고하시겠습니까?")){
+				   var url = "/product/reviewReport?r_no="+btn_val;
+				   alert(url);
+				   window.open(url, "신고", "width=400, height=600, left=700, top=30");
+				   
+			   }else{
+				   return;
+			   }
+			   
+		   }
+		
+	})
+      
+      
+      
+	
+	
+	
+
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
       
       
    });
@@ -679,7 +719,7 @@ padding:  0px 2px 0px 2px;
          element.innerText = '판매완료';
       }
    }
- 
+ /*
    function complaint() {
 	   
 	   if(  "${id}" ==""){
@@ -688,45 +728,56 @@ padding:  0px 2px 0px 2px;
 	   }else{
 		   if(confirm("게시글을 신고하시겠습니까?")){
 			   
-			   window.open("/product/report?pno=${read.pno}", "신고", "width=400, height=600, left=0, top=0");
+			   window.open("/product/report?pno=${read.pno}", "신고", "width=400, height=600, left=700, top=30");
 			   
 		   }else{
 			   return;
 		   }
 		   
 	   }
-	   
-	   
-	   function complaint2() {
-		   
-		   if(  "${id}" ==""){
-			   alert('로그인 후 이용해주세요');
-			   return; 
-		   }else{
-			   if(confirm("리뷰를 신고하시겠습니까?")){
-				   
-				   window.open("/product/reviewReport?pno=${read.pno}", "신고", "width=400, height=600, left=0, top=0");
-				   
-			   }else{
-				   return;
-			   }
-			   
-		   }
-		   
-	   
+	  
+   }
+   
+*/
 
-	   
-	   
-	   
+function complaint() {
+	   if(  "${id}" ==""){
+		   alert('로그인 후 이용해주세요');
+		   return; 
+	   }else{
 
-	   
-	   
-	   
-	   
-	   
-	   
+		$.ajax({
+	            type: "get",
+	            url : "/product/report_chk",
+	            dataType :  'json',
+		        traditional : true,
+	            data : {
+	            	id: '${id}',
+	            	c_bno: ${read.pno},
+	            	board_type: 'pboard'
+	            },
+	            success:function(data){
+	            	
+	            	if(data == 1){
+	            		alert("이미 신고한 게시글입니다.");
+	            	}else{
+	            		 window.open("/product/report?pno=${read.pno}", "신고", "width=400, height=600, left=700, top=30");
+	            	}
+	                
+	            },
+	            error : function(request, status, error) {
+					alert("신고 실패:" + error);
+				}
+	        });
+
+
+
+}
 	
 }
+   
+   
+	   
    
 </script>
 
@@ -1009,7 +1060,7 @@ padding:  0px 2px 0px 2px;
        
        
        <td>  <font style="font-size: small; color: gray;" >🕗  ${review.r_date}</font>  </td>
-       <td>  <button type="button" value="2"  id="alarm" onclick="complaint2()" > <img width="15px;" height="15px;" src="../resources/images/u_alarm.png"> <font style="font-size: small; color: gray; " > 신고하기 </font>   </button>    </td>
+       <td>  <button type="button" value="${review.r_no}"      id="alarm"  class="reviewCom"> <img width="15px;" height="15px;" src="../resources/images/u_alarm.png"> <font style="font-size: small; color: gray; " > 신고하기 </font>   </button>    </td>
        
        </tr>
       <tr>
