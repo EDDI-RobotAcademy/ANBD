@@ -29,227 +29,247 @@
 }
  */
 .rach input[type='checkbox'] {
-   display: none;
+	display: none;
 }
+
 .rach input[type='checkbox']+span {
-   display: inline-block;
-   padding: 5px 5px;
-   border: 1px solid #AEB6BF;
-   border-radius: 10px;
-   background-color: #F7ECEC;
-   text-align: center;
-   cursor: pointer;
-   color: #E55555;
+	display: inline-block;
+	padding: 5px 5px;
+	border: 1px solid #AEB6BF;
+	border-radius: 10px;
+	background-color: #F7ECEC;
+	text-align: center;
+	cursor: pointer;
+	color: #E55555;
 }
+
 .rach input[type='checkbox']:checked+span {
-   background-color: #FD7D7D;
-   color: white;
-   border-radius: 10px;
+	background-color: #FD7D7D;
+	color: white;
+	border-radius: 10px;
 }
+
 .slick-arrow {
-   z-index: 2; /* prev버튼은 위치 이동시 이미지 뒤로 숨겨짐 */
-   position: absolute; /* 원하는 위치에 지정  */
-   top: 50%;
-   width: 50px;
-   height: 50px;
-   transform: translateY(-25px);
+	z-index: 2; /* prev버튼은 위치 이동시 이미지 뒤로 숨겨짐 */
+	position: absolute; /* 원하는 위치에 지정  */
+	top: 50%;
+	width: 50px;
+	height: 50px;
+	transform: translateY(-25px);
 }
+
 .slick-prev.slick-arrow { /* prev 이전 */
-   position: absolute;
-   left: 0px;
+	position: absolute;
+	left: 0px;
 }
+
 .slick-next.slick-arrow { /* next 다음 */
-   right: 10px;
+	right: 10px;
 }
 /* 아래점 */
 .slick-dots {
-   text-align: center;
+	text-align: center;
 }
+
 .slick-dots li {
-   display: inline-block;
-   margin: 0 5px;
+	display: inline-block;
+	margin: 0 5px;
 }
+
 #textbox {
-   
-   width: 490px;
-   height: 320px;
-   border-radius: 20px;
-   border-top-left-radius: 0px;
-   border: 2px solid #AFAFAF;
-   padding: 17px;
-   
+	width: 490px;
+	height: 320px;
+	border-radius: 20px;
+	border-top-left-radius: 0px;
+	border: 2px solid #AFAFAF;
+	padding: 17px;
 }
+
 #re {
-   text-align: center;
-   font-weight: bold;
-   color: white;
-   background-color: #AFAFAF;
-   border-top-left-radius: 12px;
-   border-top-right-radius: 12px;
-   height: 30px;
-   border-bottom: 2px;
+	text-align: center;
+	font-weight: bold;
+	color: white;
+	background-color: #AFAFAF;
+	border-top-left-radius: 12px;
+	border-top-right-radius: 12px;
+	height: 30px;
+	border-bottom: 2px;
 }
+
 .box {
-   display: inline;
-   border-radius: 7px;
-   padding: 5px;
-   background-color: #AFAFAF;
-   text-align: center;
-   font-weight: bold;
-   color: white;
-   margin-right: 0px;
-   letter-spacing: 2px;
+	display: inline;
+	border-radius: 7px;
+	padding: 5px;
+	background-color: #AFAFAF;
+	text-align: center;
+	font-weight: bold;
+	color: white;
+	margin-right: 0px;
+	letter-spacing: 2px;
 }
-.reBox{
-padding: 5px;
-   background-color: #AFAFAF;
-   text-align: center;
-   font-weight: bold;
-   color: white;
-   letter-spacing: 2px;
-   border-top-left-radius: 7px;
-   border-top-right-radius: 7px;
-   width: 100px;
+
+.reBox {
+	padding: 5px;
+	background-color: #AFAFAF;
+	text-align: center;
+	font-weight: bold;
+	color: white;
+	letter-spacing: 2px;
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
+	width: 100px;
 }
-#userBK{
-   width: 100px;
-   display: inline-block;
-   border-radius: 7px;
-   padding: 5px;
-   background-color: #AFAFAF;
-   text-align: center;
-   font-weight: bold;
-   color: white;
-   margin-right: 10px;
-   letter-spacing: 2px;
+
+#userBK {
+	width: 100px;
+	display: inline-block;
+	border-radius: 7px;
+	padding: 5px;
+	background-color: #AFAFAF;
+	text-align: center;
+	font-weight: bold;
+	color: white;
+	margin-right: 10px;
+	letter-spacing: 2px;
 }
+
 #btndiv {
-   float: right;
-   margin-bottom: 30px;
+	float: right;
+	margin-bottom: 30px;
 }
+
 #book option, #book {
-   text-align: center;
-   font-weight: bold;
-   color: #3D3D3D;
-   font-size: 17px;
+	text-align: center;
+	font-weight: bold;
+	color: #3D3D3D;
+	font-size: 17px;
 }
-   .sideword {
-        width:110px;
-     overflow: hidden;
-     text-overflow: ellipsis;
-     white-space: nowrap;
-      
-   }
+
+.sideword {
+	width: 110px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
 /*레이아웃 */
 #wapper {
-   width: 1200px;
-   margin: auto;
-   height: auto;
+	width: 1200px;
+	margin: auto;
+	height: auto;
 }
+
 .nav, .aside, .section {
-   margin: 3px; /*간격*/
+	margin: 3px; /*간격*/
 }
+
 .nav, .section, .aside {
-   float: left;
+	float: left;
 }
+
 .nav {
-   width: 70px;
+	width: 70px;
 }
+
 .section {
-   /* background-color: #f9f9f9;    */
-   width: 1000px;
-   border: 0px;
-   border-collapse: collapse;
+	/* background-color: #f9f9f9;    */
+	width: 1000px;
+	border: 0px;
+	border-collapse: collapse;
 }
+
 .aside {
-   
+	
 }
+
 .sideBanner {
-   width: 120px;
-   position: absolute;
-   height: 470px;
-   top: 100px;
-   background-color: white;
-   border: 1px solid #0C6BBC;
-   text-align: center;
-   margin-left: 10px;
-   margin-top: 10px;
+	width: 120px;
+	position: absolute;
+	height: 470px;
+	top: 100px;
+	background-color: white;
+	border: 1px solid #0C6BBC;
+	text-align: center;
+	margin-left: 10px;
+	margin-top: 10px;
 }
+
 .recent_list {
-   height: 405px;
-   overflow: hidden;
+	height: 405px;
+	overflow: hidden;
 }
 /*최근 본 알바 ul*/
 #recentItemList {
-   list-style: none;
-   float: left;
-   text-align: center;
+	list-style: none;
+	float: left;
+	text-align: center;
 }
+
 #recentItemList li {
-   height: 130px;
-   display: inline-block;
-   text-align: center;
-   margin-bottom: 5px;
+	height: 130px;
+	display: inline-block;
+	text-align: center;
+	margin-bottom: 5px;
 }
+
 ul {
-    list-style: none;
-    margin:0px; padding:0px;
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
 }
-#reviewBox{
-margin-top: 70px;
+
+#reviewBox {
+	margin-top: 70px;
 }
-#reviewBox td{
- width: 510px;
+
+#reviewBox td {
+	width: 510px;
 }
-   #select_table{
-      width: 100%;
-   }
-   
-   .info, .info td{
-      padding-bottom: 10px;
-   }
-   
-   .m_label{
-      width: 100%;
-      border: 1px solid #e9e9e9;
-      cursor: pointer;
-      padding: 10px;
-   }
-   
-   .n_receiver{ /*모달창 사람들 라디오버튼*/
-      display: none;
-   }
-   
-   .p_img { 
-        width: 110px;
-        height: 110px;
-        border-radius: 10px;
-    }
+
+#select_table {
+	width: 100%;
+}
+
+.info, .info td {
+	padding-bottom: 10px;
+}
+
+.m_label {
+	width: 100%;
+	border: 1px solid #e9e9e9;
+	cursor: pointer;
+	padding: 10px;
+}
+
+.n_receiver { /*모달창 사람들 라디오버튼*/
+	display: none;
+}
+
+.p_img {
+	width: 110px;
+	height: 110px;
+	border-radius: 10px;
+}
 /*끝 */
-
-.noReview{
-text-align: center;
-color: #AFAFAF;
-margin-top:50px;
-font-size: 20px;
+.noReview {
+	text-align: center;
+	color: #AFAFAF;
+	margin-top: 50px;
+	font-size: 20px;
 }
 
-.cunsumer{
-
-border-radius: 7px;
-background-color: #AFAFAF;
-display: inline-block;
-color: white;
-font-size:11px;
-padding:  0px 2px 0px 2px;
-}
-#alarm{
-   background:  no-repeat;
-   border: none;
- 
-  
+.cunsumer {
+	border-radius: 7px;
+	background-color: #AFAFAF;
+	display: inline-block;
+	color: white;
+	font-size: 11px;
+	padding: 0px 2px 0px 2px;
 }
 
+#alarm {
+	background: no-repeat;
+	border: none;
+}
 </style>
 <script type="text/javascript">
    $(document).ready(function() {
@@ -661,21 +681,38 @@ padding:  0px 2px 0px 2px;
       //리뷰 신고 
       $(".reviewCom").on("click", function() {
 		var btn_val = $(this).val(); 
-		alert(btn_val);
-		   if(  "${id}" ==""){
+		 if(  "${id}" ==""){
 			   alert('로그인 후 이용해주세요');
 			   return; 
 		   }else{
-			   if(confirm("리뷰를 신고하시겠습니까?")){
-				   var url = "/product/reviewReport?r_no="+btn_val;
-				   alert(url);
-				   window.open(url, "신고", "width=400, height=600, left=700, top=30");
-				   
-			   }else{
-				   return;
-			   }
-			   
+
+			$.ajax({
+		            type: "get",
+		            url : "/product/reviewReport_chk",
+		            dataType :  'json',
+			        traditional : true,
+		            data : {
+		            	id: '${id}',
+		            	c_bno: ${read.pno},
+		            	board_type: 'review'
+		            },
+		            success:function(data){
+		            	
+		            	if(data == 1){
+		            		alert("이미 신고한 게시글입니다.");
+		            	}else{
+		            		
+		            		 var url = "/product/reviewReport?r_no="+btn_val;
+		            		 window.open(url, "신고", "width=485, height=500, left=700, top=30");
+		            	}
+		                
+		            },
+		            error : function(request, status, error) {
+						alert("신고 실패:" + error);
+					}
+		        });
 		   }
+
 		
 	})
       
@@ -719,26 +756,7 @@ padding:  0px 2px 0px 2px;
          element.innerText = '판매완료';
       }
    }
- /*
-   function complaint() {
-	   
-	   if(  "${id}" ==""){
-		   alert('로그인 후 이용해주세요');
-		   return; 
-	   }else{
-		   if(confirm("게시글을 신고하시겠습니까?")){
-			   
-			   window.open("/product/report?pno=${read.pno}", "신고", "width=400, height=600, left=700, top=30");
-			   
-		   }else{
-			   return;
-		   }
-		   
-	   }
-	  
-   }
-   
-*/
+
 
 function complaint() {
 	   if(  "${id}" ==""){
@@ -761,7 +779,7 @@ function complaint() {
 	            	if(data == 1){
 	            		alert("이미 신고한 게시글입니다.");
 	            	}else{
-	            		 window.open("/product/report?pno=${read.pno}", "신고", "width=400, height=600, left=700, top=30");
+	            		 window.open("/product/report?pno=${read.pno}", "신고", "width=485, height=500, left=700, top=30");
 	            	}
 	                
 	            },
@@ -784,492 +802,486 @@ function complaint() {
 </head>
 <body>
 
-<!-- header -->
+	<!-- header -->
 
-<div id="anbdHead" >
-   <div>
-      <jsp:include page="../includes/nav.jsp" />
-   </div>
-   <div >
-      <jsp:include page="../includes/header.jsp" />
-   </div>
-   </div>
+	<div id="anbdHead">
+		<div>
+			<jsp:include page="../includes/nav.jsp" />
+		</div>
+		<div>
+			<jsp:include page="../includes/header.jsp" />
+		</div>
+	</div>
 
-<!-- header end -->
+	<!-- header end -->
 
-   <div id="wapper" >
-   <section class="nav"></section>
-   <section class="section" style="border-top: 1px solid #e5e5e5">
+	<div id="wapper">
+		<section class="nav"></section>
+		<section class="section" style="border-top: 1px solid #e5e5e5">
 
-   
-   
-      <button id="listbtn">목록으로가기</button>
 
 
-      <form name="readForm" role="form">
+			<button id="listbtn">목록으로가기</button>
 
-         <input type="hidden" name="pno" value="${read.pno }">
 
+			<form name="readForm" role="form">
 
-         <table style="margin-left: auto; margin-right: auto;">
-            <tr>
+				<input type="hidden" name="pno" value="${read.pno }">
 
 
+				<table style="margin-left: auto; margin-right: auto;">
+					<tr>
 
-               <td colspan="10" style="text-align: right; padding-right: 20px;">
 
 
-                  <div style="display: inline;">
+						<td colspan="10" style="text-align: right; padding-right: 20px;">
 
-                     <label class="rach"><input type="checkbox" id="heart" name="p_heart" value="${read.p_heart }" /> <c:choose>
-                           <c:when test="${heart==0 }">
-                              <img class="himg" style="width: 60px; height: 60px;" src="../../resources/images/heartA.png">
-                           </c:when>
-                           <c:otherwise>
-                              <img class="himg" style="width: 60px; height: 60px;" src="../../resources/images/heartB.png">
-                           </c:otherwise>
-                        </c:choose> </label>
 
-                  </div> <c:if test="${id == read.id }">
+							<div style="display: inline;">
 
-                     <button id="rebtn" style="background-color: white; border: none;" title="글 수정">
-                        <img src="../resources/images/edit.png" style="width: 40px; height: 40px;">
-                     </button>
-                     <button id="delbtn" style="background-color: white; border: none;" title="삭제">
-                       <img src="../resources/images/garbage.png" style="width: 40px; height: 40px;"> 
-                     </button>
+								<label class="rach"><input type="checkbox" id="heart" name="p_heart" value="${read.p_heart }" /> <c:choose>
+										<c:when test="${heart==0 }">
+											<img class="himg" style="width: 60px; height: 60px;" src="../../resources/images/heartA.png">
+										</c:when>
+										<c:otherwise>
+											<img class="himg" style="width: 60px; height: 60px;" src="../../resources/images/heartB.png">
+										</c:otherwise>
+									</c:choose> </label>
 
-                  </c:if>
-               </td>
+							</div> <c:if test="${id == read.id }">
 
-            </tr>
+								<button id="rebtn" style="background-color: white; border: none;" title="글 수정">
+									<img src="../resources/images/edit.png" style="width: 40px; height: 40px;">
+								</button>
+								<button id="delbtn" style="background-color: white; border: none;" title="삭제">
+									<img src="../resources/images/garbage.png" style="width: 40px; height: 40px;">
+								</button>
 
+							</c:if>
+						</td>
 
+					</tr>
 
 
-            <tr>
-               <td colspan="10">
-                  <hr style="height: 2px; background-color: #DBD9D9;">
-               </td>
-            </tr>
 
 
-            <tr style="height: 15px;">
-               <td colspan="6" rowspan="10" style="background-color: white;">
+					<tr>
+						<td colspan="10">
+							<hr style="height: 2px; background-color: #DBD9D9;">
+						</td>
+					</tr>
 
-                  <div class="single-item" id="slick" style="width: 500px; height: 500px;">
 
-                     <c:choose>
-                        <c:when test="${ empty filelist }">
+					<tr style="height: 15px;">
+						<td colspan="6" rowspan="10" style="background-color: white;">
 
-                           <div class="imgbox" >
-                              <img width="500px;" height="500px;"  src="/tomcatImg/img.png">
-                           </div>
-                        </c:when>
-                        <c:otherwise>
+							<div class="single-item" id="slick" style="width: 500px; height: 500px;">
 
-                           <c:forEach items="${filelist}" var="list">
-                              <div class="imgbox" >
-                                 <img width="500px;" height="500px;" src="${list.filepath }" name="p_file">
-                              </div>
-                           </c:forEach>
-                        </c:otherwise>
-                     </c:choose>
-                  </div>
+								<c:choose>
+									<c:when test="${ empty filelist }">
 
+										<div class="imgbox">
+											<img width="500px;" height="500px;" src="/tomcatImg/img.png">
+										</div>
+									</c:when>
+									<c:otherwise>
 
+										<c:forEach items="${filelist}" var="list">
+											<div class="imgbox">
+												<img width="500px;" height="500px;" src="${list.filepath }" name="p_file">
+											</div>
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
+							</div>
 
-               </td>
 
-               <td>&nbsp;</td>
-               <td colspan="3" style="font-weight: bold; font-size: 35px;">${read.p_title }</td>
-            </tr>
 
+						</td>
 
-            <tr>
-               <td>&nbsp;</td>
-               <td colspan="2">판매자 : ${read.id }</td>
-               <td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td colspan="3" style="font-weight: bold; font-size: 35px;">${read.p_title }</td>
+					</tr>
 
-            </tr>
-            <tr>
-               <td>&nbsp;</td>
-               <td colspan="2">판매가격 : ${read.p_cost }원</td>
-               <td><c:choose>
-                     <c:when test="${read.id== id }">
-                        <select id="book" class="form-select form-select-sm" aria-label=".form-select-sm example">
-                           <option value="ing" <c:out value="${read.p_buy eq 'ing' ? 'selected' :''} "/>>판매중</option>
-                           <option value="book" <c:out value="${read.p_buy eq 'book' ? 'selected' :''} "/>>예약중</option>
-                           <option value="end" <c:out value="${read.p_buy eq 'end' ? 'selected' :''} "/>>판매완료</option>
 
-                        </select>
-                     </c:when>
-                     <c:otherwise>
-                        <div   id="userBK"  > </div>
+					<tr>
+						<td>&nbsp;</td>
+						<td colspan="2">판매자 : ${read.id }</td>
+						<td>&nbsp;</td>
 
-                     </c:otherwise>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td colspan="2">판매가격 : ${read.p_cost }원</td>
+						<td><c:choose>
+								<c:when test="${read.id== id }">
+									<select id="book" class="form-select form-select-sm" aria-label=".form-select-sm example">
+										<option value="ing" <c:out value="${read.p_buy eq 'ing' ? 'selected' :''} "/>>판매중</option>
+										<option value="book" <c:out value="${read.p_buy eq 'book' ? 'selected' :''} "/>>예약중</option>
+										<option value="end" <c:out value="${read.p_buy eq 'end' ? 'selected' :''} "/>>판매완료</option>
 
-                  </c:choose></td>
+									</select>
+								</c:when>
+								<c:otherwise>
+									<div id="userBK"></div>
 
-            </tr>
-            <tr><td>&nbsp;</td> <td colspan="3" >게시일 : <fmt:formatDate  pattern="yyyy.MM.dd" value="${read.p_regdate }"/></td> </tr>
-            
+								</c:otherwise>
 
-            <tr>
-               <td colspan="4"  >
-                  <hr style="margin-top: 0px; margin-bottom: 0px; " >
-               </td>
-            </tr>
+							</c:choose></td>
 
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td colspan="3">게시일 : <fmt:formatDate pattern="yyyy.MM.dd" value="${read.p_regdate }" /></td>
+					</tr>
 
 
-            <tr height="60px;" >
-               <td>&nbsp;</td>
-               <td ><span style="font-size: 20px;">👀</span> ${read.p_count }
-               &nbsp;&nbsp;&nbsp;
-               <span style="color: red; font-size: 20px;"> ❤</span>
-                  <div style="display: inline-block;" id="heartCh">${read.p_heart }</div> <br></td>
-                  <td>&nbsp;</td>
-                   
-                  <td>  <button type="button" value="1" id="alarm" onclick="complaint()" > <img width="30px;" height="30px;" src="../resources/images/u_alarm.png"> <font style="color: gray; " > 신고하기 </font>   </button>  </td>
+					<tr>
+						<td colspan="4">
+							<hr style="margin-top: 0px; margin-bottom: 0px;">
+						</td>
+					</tr>
 
-            </tr>
 
 
+					<tr height="60px;">
+						<td>&nbsp;</td>
+						<td><span style="font-size: 20px;">👀</span> ${read.p_count } &nbsp;&nbsp;&nbsp; <span style="color: red; font-size: 20px;"> ❤</span>
+							<div style="display: inline-block;" id="heartCh">${read.p_heart }</div> <br></td>
+						<td>&nbsp;</td>
 
+						<td>
+							<button type="button" value="1" id="alarm" onclick="complaint()">
+								<img width="30px;" height="30px;" src="../resources/images/u_alarm.png"> <font style="color: gray;"> 신고하기 </font>
+							</button>
+						</td>
 
-            <tr>
-               <td>&nbsp;</td>
-               <td>
-                  <div class="box">카테 고리</div> ${read.p_type }
-               </td>
-               <td colspan="2">&nbsp;</td>
-            </tr>
+					</tr>
 
-            <tr>
-               <td>&nbsp;</td>
-               <td><div class="box">제품 상태</div> ${read.p_con }</td>
-               <td colspan="2">&nbsp;</td>
-            </tr>
 
-            <tr>
-               <td>&nbsp;</td>
-               <td><div class="box">거래 유형</div> <c:if test="${read.sell_a != '0' }">${read.sell_a} [ ${read.p_local} ] </c:if> <c:if test="${read.sell_b != '0' }">${read.sell_b}</c:if></td>
-               <td colspan="2">&nbsp;</td>
 
-            </tr>
 
-            <tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td>
+							<div class="box">카테 고리</div> ${read.p_type }
+						</td>
+						<td colspan="2">&nbsp;</td>
+					</tr>
 
+					<tr>
+						<td>&nbsp;</td>
+						<td><div class="box">제품 상태</div> ${read.p_con }</td>
+						<td colspan="2">&nbsp;</td>
+					</tr>
 
-               <td colspan="3">
-                  <c:if test="${read.id != id }">
-                  <div>
-                  
-                  <button type="button" name="n_send" class="n_btn1" style="display: block; margin: auto;">쪽지 보내기</button>
-                  </div>
-                  </c:if>
-                  <c:if test="${read.id == id }"> <br>  <br> </c:if>
-               </td>
-            </tr>
-            <tr>
-               <td colspan="10">
-                  <hr style="height: 2px; background-color: #DBD9D9;">
-               </td>
-            </tr>
-
-
-
-         </table>
-
-
-
-
-
-         <!-- 관련 상품 보여주기  -->
-         <table style="margin-top: 50px; margin-left: auto; margin-right: auto;">
-            <tr>
-               <td id="re">관 련 상 품</td>
-            </tr>
-
-
-            <tr>
-               <c:forEach items="${listImg}" var="listImg">
-                  <td  ><c:choose>
-                        <c:when test="${ empty listImg.s_filePath}">
-
-                           <div onclick="location.href='/product/readView?pno=${listImg.s_pno}&p_type=${listImg.s_p_type }'" style="display: inline-table;">
-                              <img src="/tomcatImg/img.png" onmouseover="this.style.opacity =0.2 " onmouseout="this.style.opacity =1" style="width: 200px; height: 200px;">
-
-                           </div>
-
-                        </c:when>
-                        <c:otherwise>
-                           <div onclick="location.href='/product/readView?pno=${listImg.s_pno}&p_type=${listImg.s_p_type }'" style="display: inline-table;">
-                              <img src="${listImg.s_filePath }" onmouseover="this.style.opacity =0.2 " onmouseout="this.style.opacity =1" style="width: 200px; height: 200px;">
-
-                           </div>
-
-
-                        </c:otherwise>
-                     </c:choose></td>
-               </c:forEach>
-            </tr>
-
-            <tr>
-               <c:forEach items="${listImg}" var="listImg">
-                  <td style="text-align: center; font-weight: bold;">${listImg.s_title}</td>
-               </c:forEach>
-
-
-            </tr>
-
-
-
-
-         </table>
-
-         <!-- 관련 상품 끝 -->
-
-         
-      <!-- 상품 상세 설명  및 구매자 후기 -->   
-      <table id="reviewBox"  >
-      <tr> <td> <div class="reBox" >상 품 상 태</div> </td>  <td> <div class="reBox" > 상점 후기 </div> </td>  </tr>
-      <tr> <td> <div id="textbox" > ${read.p_content } </div> </td>  
-      
-      
-      
-      <td> 
-       <div id="textbox"  style="padding-top: 3px;  ">
-      
-      <c:choose>
-      <c:when test="${reviewList[0] != null }">
-         <!-- 상점 후기  -->
-      <table   >
-      <c:forEach items="${reviewList }"  var="review" >
-      <tr>  <td>  <div class="cunsumer" >작성자</div>  ${review.r_consumer}</td> 
-       <td style="font-size: small;" >       
-       
-       <c:if test="${review.r_score == 0.3 }"> ⭐⭐⭐⭐ </c:if>
-       <c:if test="${review.r_score == 0.2 }"> ⭐⭐⭐ </c:if>
-       <c:if test="${review.r_score == 0.1 }"> ⭐⭐ </c:if>
-       <c:if test="${review.r_score == -0.1 }"> ⭐ </c:if>
-       
-           </td> 
-       
-       
-       
-       <td>  <font style="font-size: small; color: gray;" >🕗  ${review.r_date}</font>  </td>
-       <td>  <button type="button" value="${review.r_no}"      id="alarm"  class="reviewCom"> <img width="15px;" height="15px;" src="../resources/images/u_alarm.png"> <font style="font-size: small; color: gray; " > 신고하기 </font>   </button>    </td>
-       
-       </tr>
-      <tr>
-       <td colspan="4" >  ${review.r_content }  <hr style="margin: 5px 0px 5px 0px" > </td>
-        </tr>
-       
-      </c:forEach>
-      </table>
-      <!-- 후기 끝 -->
-      </c:when>
-      
-      <c:otherwise>
-      <div class="noReview" >
-      등록된 후기가 없습니다. 
-      </div>
-      </c:otherwise>
-      
-      </c:choose>
-      
-      
-      
-   
-
-      
-      
-      
-            
-<!-- 후기 게시판 페이지 네이션 -->
-                  <nav style="margin-left: 50%">
-                  <ul class="pagination">
-                     <li class="page-item"><c:if test="${pageMaker.prev }">
-                           <a class="page-link" href="href="readView${pageMaker.makeSearch(pageMaker.startPage - 1,read.pno,read.p_type )}" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-                           </a></li>
-                     </c:if>
-                     <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
-                        <li class="page-item" <c:out value="${pageMaker.cri.page == idx ? 'class=info' : '' }"/>><a class="page-link" href="readView${pageMaker.makeSearch(idx,read.pno,read.p_type)}">${idx }</a></li>
-                     </c:forEach>
-
-
-                     <c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
-                        <li class="page-item"><a class="page-link" href="readView${pageMaker.makeSearch(pageMaker.endPage + 1,read.pno,read.p_type)}" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-                        </a></li>
-                     </c:if>
-                  </ul>
-               </nav>
-      
-      
-      <!-- 페이지 네이션 끝 -->
-      </div> 
-
-      </td>   
-      
-      
-      
-      
-      
-      
-      </tr>
-      </table>
-      
-      
-      <!-- 상품 상세 설명 및 구매자 후기  끝  -->
-         
-         
-         
-         
-
-
-
-
-      </form>
-      </section>
-                     <!-- 사이드바 - 최근본 상품 목록 -->
-         <section class="aside">
-            <div class="sideBanner" >
-               최근 본 상품
-               <div class="r_btn">
-                  <button class="recent_btn">▲</button>
-                  <button class="recent_btn">▼</button>
-               </div>
-               <div class="recent_list ">
-                  <ul id="recentItemList">
-                  </ul>
-               </div>
-            </div>
-         </section>
-         <!-- 최근본 상품 끝  -->
-      
-   </div>
-   
-   
-   
-   
-   <!-- footer -->
-   <div id="footer">
-
-      <div id="footer">
-         <jsp:include page="../includes/footer.jsp" />
-      </div>
-   </div>
-   <!-- footer end -->
-   
-   
-     <!-- 모달 내용 -->
-   <div class="modal fade" id="selectModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content ">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">구매자 선택하기</h1>
-                </div>
-                <form id="select_form">
-                    <div class="modal-body">
-                       <table id="select_table">
-                            <tbody>
-                                <tr class="info">
-                              <td width="130px;">
-                              	<c:if test="${empty filelist[0].filepath }">
-                              	<img class="p_img" src="/tomcatImg/img.png"><!-- 해당 썸네일 이미지 경로 -->
-                              	</c:if>
-                              	<c:if test="${not empty filelist[0].filepath }">
-                              	<img class="p_img" src="${filelist[0].filepath }"><!-- 해당 썸네일 이미지 경로 -->
-                              	</c:if>
-                              </td>
-                              <td>
-                                 ${read.p_title}<br>
-                                 ${read.p_cost}<br>
-                              </td>
-                          </tr>
-                                
-                        <c:forEach items="${m_list }" var="m_list">
-                        <tr>
-                           <td colspan="2">
-                              <label class="m_label">
-                                 <input type="radio" name="n_receiver" class="n_receiver" value="${m_list }">
-                                 ${m_list }
-                              </label>
-                           </td>
-                        </tr>
-                        </c:forEach>
-                        
-                        <tr>
-                           <td colspan="2">
-                              <label class="m_label">
-                                 <input type="radio" name="n_receiver" class="n_receiver" value="">
-                                 해당 사항 없음
-                              </label>
-                           </td>
-                        </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </form>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" id="review_note">선택 완료</button>
-                    <button class="btn btn-primary" type="button" id="finsh" data-bs-dismiss="modal">취소</button>
-                </div>
-            </div>
-        </div>
-   </div>
-   <!-- 모달 end  -->
-   
-   <!-- 쪽지 모달 -->
+					<tr>
+						<td>&nbsp;</td>
+						<td><div class="box">거래 유형</div> <c:if test="${read.sell_a != '0' }">${read.sell_a} [ ${read.p_local} ] </c:if> <c:if test="${read.sell_b != '0' }">${read.sell_b}</c:if></td>
+						<td colspan="2">&nbsp;</td>
+
+					</tr>
+
+					<tr>
+
+
+						<td colspan="3"><c:if test="${read.id != id }">
+								<div>
+
+									<button type="button" name="n_send" class="n_btn1" style="display: block; margin: auto;">쪽지 보내기</button>
+								</div>
+							</c:if> <c:if test="${read.id == id }">
+								<br>
+								<br>
+							</c:if></td>
+					</tr>
+					<tr>
+						<td colspan="10">
+							<hr style="height: 2px; background-color: #DBD9D9;">
+						</td>
+					</tr>
+
+
+
+				</table>
+
+
+
+
+
+				<!-- 관련 상품 보여주기  -->
+				<table style="margin-top: 50px; margin-left: auto; margin-right: auto;">
+					<tr>
+						<td id="re">관 련 상 품</td>
+					</tr>
+
+
+					<tr>
+						<c:forEach items="${listImg}" var="listImg">
+							<td><c:choose>
+									<c:when test="${ empty listImg.s_filePath}">
+
+										<div onclick="location.href='/product/readView?pno=${listImg.s_pno}&p_type=${listImg.s_p_type }'" style="display: inline-table;">
+											<img src="/tomcatImg/img.png" onmouseover="this.style.opacity =0.2 " onmouseout="this.style.opacity =1" style="width: 200px; height: 200px;">
+
+										</div>
+
+									</c:when>
+									<c:otherwise>
+										<div onclick="location.href='/product/readView?pno=${listImg.s_pno}&p_type=${listImg.s_p_type }'" style="display: inline-table;">
+											<img src="${listImg.s_filePath }" onmouseover="this.style.opacity =0.2 " onmouseout="this.style.opacity =1" style="width: 200px; height: 200px;">
+
+										</div>
+
+
+									</c:otherwise>
+								</c:choose></td>
+						</c:forEach>
+					</tr>
+
+					<tr>
+						<c:forEach items="${listImg}" var="listImg">
+							<td style="text-align: center; font-weight: bold;">${listImg.s_title}</td>
+						</c:forEach>
+
+
+					</tr>
+
+
+
+
+				</table>
+
+				<!-- 관련 상품 끝 -->
+
+
+				<!-- 상품 상세 설명  및 구매자 후기 -->
+				<table id="reviewBox">
+					<tr>
+						<td>
+							<div class="reBox">상 품 상 태</div>
+						</td>
+						<td>
+							<div class="reBox">상점 후기</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div id="textbox">${read.p_content }</div>
+						</td>
+
+
+
+						<td>
+							<div id="textbox" style="padding-top: 3px;">
+
+								<c:choose>
+									<c:when test="${reviewList[0] != null }">
+										<!-- 상점 후기  -->
+										<table>
+											<c:forEach items="${reviewList }" var="review">
+												<tr>
+													<td>
+														<div class="cunsumer">작성자</div> ${review.r_consumer}
+													</td>
+													<td style="font-size: small;"><c:if test="${review.r_score == 0.3 }"> ⭐⭐⭐⭐ </c:if> <c:if test="${review.r_score == 0.2 }"> ⭐⭐⭐ </c:if> <c:if test="${review.r_score == 0.1 }"> ⭐⭐ </c:if> <c:if test="${review.r_score == -0.1 }"> ⭐ </c:if></td>
+
+
+
+													<td><font style="font-size: small; color: gray;">🕗 ${review.r_date}</font></td>
+													<td>
+														<button type="button" value="${review.r_no}" id="alarm" class="reviewCom">
+															<img width="15px;" height="15px;" src="../resources/images/u_alarm.png"> <font style="font-size: small; color: gray;"> 신고하기 </font>
+														</button>
+													</td>
+
+												</tr>
+												<tr>
+													<td colspan="4">${review.r_content }
+														<hr style="margin: 5px 0px 5px 0px">
+													</td>
+												</tr>
+
+											</c:forEach>
+										</table>
+										<!-- 후기 끝 -->
+									</c:when>
+
+									<c:otherwise>
+										<div class="noReview">등록된 후기가 없습니다.</div>
+									</c:otherwise>
+
+								</c:choose>
+
+
+
+
+
+
+
+
+
+								<!-- 후기 게시판 페이지 네이션 -->
+								<nav style="margin-left: 50%">
+									<ul class="pagination">
+										<li class="page-item"><c:if test="${pageMaker.prev }">
+												<a class="page-link" href="href=" readView${pageMaker.makeSearch(pageMaker.startPage - 1,read.pno,read.p_type )}" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+												</a></li>
+										</c:if>
+										<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+											<li class="page-item" <c:out value="${pageMaker.cri.page == idx ? 'class=info' : '' }"/>><a class="page-link" href="readView${pageMaker.makeSearch(idx,read.pno,read.p_type)}">${idx }</a></li>
+										</c:forEach>
+
+
+										<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
+											<li class="page-item"><a class="page-link" href="readView${pageMaker.makeSearch(pageMaker.endPage + 1,read.pno,read.p_type)}" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+											</a></li>
+										</c:if>
+									</ul>
+								</nav>
+
+
+								<!-- 페이지 네이션 끝 -->
+							</div>
+
+						</td>
+
+
+
+
+
+
+					</tr>
+				</table>
+
+
+				<!-- 상품 상세 설명 및 구매자 후기  끝  -->
+
+
+
+
+
+
+
+
+			</form>
+		</section>
+		<!-- 사이드바 - 최근본 상품 목록 -->
+		<section class="aside">
+			<div class="sideBanner">
+				최근 본 상품
+				<div class="r_btn">
+					<button class="recent_btn">▲</button>
+					<button class="recent_btn">▼</button>
+				</div>
+				<div class="recent_list ">
+					<ul id="recentItemList">
+					</ul>
+				</div>
+			</div>
+		</section>
+		<!-- 최근본 상품 끝  -->
+
+	</div>
+
+
+
+
+	<!-- footer -->
+	<div id="footer">
+
+		<div id="footer">
+			<jsp:include page="../includes/footer.jsp" />
+		</div>
+	</div>
+	<!-- footer end -->
+
+
+	<!-- 모달 내용 -->
+	<div class="modal fade" id="selectModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content ">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="staticBackdropLabel">구매자 선택하기</h1>
+				</div>
+				<form id="select_form">
+					<div class="modal-body">
+						<table id="select_table">
+							<tbody>
+								<tr class="info">
+									<td width="130px;"><c:if test="${empty filelist[0].filepath }">
+											<img class="p_img" src="/tomcatImg/img.png">
+											<!-- 해당 썸네일 이미지 경로 -->
+										</c:if> <c:if test="${not empty filelist[0].filepath }">
+											<img class="p_img" src="${filelist[0].filepath }">
+											<!-- 해당 썸네일 이미지 경로 -->
+										</c:if></td>
+									<td>${read.p_title}<br> ${read.p_cost}<br>
+									</td>
+								</tr>
+
+								<c:forEach items="${m_list }" var="m_list">
+									<tr>
+										<td colspan="2"><label class="m_label"> <input type="radio" name="n_receiver" class="n_receiver" value="${m_list }"> ${m_list }
+										</label></td>
+									</tr>
+								</c:forEach>
+
+								<tr>
+									<td colspan="2"><label class="m_label"> <input type="radio" name="n_receiver" class="n_receiver" value=""> 해당 사항 없음
+									</label></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</form>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button" id="review_note">선택 완료</button>
+					<button class="btn btn-primary" type="button" id="finsh" data-bs-dismiss="modal">취소</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 모달 end  -->
+
+	<!-- 쪽지 모달 -->
 	<div class="modal fade" id="noteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content ">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">쪽지</h1>
-                </div>
-                <form id="note_form">
-                    <input type="hidden" name="n_type" value="no">
-                    <input type="hidden" name="n_rno" id="n_rno" value="${read.pno}">
-                    <div class="modal-body">
-                        <table style="width: 100%">
-                            <tbody>
-                                <tr>
-                                    <th>보내는 아이디</th>
-                                    <td>
-                                    	<input type="text" style="margin-left:10%; width:85%;" 
-                                    	id="n_sender" name="n_sender" class="form-control" value="${id }" readonly/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>내용</th>
-                                    <td>
-                                    	<textarea name="n_content" id="n_content" class="form-control"
-                                    	style="margin-left:10%; width: 85%; height: 300px; resize: none;">
-                                    	</textarea>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>받는 아이디</th>
-                                    <td>
-                                    	<input type="text" style="margin-left:10%; width:85%;"  
-                                    	id="n_receiver" name="n_receiver" class="form-control" value="${read.id }" readonly/>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </form>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" id="note_submit">보내기</button>
-                    <button class="btn btn-primary" type="button" id="finsh" data-bs-dismiss="modal">취소</button>
-                </div>
-            </div>
-        </div>
-    </div>
-   
-   
+		<div class="modal-dialog" role="document">
+			<div class="modal-content ">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="staticBackdropLabel">쪽지</h1>
+				</div>
+				<form id="note_form">
+					<input type="hidden" name="n_type" value="no"> <input type="hidden" name="n_rno" id="n_rno" value="${read.pno}">
+					<div class="modal-body">
+						<table style="width: 100%">
+							<tbody>
+								<tr>
+									<th>보내는 아이디</th>
+									<td><input type="text" style="margin-left: 10%; width: 85%;" id="n_sender" name="n_sender" class="form-control" value="${id }" readonly /></td>
+								</tr>
+								<tr>
+									<th>내용</th>
+									<td><textarea name="n_content" id="n_content" class="form-control" style="margin-left: 10%; width: 85%; height: 300px; resize: none;">
+                                    	</textarea></td>
+								</tr>
+								<tr>
+									<th>받는 아이디</th>
+									<td><input type="text" style="margin-left: 10%; width: 85%;" id="n_receiver" name="n_receiver" class="form-control" value="${read.id }" readonly /></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</form>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button" id="note_submit">보내기</button>
+					<button class="btn btn-primary" type="button" id="finsh" data-bs-dismiss="modal">취소</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 
 
 
