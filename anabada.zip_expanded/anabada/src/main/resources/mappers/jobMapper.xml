@@ -163,6 +163,17 @@ WHERE J_BNO IN (
 )
 </delete>
 
+<!-- 신고 -->
+<!-- 신고 -->
+<insert id="report_insert" parameterType="ComplaintVO">
+INSERT INTO COMPLAINT (COM_NUM, ID, C_CONTENT, C_BNO, BOARD_TYPE)
+VALUES(COMPLAINT_SEQ.NEXTVAL, #{id}, #{c_content}, #{c_bno}, #{board_type})
+</insert>
+
+<select id="report_chk" parameterType="ComplaintVO"  resultType="int">
+SELECT COUNT(COM_NUM) FROM COMPLAINT 
+WHERE ID = #{id} AND BOARD_TYPE = #{board_type} AND C_BNO= #{c_bno}
+</select>
 
 
 

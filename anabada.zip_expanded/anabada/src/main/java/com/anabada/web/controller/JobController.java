@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.anabada.web.service.JobService;
+import com.anabada.web.vo.ComplaintVO;
 import com.anabada.web.vo.JheartVO;
 import com.anabada.web.vo.JobCriteria;
 import com.anabada.web.vo.JobPageMaker;
@@ -351,4 +352,39 @@ public class JobController {
 		return result;
 	}
 	
+	// 알바 신고하기 창 뜨게하기
+    @RequestMapping(value = "/job_report", method = RequestMethod.GET)
+	public String note_report(@RequestParam int j_bno, Model model) throws Exception{
+	
+		model.addAttribute("j_bno", j_bno);
+		
+		return "/job/report";
+	}
+    
+    // 알바 디비에 저장하기
+    @RequestMapping(value = "/report_insert", method = RequestMethod.GET)
+    public String report_insert(@ModelAttribute ComplaintVO vo, Model model) throws Exception{
+    	
+    	
+    	logger.info("알바 신고 디비에 저장하려고 함~~");
+    	
+    	jobService.report_insert(vo);
+    	
+    	model.addAttribute("success", "success");
+    	
+    	
+    	return "/job/report";
+    }
+    
+    // 쪽지 신고한적 있는지 체크
+    @RequestMapping(value = "/report_chk.ajax", method = RequestMethod.GET)
+    @ResponseBody
+    public int report_chk(@ModelAttribute ComplaintVO vo) throws Exception{
+       
+       logger.info("알바 신고 한적 있는지 체크");
+       System.out.println(vo);
+       
+       int result = jobService.report_chk(vo);
+       return result;
+    }
 }

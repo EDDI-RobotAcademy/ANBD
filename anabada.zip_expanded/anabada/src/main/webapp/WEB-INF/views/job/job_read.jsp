@@ -45,39 +45,44 @@
 		// 알바 지원하기 컨트롤러로 이동
 		$("#resume").on("click", function () { 
 			
-			var resume_chk = 0; 
+			if(${empty id}){
+				alert("로그인 후 이용해주세요.");
+				return false;
 			
-			$.ajax({
-		        type: "get",
-		        url : "/resume/resume_chk.ajax",
-		        dataType : "json",
-		        traditional : true,
-		        data : {
-		           	j_bno: ${j_read.j_bno},
-		            id: '${id}'
-		        },
-		        success:function(chk){
-		            if(chk == 1){
-		                if(confirm("이미 지원을 완료한 게시물입니다.\n내 알바 지원목록으로 이동하시겠습니까?")){
-		            		location.href="/resume/my_resume";
-		            	}else{
-		            		return false;
-		            	}
-		            }else{
-		                location.href= "/resume/resume_insert" + 
-		    			'?page=' + '${scri.page }' +
-		    			'&perPageNum=' + '${scri.perPageNum }' +
-		    			'&j_bno=' + '${j_read.j_bno}' + // resume_job.jsp에서 j_bno이름으로 값 받음
-		    			'&j_addr1=' + encodeURIComponent('${scri.j_addr1}') + 
-		    			'&j_term=' + encodeURIComponent('${scri.j_term}') + 
-		    			'&j_day=' + encodeURIComponent('${scri.j_day}') + 
-		    			'&j_cate=' + encodeURIComponent('${scri.j_cate}');
-		                }
-		            },
-		        error : function(request, status, error) {
-						alert("오류:" + error);
-				}
-		    });
+			}else{
+				
+				$.ajax({
+			        type: "get",
+			        url : "/resume/resume_chk.ajax",
+			        dataType : "json",
+			        traditional : true,
+			        data : {
+			           	j_bno: ${j_read.j_bno},
+			            id: '${id}'
+			        },
+			        success:function(chk){
+			            if(chk == 1){
+			                if(confirm("이미 지원을 완료한 게시물입니다.\n내 알바 지원목록으로 이동하시겠습니까?")){
+			            		location.href="/resume/my_resume";
+			            	}else{
+			            		return false;
+			            	}
+			            }else{
+			                location.href= "/resume/resume_insert" + 
+			    			'?page=' + '${scri.page }' +
+			    			'&perPageNum=' + '${scri.perPageNum }' +
+			    			'&j_bno=' + '${j_read.j_bno}' + // resume_job.jsp에서 j_bno이름으로 값 받음
+			    			'&j_addr1=' + encodeURIComponent('${scri.j_addr1}') + 
+			    			'&j_term=' + encodeURIComponent('${scri.j_term}') + 
+			    			'&j_day=' + encodeURIComponent('${scri.j_day}') + 
+			    			'&j_cate=' + encodeURIComponent('${scri.j_cate}');
+			                }
+			            },
+			        error : function(request, status, error) {
+							alert("오류:" + error);
+					}
+			    });
+			}
 				
 		});
 		
@@ -285,6 +290,43 @@
 			}
 		}); // 하트 이벤트 끝
 		
+		// 신고버튼 눌렀을 때
+		$("#report").click(function(){
+			
+			if(${empty id}){
+				alert("로그인 후 이용해주세요.");
+				return false;
+			}else{
+				
+				// 신고된 적 있는지 확인
+				$.ajax({
+		            type: "get",
+		            url : "/job/report_chk.ajax",
+		            dataType :  'json',
+			        traditional : true,
+		            data : {
+		            	id: '${id}',
+		            	c_bno: ${j_read.j_bno},
+		            	board_type: 'job'
+		            },
+		            success:function(data){
+		            	
+		            	if(data == 1){
+		            		alert("이미 신고했습니다.");
+		            	}else{
+		            		window.open("/job/job_report?j_bno=${j_read.j_bno}", "신고", "width=400, height=600, left=0, top=0");
+		            	}
+		                
+		            },
+		            error : function(request, status, error) {
+						alert("신고 실패:" + error);
+					}
+		        });
+			}
+			
+			
+		});	
+		
 		recent_item();
 		get_recent_item();
 		
@@ -402,6 +444,9 @@
 						</c:if>
 						<c:if test="${id eq 'admin'}"><!-- 로그인한 아이디(세션에 저장된 아이디(id))와 작성자아이디(j_read.id)가 같으면 수정, 삭제 가능 -->
 							<button type="button" id="delete">삭제</button>
+						</c:if>
+						<c:if test="${j_read.id ne id && j_read.id ne 'admin'}">
+							<button type="button" id="report" class="j_btn3">신고</button>
 						</c:if>
 						
 					</td>

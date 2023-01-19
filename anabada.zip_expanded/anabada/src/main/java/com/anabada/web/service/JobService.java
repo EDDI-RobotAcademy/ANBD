@@ -3,6 +3,7 @@ package com.anabada.web.service;
 import java.util.List;
 import java.util.Map;
 
+import com.anabada.web.vo.ComplaintVO;
 import com.anabada.web.vo.JheartVO;
 import com.anabada.web.vo.JobCriteria;
 import com.anabada.web.vo.JobSearchCriteria;
@@ -46,6 +47,11 @@ public interface JobService {
 	public int heart_jobListCount(String id) throws Exception;
 
 	public void heart_delete(int[] delete_array) throws Exception;
+
+	// 알바 신고 관련
+	public void report_insert(ComplaintVO vo) throws Exception;
+
+	public int report_chk(ComplaintVO vo) throws Exception;
 
 
 	
