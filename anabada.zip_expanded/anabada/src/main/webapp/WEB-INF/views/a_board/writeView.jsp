@@ -8,36 +8,41 @@
 <title>board write</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <style>
-	.chk input[type='radio'] {
-		display:none;
+.chk input[type='radio'] {
+	display:none;
+}
+.chk input[type='radio']+span {
+	display:inline-block;
+	padding:5px 5px;
+	border:1px solid #AEB6BF;
+	border-radius:10px;
+	background-color:white;
+	text-align:center;
+	cursor:pointer;
+}
+.chk input[type='radio']:checked+span {
+	background-color:#8E9091;
+	color:white;
+	border-radius:10px;
+}
+.container {
+	width: 100%;
+ 	min-width: 1000px;
+ 	max-width: 1000px;
+ 	margin: 0 auto 0 auto;
 	}
-	.chk input[type='radio']+span {
-		display:inline-block;
-		padding:5px 5px;
-		border:1px solid #AEB6BF;
-		border-radius:10px;
-		background-color:white;
-		text-align:center;
-		cursor:pointer;
-	}
-	.chk input[type='radio']:checked+span {
-		background-color:#8E9091;
-		color:white;
-		border-radius:10px;
-	}
-	.container {
-		width: 100%;
-  		min-width: 1000px;
-  		max-width: 1000px;
-  		margin: 0 auto 0 auto;
-	}
-	.mcont {
- 		margin: 0 auto;
-  		padding: 15px 20px 50px 20px;
- 		box-sizing: border-box;
+.mcont {
+ 	margin: 0 auto;
+  	padding: 15px 20px 50px 20px;
+ 	box-sizing: border-box;
 }
 </style>
 <script src="//cdn.ckeditor.com/4.19.0/standard/ckeditor.js"></script>
+<script>
+ 	$(document).ready(function() {
+		$("select[name='board_loca']").val();
+	}) 
+</script>
 </head>
 <body>
 
@@ -60,8 +65,30 @@
 		
 		<tr>
 			<td>
+				<br>
+				<select id="loca" name="loca" class="form-select form-select-sm">
+					<option value="강원">강원</option>
+					<option value="경기">경기</option>
+					<option value="경남">경남</option>
+					<option value="경북">경북</option>
+					<option value="부산">부산</option>
+					<option value="서울">서울</option>
+					<option value="인천">인천</option>
+					<option value="전남">전남</option>
+					<option value="전북">전북</option>
+					<option value="제주">제주</option>
+					<option value="충남">충남</option>
+					<option value="충북">충북</option>
+				</select>
+				<br>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>
 				<label for="title" class="form-label">제목</label><br>
 				<input type="text" id="title" name="a_title" class="form-control" placeholder="제목을 입력하세요."/>
+				<br>
 			</td>
 		</tr>
 		
@@ -77,6 +104,7 @@
 						shiftEnterMode: CKEDITOR.ENTER_P,
 						width:930, height:300});
 				</script>
+				<br>
 			</td>
 		</tr>
 		

@@ -6,14 +6,14 @@
 
 <!-- 게시판 글 작성 -->
 <insert id="insert">
-INSERT INTO A_BOARD(A_BNO, A_TITLE, A_CONTENT, A_TYPE, ID, NICK)
-VALUES(A_BOARD_SEQ.NEXTVAL, #{a_title}, #{a_content}, #{a_type}, #{id}, #{nick})
+INSERT INTO A_BOARD(A_BNO, A_TITLE, A_CONTENT, A_TYPE, ID, NICK, LOCA)
+VALUES(A_BOARD_SEQ.NEXTVAL, #{a_title}, #{a_content}, #{a_type}, #{id}, #{nick}, #{loca})
 </insert>
 
 <select id="list" resultType="boardVO" parameterType="com.anabada.web.vo.ASearchCriteria">
 <!-- MP : 테이블 별칭, 생략 가능 / ROW_NUMBER() : 게시판 번호를 순차적으로 반환해주는 함수 -->
-SELECT A_BNO, A_TITLE, A_REGDATE, A_CNT, A_TYPE, NICK
-FROM(SELECT A_BNO, A_TITLE, A_REGDATE, A_CNT, A_TYPE, NICK, 
+SELECT A_BNO, A_TITLE, A_REGDATE, A_CNT, A_TYPE, NICK, LOCA
+FROM(SELECT A_BNO, A_TITLE, A_REGDATE, A_CNT, A_TYPE, NICK, LOCA,
 	ROW_NUMBER() OVER(ORDER BY A_BNO DESC) AS RNUM 
 	FROM A_BOARD WHERE 1 = 1
 <include refid="search"></include>
@@ -60,7 +60,7 @@ AND a_BNO > 0
 
 <update id="update" parameterType="boardVO">
 UPDATE A_BOARD
-SET A_TITLE = #{a_title}, A_CONTENT = #{a_content} 
+SET LOCA = #{loca}, A_TYPE = #{a_type}, A_TITLE = #{a_title}, A_CONTENT = #{a_content}  
 WHERE A_BNO = #{a_bno}
 </update> 
 

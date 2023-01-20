@@ -9,6 +9,23 @@
 <title>게시글 수정하기</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <style>
+.chk input[type='radio'] {
+	display:none;
+}
+.chk input[type='radio']+span {
+	display:inline-block;
+	padding:5px 5px;
+	border:1px solid #AEB6BF;
+	border-radius:10px;
+	background-color:white;
+	text-align:center;
+	cursor:pointer;
+}
+.chk input[type='radio']:checked+span {
+	background-color:#8E9091;
+	color:white;
+	border-radius:10px;
+}
 .container {
 	width: 100%;
   	min-width: 1000px;
@@ -73,6 +90,35 @@
 	<input type="hidden" name="cateType" value="${scri.cateType }"/>
 	
 	<table>
+		<tr>
+			<td>
+				<label class="chk"><input type="radio" id="life" name="a_type" value="1"/><span>동네 생활</span></label>
+				<label class="chk"><input type="radio" id="food" name="a_type" value="2"/><span>동네 맛집</span></label>
+				<label class="chk"><input type="radio" id="with" name="a_type" value="3"/><span>같이 해요</span></label>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>
+				<br>
+				<select id="loca" name="loca" class="form-select form-select-sm">
+					<option value="강원">강원</option>
+					<option value="경기">경기</option>
+					<option value="경남">경남</option>
+					<option value="경북">경북</option>
+					<option value="부산">부산</option>
+					<option value="서울">서울</option>
+					<option value="인천">인천</option>
+					<option value="전남">전남</option>
+					<option value="전북">전북</option>
+					<option value="제주">제주</option>
+					<option value="충남">충남</option>
+					<option value="충북">충북</option>
+				</select>
+				<br>
+			</td>
+		</tr>
+		
 		<tr>
 			<td>
 				<label for="a_title" class="form-label">제목</label>
