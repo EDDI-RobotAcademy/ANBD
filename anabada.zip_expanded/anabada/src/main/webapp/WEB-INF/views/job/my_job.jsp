@@ -68,6 +68,24 @@
       padding: 10px;
    }
    
+   .resume{
+	  all: unset;
+	  width: 70px;
+	  height: 30px;
+	  border-radius: 5px 5px;
+	  color: black;
+	  text-align: center;
+	  cursor: pointer;
+	  border: 1px solid #ced4da;
+	  background-color: #ced4da;
+   }
+   .word{ /*글자 잘림*/
+   	  width:300px;
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	  white-space: nowrap;
+   }
+   
 </style>
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
@@ -146,7 +164,7 @@
    
    <section class="container">
    <form>
-      <div class="sidemenu2">
+      <div class="sidemenu">
          <!-- 여기부터는 게시물들 -->
            <div class="myImg">
               <img src="../resources/images/아나바다2.png" width="150px" height="150px"/>
@@ -214,11 +232,13 @@
                         </c:otherwise>
                         </c:choose>
                     </td>
-                    <td width="700px;">
-                        <font style="font-size: 20px;">${mj_list.j_title }</font><br>
-						${mj_list.j_company }<br>
+                    <td width="320px;">
+                    	<div class="word">
+                        	<font style="font-size: 20px;">${mj_list.j_title }</font>
+                        </div>
+						<div class="word">${mj_list.j_company }</div>
                     </td>
-                    <td width="200px;" style="text-align: center">
+                    <td width="150px;" style="text-align: center">
                         ${mj_list.j_date }
                     </td>
                     <td style="text-align: center">

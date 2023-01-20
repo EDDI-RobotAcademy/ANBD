@@ -50,6 +50,12 @@
     .r_list tr .content{
     	text-align: center;
     }
+    .word{
+    	width:200px;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    white-space: nowrap;
+    }
 </style>
 </head>
 <body>
@@ -87,12 +93,12 @@
 			</tr>
 			
 			<tr>
-				<th width="10%">이름</th>
-				<th width="10%">나이</th>
-				<th width="5%">성별</th>
-				<th width="15%">전화번호</th>
-				<th colspan="3" width="45%">경력</th>
-				<th width="15%">지원날짜</th>
+				<th width="100px">이름</th>
+				<th width="100px">나이</th>
+				<th width="50px">성별</th>
+				<th width="150px">전화번호</th>
+				<th colspan="3" width="450px">경력</th>
+				<th width="150px">지원날짜</th>
 			</tr>
 			
 			<!-- 반복 -->
@@ -106,9 +112,11 @@
 				<td class="content">${r_list.r_tel }</td>
 				<td class="content">
 					<c:set var="company_list" value="${fn:split(r_list.r_company, ',')}" />
+					<div style="width: 200px;" class="word">
 					<c:forEach var="company" items="${company_list}" varStatus="varStatus">
 					${company}<br>
 					</c:forEach>
+					</div>
 				</td>
 				<td class="content">
 					<c:set var="start_list" value="${fn:split(r_list.r_start, ',')}" />

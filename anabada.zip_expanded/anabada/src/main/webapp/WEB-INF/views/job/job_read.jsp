@@ -356,7 +356,7 @@
   	
 	/*레이아웃*/
    #wapper {
-      width: 1700px;
+      width: 1200px;
       margin: auto;
       height: auto;
    }
@@ -367,10 +367,10 @@
       float: left;
    }
    .nav {
-      width: 0px;
+      width: 100px;
    }
    .section {
-      width: 1500px; 
+      width: 1000px; 
       border: 0px; 
       border-collapse: collapse;
    }
@@ -445,11 +445,11 @@
 					<td colspan="4">
 					    ${j_read.j_date }&nbsp;&nbsp;
 						<c:if test="${j_read.id eq id}"><!-- 로그인한 아이디(세션에 저장된 아이디(id))와 작성자아이디(j_read.id)가 같으면 수정, 삭제 가능 -->
-							<button type="button" id="update">수정</button>
-							<button type="button" id="delete">삭제</button>
+							<button type="button" id="update" class="j_btn3">수정</button>
+							<button type="button" id="delete" class="j_btn3">삭제</button>
 						</c:if>
 						<c:if test="${id eq 'admin'}"><!-- 로그인한 아이디(세션에 저장된 아이디(id))와 작성자아이디(j_read.id)가 같으면 수정, 삭제 가능 -->
-							<button type="button" id="delete">삭제</button>
+							<button type="button" id="delete" class="j_btn3">삭제</button>
 						</c:if>
 						<c:if test="${j_read.id ne id && j_read.id ne 'admin'}">
 							<button type="button" id="report" class="j_btn3">신고</button>
@@ -571,13 +571,13 @@
 					</td>
 				</tr>
 				<tr style="border-bottom: 0px">
-					<td colspan="6" style="border-bottom: 0px">
-						<button type="button" id="job_list">게시판으로 돌아가기</button>
+					<td colspan="6" style="border-bottom: 0px; text-align: center">
+						<button type="button" id="job_list" class="j_btn1" style="display: inline; width: 150px">게시판으로 돌아가기</button>
 						<c:if test="${j_read.id ne id}"><!-- 로그인한 아이디(세션에 저장된 아이디)와 작성자아이디가 같으면 수정, 삭제 가능 -->
-							<button type="button" id="resume">지원하기</button>
+							<button type="button" id="resume" class="j_btn1" style="display: inline; width: 100px">지원하기</button>
 						</c:if>
 						<c:if test="${j_read.id eq id}"><!-- 로그인한 아이디(세션에 저장된 아이디)와 작성자아이디가 같으면 수정, 삭제 가능 -->
-							<button type="button" id="show_resume">지원자들 보기</button>
+							<button type="button" id="show_resume" class="j_btn1" style="display: inline; width: 100px">지원자들 보기</button>
 						</c:if>
 						
 					</td>

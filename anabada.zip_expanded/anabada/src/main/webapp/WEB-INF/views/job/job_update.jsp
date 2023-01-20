@@ -16,8 +16,9 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <style>
    table{
-      width: 90%;
+      width: 100%;
       margin: auto;
+      border-top: 1px solid #e5e5e5;
    }
    tr, td{
       padding: 10px;
@@ -447,7 +448,7 @@
 				<td id="add_img">
 				<div style="display: inline-block;">
 					<img src="/upload/${j_update.j_img }" width="100px" height="100px"> 
-					<button type="button" name="delete_img" value="${j_update.j_img }">삭제</button> 
+					<button type="button" class="j_btn3" name="delete_img" value="${j_update.j_img }">삭제</button> 
 				</div> 
 				</td>
 			</tr>
@@ -455,9 +456,9 @@
 			</c:choose>
 			
 			<tr>
-				<td colspan="4" style="text-align: center">
-					<button type="submit" class="j_btn2">수정완료</button>
-					<button type="button" id="cancel" class="j_btn2">취소</button>
+				<td style="text-align: center">
+					<button type="submit" class="j_btn1" style="display: inline; width: 100px">수정완료</button>
+					<button type="button" id="cancel" class="j_btn1" style="display: inline; width: 100px">취소</button>
 				</td>
 			</tr>
 		</table>

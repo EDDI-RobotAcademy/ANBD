@@ -5,18 +5,17 @@
 /* 사이드 메뉴 페이지 */
 .sidemenu3 {
   float: left;
-  width: 300px;
+  width: 180px;
   height: auto;
   padding: 0;
   box-sizing: border-box;
   list-style-type: none;
   text-align: right;
-  /*쪽지 이미지보이는 부분*/
 }
 
 .minicon3 {
   float: left;
-  width: 1170px;
+  width: 780px;
   height: auto;
   padding: 0px 0 15px 0;
   box-sizing: border-box;
