@@ -126,8 +126,6 @@ public class NoteController {
 		
 		logger.info("쪽지 상세보기로 들어왔으~~");
 		
-		System.out.println("하하하하");
-		
 		System.out.println("번호: " + noteVO.getN_bno());
 		
 		NoteVO n_read = noteService.note_view(noteVO.getN_bno());
@@ -137,10 +135,11 @@ public class NoteController {
 		
 		int n_rno = n_read.getN_rno(); // 쪽지에 게시물 번호
 		String n_type = n_read.getN_type(); // 어떤 타입의 쪽지인지(일반, 중고, 이벤트)
+		
+		System.out.println("n_rno:" + n_rno);
 		System.out.println("엔타입:" + n_type);
 		
-		
-		if(n_type.equals("evnet")){ // 이벤트 쪽지일때
+		if(n_type.equals("event")){ // 이벤트 쪽지일때
 			
 			EventBoardVO e_read = eventService.read(n_rno);
 			
