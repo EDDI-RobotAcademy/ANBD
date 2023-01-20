@@ -404,7 +404,13 @@
 	   });
 	   
 	   $("#job_insert").click(function () {
-	      location.href = "job_insert";
+	      
+		   if(${empty id}){
+				alert("로그인 후 이용해주세요.");
+				return false;
+		   }else{
+		   		location.href = "job_insert";
+		   }
 	   })
 	   
 	   

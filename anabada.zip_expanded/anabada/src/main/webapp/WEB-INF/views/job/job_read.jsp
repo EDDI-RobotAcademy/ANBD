@@ -234,59 +234,65 @@
 		
 		//찜버튼 이벤트 
 		$("#heart").on("click", function() {
-
-			if ($(this).prop('checked')) {
-				$(".himg").attr("src", "../../resources/images/heartB.png");
-
-				var params = {
-					j_bno : "${j_read.j_bno}",
-					id : "${id}"
-				}
-
-				$.ajax({
-
-					type : "POST",
-					url : "/job/addHeart",
-					data : params,
-					dataType : "json",
-					contetnType : "application/json",
-					success : function(res) {
-						//res.getEncoding('utf-8');
-						//var list = JSON.parse(res);
-						const element = document.getElementById('heartCh');
-						element.innerText = res.hnum;
-
-					},
-					error : function(request, status, error) {
-						alert("error:" + error);
+			
+			if(${empty id}){
+				alert("로그인 후 이용해주세요.");
+				return false;
+			}else{
+				
+				if ($(this).prop('checked')) {
+					$(".himg").attr("src", "../../resources/images/heartB.png");
+	
+					var params = {
+						j_bno : "${j_read.j_bno}",
+						id : "${id}"
 					}
-
-				});
-			} else {
-				$(".himg").attr("src", "../../resources/images/heartA.png");
-
-				var params = {
-					j_bno : "${j_read.j_bno}",
-					id : "${id}"
-				}
-
-				$.ajax({
-
-					type : "POST",
-					url : "/job/subHeart",
-					data : params,
-					dataType : "json",
-					contetnType : "application/json",
-					success : function(res) {
-						const element = document.getElementById('heartCh');
-						element.innerText = res.hnum;
-					},
-					error : function(XMLRequest, textStatus, errorThrown) {
-						alert("error:" + error);
+	
+					$.ajax({
+	
+						type : "POST",
+						url : "/job/addHeart",
+						data : params,
+						dataType : "json",
+						contetnType : "application/json",
+						success : function(res) {
+							//res.getEncoding('utf-8');
+							//var list = JSON.parse(res);
+							const element = document.getElementById('heartCh');
+							element.innerText = res.hnum;
+	
+						},
+						error : function(request, status, error) {
+							alert("error:" + error);
+						}
+	
+					});
+				} else {
+					$(".himg").attr("src", "../../resources/images/heartA.png");
+	
+					var params = {
+						j_bno : "${j_read.j_bno}",
+						id : "${id}"
 					}
-
-				});
-
+	
+					$.ajax({
+	
+						type : "POST",
+						url : "/job/subHeart",
+						data : params,
+						dataType : "json",
+						contetnType : "application/json",
+						success : function(res) {
+							const element = document.getElementById('heartCh');
+							element.innerText = res.hnum;
+						},
+						error : function(XMLRequest, textStatus, errorThrown) {
+							alert("error:" + error);
+						}
+	
+					});
+	
+				}
 			}
 		}); // 하트 이벤트 끝
 		
