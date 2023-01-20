@@ -127,6 +127,7 @@
      <table class="table">
       <thead>
          <tr>
+         <th scope="col">지역</th>
          <th scope="col">말머리</th>
          <th scope="col">제목</th>
          <th scope="col">작성자</th>
@@ -141,6 +142,10 @@
          <tr>
             <td>
                <input type="hidden" id="a_bno" name="a_bno" value="${list.a_bno }"/>
+               <c:out value="${list.loca }"/>
+            </td>
+            
+            <td>
                <c:choose>
                   <c:when test="${list.a_type == 1 }">
                      <c:out value="동네생활"/>
