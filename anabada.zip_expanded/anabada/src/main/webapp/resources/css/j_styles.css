@@ -4,7 +4,7 @@
 
 .sidemenu3 {
   float: left;
-  width: 300px;
+  width: 180px;
   height: auto;
   padding: 0;
   box-sizing: border-box;
@@ -16,7 +16,7 @@
 
 .minicon3 {
   float: left;
-  width: 1170px;
+  width: 780px;
   height: auto;
   padding: 0px 0 15px 0;
   box-sizing: border-box;
@@ -34,8 +34,8 @@
   font-size: 15px;
   text-align: center;
   cursor: pointer;
-  margin: auto;
   display: block;
+  margin: auto;
 }
 
 
@@ -106,7 +106,7 @@
 .j_btn2 { /*회색 버튼*/
   all: unset;
   width: 100px;
-  height: 30px;
+  height: 35px;
   border-radius: 5px 5px;
   color: black;
   font-size: 15px;
@@ -115,7 +115,7 @@
   border: 1px solid #ced4da;
   background-color: #ced4da;
   display: block;
-  margin-left: 600px;
+  margin: auto;
 }
 
 

@@ -80,7 +80,7 @@
 				"회사명&nbsp;" + "<input type='text' name='r_company' class='form-control' style='width: 30%' readonly value=" + company + ">" +
 				"&nbsp;&nbsp;&nbsp;시작&nbsp;" + "<input type='text' name='r_start' class='form-control' style='width: 15%' readonly value=" + start + ">&nbsp;&nbsp;~" +
 				"&nbsp;&nbsp;끝&nbsp;" + "<input type='text' name='r_end' class='form-control' style='width: 15%' readonly value=" + end + ">" +
-				"&nbsp;&nbsp;&nbsp;<button type='button' name='delete_btn' onclick='delete_btn();'>" + "삭제" + "</button>" +
+				"&nbsp;&nbsp;&nbsp;<button type='button' name='delete_btn' class='j_btn2' style='width: 50px;height:25px; display: inline' onclick='delete_btn();'>" + "삭제" + "</button>" +
 				"<div>";
 			var $career_list = $("#career_list");
 			$career_list.append(career);
@@ -156,6 +156,7 @@
 	table{
 		width: 100%;
 		margin: auto;
+		border-top: 1px solid #ced4da;
 	}
 	tr, td{ 
       	padding: 10px;

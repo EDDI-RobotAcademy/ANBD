@@ -14,8 +14,9 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <style>
    table{
-      width: 90%;
+      width: 100%;
       margin: auto;
+      border-top: 1px solid #e5e5e5;
    }
    tr, td{
       padding: 10px;
@@ -189,7 +190,7 @@
       
        <table>
          <tr>
-            <td><font style="font-size: 30px;">알바 구인 공고 작성, 작성자=${id }</font></td>
+            <td><font style="font-size: 30px;">알바 구인 공고 작성</font></td>
          </tr>      
          
          <tr>

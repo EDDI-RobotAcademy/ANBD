@@ -81,7 +81,7 @@ $(document).ready(function () {
 			"회사명&nbsp;" + "<input type='text' name='r_company' class='form-control' style='width: 30%' readonly value=" + company + ">" +
 			"&nbsp;&nbsp;&nbsp;시작&nbsp;" + "<input type='text' name='r_start' class='form-control' style='width: 15%' readonly value=" + start + ">&nbsp;&nbsp;~" +
 			"&nbsp;&nbsp;끝&nbsp;" + "<input type='text' name='r_end' class='form-control' style='width: 15%' readonly value=" + end + ">" +
-			"&nbsp;&nbsp;&nbsp;<button type='button' name='delete_btn'>" + "삭제" + "</button>" +
+			"&nbsp;&nbsp;&nbsp;<button type='button' name='delete_btn' class='j_btn2' style='width: 50px;height:25px; display: inline' onclick='delete_btn();'>" + "삭제" + "</button>" +
 			"<div>";
 		var $career_list = $("#career_list");
 		$career_list.append(career);
@@ -274,7 +274,7 @@ $(document).ready(function () {
 									시작&nbsp;<input type="text" name="r_start" class="form-control" style="width: 15%" readonly value="${start[status.index] }">
 									&nbsp;~&nbsp;
 									끝&nbsp;<input type="text" name="r_end" class="form-control" style="width: 15%" readonly value="${end[status.index] }">&nbsp;&nbsp;
-									<button type="button" name="delete_btn">삭제</button>
+									<button type="button" name="delete_btn" class="j_btn2" style="width: 50px;height:25px; display: inline" onclick="delete_btn();">삭제</button>
 								</div>
 								</c:forEach>
 							</div>

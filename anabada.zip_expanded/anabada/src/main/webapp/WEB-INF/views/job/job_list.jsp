@@ -50,7 +50,7 @@
    /*선택검색*/
    .search{
       margin: auto; 
-      width: 1500px;
+      width: 1000px;
    }
    .search label{
       padding: 10px;
@@ -74,22 +74,22 @@
    
    /*레이아웃*/
    #wapper {
-      width: 1700px; /*1500px + 플로팅 배너까지 포함 = 1700px */
+      width: 1200px;
       margin: auto;
       height: auto;
    }
-   .nav, .section {
+   .nav, .aside, .section {
       margin: 3px;/*간격*/
    }
    .nav, .section, .aside {
       float: left;
    }
    .nav {
-      width: 0px;
+      width: 100px;
    }
    .section {
       /* background-color: #f9f9f9;    */
-      width: 1500px; 
+      width: 1000px; 
       border: 0px; 
       border-collapse: collapse;
    }
@@ -141,10 +141,6 @@
 	  text-overflow: ellipsis;
 	  white-space: nowrap;
    }
-   
-   
-   
-   
 </style>
 <body>
 <div>
@@ -160,8 +156,7 @@
    <!-- 콘텐츠부분 -->
    <section class="section" style="border-top: 1px solid #e5e5e5">
    <form name="jobForm" method="get">
-      
-      <input type="button" class="j_btn1" id="job_insert" value="알바 구인 공고 작성하기" style="float: right;">
+      <input type="button" class="j_btn1" id="job_insert" value="알바 구인 공고 작성하기" style="float: right; margin-top: 10px;">
       <br><br>
       
       <table class="search">
