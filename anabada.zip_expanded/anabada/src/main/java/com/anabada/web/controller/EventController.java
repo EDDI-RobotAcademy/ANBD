@@ -135,11 +135,7 @@ public class EventController {
 		// 2. 게시글 정보 불러오기
 		EventBoardVO read = service.read(eno);
 		model.addAttribute("read", read);
-		
-		System.out.println("글 상세보기시 ");
-		System.out.println("날짜 e_start : "+read.getE_start());
-		System.out.println("날짜 e_end : "+read.getE_end());
-		System.out.println("날짜 e_win : "+read.getE_win());
+	
 
 		// 3. 게시글의 사진정보 불러오기
 		model.addAttribute("filelist", service.filelist(eno));
@@ -254,8 +250,12 @@ public class EventController {
 	         // 각번호에 해당하는 사람들의 id를 뽑아오기 
 	         for(int i : random) {
 	            System.out.println("숫자 : "+i);
-	            sb.append(service.getWin(i));
+	            String winId = service.getWin(i);
+	           // sb.append(service.getWin(i));
+	            sb.append(winId);
 	            sb.append(", ");
+	            
+	        
 	            
 	         }
 	         

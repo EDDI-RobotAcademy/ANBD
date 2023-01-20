@@ -371,7 +371,7 @@ public class ProductController {
 		return "product/report";
 	}
 
-	// 신고 끝내기 
+	// 신고 접수 
 	@RequestMapping(value = "/submit_report", method = RequestMethod.POST)
 	public String report_submit(ComplaintVO vo, Model model) throws Exception{
 		logger.info("product_submitReport");
@@ -384,7 +384,7 @@ public class ProductController {
 	 
 	}
 	
-	
+	// 게시글 신고 여부 유효성검사
     @RequestMapping(value = "/report_chk", method = RequestMethod.GET)
     @ResponseBody
     public int report_chk(@ModelAttribute ComplaintVO vo) throws Exception{
@@ -396,7 +396,47 @@ public class ProductController {
        return result;
     }
 	
+    
+    //리뷰 신고 팝업 띄우기 
+	@RequestMapping(value = "/reviewReport", method = RequestMethod.GET)
+	public String reviewReport(@RequestParam int r_no, Model model) throws Exception {
+
+		model.addAttribute("r_no", r_no);
+
+		return "product/reviewReport";
+	}
+    
+    
+    
+    
+    
+    
+    // 리뷰 신고 여부 유효성 검사 
+    @RequestMapping(value = "/reviewReport_chk", method = RequestMethod.GET)
+    @ResponseBody
+    public int reviewReport_chk(@ModelAttribute ComplaintVO vo) throws Exception{
+       
+       logger.info("리뷰 신고 한적 있는지 체크");
+       System.out.println(vo);
+       
+       int result = complaintService.validation(vo); // 신고 여부체크 
+       return result;
+    }
+    
+    
+    
+	// 리뷰 신고 접수 
+	@RequestMapping(value = "/submit_reviewReport", method = RequestMethod.POST)
+	public String reviewReport_submit(ComplaintVO vo, Model model) throws Exception{
+		logger.info("리뷰 신고 접수");
+		System.out.println("신고내용 vo : "+vo);
+		 complaintService.insert(vo);
+		String msg = "ok";
+		model.addAttribute("msg",msg);
+		return "product/reviewReport";
 	
+	 
+	}
 	
 	
 	
