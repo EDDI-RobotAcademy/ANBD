@@ -60,6 +60,10 @@
 				<h2>🌎아나바다와 함께하는 이벤트🌎</h2>
 				<p>Our One Step for the Environment</p>
 			</div>
+			
+				<div style="margin-bottom: 50px;" >
+		<jsp:include page="../includes/eventNav.jsp" />
+	</div> 
 
 			<!-- 검색 기능 -->
 			<div class="input-group mb-3" id="keywordBox">
@@ -85,7 +89,7 @@
 		</div>
 
 		<div class="container">
-			<div  style="width: 1200px;"  class="gallery_f_inner row imageGallery1">
+			<div  style="width: 1200px; margin: auto; "  class="gallery_f_inner row imageGallery1">
 
 
 
