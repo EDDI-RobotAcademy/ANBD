@@ -31,7 +31,7 @@
 }
 
 .infoTable {
-	width: 600px;
+	width: 800px;
 }
 
 #totalTable {
@@ -77,6 +77,12 @@
 				$("input[name=deletes]").prop("checked", false);
 			}
 		});
+		
+	
+		
+		
+		
+		
 
 		$("#delbtn").on("click", function() {
 
@@ -112,6 +118,29 @@
 		})
 
 	});
+	
+	
+	
+	// 각 체크 박스를 눌렀을때  '전체 선택 '버튼에 변화 주기  
+	function checkSelectAll() {
+		//전체 체크 박스 
+		const checkboxes = document.querySelectorAll('input[name="deletes"]');
+		//선택된 체크 박스 
+		const checked = document.querySelectorAll('input[name="deletes"]:checked');
+		// 전체 선택용 체크 박스 
+		const delete_all   = document.querySelector('input[name="delete_all"]');
+		
+		if(checkboxes.length === checked.length){
+			delete_all.checked=true;
+		}else{
+			delete_all.checked=false;
+		}
+		
+	}
+	
+	
+	
+	
 </script>
 
 </head>
@@ -131,13 +160,13 @@
 
 	<form action="">
 
-		<table style="margin: auto; width: 602px;" id="totalTable">
+		<table style="margin: auto; width: 802px;" id="totalTable">
 
 			<tr>
 				<td colspan="7"><button type="button" id="delbtn">삭제</button></td>
 			</tr>
 			<tr class="headTr">
-				<td colspan="7"><input type="checkbox" id="delete_all"> 전체 선택 ${id}</td>
+				<td colspan="7"><input type="checkbox" id="delete_all"  name="delete_all"  > 전체 선택 </td>
 
 			</tr>
 			<c:if test="${list == null }">
@@ -150,10 +179,10 @@
 
 			<c:forEach items="${list }" var="list">
 				<tr>
-					<td width="40px;"><input type="checkbox" name="deletes" value="${list.pno}"></td>
+					<td width="40px;"><input type="checkbox" name="deletes" value="${list.pno}"  onclick='checkSelectAll()'  ></td>
 
 					<td colspan="6">
-						<table class="infoTable" onclick="location.href='/product/readView?pno=${list.pno}'" onmouseover="this.style.backgroundColor = '#F4F4F4' " onmouseout="this.style.backgroundColor = ''">
+						<table class="infoTable" onclick="location.href='/product/readView?pno=${list.pno}'" onmouseover="this.style.backgroundColor = '#E1E1E1' " onmouseout="this.style.backgroundColor = ''">
 
 							<tr>
 
