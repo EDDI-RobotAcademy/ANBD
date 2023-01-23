@@ -1,5 +1,7 @@
 package com.anabada.web.dao;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -23,6 +25,12 @@ public class ProductComplaintDAOImpl  implements ProductComplaintDAO{
 	public void insert(ComplaintVO vo) throws Exception {
 		sql.insert("ProductComplaintMapper.insert",vo);
 
+	}
+
+	// PBoard에 해당하는 신고 내역 불러오기
+	@Override
+	public List<ComplaintVO> productList(String pboard) throws Exception {
+		return sql.selectList("ProductComplaintMapper.productList",pboard);
 	}
 
 }
