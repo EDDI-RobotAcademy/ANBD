@@ -131,10 +131,27 @@ border-radius: 20px;
 	<div>
 		<jsp:include page="../includes/nav.jsp" />
 	</div>
-	<div >
-		<jsp:include page="../includes/header.jsp" />
-	</div>
-	</div>
+	
+	
+	
+	<section class="home_gallery_area p_120"    style="padding-top: 30px; padding-bottom: 10px;" >
+		<div class="container">
+			<div class="main_title">
+				<h2>🌎아나바다와 함께하는 이벤트🌎</h2>
+				<p>Our One Step for the Environment</p>
+			</div>
+			</div>
+
+		
+
+
+
+		
+		</section>
+		<div >
+		<jsp:include page="../includes/eventNav.jsp" />
+	</div> 
+	
 
 
 <div  style="background-color: #EEEEEE; padding-top: 50px;  " >
@@ -196,6 +213,7 @@ border-radius: 20px;
 											<li>&nbsp;&nbsp;<a href="#"><i class="lnr lnr-envelope"></i>궁금하신 사항은 문의 게시판으로 문의바랍니다.</a></li>
 											<li>&nbsp;&nbsp;<a href="#"><i class="lnr lnr-home"></i> ${id} ~~~ ~~~ </a></li>
 										</ul>
+										<br>
 
 
 										<ul class="list personal_social">

@@ -211,6 +211,8 @@ public class EventController {
 	   public Map<String, String> winner(@RequestParam Map<String, String> param) throws Exception {
 	      logger.info("winner");
 	      Map<String, String> winner = new HashMap<>();
+	      //당첨자에게 쪽지 보내기 
+          Map<String, String> winNote = new HashMap<>();
 	      int num = Integer.parseInt(param.get("num"));
 	      int eno = Integer.parseInt(param.get("eno"));
 	      //int num = param.get("num"); // 당첨자 수
@@ -231,6 +233,14 @@ public class EventController {
 	         for (String win : winnerList) {
 	            sb.append(win);
 	            sb.append(", ");
+	            
+	            // 당첨자에게 쪽지 보내기 
+	            winNote.put("n_receiver", win);
+	            winNote.put("n_content", "이벤트에 당첨되셨습니다. <br> 자세한 사항은 공지사항을 참조해 주세요");
+	            winNote.put("n_rno", Integer.toString(eno));
+	            noteService.send_event(winNote);
+	            
+	            
 	         }
 
 	      } else { // 당첨자(num) < 응모자(e_total)
@@ -255,7 +265,12 @@ public class EventController {
 	            sb.append(winId);
 	            sb.append(", ");
 	            
-	        
+	          
+	            winNote.put("n_receiver", winId);
+	            winNote.put("n_content", "이벤트에 당첨되셨습니다. <br> 자세한 사항은 공지사항을 참조해 주세요");
+	            winNote.put("n_rno", Integer.toString(eno));
+	            noteService.send_event(winNote);
+	            //쪽지 보내기 끝  
 	            
 	         }
 	         

@@ -16,4 +16,11 @@ VALUES(complaint_seq.nextval, #{id}, #{c_content}, #{c_bno}, #{board_type})
 </insert>
 
 
+<!-- PBoard에 해당하는 신고 내역 불러오기 -->
+<select id="productList" parameterType="java.lang.String" resultType="ComplaintVO" >
+SELECT COM_NUM , ID, C_CONTENT, C_BNO, BOARD_TYPE 
+FROM COMPLAINT WHERE BOARD_TYPE = #{pboard}  ORDER BY COM_NUM DESC
+</select>
+
+
 </mapper>

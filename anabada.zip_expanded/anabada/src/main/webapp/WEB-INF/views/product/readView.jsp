@@ -572,6 +572,18 @@ ul {
             });
          }
       }); // 하트 이벤트 끝
+      
+      
+      // 처음 화면에 들어올때 end 이면 수정 불가능 하도록 
+      var book = document.getElementById('bookBK');
+      var str = $("#book option:selected").val();
+      if(str == 'end'){
+    	  $("#book").prop('disabled',true);
+      }
+      
+      
+      
+      
       //사용자가 상품 판매 상태 변경시 
       $("#book").on("change", function() {
          var book = document.getElementById('bookBK');
@@ -580,6 +592,9 @@ ul {
          
          if(str == 'end'){
             $('#selectModal').modal("show");
+            
+            $("#book").prop('disabled',true); // 판매 완료시 상태 변경 불가능 하도록 막음 
+            
          }
          
          // 모달창 띄우는 쿼리 
@@ -918,7 +933,7 @@ function complaint() {
 									<select id="book" class="form-select form-select-sm" aria-label=".form-select-sm example">
 										<option value="ing" <c:out value="${read.p_buy eq 'ing' ? 'selected' :''} "/>>판매중</option>
 										<option value="book" <c:out value="${read.p_buy eq 'book' ? 'selected' :''} "/>>예약중</option>
-										<option value="end" <c:out value="${read.p_buy eq 'end' ? 'selected' :''} "/>>판매완료</option>
+										<option value="end"   <c:out value="${read.p_buy eq 'end' ? 'selected' :''} "/>>판매완료</option>
 
 									</select>
 								</c:when>

@@ -1,5 +1,7 @@
 package com.anabada.web.dao;
 
+import java.util.List;
+
 import com.anabada.web.vo.ComplaintVO;
 
 public interface ProductComplaintDAO {
@@ -9,6 +11,9 @@ public interface ProductComplaintDAO {
 
 	//신고하기
 	void insert(ComplaintVO vo) throws Exception;
+
+	// PBoard에 해당하는 신고 내역 불러오기
+	List<ComplaintVO> productList(String pboard) throws Exception;
 	
 
 

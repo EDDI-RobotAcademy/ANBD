@@ -1,5 +1,7 @@
 package com.anabada.web.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -27,6 +29,13 @@ public class ProductComplaintServiceImpl implements ProductComplaintService {
 	public void insert(ComplaintVO vo) throws Exception {
 		dao.insert(vo);
 		
+	}
+
+	// PBoard에 해당하는 신고 내역 불러오기
+	@Override
+	public List<ComplaintVO> productList(String pboard) throws Exception {
+		System.out.println("체크체크 "+pboard);
+		return dao.productList(pboard);
 	}
 	
 	
