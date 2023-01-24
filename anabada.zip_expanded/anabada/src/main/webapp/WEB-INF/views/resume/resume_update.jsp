@@ -95,7 +95,11 @@ $(document).ready(function () {
 		
 		var name = $("input[name='r_name']").val();
 		var tel = $("input[name='r_tel']").val();
+		var count = (tel.match(/-/g) || []).length;
+		
 		var age = $("input[name='r_age']").val();
+		var number = isNaN(age); // 숫자가 아니면 true
+		
 		var gender = $("input[name='r_gender']").is(":checked");
 		
 		// 1.이름 null 체크
@@ -110,6 +114,10 @@ $(document).ready(function () {
 		// 2.나이 null 체크
 		if(age == ""){
 			$("#a_null").text("나이를 작성해주세요.");
+    		$("#a_null").css("color", "red");
+    		return false;
+		}else if(number){
+			$("#a_null").text("숫자로 작성해주세요.");
     		$("#a_null").css("color", "red");
     		return false;
 		}else{
@@ -128,6 +136,10 @@ $(document).ready(function () {
 		// 4.전화번호 null 체크
 		if(tel == ""){
 			$("#t_null").text("전화번호를 작성해주세요.");
+    		$("#t_null").css("color", "red");
+    		return false;
+		}else if(count < 2){
+			$("#t_null").text("전화번호를 다시 작성해주세요.");
     		$("#t_null").css("color", "red");
     		return false;
 		}else{
@@ -156,6 +168,7 @@ $(document).ready(function () {
 	table{
 		width: 100%;
 		margin: auto;
+		border-top: 1px solid #ced4da;
 	}
 	tr, td{ 
       	padding: 10px;
@@ -225,7 +238,7 @@ $(document).ready(function () {
 				<tr>
 					<td class="info">나이</td>
 					<td>
-						<input type="text" name="r_age" id="r_age" class="form-control" style="width: 40%" value="${r_read.r_age}">&nbsp;살
+						<input type="text" name="r_age" id="r_age" class="form-control" style="width: 40%" value="${r_read.r_age}" placeholder="숫자로 입력해주세요.">&nbsp;세
 						<br>
 						<div id="a_null"></div>
 					</td>
