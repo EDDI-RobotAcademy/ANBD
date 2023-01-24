@@ -41,20 +41,21 @@ public class ProductComplaintController {
 	
 	
 	//  리뷰 신고 내역 불러오기 
-	/*
-	 * @RequestMapping(value = "/proComplaint", method = RequestMethod.GET) public
-	 * String reviewComplaint() throws Exception {
-	 * 
-	 * 
-	 * // 중고 게시판에 신고된 리스트 불러오기 List<ComplaintVO> list =
-	 * service.productList("review"); // PBoard에 해당하는 신고 내역 불러오기
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * return ""; }
-	 */
+	
+	  @RequestMapping(value = "/reviewComplaint", method = RequestMethod.GET) public
+	  String reviewComplaint() throws Exception {
+	  
+	  
+	  // 중고 게시판에 신고된 리스트 불러오기 List<ComplaintVO> list =
+	  service.productList("review"); // PBoard에 해당하는 신고 내역 불러오기
+	  
+	  
+	  
+	  
+	  
+	  return "";
+	  }
+	 
 
 
 	
