@@ -6,19 +6,19 @@
 
 <!-- 게시판 글 작성 -->
 <insert id="insert">
-INSERT INTO A_BOARD(A_BNO, A_TITLE, A_CONTENT, A_TYPE, ID, NICK, LOCA)
-VALUES(A_BOARD_SEQ.NEXTVAL, #{a_title}, #{a_content}, #{a_type}, #{id}, #{nick}, #{loca})
+INSERT INTO A_BOARD(A_BNO, A_TITLE, A_CONTENT, A_TYPE, ID, LOCA, NICK)
+VALUES(A_BOARD_SEQ.NEXTVAL, #{a_title}, #{a_content}, #{a_type}, #{id}, #{loca}, #{nick})
 </insert>
 
-<select id="list" resultType="boardVO" parameterType="com.anabada.web.vo.ASearchCriteria">
-<!-- MP : 테이블 별칭, 생략 가능 / ROW_NUMBER() : 게시판 번호를 순차적으로 반환해주는 함수 -->
-SELECT A_BNO, A_TITLE, A_REGDATE, A_CNT, A_TYPE, NICK, LOCA
-FROM(SELECT A_BNO, A_TITLE, A_REGDATE, A_CNT, A_TYPE, NICK, LOCA,
-	ROW_NUMBER() OVER(ORDER BY A_BNO DESC) AS RNUM 
+<select id="list" parameterType="com.anabada.web.vo.ASearchCriteria" resultType="boardVO">
+SELECT A_BNO, A_TITLE, A_REGDATE, A_CNT, A_TYPE, ID, LOCA, NICK
+FROM (
+	SELECT A_BNO, A_TITLE, A_REGDATE, A_CNT, A_TYPE, ID, LOCA, NICK, ROW_NUMBER()
+	OVER(ORDER BY A_BNO DESC) AS RNUM
 	FROM A_BOARD WHERE 1 = 1
-<include refid="search"></include>
-<include refid="category"></include>
-	) A
+	<include refid="search"></include>
+	<include refid="category"></include>
+) A_BOARD
 WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
 ORDER BY A_BNO DESC
 </select>
@@ -26,7 +26,7 @@ ORDER BY A_BNO DESC
 <select id="listCount" parameterType="com.anabada.web.vo.ASearchCriteria" resultType="int">
 SELECT COUNT(A_BNO) FROM A_BOARD WHERE 1 = 1
 <include refid="search"></include>
-AND a_BNO > 0
+AND A_BNO > 0
 </select>
 
 <sql id="search">
@@ -67,5 +67,20 @@ WHERE A_BNO = #{a_bno}
 <delete id="delete" parameterType="int">
 DELETE FROM A_BOARD WHERE A_BNO = #{a_bno} 
 </delete>  
+
+<select id="writeList" parameterType="com.anabada.web.vo.ASearchCriteria" resultType="boardVO">
+SELECT A_BNO, A_TITLE, A_REGDATE, A_CNT, A_TYPE, NICK, LOCA
+FROM(
+	SELECT A_BNO, A_TITLE, A_REGDATE, A_CNT, A_TYPE, NICK, LOCA,
+	ROW_NUMBER() OVER(ORDER BY A_BNO DESC) AS RNUM 
+	FROM A_BOARD WHERE ID = #{id}
+) A_BOARD
+WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+ORDER BY A_BNO DESC
+</select>
+
+<select id="writeListCount" parameterType="com.anabada.web.vo.ASearchCriteria" resultType="int">
+SELECT COUNT(A_BNO) FROM A_BOARD WHERE ID = #{id} AND A_BNO > 0
+</select> 
 
 </mapper>

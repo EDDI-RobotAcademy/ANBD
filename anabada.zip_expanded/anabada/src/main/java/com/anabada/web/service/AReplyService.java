@@ -2,7 +2,9 @@ package com.anabada.web.service;
 
 import java.util.List;
 
+import com.anabada.web.vo.ABoardVO;
 import com.anabada.web.vo.AReplyVO;
+import com.anabada.web.vo.ASearchCriteria;
 
 public interface AReplyService {
 	
@@ -20,4 +22,13 @@ public interface AReplyService {
 	
 	//댓글 삭제
 	public int deleteReply(AReplyVO replyVO) throws Exception;
+
+	//마이페이지 내가 작성한 댓글 목록
+	public List<AReplyVO> myReplyList(ASearchCriteria scri) throws Exception;
+
+	//마이페이지 내가 작성한 댓글 개수
+	public int replyListCount(ASearchCriteria scri) throws Exception;
+
+	//마이페이지 내가 작성한 댓글의 게시물
+	public ABoardVO myReplyTitle(int a_bno) throws Exception;
 }

@@ -5,6 +5,7 @@ public class ASearchCriteria extends ACriteria {
 	private String searchType = "";
 	private String keyword = "";
 	private String cateType = "";
+	private String id;
 	
 	public String getSearchType() {
 		return searchType;
@@ -23,6 +24,12 @@ public class ASearchCriteria extends ACriteria {
 	}
 	public void setCateType(String cateType) {
 		this.cateType = cateType;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	@Override

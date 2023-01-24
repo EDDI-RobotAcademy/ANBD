@@ -68,7 +68,9 @@ public class ABoardController {
 	public String writeView(ABoardVO boardVO) throws Exception {
 
 		logger.info("write");
+		
 		service.write(boardVO);
+		
 		return "redirect:/a_board/list";
 		// redirect는 컨트롤러 주소를 찾아감
 	}
@@ -181,11 +183,17 @@ public class ABoardController {
 	public String list(Model model, @ModelAttribute("scri") ASearchCriteria scri) throws Exception {
 
 		logger.info("게시판 목록 보기");
+		
 		model.addAttribute("list", service.list(scri));
+		
 		APageMaker pageMaker = new APageMaker();
 		pageMaker.setCri(scri);
 		pageMaker.setTotalCount(service.listCount(scri));
+		
 		model.addAttribute("pageMaker", pageMaker);
+		
+		System.out.println("결과 확인 : " + service.list(scri));
+		
 		return "/a_board/list";
 	}
 
@@ -227,9 +235,9 @@ public class ABoardController {
 	
 	//게시글 수정 화면
 	@RequestMapping(value = "/updateView", method = RequestMethod.GET)
-	public String updateView(Model model, ABoardVO boardVO, MemberVO memberVO,
-			@ModelAttribute("scri") ASearchCriteria scri) throws Exception {
+	public String updateView(Model model, ABoardVO boardVO, MemberVO memberVO, @ModelAttribute("scri") ASearchCriteria scri) throws Exception {
 		logger.info("게시글 수정하기 뷰페이지");
+		
 		model.addAttribute("update", service.read(boardVO.getA_bno()));
 		model.addAttribute("scri", scri);
 
@@ -317,4 +325,24 @@ public class ABoardController {
 	public String reportError() {
 		return "a_board/reportError";
 	}
+	
+	//마이페이지 내가 쓴 글 목록 
+	@RequestMapping(value = "/myWriteList", method = RequestMethod.GET)
+	public String myWriteList(Model model, ABoardVO boardVO, @ModelAttribute("scri") ASearchCriteria scri, HttpServletRequest req) throws Exception {
+		
+		HttpSession session = req.getSession();
+		String id = (String) session.getAttribute("id");
+		scri.setId(id);
+		
+		APageMaker pageMaker = new APageMaker();
+		pageMaker.setCri(scri);
+		pageMaker.setTotalCount(service.writeListCount(scri));
+		
+		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("myWriteList", service.myWriteList(scri));
+		
+		return "a_board/myWriteList";
+	}
+
+	
 }

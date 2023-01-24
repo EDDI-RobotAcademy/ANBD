@@ -1,7 +1,6 @@
 package com.anabada.web.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -9,7 +8,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.anabada.web.vo.ABoardVO;
-import com.anabada.web.vo.ALikeVO;
 import com.anabada.web.vo.ASearchCriteria;
 
 @Repository
@@ -59,6 +57,18 @@ public class ABoardDAOImpl implements ABoardDAO {
 	@Override
 	public void delete(int a_bno) throws Exception {
 		sqlSession.delete("boardMapper.delete", a_bno);
+	}
+
+	//마이페이지 내가 쓴 글 목록
+	@Override
+	public List<ABoardVO> writeList(ASearchCriteria scri) throws Exception {
+		return sqlSession.selectList("boardMapper.writeList", scri);
+	}
+
+	//마이페이지 내가 쓴 글 개수
+	@Override
+	public int writeListCount(ASearchCriteria scri) throws Exception {
+		return sqlSession.selectOne("boardMapper.writeListCount", scri);
 	}
 
 }

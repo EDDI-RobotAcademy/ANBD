@@ -55,4 +55,16 @@ public class ABoardServiceImpl implements ABoardService {
 	public void delete(int a_bno) throws Exception {
 		dao.delete(a_bno);
 	}
+	
+	//내가 작성한 글 목록 보기
+	@Override
+	public List<ABoardVO> myWriteList(ASearchCriteria scri) throws Exception {
+		return dao.writeList(scri);
+	}
+	
+	//내가 작성한 글 개수
+	@Override
+	public int writeListCount(ASearchCriteria scri) throws Exception {
+		return dao.writeListCount(scri);
+	}
 }
