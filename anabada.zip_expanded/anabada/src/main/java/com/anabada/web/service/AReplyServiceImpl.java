@@ -7,7 +7,9 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.anabada.web.dao.AReplyDAO;
+import com.anabada.web.vo.ABoardVO;
 import com.anabada.web.vo.AReplyVO;
+import com.anabada.web.vo.ASearchCriteria;
 
 @Service
 public class AReplyServiceImpl implements AReplyService {
@@ -43,6 +45,21 @@ public class AReplyServiceImpl implements AReplyService {
 	@Override
 	public int deleteReply(AReplyVO replyVO) throws Exception {
 		return dao.deleteReply(replyVO.getR_rno());
+	}
+
+	@Override
+	public List<AReplyVO> myReplyList(ASearchCriteria scri) throws Exception {
+		return dao.myReplyList(scri);
+	}
+
+	@Override
+	public int replyListCount(ASearchCriteria scri) throws Exception {
+		return dao.replyListCount(scri);
+	}
+
+	@Override
+	public ABoardVO myReplyTitle(int a_bno) throws Exception {
+		return dao.myReplyTitle(a_bno);
 	}
 
 

@@ -7,7 +7,9 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.anabada.web.vo.ABoardVO;
 import com.anabada.web.vo.AReplyVO;
+import com.anabada.web.vo.ASearchCriteria;
 
 @Repository
 public class AReplyDAOImpl implements AReplyDAO {
@@ -43,6 +45,21 @@ public class AReplyDAOImpl implements AReplyDAO {
 	@Override
 	public int deleteReply(int replyVO) throws Exception {
 		return sql.delete("replyMapper.deleteReply", replyVO);
+	}
+
+	@Override
+	public List<AReplyVO> myReplyList(ASearchCriteria scri) throws Exception {
+		return sql.selectList("replyMapper.ReplyList", scri);
+	}
+
+	@Override
+	public int replyListCount(ASearchCriteria scri) throws Exception {
+		return sql.selectOne("replyMapper.replyListCount", scri);
+	}
+
+	@Override
+	public ABoardVO myReplyTitle(int a_bno) throws Exception {
+		return sql.selectOne("replyMapper.myReplyTitle", a_bno);
 	}
 
 }

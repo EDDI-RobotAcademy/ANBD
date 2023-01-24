@@ -13,8 +13,8 @@ public class ABoardVO {
 	private int a_cnt;
 	private String a_type;
 	private String id;
-	private String nick;
 	private String loca;
+	private String nick;
 	
 	public int getA_bno() {
 		return a_bno;
@@ -70,24 +70,25 @@ public class ABoardVO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getNick() {
-		return nick;
-	}
-	public void setNick(String nick) {
-		this.nick = nick;
-	}
 	public String getLoca() {
 		return loca;
 	}
 	public void setLoca(String loca) {
 		this.loca = loca;
 	}
-
+	public String getNick() {
+		return nick;
+	}
+	public void setNick(String nick) {
+		this.nick = nick;
+	}
+	
 	@Override
 	public String toString() {
 		return "ABoardVO [a_bno=" + a_bno + ", a_title=" + a_title + ", a_content=" + a_content + ", a_image=" + a_image
 				+ ", a_regdate=" + a_regdate + ", a_like_cnt=" + a_like_cnt + ", a_cnt=" + a_cnt + ", a_type=" + a_type
-				+ ", id=" + id + ", nick=" + nick + ", loca=" + loca + "]";
+				+ ", id=" + id + ", loca=" + loca + ", nick=" + nick + "]";
 	}
+
 	
 }

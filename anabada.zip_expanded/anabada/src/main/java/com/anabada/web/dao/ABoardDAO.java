@@ -30,4 +30,10 @@ public interface ABoardDAO {
 	//게시글 삭제
 	public void delete(int a_bno) throws Exception;
 
+	//내가 작성한 글 목록 
+	public List<ABoardVO> writeList(ASearchCriteria scri) throws Exception;
+
+	//내가 작성한 글 개수
+	public int writeListCount(ASearchCriteria scri) throws Exception;
+
 }
