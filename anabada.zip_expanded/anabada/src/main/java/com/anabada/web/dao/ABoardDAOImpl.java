@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.anabada.web.vo.ABoardVO;
 import com.anabada.web.vo.ASearchCriteria;
+import com.anabada.web.vo.ComplaintVO;
 
 @Repository
 public class ABoardDAOImpl implements ABoardDAO {
@@ -69,6 +70,11 @@ public class ABoardDAOImpl implements ABoardDAO {
 	@Override
 	public int writeListCount(ASearchCriteria scri) throws Exception {
 		return sqlSession.selectOne("boardMapper.writeListCount", scri);
+	}
+
+	@Override
+	public void reportComplaint(ComplaintVO complaintVO) throws Exception {
+		sqlSession.insert("boardMapper.reportComplaint", complaintVO);
 	}
 
 }

@@ -82,5 +82,10 @@ ORDER BY A_BNO DESC
 <select id="writeListCount" parameterType="com.anabada.web.vo.ASearchCriteria" resultType="int">
 SELECT COUNT(A_BNO) FROM A_BOARD WHERE ID = #{id} AND A_BNO > 0
 </select> 
+	
+<insert id="reportComplaint" parameterType="ComplaintVO">
+INSERT INTO COMPLAINT (COM_NUM, ID, C_CONTENT, C_BNO, BOARD_TYPE)
+VALUES (COMPLAINT_SEQ.NEXTVAL, #{id}, #{c_content}, #{c_bno}, #{board_type})
+</insert>
 
 </mapper>

@@ -12,6 +12,7 @@ import com.anabada.web.dao.ABoardDAO;
 import com.anabada.web.vo.ABoardVO;
 import com.anabada.web.vo.ALikeVO;
 import com.anabada.web.vo.ASearchCriteria;
+import com.anabada.web.vo.ComplaintVO;
 
 @Service
 public class ABoardServiceImpl implements ABoardService {
@@ -66,5 +67,11 @@ public class ABoardServiceImpl implements ABoardService {
 	@Override
 	public int writeListCount(ASearchCriteria scri) throws Exception {
 		return dao.writeListCount(scri);
+	}
+
+	//게시글 신고 DB 저장
+	@Override
+	public void reportComplaint(ComplaintVO complaintVO) throws Exception {
+		dao.reportComplaint(complaintVO);
 	}
 }

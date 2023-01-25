@@ -39,6 +39,7 @@ import com.anabada.web.vo.ALikeVO;
 import com.anabada.web.vo.APageMaker;
 import com.anabada.web.vo.AReplyVO;
 import com.anabada.web.vo.ASearchCriteria;
+import com.anabada.web.vo.ComplaintVO;
 import com.anabada.web.vo.MemberVO;
 
 @Controller
@@ -316,16 +317,28 @@ public class ABoardController {
 
 	//신고 팝업 띄우기
 	@RequestMapping(value = "/report", method = RequestMethod.GET)
-	public String report() {
+	public String report(Model model, @RequestParam(value = "a_bno", required = false) int a_bno) throws Exception {
+		
+		model.addAttribute("a_bno", a_bno);
 		return "a_board/report";
 	}
 
 	//신고 사유 선택 유효성 검사 팝업 띄우기
 	@RequestMapping(value = "/reportError", method = RequestMethod.GET)
-	public String reportError() {
+	public String reportError() throws Exception {
 		return "a_board/reportError";
 	}
 	
+	//게시글 신고 DB 저장까지
+	@RequestMapping(value = "/reportComplaint", method = RequestMethod.GET)
+	public String reportComplaint(Model model, ComplaintVO complaintVO) throws Exception {
+		logger.info("게시글 신고");
+		
+		service.reportComplaint(complaintVO);
+		
+		return "a_board/report";
+	}
+
 	//마이페이지 내가 쓴 글 목록 
 	@RequestMapping(value = "/myWriteList", method = RequestMethod.GET)
 	public String myWriteList(Model model, ABoardVO boardVO, @ModelAttribute("scri") ASearchCriteria scri, HttpServletRequest req) throws Exception {
@@ -344,5 +357,4 @@ public class ABoardController {
 		return "a_board/myWriteList";
 	}
 
-	
 }

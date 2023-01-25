@@ -6,6 +6,7 @@ import java.util.Map;
 import com.anabada.web.vo.ABoardVO;
 import com.anabada.web.vo.ALikeVO;
 import com.anabada.web.vo.ASearchCriteria;
+import com.anabada.web.vo.ComplaintVO;
 
 public interface ABoardDAO {
 	
@@ -35,5 +36,8 @@ public interface ABoardDAO {
 
 	//내가 작성한 글 개수
 	public int writeListCount(ASearchCriteria scri) throws Exception;
+
+	//게시글 DB 저장
+	public void reportComplaint(ComplaintVO complaintVO) throws Exception;
 
 }

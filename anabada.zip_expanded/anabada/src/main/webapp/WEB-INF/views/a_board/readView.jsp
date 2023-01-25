@@ -60,7 +60,7 @@
 				alert("로그인 후 신고하실 수 있습니다.");
 			}
 			else {
-			window.open("/a_board/report", "신고", "width=400, height=600, left=0, top=0");
+			window.open("/a_board/report?a_bno=${read.a_bno}", "신고", "width=400, height=600, left=0, top=0");
 			}
 		});
 	});

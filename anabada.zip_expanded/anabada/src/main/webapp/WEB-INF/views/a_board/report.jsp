@@ -31,6 +31,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 $(document).ready(function() {
+	
 	$('input[name="report"]').change(function() {
 		if($('input[name="report"]:checked').val() == '1') {
 			$("#1c").css('display', 'block');
@@ -106,21 +107,48 @@ $(document).ready(function() {
 		}
 	});
 });
+
 function reportSubmit() {
-	var chkValue = document.getElementsByName("report");
 	
-	for(var i=0; i<chkValue.length; i++) {
-		if(chkValue[i].checked == true) {
-			location.href="#";
-		}
+	var c_content = "";
+	
+	if($("input:radio[name=report]").is(':checked')) {
+		var chkValue = $("input[name='report']:checked").val();
+		
+		if(chkValue == "1"){
+			 c_content = "욕설, 비방, 차별, 혐오";
+		 }else if(chkValue == "2"){
+			 c_content = "홍보, 영리목적";
+		 }else if(chkValue == "3"){
+			 c_content = "불법 정보";
+		 }else if(chkValue == "4"){
+			 c_content = "음란, 청소년 유해";
+		 }else if(chkValue == "5"){
+			 c_content = "개인 정보 노출, 유포, 거래";
+		 }else if(chkValue == "6"){
+			 c_content = "도배, 스팸";
+		 }else if(chkValue == "7"){
+			 c_content = $("#etc").val();
+		 }
+		
+		$("#c_content").attr('value', c_content);
+		$("form[name='reportForm']").submit();
+		alert("신고가 완료되었습니다.");
+	}
 		else{
 			window.open("/a_board/reportError", "경고", "width=250, height=100, left=50, top=50");
 		}
-	}
-}
+} 
 </script>
 </head>
 <body>
+<form name="reportForm" action="/a_board/reportComplaint" method="GET">
+
+	<input type="hidden" name="id" id="id" value="${id }"/>
+	<input type="hidden" name="c_bno" id="c_bno" value="${a_bno }"/>
+	<input type="hidden" name="c_content" id="c_content"/>
+	<input type="hidden" name="board_type" value="a_board"/>
+
 	<!-- 신고 팝업창 -->
 	<div class="report-background">
 	<h3>신고하기</h3>
@@ -175,7 +203,7 @@ function reportSubmit() {
 
 	<label for="report7"><input type="radio" name="report" id="report7" value="7"> 기타 </label> 
 	<div id="7c" style="display:none;">
-		<textarea cols="45" rows="3" placeholder="신고 사유 직접 입력 (최대 250자)"></textarea>
+		<textarea cols="45" rows="3" placeholder="신고 사유 직접 입력 (최대 250자)" id="etc"></textarea>
 	</div>
 	</div>
 
@@ -184,5 +212,7 @@ function reportSubmit() {
 	<button type="reset" onclick="javascript:window.close();">취소</button>	
 
 	<p id="warn"></p>
+	
+</form>
 </body>
 </html>
