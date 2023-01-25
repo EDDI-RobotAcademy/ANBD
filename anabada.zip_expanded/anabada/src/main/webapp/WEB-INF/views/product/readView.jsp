@@ -836,7 +836,7 @@ function complaint() {
 
 
 
-			<button id="listbtn">목록으로가기</button>
+	<!-- 		<button id="listbtn">목록으로가기</button> -->
 
 
 			<form name="readForm" role="form">
@@ -853,6 +853,7 @@ function complaint() {
 
 
 							<div style="display: inline;">
+							<br> <br>
 
 								<label class="rach"><input type="checkbox" id="heart" name="p_heart" value="${read.p_heart }" /> <c:choose>
 										<c:when test="${heart==0 }">
