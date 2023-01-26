@@ -59,7 +59,7 @@
    
    .h_list{
       margin: auto;
-      width: 95%;
+      width: 100%;
       /* border-top: 1px solid #e5e5e5; */
       /* border-collapse: collapse; */
    }
@@ -67,7 +67,12 @@
       border-bottom: 1px solid #e5e5e5;
       padding: 10px;
    }
-   
+   .word{
+    	width:597px;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    white-space: nowrap;
+    }
    
 </style>
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
@@ -181,11 +186,10 @@
             	</tr>
             	
         		<tr>
-        			<td style="text-align: center">
+        			<td style="text-align: center" width="10px">
                   		<input type="checkbox" name="delete" value="0" id="delete_all" style="display: inline-block;">
                		</td>
-        			<td colspan="2" style="text-align: center">내용</td>
-        			<td style="text-align: center">등록일</td>
+        			<td colspan="2" style="text-align: center">게시물</td>
         		</tr>
                 
             	<c:if test="${not empty h_list}">
@@ -208,12 +212,19 @@
                         </c:otherwise>
                         </c:choose>
                     </td>
-                    <td width="320px;">
-                        <font style="font-size: 20px;">${h_list.j_title }</font><br>
-						${h_list.j_company }<br>
-                    </td>
-                    <td width="150px;" style="text-align: center">
-                        ${h_list.j_date }
+                    <td>
+                        <div class="word">
+                        	<font style="font-size: 20px;">${h_list.j_title }</font>
+                        </div>
+                        <div class="word">
+							${h_list.j_company }
+						</div>
+						<div class="word">
+							${h_list.j_addr1 }&nbsp;${h_list.j_addr2 }
+                        </div>
+                        <div class="word">
+							${h_list.j_method }&nbsp;${h_list.j_pay }	
+						</div>
                     </td>
                 </tr>
             </c:forEach>

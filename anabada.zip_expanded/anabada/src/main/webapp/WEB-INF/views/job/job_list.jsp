@@ -5,9 +5,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="shortcut icon" href="resources/images/favicon.ico">
-<link rel="manifest" href="resources/images/manifest.json">
-<link rel="stylesheet" href="<c:url value='/css/j_styles.css'/>">
+<link rel="shortcut icon" href="../resources/images/favicon.ico">
+<link rel="manifest" href="../resources/images/manifest.json">
+<link rel="stylesheet" href="../resources/css/j_styles.css">
 <meta name="theme-color" content="#ffffff">
 <meta charset="UTF-8">
 <title>알바 구인 게시판</title>
@@ -88,7 +88,6 @@
       width: 100px;
    }
    .section {
-      /* background-color: #f9f9f9;    */
       width: 1000px; 
       border: 0px; 
       border-collapse: collapse;
@@ -104,6 +103,7 @@
       text-align: center;
       margin-left: 10px;
       margin-top: 10px;
+      border-radius: 5px;
    }
    .recent_list{
       height: 405px; 
@@ -141,6 +141,7 @@
 	  text-overflow: ellipsis;
 	  white-space: nowrap;
    }
+   
 </style>
 <body>
 <div>
@@ -478,13 +479,6 @@
 			var obj = $('.recent_list');
 			obj.animate({ scrollTop:obj.scrollTop() + ih }, 100);
 	    });
-		
-		
-		/* $(window).bind("pageshow", function (event) {
-			if (event.originalEvent.persisted) {
-				get_recent_item();
-			}
-		}); */
 		
 		// 이거 젤 마지막에 둬야지 정상적으로 실행됨
 		get_recent_item();

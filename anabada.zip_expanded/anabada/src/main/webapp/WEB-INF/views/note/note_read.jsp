@@ -221,6 +221,20 @@
 		
 	})
 </script>
+<style>
+	.review{
+	  all: unset;
+	  width: 100px;
+	  height: 30px;
+	  border-radius: 5px 5px;
+	  color: black;
+	  font-size: 15px;
+	  text-align: center;
+	  cursor: pointer;
+	  border: 1px solid #ced4da;
+	  background-color: #ced4da;
+	}
+</style>
 </head>
 <body>
 	<div>
@@ -299,7 +313,7 @@
 				</c:choose>
 				
 				<!--1) 중고게시글과 관련된 쪽지일때. 후기요청 x -->
-				<!--2) 후기 쪽지일때 -->
+				<!--2) 후기 요청 쪽지일때 -->
 				<!--3) 삭제된 중고 게시물과 연관된 쪽지일때 -->
 				<!--4) 이벤트 게시물일때 -->
 				<!--5) 삭제된 이벤트 게시물일때 -->
