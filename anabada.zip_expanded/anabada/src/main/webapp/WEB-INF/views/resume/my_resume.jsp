@@ -99,18 +99,24 @@
    	  text-align: center;
    }
    
-   .update{
-   	all: unset;
-	width: 50px;
-	height: 30px;
-	border-radius: 5px 5px;
-	color: black;
-	font-size: 15px;
-	text-align: center;
-	cursor: pointer;
-	border: 1px solid #ced4da;
-	background-color: #ced4da;
+   .update{ /*지원수정 버튼*/
+   	  all: unset;
+ 	  width: 50px;
+	  height: 30px;
+	  border-radius: 5px 5px;
+	  color: black;
+	  font-size: 15px;
+	  text-align: center;
+	  cursor: pointer;
+	  border: 1px solid #ced4da;
+	  background-color: #ced4da;
    }
+   .word{
+    	width:380px;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    white-space: nowrap;
+    }
 </style>
 </head>
 <body>
@@ -172,13 +178,19 @@
 	                    </c:otherwise>
 	                    </c:choose>
 	                </td>
-	                <td style="width: 600px;">
-						<font style="font-size: 20px;">${j_list[status.index].j_title}</font><br>
-						${j_list[status.index].j_company }<br>
-						<!--  
-						${j_list[status.index].j_addr1 }&nbsp;${j_list[status.index].j_addr2 }<br>
-						${j_list[status.index].j_method }&nbsp;${j_list[status.index].j_pay }	
-						-->			
+	                <td style="width: 400px;">
+						<div class="word">
+							<font style="font-size: 20px;">${j_list[status.index].j_title}</font>
+						</div>
+						<div class="word">
+							${j_list[status.index].j_company }
+						</div>
+						<div class="word">
+							${j_list[status.index].j_addr1 }&nbsp;${j_list[status.index].j_addr2 }
+						</div>
+						<%-- <div class="word">
+							${j_list[status.index].j_method }&nbsp;${j_list[status.index].j_pay }	
+						</div>	 --%>	
 					</td>
 					<td style="width: 150px; text-align: center;">
 						${mr_list.r_date }
