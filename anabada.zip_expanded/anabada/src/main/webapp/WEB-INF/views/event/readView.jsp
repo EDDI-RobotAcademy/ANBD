@@ -289,15 +289,18 @@ border-radius: 20px;
 					<div class="col-lg-6">
 						<div class="welcome_text">
 							<h4>🌳Event Status</h4>
-							<p>inappropriate behavior is often laughed off as “boys will be boys,” women face higher conduct standards especially in the workplace. That’s why it’s crucial that, as women, our behavior on the job is beyond reproach. inappropriate behavior is often laughed.</p>
+							<p> ‘아나바다’는<br> ‘아껴 쓰고 나눠 쓰고 바꿔 쓰고 다시 쓰기’를 줄인 말이에요. <br>
+							물건을 아끼고 나누고 바꾸고 다시 쓰면서 <br>불필요한 소비를 줄이자는 뜻이에요.<br>
+나에게 쓸모없던 물건이 다른 사람의 손에서 그 쓸모를 다하듯이<br>
+지구를 생각하는 우리의 작은 한걸음 한 걸음이 모여 지구를 위한 쓸모 있는 행동이 될 수 있도록 아나바다가 여러분과 함께하고자 합니다.</p>
 							<div class="row">
-								<div class="col-md-4">
+						<!-- 		<div class="col-md-4">
 									<div class="wel_item">
 										<i class="lnr lnr-database"></i>
 										<h4>$2.5M</h4>
 										<p>북마크</p>
 									</div>
-								</div>
+								</div> -->
 								<div class="col-md-4">
 									<div class="wel_item">
 										<i class="lnr lnr-book"></i>

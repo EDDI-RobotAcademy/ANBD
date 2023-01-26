@@ -171,13 +171,15 @@ margin-top: 40px;
 		//내글쓰기 버튼 눌렀을때 
 		$('#writebtn').on("click", function() {
 
-			var id = "${id}";
-			if (id = null) {
+			
+			if ("${id}" == "") {
 				alert('회원 전용 서비스입니다. 로그인 후 이용하세요 ');
-				return null;
+				return ;
+			}else{
+				
+			location.href = "/product/writeView";
 			}
 
-			location.href = "/product/writeView";
 		})
 
 		//최근본 목록
@@ -315,8 +317,8 @@ margin-top: 40px;
 									<option value="w" <c:out value="${scri.searchType eq 'w' ? 'selected' :''} "/>>작성자</option>
 							</select></td>
 							<td><input type="text" name="keyWord" id="keywordInput" value="${scri.keyword }">
-								<button class="searchBtn" type="button">검색</button> &nbsp; &nbsp;
-								<button id="writebtn" type="button">내글쓰기</button></td>
+								<button class="searchBtn btn btn-outline-primary " type="button">검색</button> &nbsp; &nbsp;
+								<button id="writebtn"   class="btn btn-outline-primary" type="button">내글쓰기</button></td>
 						</tr>
 
 					</table>
