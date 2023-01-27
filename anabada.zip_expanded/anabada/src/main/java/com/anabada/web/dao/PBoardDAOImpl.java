@@ -25,16 +25,9 @@ public class PBoardDAOImpl implements PBoardDAO {
 	@Override
 	public int write(PBoardVO pboardVO) throws Exception {
 
-		int pnum ;
-		//int max = sql.selectOne("pBoardMapper.maxpno"); // pno 설정을 위해 max값 찾아옴
-		if (sql.selectOne("pBoardMapper.maxpno") == null) {
-			pnum = 1;
-		}else {
-			pnum = sql.selectOne("pBoardMapper.maxpno");
-		}
-		pboardVO.setPno(pnum);
-
-		sql.insert("pBoardMapper.insert", pboardVO);
+	
+		sql.insert("pBoardMapper.insert",pboardVO);
+		int pnum = sql.selectOne("pBoardMapper.searchPno",pboardVO); 
 
 		return pnum;
 
@@ -67,114 +60,115 @@ public class PBoardDAOImpl implements PBoardDAO {
 	// 타입에 해당하는 게시글 총 갯수 구하기
 	@Override
 	public int typecount(String p_type) throws Exception {
-       
+
 		return sql.selectOne("pBoardMapper.typecount", p_type);
 	}
 
 	// 유사한 상품 검색하는 쿼리 (tnum 은 랜덤 처리를 위한 숫자 )
 	@Override
-	public List<PBoardVO> similar(SimilarSearch si)throws Exception  {
+	public List<PBoardVO> similar(SimilarSearch si) throws Exception {
 
-		return sql.selectList("pBoardMapper.similar" ,si);
+		return sql.selectList("pBoardMapper.similar", si);
 	}
 
-	//게시글 저장시 사진경로 저장 
+	// 게시글 저장시 사진경로 저장
 	@Override
-	public void fileSave(Map<String, String> map)throws Exception  {
+	public void fileSave(Map<String, String> map) throws Exception {
 		sql.insert("pBoardMapper.fileSave", map);
 
 	}
 
-	//게시글 상세보기시 사진정보 가져오기
+	// 게시글 상세보기시 사진정보 가져오기
 	@Override
-	public List<PfileVO> filelist(int pno) throws Exception  {
-		return sql.selectList("pBoardMapper.filelist",pno);
+	public List<PfileVO> filelist(int pno) throws Exception {
+		return sql.selectList("pBoardMapper.filelist", pno);
 	}
 
-	//게시글 삭제 
+	// 게시글 삭제
 	@Override
-	public void delete(int pno) throws Exception  {
-		sql.delete("pBoardMapper.delete",pno);
-		
+	public void delete(int pno) throws Exception {
+		sql.delete("pBoardMapper.delete", pno);
+
 	}
 
-	//게시글 수정시 이미지 삭제
+	// 게시글 수정시 이미지 삭제
 	@Override
 	public void deleteImg(int fno) throws Exception {
-		sql.delete("pBoardMapper.deleteImg",fno);
-		
+		sql.delete("pBoardMapper.deleteImg", fno);
+
 	}
 
-	//fno에 해당하는 Path 리턴 
+	// fno에 해당하는 Path 리턴
 	@Override
 	public String imgPath(int fno) throws Exception {
-		
-		return sql.selectOne("pBoardMapper.imgPath",fno);
+
+		return sql.selectOne("pBoardMapper.imgPath", fno);
 	}
 
-	// 수정한 게시글 저장 
+	// 수정한 게시글 저장
 	@Override
 	public void update(PBoardVO pboardVO) throws Exception {
-		sql.update("pBoardMapper.update",pboardVO);
-		
+		sql.update("pBoardMapper.update", pboardVO);
+
 	}
 
-	//heart게시판에 좋아요 누른 정보 추가 
+	// heart게시판에 좋아요 누른 정보 추가
 	@Override
 	public void addHeart(Map<String, String> param) throws Exception {
-		sql.insert("HeartMapper.addHeart",param);
-		
-	}
-    //게시글에 p_heart +1 
-	@Override
-	public void upHeart(int pno) throws Exception {
-		sql.update("pBoardMapper.upHeart",pno);
-		
+		sql.insert("HeartMapper.addHeart", param);
+
 	}
 
-	//User가 하트를 눌렀는지 안눌렀는지 확인 ("pno" ,"id")
+	// 게시글에 p_heart +1
+	@Override
+	public void upHeart(int pno) throws Exception {
+		sql.update("pBoardMapper.upHeart", pno);
+
+	}
+
+	// User가 하트를 눌렀는지 안눌렀는지 확인 ("pno" ,"id")
 	@Override
 	public int heartCheck(Map<String, String> check) throws Exception {
-		
-		return sql.selectOne("HeartMapper.heartCheck",check);
+
+		return sql.selectOne("HeartMapper.heartCheck", check);
 	}
 
 	// 하트테이블에서 하트 삭제 ("pno" ,"id")
 	@Override
 	public void subHeart(Map<String, String> param) throws Exception {
-            sql.delete("HeartMapper.subHeart",param);		
+		sql.delete("HeartMapper.subHeart", param);
 	}
 
-	//게시글에서 p_heart -1 
+	// 게시글에서 p_heart -1
 	@Override
 	public void downHeart(int pno) throws Exception {
-		sql.update("pBoardMapper.downHeart",pno);
-		
+		sql.update("pBoardMapper.downHeart", pno);
+
 	}
-	//pno에 해당하는 사진경로중 가장 먼저올린것 1개의 filePath 반환
+
+	// pno에 해당하는 사진경로중 가장 먼저올린것 1개의 filePath 반환
 	@Override
 	public String getImg(int pno) throws Exception {
-		return sql.selectOne("pBoardMapper.getImg",pno);
+		return sql.selectOne("pBoardMapper.getImg", pno);
 	}
 
-
-	//pno, p_buy 전달해서 상품 판매 상태 변경 
+	// pno, p_buy 전달해서 상품 판매 상태 변경
 	@Override
 	public void change(Map<String, String> param) throws Exception {
-		sql.update("pBoardMapper.change",param);
-		
+		sql.update("pBoardMapper.change", param);
+
 	}
 
-	// id에 해당하는 리뷰 반환 
+	// id에 해당하는 리뷰 반환
 	@Override
 	public List<ReviewVO> reviewList(ReviewCriteria rescri) throws Exception {
-		
-		return sql.selectList("pBoardMapper.reviewList",rescri);
+
+		return sql.selectList("pBoardMapper.reviewList", rescri);
 	}
 
 	@Override
 	public int reviewCount(ReviewCriteria rescri) throws Exception {
-		return sql.selectOne("pBoardMapper.reviewCount",rescri);
+		return sql.selectOne("pBoardMapper.reviewCount", rescri);
 	}
 
 }

@@ -21,15 +21,15 @@ public class EventBoardDAOImpl implements EventBoardDAO {
 	//글쓰기 저장
 	@Override
 	public int write(EventBoardVO eventBoardVO) throws Exception {
-	int pnum;
-
-	if(sql.selectOne("EventMapper.maxeno") == null) {
-		pnum=1;
-	}else {
-		pnum = sql.selectOne("EventMapper.maxeno");
-	}
-	eventBoardVO.setEno(pnum);
-	sql.insert("EventMapper.insert",eventBoardVO);
+		/*
+		 * int pnum;
+		 * 
+		 * if(sql.selectOne("EventMapper.maxeno") == null) { pnum=1; }else { pnum =
+		 * sql.selectOne("EventMapper.maxeno"); } eventBoardVO.setEno(pnum);
+		 * sql.insert("EventMapper.insert",eventBoardVO);
+		 */
+		sql.insert("EventMapper.insert",eventBoardVO);
+		int pnum = sql.selectOne("EventMapper.searchEno",eventBoardVO);
 	
 	return pnum;
 		

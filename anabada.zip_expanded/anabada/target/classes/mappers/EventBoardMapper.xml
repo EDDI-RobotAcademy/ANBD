@@ -6,14 +6,27 @@
 <mapper namespace="EventMapper">
 
 	<!-- 글쓰기저장 -->
-	<insert id="insert" parameterType="EventBoardVO">
+<!-- 	<insert id="insert" parameterType="EventBoardVO">
 		INSERT INTO EVENTBOARD (ENO,E_TITLE,E_START,E_END,E_WIN,E_CONTENT,ID)
 		VALUES(#{eno},#{e_title},#{e_start},#{e_end},#{e_win},#{e_content},#{id})
 	</insert>
 
 	<select id="maxeno" resultType="int">
 		select max(eno)+1 from eventboard
+	</select> -->
+	<!-- 글쓰기 저장  -->
+	<insert id="insert" parameterType="EventBoardVO">
+		INSERT INTO EVENTBOARD (ENO,E_TITLE,E_START,E_END,E_WIN,E_CONTENT,ID)
+		VALUES(eventboard_seq.nextval,#{e_title},#{e_start},#{e_end},#{e_win},#{e_content},#{id})
+	</insert>
+	
+	<!-- 방금 저장한 글의 eno 리턴 -->
+	<select id="searchEno" resultType="int"  parameterType="EventBoardVO">
+	SELECT MAX(ENO) FROM EVENTBOARD
+	WHERE E_TITLE =#{e_title}
 	</select>
+
+
 
 	<!-- 게시글 저장시 사진 저장 -->
 	<insert id="fileSave" parameterType="java.util.Map">
