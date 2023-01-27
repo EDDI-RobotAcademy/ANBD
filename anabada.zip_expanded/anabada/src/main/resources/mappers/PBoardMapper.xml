@@ -5,7 +5,8 @@
 
 <mapper namespace="pBoardMapper">
 
-	<!-- 게시판 글 작성 -->
+<!-- 	
+
 	<insert id="insert">
 		INSERT INTO PBOARD(PNO, P_TITLE, P_COST, P_TYPE,
 		P_CON, SELL_A, SELL_B,P_LOCAL,
@@ -17,10 +18,30 @@
 	</insert>
 
 
-	<!-- pno 얻어오기 -->
+
 	<select id="maxpno" resultType="int">
 		select max(pno)+1 from pboard
+	</select> 
+	-->
+	
+	
+	<!-- 게시판 글 작성 -->
+		<insert id="insert">
+		INSERT INTO PBOARD(PNO, P_TITLE, P_COST, P_TYPE,
+		P_CON, SELL_A, SELL_B,P_LOCAL,
+		P_CONTENT, P_FILE ,ID)
+		VALUES(pboard_seq.nextval,
+		#{p_title},#{p_cost},#{p_type},
+		#{p_con},#{sell_a},#{sell_b},#{p_local},
+		#{p_content},#{p_file} ,#{id})
+	</insert>
+	
+	<!-- 방금 저장한 글의 pno 리턴하기 -->
+	<select id="searchPno" resultType="int"  parameterType="PBoardVO" >
+	SELECT MAX(PNO) FROM PBOARD 
+	WHERE ID =#{id} AND P_TITLE =#{p_title}
 	</select>
+	
 
 
 	<!-- 게시글 목록보기 -->

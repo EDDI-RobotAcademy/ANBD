@@ -95,7 +95,6 @@ public class ProductController {
 		List<String> fileList = fileProcess(multipartRequest);
 
 		pboardVO.setP_file(fileList.size());
-		System.out.println("파일의 갯수 : " + fileList.size());
 
 		int pnum = service.write(pboardVO); // DB에 insert 실행 , pnum은 해당 개시글의 pno
 		if (fileList != null) {
