@@ -43,7 +43,7 @@ SELECT COUNT(J_BNO) FROM RESUME_BOARD WHERE ID = #{id}
 </select>
 
 <select id="mr_job" resultType="JobVO" parameterType="java.util.ArrayList">
-SELECT J_BNO, J_TITLE, J_COMPANY FROM JOB_BOARD
+SELECT J_BNO, J_TITLE, J_COMPANY, J_ADDR1, J_ADDR2, J_METHOD, J_PAY FROM JOB_BOARD
 WHERE J_BNO IN (
 	<foreach collection="array" item="item" index="index" separator=",">
        #{item}

@@ -385,6 +385,7 @@
       text-align: center;
       margin-left: 10px;
       margin-top: 10px;
+      border-radius: 5px;
    }
    .recent_list{
       height: 405px; 

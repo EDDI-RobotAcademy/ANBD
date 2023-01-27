@@ -150,26 +150,25 @@ public class NoteController {
 			
 		}else if(n_type.equals("no") || n_type.equals("review")) { // 일반 쪽지일때(그냥, 중고)
 			
-			PBoardVO p_read = productService.read(n_read.getN_rno()); // 게시글 관련 쪽지면 게시글 객체 저장
+			PBoardVO p_read = productService.read(n_read.getN_rno()); // 중고 게시글 관련 쪽지면 게시글 객체 저장
 			System.out.println("p_read"+p_read);
 			
-			if(p_read != null && n_rno > 0) { // 중고 쪽지가 삭제되지 않았을 때삭제되지 않았을 때
+			if(p_read != null && n_rno > 0) { // 중고 쪽지가 삭제되지 않았을 때
 				String path = productService.getImg(n_read.getN_rno()); // 첫번째 사진의 정보를 담음
 				
-				if (path == null) {
+				if (path == null) {// 사진 저장안했으면 기본 사진 저장
 					p_read.setP_filepath("/tomcatImg/img.png");
 				} else {
 					p_read.setP_filepath(path);
 					System.out.println(path);
 				}
-				model.addAttribute("p_read", p_read); // 중고게시글 객체도 불러옴
+				model.addAttribute("p_read", p_read); // 중고게시글 객체도 저장
 			}
 			
 		}
-			
 		// 만약 삭제된 중고, 이벤트 쪽지라면 model로 넘기지 않음
 		
-		model.addAttribute("scri", scri);
+		model.addAttribute("scri", scri); // 보낸쪽지함인지, 받은쪽지함인지 구분위해
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", (String)session.getAttribute("id"));
