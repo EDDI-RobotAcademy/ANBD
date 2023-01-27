@@ -1,0 +1,36 @@
+
+server:
+  port: 7777
+  servlet:
+    jsp:
+      init-parameters:
+        development: true
+
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521:orcl
+    username: scott
+    password: tiger
+    driver-class-name: oracle.jdbc.OracleDriver
+    dialect: org.hibernate.dialect.Oracle10gDialect
+
+  jpa:
+    open-in-view: false
+    database: oracle
+    show-sql: true
+    generate-ddl: true
+    database-platform: org.hibernate.dialect.Oracle10gDialect
+    hibernate:
+      ddl-auto: update
+      #ddl-auto: create
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
