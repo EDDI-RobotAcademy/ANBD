@@ -20,13 +20,13 @@
         </button>&nbsp;
         <button>
           <router-link :to="{ name: 'complaint-view', 
-                              params: { boardType: 'product'.toString() }}">
+                              params: { boardType: 'pboard'.toString() }}">
             중고 게시물
           </router-link>
         </button>&nbsp;
         <button>
           <router-link :to="{ name: 'complaint-view',
-                              params: { boardType: 'commuity'.toString() }}">
+                              params: { boardType: 'a_board'.toString() }}">
             동네생활
           </router-link>
         </button>&nbsp;
