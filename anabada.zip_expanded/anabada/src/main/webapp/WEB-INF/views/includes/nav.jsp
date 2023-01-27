@@ -51,6 +51,9 @@
 						<li class="pro-li"><a href="/member/myPage"><b>${member.nick}</b> 님</a></li>
 						<li class="pro-li"><a href="/member/logout">로그아웃</a></li>
 						<li class="pro-li"><a href="/help_board/list">고객센터</a></li>
+						<c:if test="${member.id == 'admin'}">
+							<li class="pro-li"><a href="http://localhost:8081/complaint-all-view/">신고게시글</a></li>
+						</c:if>
 					</ul>
 				</div>
 			</c:if>
