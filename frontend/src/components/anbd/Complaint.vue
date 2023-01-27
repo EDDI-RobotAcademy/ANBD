@@ -1,12 +1,14 @@
 <template>
     <v-container>
           <h3>게시물 목록</h3>
+          
           <v-data-table
               :headers="headerTitle"
               :items="complaint"
               :items-per-page="10"
               @click:row="readRow"
-              class="elevation-1"/>
+              class="elevation-1"
+              show-selecte/>
     </v-container>
   </template>
     

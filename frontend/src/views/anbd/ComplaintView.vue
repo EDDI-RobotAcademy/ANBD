@@ -66,8 +66,10 @@
       computed: {
         ...mapState(['complaint'])
       },
-      mounted() {
-        this.requestComplaintFromSpring(this.boardType)
+
+      async mounted() {
+        await this.requestComplaintFromSpring(this.boardType)
+        
       },
       methods: {
         ...mapActions([

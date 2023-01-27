@@ -6,7 +6,8 @@
               :items="complaint"
               :items-per-page="10"
               @click:row="readRow"
-              class="elevation-1"/>
+              class="elevation-1"
+              show-select/>
     </v-container>
   </template>
     
