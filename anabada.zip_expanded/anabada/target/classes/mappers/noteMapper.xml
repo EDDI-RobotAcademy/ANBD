@@ -114,5 +114,10 @@ WHERE ID = #{id} AND BOARD_TYPE = #{board_type} AND C_BNO= #{c_bno}
 </select>
 
 
+<select id="id_chk" parameterType="java.lang.String"  resultType="int">
+SELECT COUNT(ID) FROM A_MEMBER WHERE ID = #{id}
+</select>
+
+
 
 </mapper>

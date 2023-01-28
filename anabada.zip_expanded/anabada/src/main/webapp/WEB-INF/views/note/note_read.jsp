@@ -96,36 +96,76 @@
 		// 모달창에서 쪽지보내기 버튼 눌렀을 때
 	    $("#note_submit").click(function(){
 	    	
-	    	if($("#n_content").val() == null || $("#n_content").val() == ""){
-	    		$("#n_content").attr("placeholder", "내용을 작성해주세요.");
-	    		return false;
-	    	}
-	    	if($("#n_receiver").val() == null || $("#n_receiver").val() == ""){
-	    		$("#n_receiver").attr("placeholder", "받는 아이디를 작성해주세요.");
-	    		return false;
-	    	}
-	    	if($("#n_receiver").val() == '${id}'){
-	        	  alert("자기에게 쪽지를 보낼 수 없습니다.");
-	        	  return false;
-	        }
+	    	var n_sender = $("#n_sender").val().trim(); 
+	    	var n_content = $("#n_content").val().trim();
+	    	var n_receiver = $("#n_receiver").val().trim();
+	    	var n_type = $("input[name=n_type]").val();
+	    	var n_rno = $("input[name=n_rno]").val();
 	    	
-	        $.ajax({
-	            type: "get",
-	            url : "/note/note_insert.ajax",
-	          	dataType : "json",
-	            data : $("#note_form").serialize(),
-	            success:function(data){
-	                alert("쪽지 전송 완료");
-	                alert($("#n_rno").val());
-	            },
-	            error : function(request, status, error) {
-					alert("쪽지 전송 실패:" + error);
-				}
-	        });
+	    	if(n_content == null || n_content == ""){
+	           $("#n_content").attr("placeholder", "내용을 작성해주세요.");
+	           return false;
+	        }
+	        if(n_receiver == null || n_receiver == ""){
+	           $("#n_receiver").attr("placeholder", "받는 아이디를 작성해주세요.");
+	           return false;
+	        }
+	          
+	        if(n_receiver == '${id}'){
+	        	alert("본인에게 쪽지를 보낼 수 없습니다.");
+	        	return false;
+	        }
 	        
-	        $("#noteModal").modal("hide");
+	        if(n_receiver == 'admin' || n_receiver == '관리자'){
+	        	alert("관리자에게는 쪽지를 보낼 수 없습니다.");
+	        	return false;
+	        }
+	        
+	     	// 쪽지 받는 아이디 회원 존재하는지 체크하고 쪽지 보냄
+	         $.ajax({
+	             type: "get",
+	             url : "/note/id_chk.ajax",
+	             dataType : "json",
+	             data : {
+	            	 id: n_receiver
+	             },
+	             success:function(data){
+	                 if(data != 1){
+	                	 alert("존재하지 않는 id입니다.");
+	                 }else{ // 아이디가 존재할 땐
+	                	 
+	                	 $.ajax({
+	                         type: "get",
+	                         url : "/note/note_insert.ajax",
+	                         dataType : "json",
+	                         data : {
+	                        	 n_sender: n_sender,
+	                        	 n_content: n_content,
+	                        	 n_receiver: n_receiver,
+	                        	 n_rno: n_rno,
+	                        	 n_type: n_type
+	                         },
+	                         success:function(data){
+	                             alert("쪽지 전송 완료");
+	                             window.location.reload();
+	                         },
+	                         error : function(request, status, error) {
+	            			  alert("쪽지 전송 실패:" + error);
+	            			 }
+	                     });
+	                	 $("#noteModal").modal("hide");
+	                 }
+	                 
+	             },
+	             error : function(request, status, error) {
+					  alert("아이디 체크 실패:" + error);
+				 }
+	         });
+	    	
 	    });
 		
+		
+		// 목록 눌렀을때
 	    $("button[name=list]").on("click", function () {
 			location.href = "/note/note_list" +
 			'?n_bno=' + '${n_read.n_bno}' +
@@ -279,7 +319,9 @@
 				<tr>
 					<td colspan="2">
 						<button type="button" name="n_delete" class="d_btn">삭제</button>
+						<c:if test="${n_read.n_sender ne 'admin'}"><!-- 관리자한테는 쪽지 답장 못하도록 막음 -->
 						<button type="button" name="n_reply" class="d_btn">답장</button>
+						</c:if>
 						<button type="button" name="list" class="d_btn">목록</button>
 						<c:if test="${scri.who eq 'receive'}">
 						<button type="button" id="report" class="d_btn">신고</button>
@@ -304,7 +346,12 @@
 				</tr>
 				<tr>	
 					<td colspan="2">
+					<c:if test="${n_read.n_sender eq 'admin' }">
+					보낸 사람&nbsp;&nbsp;관리자<br>
+					</c:if>
+					<c:if test="${n_read.n_sender ne 'admin' }">
 					보낸 사람&nbsp;&nbsp;${n_read.n_sender }<br>
+					</c:if>
 					받은 시간&nbsp;&nbsp;${n_read.n_s_time }<br>
 					</td>
 				</tr>

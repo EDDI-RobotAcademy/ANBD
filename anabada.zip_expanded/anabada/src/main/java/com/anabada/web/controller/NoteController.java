@@ -294,6 +294,18 @@ public class NoteController {
        int result = noteService.report_chk(vo);
        return result;
     }
+    
+    // 쪽지 받는 아이디가 존재하는지 체크
+    @RequestMapping(value = "/id_chk.ajax", method = RequestMethod.GET)
+    @ResponseBody
+    public int id_chk(@RequestParam String id) throws Exception{
+       
+       logger.info("쪽지 받는 아이디가 존재하는지 체크");
+       System.out.println(id);
+       
+       int result = noteService.id_chk(id);
+       return result;
+    }
 
 	
 }
