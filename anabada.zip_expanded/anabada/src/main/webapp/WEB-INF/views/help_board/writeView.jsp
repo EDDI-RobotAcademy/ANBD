@@ -41,7 +41,7 @@
 
 	<!-- 헤더 -->
 	<div>
-		<%@ include file="../includes/miniHeader.jsp" %>
+		<%@ include file="../includes/helpHeader.jsp" %>
 	</div>
 	
 	<div>

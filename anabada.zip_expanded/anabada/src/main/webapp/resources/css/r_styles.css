@@ -131,6 +131,11 @@ a {
   margin: 35px 0 20px 0;
 }
 
+.miniheader {
+  display: flex;
+  margin: 35px 0 20px 0;
+}
+
 .logo-header {
   width: 350px;
   justify-content: center;
@@ -139,8 +144,12 @@ a {
 
 .logo-miniheader {
   width: 280px;
-  justify-content: center;
   text-align: center;
+}
+
+.menu-miniheader {
+  margin-top: auto;
+  margin-left: auto;
 }
 
 
@@ -201,6 +210,7 @@ a {
 .cate-li {
   display: inline;
   padding: 8px;
+  font-size: 14px;
   cursor: pointer;
 }
 
@@ -262,7 +272,7 @@ a {
 }
 
 .side-t {
-  margin: 0 0 10px 0;
+  margin: 10px 0 10px 0;
   font-size: 24px;
   font-weight: 500;
   cursor: default;
@@ -589,7 +599,7 @@ input[id="termsService3"]:checked + label::before{
   border-radius: 5px 5px;
   background-color: #0C6BBC;
   color: #fff;
-  margin: 18px auto 45px auto;
+  margin: 35px auto 45px auto;
   display: block;
   font-size: 14px;
   text-align: center;
@@ -915,6 +925,41 @@ input[id="termsService3"]:checked + label::before{
 }
 
 
+/* 글쓰기 완료 */
+.qna-home-but {
+  all: unset;
+  display: inline-block;
+  text-align: center;
+  justify-content: center;
+  width: 130px;
+  height: 38px;
+  border-radius: 2px 2px;
+  margin: 0 4px 80px 0;
+  padding: 0;
+  border: none;
+  background: #0C6BBC;
+  color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.qna-my-but {
+  all: unset;
+  display: inline-block;
+  justify-content: center;
+  width: 130px;
+  height: 38px;
+  border-radius: 2px 2px;
+  margin: 0 0 80px 4px;
+  padding: 0;
+  border: none;
+  background: #8e8e8e;
+  color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+
 /* 리스트 */
 .board-table {
   font-size: 13px;
@@ -1085,7 +1130,7 @@ input[id="termsService3"]:checked + label::before{
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  margin-top: 0;
+  margin-bottom: 0;
   padding-top: 10px;
   padding-bottom: 20px;
   vertical-align: bottom;

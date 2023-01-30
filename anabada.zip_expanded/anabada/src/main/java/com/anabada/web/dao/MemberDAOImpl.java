@@ -27,6 +27,11 @@ public class MemberDAOImpl implements MemberDAO {
 	public void memberUpdate(MemberVO vo) throws Exception {
 		sql.update("memberMapper.memberUpdate", vo);
 	}
+	
+	@Override
+	public void passUpdate(MemberVO vo) throws Exception {
+		sql.update("memberMapper.passUpdate", vo);
+	}
 
 	@Override
 	public void memberDelete(MemberVO vo) throws Exception {
