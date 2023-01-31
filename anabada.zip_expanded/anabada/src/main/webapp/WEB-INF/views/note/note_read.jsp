@@ -314,7 +314,7 @@
         </div>
 		
 		<!-- 내용 부분 -->
-		<div class="minicon3">
+		<div class="minicon3" style="height: 580px">
 			<table class="n_read">
 				<tr>
 					<td colspan="2">

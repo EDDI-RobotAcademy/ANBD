@@ -1,85 +1,122 @@
 <template>
 
-    <v-container>
-      <button>
-              <router-link :to="{ name: 'complaint-all-view'}">
-                전체
-              </router-link>
-            </button>&nbsp;
-            <button>
-              <router-link :to="{ name: 'complaint-view',
-                                  params: { boardType: 'note'.toString() }}">
-                쪽지
-              </router-link>
-            </button>&nbsp;
-            <button>
-              <router-link :to="{ name: 'complaint-view', 
-                                  params: { boardType: 'job'.toString() }}">
-                알바 게시물
-              </router-link>
-            </button>&nbsp;
-            <button>
-              <router-link :to="{ name: 'complaint-view', 
-                                  params: { boardType: 'pboard'.toString() }}">
-                중고 게시물
-              </router-link>
-            </button>&nbsp;
-            <button>
-              <router-link :to="{ name: 'complaint-view',
-                                  params: { boardType: 'a_board'.toString() }}">
-                동네생활
-              </router-link>
-            </button>&nbsp;
-            <button>
-              <router-link :to="{ name: 'complaint-view',
-                                  params: { boardType: 'review'.toString() }}">
-                리뷰
-              </router-link>
-            </button>&nbsp;
-            <complaint :complaint="complaint"/>
-            
+  <v-container>
+        <router-link :to="{ name: 'complaint-all-view'}">
+          <v-btn color="blue" class="button">전체</v-btn>
+        </router-link>
+        &nbsp;
+        <router-link :to="{ name: 'complaint-view',
+                            params: { boardType: 'note'.toString() }}">
+          <v-btn color="blue" class="button">쪽지</v-btn>
+        </router-link>
+        &nbsp;
+        <router-link :to="{ name: 'complaint-view', 
+                            params: { boardType: 'job'.toString() }}">
+          <v-btn color="blue" class="button">알바</v-btn>
+        </router-link>
+        &nbsp;
+        <router-link :to="{ name: 'complaint-view', 
+                            params: { boardType: 'pboard'.toString() }}">
+          <v-btn color="blue" class="button">중고</v-btn>
+        </router-link>
+        &nbsp;
+        <router-link :to="{ name: 'complaint-view',
+                            params: { boardType: 'a_board'.toString() }}">
+          <v-btn color="blue" class="button">동네생활</v-btn>
+        </router-link>
+        &nbsp;      
+        <router-link :to="{ name: 'complaint-view',
+                            params: { boardType: 'review'.toString() }}">
+          <v-btn color="blue" class="button">리뷰</v-btn>
+        </router-link>
+        &nbsp;
+        
+        <v-btn color="green" class="button">
+          <a href="http://localhost:8080/">
+          홈
+          </a>
+        </v-btn>
+  
+        <complaint :complaint="complaint" :boardType="boardType" @Delete="onDelete"/>
+              
         </v-container>
-       
         
-        
-        
+          
+      </template>
       
+      <script>
+      
+      import { mapState, mapActions } from "vuex";
+      import Complaint from "@/components/anbd/Complaint";
+      
+      export default {
+        name: "ComplaintView",
+        components: {Complaint},
+        props: { 
+          boardType: { 
+            type: String,
+            required: true
+            //required: true 지정시 해당 props를 넘겨받지 않으면 에러 발생시킨다.
+          }
+        },
+        computed: {
+          ...mapState(['complaint'])
+        },
+  
+        mounted() {
+          this.requestComplaintFromSpring(this.boardType)
+        },
+  
+        methods: {
+          ...mapActions([
+              'requestComplaintFromSpring',
+              'requestDeleteComplaintToSpring',
+          ]),
+          // 동적 라우팅 감지
+          data() {
+            this.requestComplaintFromSpring(this.boardType)
+          },
+          // 신고내역 삭제하는 메소드
+          async onDelete (payload) {
+              if(confirm("삭제하시겠습니까?")){
+                await this.requestDeleteComplaintToSpring(payload); 
+              }else{
+                return false
+              }
+          },
+        },
+        created() {
+          this.requestComplaintFromSpring(this.boardType)
+          this.data(this.$route.params);
+        },
         
-    </template>
-    
-    <script>
-    
-    import { mapState, mapActions } from "vuex";
-    import Complaint from "@/components/anbd/Complaint";
-    
-    export default {
-      name: "ComplaintView",
-      components: {Complaint},
-      props: { 
-        // 이때 boardNo는 JpaBoardList.vue => index.js를 거쳐서 전달된 값임 
-        boardType: { 
-          type: String,
-          required: true
-          //required: true 지정시 해당 props를 넘겨받지 않으면 에러 발생시킨다.
+        // 동적 라우팅 감지
+        watch: {
+          $route(to, form) {
+          if (to.path !== form.path) this.data(this.$route.params);
+          }
         }
-      },
-      computed: {
-        ...mapState(['complaint'])
-      },
-
-      async mounted() {
-        await this.requestComplaintFromSpring(this.boardType)
-        
-      },
-      methods: {
-        ...mapActions([
-            'requestComplaintFromSpring',
-        ]),
-      },
-      created() {
-        this.requestComplaintFromSpring(this.boardType)
       }
-    }
-    </script>
-    
-    
+      </script>
+  
+  <style scoped>
+  a {
+    text-decoration: none;
+    color: black;
+  }
+  a:link {
+    color : black;
+  }
+  a:visited {
+    color : black;
+  }
+  a:hover {
+    color : black;
+  }
+  a:active {
+    color : black;
+  
+  }
+  </style>
+      
+      
