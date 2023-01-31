@@ -112,6 +112,12 @@ public class NoteDAOImpl implements NoteDAO{
 	}
 
 
+	@Override
+	public int id_chk(String id) throws Exception {
+		return sqlSession.selectOne("noteMapper.id_chk", id);
+	}
+
+
 
 
 }

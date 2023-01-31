@@ -48,7 +48,15 @@ public class QnaController {
 		
 		service.write(qnaVO);
 		
-		return "redirect:/qna_board/list";
+		return "redirect:/qna_board/writeEnd";
+	}
+	
+	// 게시판 글 작성 완료
+	@RequestMapping(value = "/writeEnd")
+	public String writeEnd() throws Exception {
+		logger.info("1:1 문의내역 작성 완료 ~ ");
+
+		return "/qna_board/writeEnd";
 	}
 	
 	// 게시판 목록 조회

@@ -50,6 +50,13 @@
 		WHERE id = #{id}
 	</update>
 	
+	<!-- 비밀번호 변경 -->
+	<update id="passUpdate">
+		UPDATE a_member
+		SET pass = #{pass}
+		WHERE id = #{id}
+	</update>
+	
 	<!-- 회원 탈퇴 -->
 	<delete id="memberDelete">
 		DELETE FROM a_member

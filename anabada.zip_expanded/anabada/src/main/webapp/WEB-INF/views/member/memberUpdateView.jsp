@@ -5,6 +5,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="shortcut icon" href="<c:url value='/images/favicon.ico'/>">
+<link rel="manifest" href="<c:url value='/images/manifest.json'/>">
+<meta name="theme-color" content="#ffffff">
 <meta charset="UTF-8">
 <title>아나바다</title>
 <link rel="stylesheet" href="<c:url value='/css/r_styles.css'/>">
@@ -26,8 +29,9 @@
 		var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
 		var getTel = RegExp(/^[0-9]{10,11}$/);
 		
-// 		// 닉네임 유효성 검사
-// 		function nickchk() {
+		// 닉네임 유효성 검사
+// 		document.getElementById("nicChk").onclick = function() {
+			
 // 			if ($("#nick").val() == "") {
 // 				$("#nickChk").attr("style", "color:#FF0000; padding-left: 5px;");
 // 				$("#nickChk").text("닉네임을 입력해 주세요.");
@@ -54,13 +58,15 @@
 // 							nickOk = false;
 
 // 		 				} else if (data == 0) {
-// 		 					document.getElementById("nickChk").style.display="none";
+// 		 					$("#nickChk").attr("style", "color:#0C6BBC; padding-left: 5px;");
+// 		 		            $("#nickChk").text("사용 가능한 닉네임입니다.");
 // 		 					nickOk = true;
 // 		 				}
 // 		 			}
 // 				})
 // 			}
 // 		}
+		
 		
 
 		// submit 버튼
@@ -71,13 +77,15 @@
 			if ($("#nick").val() == "") {
 					$("#nickChk").attr("style", "color:#FF0000; padding-left: 5px;");
 					$("#nickChk").text("닉네임을 입력해 주세요.");
+					$("#nick").focus();
 					nickOk = false;
 					
 				} else if (!getNick.test($("#nick").val())) {
 					$("#nickChk").attr("style", "color:#FF0000; padding-left: 5px;");
 					$("#nickChk").text("닉네임은 영어 대 소문자, 한글, 숫자만 사용 가능합니다.");
+					$("#nick").focus();
 					nickOk = false;
-				
+
 				// 닉네임 중복 체크
 				} else {
 					$.ajax({
@@ -91,70 +99,61 @@
 			 				if (data == 1) {
 			 					$("#nickChk").attr("style", "color:#FF0000; padding-left: 5px;");
 			 		            $("#nickChk").text("사용 중인 닉네임입니다.");
+			 		            $("#nick").focus();
 								nickOk = false;
 	
 			 				} else if (data == 0) {
-			 					document.getElementById("nickChk").style.display="none";
+	 		 					$("#nickChk").attr("style", "color:#0C6BBC; padding-left: 5px;");
+	 		 		            $("#nickChk").text("사용 가능한 닉네임입니다.");
 			 					nickOk = true;
 			 				}
 			 			}
 					})
 				}
 			
-			if (nickOk == false) {
-				$("#nick").focus();
-				return false;
-			}
-			
-			
 			// 휴대폰 유효성 검사
 			if ($("#tel").val() == "") {
 					$("#telChk").attr("style", "color:#FF0000; padding-left: 5px;");
 					$("#telChk").text("휴대폰 번호를 입력해 주세요.");
+					$("#tel").focus();
 					telOk = false;
 					
 				} else if (!getTel.test($("#tel").val())) {
 					$("#telChk").attr("style", "color:#FF0000; padding-left: 5px;");
 					$("#telChk").text("숫자만 입력해 주세요.");
+					$("#tel").focus();
 					telOk = false;
 					
 				} else {
 					document.getElementById("telChk").style.display="none";
 					telOk = true;
 			}
-			
-			if (telOk == false) {
-				$("#tel").focus();
-				return false;
 
-			}
-			
 			
 			// 이메일 유효성 검사
 			if ($("#email").val() == "") {
 					$("#mailChk").attr("style", "color:#FF0000; padding-left: 5px;");
 					$("#mailChk").text("이메일을 입력해 주세요.");
+					$("#mail").focus();
 					emailOk = false;
 					
 				} else if (!getMail.test($("#email").val())) {
 					$("#mailChk").attr("style", "color:#FF0000; padding-left: 5px;");
 					$("#mailChk").text("이메일 주소를 다시 확인해 주세요.");
+					$("#mail").focus();
 					emailOk = false;
 						
 				} else {
 					document.getElementById("mailChk").style.display="none";
 					emailOk = true;
 			}
-			
-			if (emailOk == false) {
-				$("#email").focus();
-				return false;
-	
-			} 
 
 			if (nickOk && telOk && emailOk == true) {
 				formObj.attr("action", "/member/memberUpdate");
 				formObj.submit();
+				
+			} else {		
+				return false;
 			}
 		});
 	});
@@ -178,9 +177,11 @@
 				<p class="side-t">회원정보</p>
 				<ul class="side-ul">
 					<li class="side-li"><a href="/member/memberUpdateView">내 정보 관리</a></li>
-					<li class="side-li">비밀번호 변경</li>
+					<li class="side-li"><a href="/member/passUpdateView">비밀번호 변경</a></li>
 					<br/>
 					<li class="side-li">나의 걸음수</li>
+					<br/>
+					<li class="side-li"><a href="/member/memberDeleteView">회원 탈퇴</a></li>
 				</ul>
 			</div>
 		
@@ -190,7 +191,7 @@
 				</div>
 			
 				<form name="updateForm" method="post" action="/member/memberUpdate" >
-					<div style="margin-top: 20px">	
+					<div style="margin-top: 20px;">	
 						<div>
 							<label class="membermodify" for="id">아이디</label>
 							<input class="modi-box-readonly" type="text" id="id" name="id" value="${member.id}" readonly />
@@ -204,6 +205,7 @@
 						<div>
 							<label class="membermodify" for="nick">닉네임</label>
 							<input class="modi-box" type="text" id="nick" name="nick" value="${member.nick}" />
+<!-- 							<button type="button" id="nicChk">중복 확인</button> -->
 						</div>
 						
 						<div>

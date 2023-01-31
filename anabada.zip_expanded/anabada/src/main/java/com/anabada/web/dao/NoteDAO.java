@@ -59,5 +59,8 @@ public interface NoteDAO {
 	// 쪽지 신고 여부 체크
 	public int report_chk(ComplaintVO vo) throws Exception;
 
+	// 쪽지 받는 아이디가 존재하는 체크
+	public int id_chk(String id) throws Exception;
+
 
 }

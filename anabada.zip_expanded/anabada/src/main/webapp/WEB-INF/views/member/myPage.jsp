@@ -31,11 +31,16 @@ $(window).onload(function() {
 		<section class="container">
 			<!-- 메뉴 -->
 			<div class="sidemenu2">
+<%-- 				<img src="<c:url value='/images/lev_1.png'/>" style="width: 90px; height: 90px;"> --%>
+<%-- 				<img src="<c:url value='/images/lev_2.png'/>" style="width: 90px; height: 90px;"> --%>
+<%-- 				<img src="<c:url value='/images/lev_3.png'/>" style="width: 90px; height: 90px;"> --%>
+				<img src="<c:url value='/images/lev_4.png'/>" style="width: 90px; height: 90px;">
 				<p class="side-t">회원정보</p>
 				<ul class="side-ul">
 					<br>
 					<li class="side-li"><a href="/member/memberUpdateView">내 정보 관리</a></li>
 					<li class="side-li"><a href="/member/passUpdateView">비밀번호 변경</a></li>
+
 					<br><hr><br>
 					<li class="side-li"><a href="/userProduct/myStore">내 상점 보기</a></li>
 					<li class="side-li"> <a href="/userProduct/myHeartList" >내 찜 목록 보기</a> </li>
@@ -50,6 +55,7 @@ $(window).onload(function() {
 					<br><hr><br>
 					<li class="side-li">나의 걸음수</li>
 					<br><hr><br>
+
 					<li class="side-li"><a href="/member/memberDeleteView">회원 탈퇴</a></li>
 				</ul>
 			</div>
