@@ -6,6 +6,7 @@ public class ASearchCriteria extends ACriteria {
 	private String keyword = "";
 	private String cateType = "";
 	private String id;
+	private String locaType = "";
 	
 	public String getSearchType() {
 		return searchType;
@@ -31,9 +32,17 @@ public class ASearchCriteria extends ACriteria {
 	public void setId(String id) {
 		this.id = id;
 	}
-
+	public String getLocaType() {
+		return locaType;
+	}
+	public void setLocaType(String locaType) {
+		this.locaType = locaType;
+	}
+	
 	@Override
 	public String toString() {
-		return "SearchCriteria [searchType=" + searchType + ", keyword=" + keyword + ", cateType=" + cateType + "]";
+		return "ASearchCriteria [searchType=" + searchType + ", keyword=" + keyword + ", cateType=" + cateType + ", id="
+				+ id + ", locaType=" + locaType + "]";
 	}
+
 }
