@@ -189,7 +189,7 @@
     </div>
       
     <div>
-       <jsp:include page="../includes/header.jsp" />
+       <jsp:include page="../includes/miniHeader.jsp" />
     </div>
     
 	<!-- 수정하고 나서 리스트 맨 첨 화면으로 돌아감. 페이징 없이 -->

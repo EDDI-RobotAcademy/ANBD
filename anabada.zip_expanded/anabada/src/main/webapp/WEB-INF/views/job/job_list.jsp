@@ -148,7 +148,7 @@
    <jsp:include page="../includes/nav.jsp" />
 </div>
 <div>
-   <jsp:include page="../includes/header.jsp" />
+   <jsp:include page="../includes/miniHeader.jsp" />
 </div>
 
 <div id="wapper" >
