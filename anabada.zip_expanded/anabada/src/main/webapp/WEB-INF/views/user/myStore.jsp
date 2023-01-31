@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<link rel="stylesheet" href="<c:url value='/css/r_styles.css'/>">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
@@ -9,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>나의 상점</title>
 
 <style type="text/css">
 .title {
@@ -158,14 +159,19 @@ padding-bottom: 10px;
 	</div>
 	<!-- header end  -->
 
-	<div class="sidemenu2">
+	
+
+<div  style="width: 1200px;  margin: auto;" >
+
+
+<div class="sidemenu2">
 				<p class="side-t">회원정보</p>
 				<ul class="side-ul">
 					<br>
 					<li class="side-li"><a href="/member/memberUpdateView">내 정보 관리</a></li>
 					<li class="side-li"><a href="/member/passUpdateView">비밀번호 변경</a></li>
 					<br><hr><br>
-					<li class="side-li"><a href="/userProduct/myStore">내 상점 보기</a></li>
+					<li class="side-li"><a href="/userProduct/myStore" style="color:#0C6BBC; font-weight: bold;" >내 상점 보기</a></li>
 					<li class="side-li"> <a href="/userProduct/myHeartList" >내 찜 목록 보기</a> </li>
 					<li class="side-li">참여한 이벤트</li>
 					<br><hr><br>
@@ -183,10 +189,12 @@ padding-bottom: 10px;
 			</div>
 
 
-<div class="minicon" style="width: 1500px;" >
+
+<div class="minicon" style="float: left;"  >
+
 	<form action="">
 	
-		<table style="margin: auto; width: 802px; " id="totalTable"  >
+		<table style=" width: 802px; " id="totalTable"  >
 		<tr> <td colspan="7">   <button type="button" id="delbtn" >삭제</button>  </td> </tr>
 		
 			<tr class="headTr">
@@ -265,6 +273,7 @@ padding-bottom: 10px;
 
 
 	</form>
+	</div>
 	</div>
 
 	<!-- footer -->
