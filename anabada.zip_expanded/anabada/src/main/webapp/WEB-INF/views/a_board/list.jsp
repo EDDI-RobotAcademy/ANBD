@@ -43,18 +43,21 @@
 	$(function() {
    		$("input[type='radio']").click(function() {
         	var rabtn = $("input[type='radio']:checked").val();
-      			self.location = "list" + '${pageMaker.makeQuery(1)}' + '&searchType=' + $("check option:checked").val()
+      			self.location = "list" + '${pageMaker.makeQuery(1)}' + '&locaType=' + ${scri.locaType} + '&searchType=' + $("check option:checked").val()
          		+ "&keyword=" + encodeURIComponent($('#keywordInput').val()) + "&cateType=" + encodeURIComponent(rabtn);   
    		});
 	}); 
-
+	
 	$(function() {
    		$("input[name='all']").click(function() {
-      		self.location = "/a_board/list";
+      		self.location = "/a_board/list?locaType=?";
    		});
 	});
 	/* 버튼 스크립트 끝 */
 	
+	$(function() {
+		$("")
+	})
 	
 	/* 글 작성 로그인 유효성 검사 */
 	function write_login() {
@@ -84,19 +87,19 @@
    	  <div class="sidemenu2">
 		<p class="side-t">커뮤니티</p>   	  	
    	  		<ul class="side-ul">
-				<li class="side-li"><a href="#">전국</a></li>   	  		
-				<li class="side-li"><a href="#">강원</a></li>   	  		
-				<li class="side-li"><a href="#">경기</a></li>   	  		
-				<li class="side-li"><a href="#">경남</a></li>   	  		
-				<li class="side-li"><a href="#">경북</a></li>   	  		
-				<li class="side-li"><a href="#">부산</a></li>   	  		
-				<li class="side-li"><a href="#">서울</a></li>   	  		
-				<li class="side-li"><a href="#">인천</a></li>   	  		
-				<li class="side-li"><a href="#">전남</a></li>   	  		
-				<li class="side-li"><a href="#">전북</a></li>   	  		
-				<li class="side-li"><a href="#">제주</a></li>   	  		
-				<li class="side-li"><a href="#">충남</a></li>   	  		
-				<li class="side-li"><a href="#">충북</a></li>   	  		
+				<li class="side-li"><a href="/a_board/list">전국</a></li> 
+				<li class="side-li"><a href="/a_board/list?locaType=1">강원</a></li> 	  		
+				<li class="side-li"><a href="/a_board/list?locaType=2">경기</a></li>   	  		
+				<li class="side-li"><a href="/a_board/list?locaType=3">경남</a></li>   	  		
+				<li class="side-li"><a href="/a_board/list?locaType=4">경북</a></li>   	  		
+				<li class="side-li"><a href="/a_board/list?locaType=5">부산</a></li>   	  		
+				<li class="side-li"><a href="/a_board/list?locaType=6">서울</a></li>   	  		
+				<li class="side-li"><a href="/a_board/list?locaType=7">인천</a></li>   	  		
+				<li class="side-li"><a href="/a_board/list?locaType=8">전남</a></li>   	  		
+				<li class="side-li"><a href="/a_board/list?locaType=9">전북</a></li>   	  		
+				<li class="side-li"><a href="/a_board/list?locaType=10">제주</a></li>   	  		
+				<li class="side-li"><a href="/a_board/list?locaType=11">충남</a></li>   	  		
+				<li class="side-li"><a href="/a_board/list?locaType=12">충북</a></li>  
    	  		</ul>
    	  </div>
       <!-- 지역 카테고리 끝 -->
@@ -142,7 +145,44 @@
          <tr>
             <td>
                <input type="hidden" id="a_bno" name="a_bno" value="${list.a_bno }"/>
-               <c:out value="${list.loca }"/>
+               <c:choose>
+			   <c:when test="${list.loca == 1 }">
+			   		<c:out value="강원"/>
+			   </c:when>
+			    <c:when test="${list.loca == 2 }">
+			   		<c:out value="경기"/>
+			   </c:when>
+			    <c:when test="${list.loca == 3 }">
+			   		<c:out value="경남"/>
+			   </c:when>
+			    <c:when test="${list.loca == 4 }">
+			   		<c:out value="경북"/>
+			   </c:when>
+			    <c:when test="${list.loca == 5 }">
+			   		<c:out value="부산"/>
+			   </c:when>
+			    <c:when test="${list.loca == 6 }">
+			   		<c:out value="서울"/>
+			   </c:when>
+			    <c:when test="${list.loca == 7 }">
+			   		<c:out value="인천"/>
+			   </c:when>
+			    <c:when test="${list.loca == 8 }">
+			   		<c:out value="전남"/>
+			   </c:when>
+			    <c:when test="${list.loca == 9 }">
+			   		<c:out value="전북"/>
+			   </c:when>
+			    <c:when test="${list.loca == 10 }">
+			   		<c:out value="제주"/>
+			   </c:when>
+			    <c:when test="${list.loca == 11 }">
+			   		<c:out value="충남"/>
+			   </c:when>
+			    <c:when test="${list.loca == 12 }">
+			   		<c:out value="충북"/>
+			   </c:when>
+               </c:choose>
             </td>
             
             <td>
@@ -159,7 +199,7 @@
                </c:choose>            
             </td>
             <td>
-               <a href="/a_board/readView?a_bno=${list.a_bno }&page=${scri.page }&perPageNum=${scri.perPageNum }&searchType=${scri.searchType }&keyword=${scri.keyword }&cateType=${scri.cateType }">
+               <a href="/a_board/readView?a_bno=${list.a_bno}&page=${scri.page }&perPageNum=${scri.perPageNum }&searchType=${scri.searchType }&keyword=${scri.keyword }&cateType=${scri.cateType }">
                <c:out value="${list.a_title }"/>
                </a>
             </td>
