@@ -74,4 +74,5 @@ public class ABoardServiceImpl implements ABoardService {
 	public void reportComplaint(ComplaintVO complaintVO) throws Exception {
 		dao.reportComplaint(complaintVO);
 	}
+
 }

@@ -18,6 +18,7 @@ FROM (
 	FROM A_BOARD WHERE 1 = 1
 	<include refid="search"></include>
 	<include refid="category"></include>
+	<include refid="location"></include>
 ) A_BOARD
 WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
 ORDER BY A_BNO DESC
@@ -45,6 +46,23 @@ AND A_BNO > 0
 		<if test="cateType == 3">AND A_TYPE = 3</if>
 	</if>
 </sql>
+
+<sql id="location">
+	<if test="locaType != null">
+		<if test="locaType == 1">AND LOCA = 1</if>
+		<if test="locaType == 2">AND LOCA = 2</if>
+		<if test="locaType == 3">AND LOCA = 3</if>
+		<if test="locaType == 4">AND LOCA = 4</if>
+		<if test="locaType == 5">AND LOCA = 5</if>
+		<if test="locaType == 6">AND LOCA = 6</if>
+		<if test="locaType == 7">AND LOCA = 7</if>
+		<if test="locaType == 8">AND LOCA = 8</if>
+		<if test="locaType == 9">AND LOCA = 9</if>
+		<if test="locaType == 10">AND LOCA = 10</if>
+		<if test="locaType == 11">AND LOCA = 11</if>
+		<if test="locaType == 12">AND LOCA = 12</if>
+	</if>
+</sql>  
 
 <update id="cnt" parameterType="int">
 	UPDATE A_BOARD SET 

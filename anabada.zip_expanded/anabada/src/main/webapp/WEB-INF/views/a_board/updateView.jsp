@@ -76,7 +76,7 @@
 
 <div>
 	<jsp:include page="../includes/nav.jsp"/>
-	<jsp:include page="../includes/header.jsp"/>
+	<jsp:include page="../includes/miniHeader.jsp"/>
 </div>
 
 <!-- 게시글 수정 -->

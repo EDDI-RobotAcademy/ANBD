@@ -40,4 +40,5 @@ public interface ABoardDAO {
 	//게시글 DB 저장
 	public void reportComplaint(ComplaintVO complaintVO) throws Exception;
 
+
 }

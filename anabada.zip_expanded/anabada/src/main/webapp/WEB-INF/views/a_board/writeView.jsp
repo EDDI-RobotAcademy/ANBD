@@ -38,17 +38,12 @@
 }
 </style>
 <script src="//cdn.ckeditor.com/4.19.0/standard/ckeditor.js"></script>
-<script>
- 	$(document).ready(function() {
-		$("select[name='board_loca']").val();
-	}) 
-</script>
 </head>
 <body>
 
 <div>
 	<jsp:include page="../includes/nav.jsp"/>
-	<jsp:include page="../includes/header.jsp"/>
+	<jsp:include page="../includes/miniHeader.jsp"/>
 </div>
 
 <!-- 게시글 작성 -->
@@ -67,18 +62,18 @@
 			<td>
 				<br>
 				<select id="loca" name="loca" class="form-select form-select-sm">
-					<option value="강원">강원</option>
-					<option value="경기">경기</option>
-					<option value="경남">경남</option>
-					<option value="경북">경북</option>
-					<option value="부산">부산</option>
-					<option value="서울">서울</option>
-					<option value="인천">인천</option>
-					<option value="전남">전남</option>
-					<option value="전북">전북</option>
-					<option value="제주">제주</option>
-					<option value="충남">충남</option>
-					<option value="충북">충북</option>
+					<option value="1">강원</option>
+					<option value="2">경기</option>
+					<option value="3">경남</option>
+					<option value="4">경북</option>
+					<option value="5">부산</option>
+					<option value="6">서울</option>
+					<option value="7">인천</option>
+					<option value="8">전남</option>
+					<option value="9">전북</option>
+					<option value="10">제주</option>
+					<option value="11">충남</option>
+					<option value="12">충북</option>
 				</select>
 				<br>
 			</td>

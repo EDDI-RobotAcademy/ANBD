@@ -36,6 +36,6 @@ public interface ABoardService {
 
 	//게시글 신고 DB 저장
 	public void reportComplaint(ComplaintVO complaintVO) throws Exception;
-	
+
 
 }
