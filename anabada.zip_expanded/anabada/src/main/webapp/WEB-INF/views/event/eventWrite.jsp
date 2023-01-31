@@ -196,9 +196,27 @@ input[type='file'] {
 	<div>
 		<jsp:include page="../includes/nav.jsp" />
 	</div>
-	<div >
-		<jsp:include page="../includes/header.jsp" />
-	</div>
+	
+	
+	
+	<section class="home_gallery_area p_120"    style="padding-top: 30px; padding-bottom: 10px;" >
+		<div class="container">
+			<div class="main_title">
+				<h2>🌎아나바다와 함께하는 이벤트🌎</h2>
+				<p>Our One Step for the Environment</p>
+			</div>
+			</div>
+
+		
+
+
+
+		
+		</section>
+		<div >
+		<jsp:include page="../includes/eventNav.jsp" />
+	</div> 
+	
 
 	<form name="writeForm" enctype="multipart/form-data" method="post">
 		<input type="hidden" name="id" value="${id}">
