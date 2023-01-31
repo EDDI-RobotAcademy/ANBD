@@ -50,7 +50,7 @@ font {
 input[type='file'] {
 	display: inline;
 }
-img{
+#reImg img{
 width: 150px; height: 150px;
 }
 </style>
@@ -204,8 +204,32 @@ width: 150px; height: 150px;
 
 <body>
 
+	<div>
+		<jsp:include page="../includes/nav.jsp" />
+	</div>
+	
+		<section class="home_gallery_area p_120"    style="padding-top: 30px; padding-bottom: 10px;" >
+		<div style=" text-align: center;"  class="container">
+			<div class="main_title">
+				<h2>🌎아나바다와 함께하는 이벤트🌎</h2>
+				<p>Our One Step for the Environment</p>
+			</div>
+			</div>
+
+		
+
+
+
+		
+		</section>
+		<div >
+		<jsp:include page="../includes/eventNav.jsp" />
+	</div> 
+	
+
+
 	<form name="editForm" enctype="multipart/form-data" method="post">
-		<input name="eno" type="hidden" value="${update.eno }"> <input id="dlist" name="dlist" type="text" value="">
+		<input name="eno" type="hidden" value="${update.eno }"> <input id="dlist" name="dlist" type="hidden" value="">
 		<table style="margin-left: auto; margin-right: auto;">
 			<tr>
 				<th colspan="5">이벤트 게시판</th>
@@ -244,7 +268,7 @@ width: 150px; height: 150px;
 				<td><c:forEach items="${filelist }" var="filelist">
 
 						<div style="display: inline-block;" id="${filelist.efno }">
-							<img src="${filelist.filepath }">
+							<img  id="reImg"  src="${filelist.filepath }">
 							<button type="button" class="imgbtn" value="${filelist.efno }">삭제</button>
 						</div>
 					</c:forEach></td>
@@ -276,7 +300,9 @@ width: 150px; height: 150px;
 
 	</form>
 
-
+	<div id="footer">
+			<jsp:include page="../includes/footer.jsp" />
+		</div>
 
 
 
