@@ -11,6 +11,7 @@
   box-sizing: border-box;
   list-style-type: none;
   text-align: right;
+  border-top: 1px solid #e5e5e5;
 }
 
 .minicon3 {
@@ -29,7 +30,7 @@
   all: unset;
   width: 150px;
   height: 40px;
-  border-radius: 8px 8px;
+  border-radius: 2px 2px;
   background-color: #0C6BBC;
   color: #fff;
   font-size: 15px;

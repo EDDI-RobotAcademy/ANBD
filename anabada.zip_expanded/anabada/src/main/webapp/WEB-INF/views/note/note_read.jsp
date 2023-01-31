@@ -67,7 +67,7 @@
 		});
 		
 		// 쪽지 보내기 버튼 눌렀을 떄 모달창 띄우기
-		$("button[name=n_send]").on("click", function () { 
+		$("button[name=send]").on("click", function () { 
 			$("#n_rno").val("0"); // 그냥 쪽지보낼때 n_rno은 0
 			$("#n_content").attr("placeholder", "");
 			$("#n_content").val("");
@@ -282,30 +282,27 @@
    	</div>
    	
    	<div>
-       <jsp:include page="../includes/header.jsp" />
+       <jsp:include page="../includes/miniHeader.jsp" />
     </div>
 	
 	<section class="container">
 	<form name="readForm">
 		<!-- 좌측 바 -->
-		<div class="sidemenu3">
-        	<div class="myImg">
-        		<img src="../resources/images/아나바다2.png" width="150px" height="150px"/>
-        		<br>
-        		${id } 님
-        	</div>
+		<div class="sidemenu3"  style="border-top: 1px solid #e5e5e5;">
         	<div style="padding-top: 10px">
 	        	<button type="button" name="send" id="send" class="n_btn1" style="display: block; margin: auto;">쪽지 보내기</button>
 	        	<ul style="margin-top: 5px;">
-		        	<li style="text-align: left">
+		        	<li style="text-align: left; list-style: none">
 		        		<label>
 		        			<input type="radio" class="search_who" name="who" value="receive" <c:if test="${scri.who eq 'receive'}">checked</c:if>>
+		        			<img src="../resources/images/받은-쪽지.png" width="30px" height="30px"/>
 		        			<font <c:if test="${scri.who eq 'receive'}"> style="font-weight: bold;" </c:if>>받은 쪽지함</font>
 		        		</label>
 		        	</li>
-	        		<li style="text-align: left">
+	        		<li style="text-align: left; list-style: none">
 	        			<label>
 	        				<input type="radio" class="search_who" name="who" value="send"  <c:if test="${scri.who eq 'send'}">checked</c:if>>
+        					<img src="../resources/images/보낸-쪽지.png" width="30px" height="30px"/>
         					<font <c:if test="${scri.who eq 'send'}"> style="font-weight: bold;" </c:if>>보낸 쪽지함</font>
         				</label>
         			</li>

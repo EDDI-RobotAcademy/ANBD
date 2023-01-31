@@ -7,8 +7,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="shortcut icon" href="resources/images/favicon.ico">
-<link rel="manifest" href="resources/images/manifest.json">
+<link rel="shortcut icon" href="../resources/images/favicon.ico">
+<link rel="manifest" href="../resources/images/manifest.json">
 <meta name="theme-color" content="#ffffff">
 <meta charset="UTF-8">
 <title>아나바다</title>
@@ -194,30 +194,27 @@
    </div>
    
    <div>
-      <jsp:include page="../includes/header.jsp" />
+      <jsp:include page="../includes/miniHeader.jsp" />
    </div>
    
    <section class="container">
    <form name="noteForm" action="/note/note_list" method="get">
         <!-- 바 -->
-        <div class="sidemenu3">
-        	<div class="myImg">
-        		<img src="../resources/images/아나바다2.png" width="150px" height="150px"/>
-        		<br>
-        		${id } 님
-        	</div>
+        <div class="sidemenu3" style="border-top: 1px solid #e5e5e5;">
         	<div style="padding-top: 10px">
 	        	<button type="button" name="send" id="send" class="n_btn1" style="display: block; margin: auto;">쪽지 보내기</button>
 	        	<ul style="margin-top: 5px;">
-		        	<li style="text-align: left">
+		        	<li style="text-align: left; list-style: none">
 		        		<label>
 		        			<input type="radio" class="search_who" name="who" value="receive" <c:if test="${scri.who eq 'receive'}">checked</c:if>>
+		        			<img src="../resources/images/받은-쪽지.png" width="30px" height="30px"/>
 		        			<font <c:if test="${scri.who eq 'receive'}"> style="font-weight: bold;" </c:if>>받은 쪽지함</font>
 		        		</label>
 		        	</li>
-	        		<li style="text-align: left">
+	        		<li style="text-align: left; list-style: none">
 	        			<label>
 	        				<input type="radio" class="search_who" name="who" value="send"  <c:if test="${scri.who eq 'send'}">checked</c:if>>
+        					<img src="../resources/images/보낸-쪽지.png" width="30px" height="30px"/>
         					<font <c:if test="${scri.who eq 'send'}"> style="font-weight: bold;" </c:if>>보낸 쪽지함</font>
         				</label>
         			</li>
@@ -284,7 +281,7 @@
             </tr>
             </c:when>
             <c:when test="${who eq 'send'}">
-               <tr onmouseover="this.style.backgroundColor = '#e5e5e5'" onmouseout="this.style.backgroundColor = ''">
+               <tr onmouseover="this.style.backgroundColor = '#f9f9f9'" onmouseout="this.style.backgroundColor = ''">
                <td style="text-align: center">
                   <input type="checkbox" name="delete" class="delete" value="${n_list.n_bno}">
                </td>
@@ -346,7 +343,7 @@
                                 <tr>
                                     <th>보내는 아이디</th>
                                     <td>
-                                       <input type="text" id="n_sender" name="n_sender" class="form-control" value="${id }"/>
+                                       <input type="text" id="n_sender" name="n_sender" class="form-control" value="${id }" readonly/>
                                     </td>
                                 </tr>
                                 <tr>

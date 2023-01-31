@@ -180,7 +180,7 @@
     </div>
       
     <div>
-       <jsp:include page="../includes/header.jsp" />
+       <jsp:include page="../includes/miniHeader.jsp" />
     </div>
     
     <section class="container">
