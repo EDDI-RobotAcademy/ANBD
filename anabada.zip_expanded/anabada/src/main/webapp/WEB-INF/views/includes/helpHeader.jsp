@@ -15,17 +15,16 @@
 <body>
 	<!-- header 영역 -->
 	<div class="container">
-		<div class="miniheader">
+		<div class="header">
 			<div class="logo-miniheader">
 				<a href="/"><img src="<c:url value='/images/minilogo.png'/>" style="width: 200px; height: 60px;"></a>
 			</div>
-			
-			<div class="menu-miniheader">
+		</div>
+		
+		<div class="cate">
+			<div>
 				<ul class="cate-ul">
-					<li class="cate-li"><a href="/product/list">중고게시판</a></li>
-					<li class="cate-li"><a href="/job/job_list">알바게시판</a></li>
-					<li class="cate-li"><a href="/a_board/list">동네생활</a></li>
-					<li class="cate-li"><a href="/event/list">이벤트</a></li>
+					<li class="cate-li"><img src="<c:url value='/images/menu.png'/>"></li>
 				</ul>
 			</div>
 		</div>

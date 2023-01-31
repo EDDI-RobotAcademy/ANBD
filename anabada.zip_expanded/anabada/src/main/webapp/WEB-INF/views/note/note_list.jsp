@@ -98,44 +98,95 @@
       
    
       // 쪽지 보내기 버튼 눌렀을 떄
-       $("#note_submit").click(function(){
+      $("#note_submit").click(function(){
+    	  
+    	 var n_sender = $("#n_sender").val().trim(); 
+    	 var n_content = $("#n_content").val().trim();
+    	 var n_receiver = $("#n_receiver").val().trim();
+    	 var n_type = $("input[name=n_type]").val();
+    	 var n_rno = $("input[name=n_rno]").val();
           
-          if($("#n_content").val() == null || $("#n_content").val() == ""){
-             $("#n_content").attr("placeholder", "내용을 작성해주세요.");
-             return false;
-          }
-          if($("#n_receiver").val() == null || $("#n_receiver").val() == ""){
-             $("#n_receiver").attr("placeholder", "받는 아이디를 작성해주세요.");
-             return false;
-          }
+         if(n_content == null || n_content == ""){
+            $("#n_content").attr("placeholder", "내용을 작성해주세요.");
+            return false;
+         }
+         if(n_receiver == null || n_receiver == ""){
+            $("#n_receiver").attr("placeholder", "받는 아이디를 작성해주세요.");
+            return false;
+         }
           
+         if(n_receiver == '${id}'){
+        	 alert("본인에게 쪽지를 보낼 수 없습니다.");
+        	 return false;
+         }
+         
+         if(n_receiver == 'admin' || n_receiver == '관리자'){
+        	 alert("관리자에게는 쪽지를 보낼 수 없습니다.");
+        	 return false;
+         }
+         
           
-          if($("#n_receiver").val() == '${id}'){
-        	  alert("자기에게 쪽지를 보낼 수 없습니다.");
-        	  return false;
-          }
-          
-           $.ajax({
-               type: "get",
-               url : "/note/note_insert.ajax",
-                dataType : "json",
-               data : $("#note_form").serialize(),
-               success:function(data){
-                   alert("쪽지 전송 완료");
-                   window.location.reload();
-               },
-               error : function(request, status, error) {
-				   alert("쪽지 전송 실패:" + error);
-			   }
-           });
-           
-           $("#noteModal").modal("hide");
-       });
+         // 쪽지 받는 아이디 회원 존재하는지 체크하고 쪽지 보냄
+         $.ajax({
+             type: "get",
+             url : "/note/id_chk.ajax",
+             dataType : "json",
+             data : {
+            	 id: n_receiver
+             },
+             success:function(data){
+                 if(data != 1){
+                	 alert("존재하지 않는 id입니다.");
+                 }else{ // 아이디가 존재할 땐
+                	 
+                	 $.ajax({
+                         type: "get",
+                         url : "/note/note_insert.ajax",
+                         dataType : "json",
+                         data : {
+                        	 n_sender: n_sender,
+                        	 n_content: n_content,
+                        	 n_receiver: n_receiver,
+                        	 n_rno: n_rno,
+                        	 n_type: n_type
+                         },
+                         success:function(data){
+                             alert("쪽지 전송 완료");
+                             window.location.reload();
+                         },
+                         error : function(request, status, error) {
+            			  alert("쪽지 전송 실패:" + error);
+            			 }
+                     });
+                	 $("#noteModal").modal("hide");
+                 }
+                 
+             },
+             error : function(request, status, error) {
+				  alert("아이디 체크 실패:" + error);
+			 }
+         });
+         
+      });
       
       
    });
 
 </script>
+<style>
+	.paging{
+		position: absolute;
+ 		bottom: 0;
+ 		text-align: center;
+ 		margin: auto;
+ 		display: block;
+ 		padding-bottom: 5px;
+ 		width: 100%;
+	}
+	.minicon3{
+		position: relative;
+	}
+</style>
 </head>
 <body>
    <div>
@@ -175,7 +226,7 @@
         </div>
         
         <!-- 내용 -->
-        <div class="minicon3" style="background-color: white; border-top: 1px solid #e9e9e9">
+        <div class="minicon3" style="height: 580px;">
 		    
             <table class="n_list">
             <tr>
@@ -204,20 +255,20 @@
             </tr>
             
             <!-- 안읽으면 1, 읽으면 0 -->
-            <!-- 쪽지함에서 삭제했으면 0, 안했으면 1 -->
             <!-- 받은 쪽지함 -> 보낸 쪽지함 -->
             <c:forEach items="${n_list}" var="n_list">
             <c:choose>
-            <c:when test="${who eq 'receive' && n_list.n_r_delete_chk eq 1}">
+            <c:when test="${who eq 'receive'}">
             <tr onmouseover="this.style.backgroundColor = '#f9f9f9'" onmouseout="this.style.backgroundColor = ''">
                <td style="text-align: center">
                   <input type="checkbox" name="delete" class="delete" value="${n_list.n_bno}">
                </td>
                <td>
                	  <div class="word">
-                  <c:if test="${not empty n_list.n_sender}">${n_list.n_sender }</c:if>
+                  <c:if test="${not empty n_list.n_sender && n_list.n_sender ne 'admin'}">${n_list.n_sender }</c:if>
                   </div>
                   <c:if test="${empty n_list.n_sender}">(알수없음)</c:if>
+                  <c:if test="${n_list.n_sender eq 'admin'}">관리자</c:if>
                </td>
                <td>
                	  <div class="word2">
@@ -232,7 +283,7 @@
                <td>${n_list.n_s_time }</td>
             </tr>
             </c:when>
-            <c:when test="${who eq 'send' && n_list.n_s_delete_chk eq 1}">
+            <c:when test="${who eq 'send'}">
                <tr onmouseover="this.style.backgroundColor = '#e5e5e5'" onmouseout="this.style.backgroundColor = ''">
                <td style="text-align: center">
                   <input type="checkbox" name="delete" class="delete" value="${n_list.n_bno}">
@@ -256,7 +307,8 @@
             </c:choose>
             </c:forEach>
          </table>
-         <div style="margin-bottom: 0px; text-align: center">
+         
+         <div class="paging">
             <c:if test="${pageMaker.prev }">
                <a href="note_list${pageMaker.makeSearch(pageMaker.startPage - 1 )}">이전</a>
             </c:if>

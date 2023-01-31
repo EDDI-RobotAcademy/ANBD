@@ -27,8 +27,8 @@ AND N_BNO > 0
 </select>
 
 <sql id="who">
-	<if test="who == 'receive'.toString()">AND N_RECEIVER = #{id}</if>
-	<if test="who == 'send'.toString()">AND N_SENDER = #{id}</if>
+	<if test="who == 'receive'.toString()">AND N_RECEIVER = #{id} AND N_R_DELETE_CHK = 1</if>
+	<if test="who == 'send'.toString()">AND N_SENDER = #{id} AND N_S_DELETE_CHK = 1</if>
 </sql>
 
 
@@ -82,7 +82,7 @@ WHERE N_BNO = #{n_bno}
 </update>
 
 <update id="delete_receive2" parameterType="int">
-UPDATE NOTE SET R_DELETE_CHK = 0
+UPDATE NOTE SET N_R_DELETE_CHK = 0
 WHERE N_BNO = #{n_bno}
 </update>
 
@@ -111,6 +111,11 @@ VALUES(COMPLAINT_SEQ.NEXTVAL, #{id}, #{c_content}, #{c_bno}, #{board_type})
 <select id="report_chk" parameterType="ComplaintVO"  resultType="int">
 SELECT COUNT(COM_NUM) FROM COMPLAINT 
 WHERE ID = #{id} AND BOARD_TYPE = #{board_type} AND C_BNO= #{c_bno}
+</select>
+
+
+<select id="id_chk" parameterType="java.lang.String"  resultType="int">
+SELECT COUNT(ID) FROM A_MEMBER WHERE ID = #{id}
 </select>
 
 

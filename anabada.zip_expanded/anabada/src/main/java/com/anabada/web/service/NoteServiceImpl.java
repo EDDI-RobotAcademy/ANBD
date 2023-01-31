@@ -101,6 +101,11 @@ public class NoteServiceImpl implements NoteService {
 	    return dao.report_chk(vo);
 	}
 
+	@Override
+	public int id_chk(String id) throws Exception {
+		return dao.id_chk(id);
+	}
+
 
 
 	

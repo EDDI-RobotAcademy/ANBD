@@ -2,12 +2,12 @@ package com.anabada.web.controller;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -104,9 +104,9 @@ public class MemberController {
 		logger.info("로그인 get ~ ");
 	}
 	
-	// 로그인 post
+	// 로그인 세션 post
 	@RequestMapping(value="/member/login", method = RequestMethod.POST)
-	public String login(MemberVO vo, HttpServletRequest req, RedirectAttributes rttr) throws Exception {
+	public String login(MemberVO vo, HttpServletRequest req, RedirectAttributes rttr, HttpServletResponse response) throws Exception {
 		logger.info("로그인 post ~ ");
 		
 		HttpSession session = req.getSession();
@@ -123,7 +123,23 @@ public class MemberController {
 			session.setAttribute("id", login.getId());
 			logger.info("member: " +  login);
 		}
+		
 		return "redirect:/";
+	}
+	
+	// 로그아웃
+	@RequestMapping(value="/member/logout", method = RequestMethod.GET)
+	public String logout(HttpSession session) throws Exception {
+		session.invalidate();
+		
+		return "redirect:/"; 
+	}
+
+	// 마이페이지
+	@RequestMapping(value="/member/myPage")
+	public String myPage() throws Exception {
+		logger.info("마이페이지 ~ ");
+		return "member/myPage";
 	}
 	
 	// 회원 정보 수정 get
@@ -144,26 +160,63 @@ public class MemberController {
 	}
 	
 	// 회원 정보 수정 완료
-	@RequestMapping(value = "/member/memberUpdateEnd", method = RequestMethod.GET)
+	@RequestMapping(value="/member/memberUpdateEnd", method = RequestMethod.GET)
 	public String registerUpdateEnd() throws Exception {
 		logger.info("정보 수정 완료 ~ ");
 		
 		return "/member/memberUpdateEnd";
 	}
 	
-	// 로그아웃
-	@RequestMapping(value="/member/logout", method = RequestMethod.GET)
-	public String logout(HttpSession session) throws Exception {
-		session.invalidate();
-			
-		return "redirect:/"; 
+	// 비밀번호 변경 get
+	@RequestMapping(value="/member/passUpdateView", method = RequestMethod.GET)
+	public String passUpdateView() throws Exception {
+		logger.info("비밀번호 변경 페이지 ~ ");
+		return "/member/passUpdateView";
 	}
 	
-	// 마이페이지
-	@RequestMapping(value="/member/myPage")
-	public String myPage() throws Exception {
-		logger.info("마이페이지 ~ ");
-		return "member/myPage";
+	// 비밀번호 변경 post
+	@RequestMapping(value="/member/passUpdate", method = RequestMethod.POST)
+	public String passUpdate(MemberVO vo, HttpSession session) throws Exception {
+		logger.info("비밀번호 변경 post ~ ");
+		
+		service.passUpdate(vo);
+		session.invalidate();
+
+		return "redirect:/member/memberUpdateEnd"; 
+	}
+	
+	// 회원 탈퇴 get
+	@RequestMapping(value="/member/memberDeleteView", method = RequestMethod.GET)
+	public String memberDeleteView() throws Exception{
+		return "member/memberDeleteView";
+	}
+	
+	// 회원 탈퇴 post
+	@RequestMapping(value="/member/memberDelete", method = RequestMethod.POST)
+	public String memberDelete(MemberVO vo, HttpSession session, RedirectAttributes rttr) throws Exception{
+		// 세션에 있는 member를 가져와 member변수에 넣어줍니다.
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		// 세션에있는 비밀번호
+		String sessionPass = member.getPass();
+		// vo로 들어오는 비밀번호
+		String voPass = vo.getPass();
+		
+		if(!(sessionPass.equals(voPass))) {
+			rttr.addFlashAttribute("msg", false);
+			return "redirect:/member/memberDeleteView";
+		}
+		
+		service.memberDelete(vo);
+		session.invalidate();
+		return "redirect:/member/memberDeleteEnd";
+	}
+	
+	// 회원 탈퇴 완료
+	@RequestMapping(value = "/member/memberDeleteEnd")
+	public String memberDeleteEnd() throws Exception {
+		logger.info("회원 탈퇴 완료 ~ ");
+		
+		return "/member/memberDeleteEnd";
 	}
 
 }

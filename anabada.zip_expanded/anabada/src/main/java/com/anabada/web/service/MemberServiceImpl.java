@@ -27,6 +27,11 @@ public class MemberServiceImpl implements MemberService {
 	public void memberUpdate(MemberVO vo) throws Exception {
 		dao.memberUpdate(vo);
 	}
+	
+	@Override
+	public void passUpdate(MemberVO vo) throws Exception {
+		dao.passUpdate(vo);
+	}
 
 	@Override
 	public void memberDelete(MemberVO vo) throws Exception {
