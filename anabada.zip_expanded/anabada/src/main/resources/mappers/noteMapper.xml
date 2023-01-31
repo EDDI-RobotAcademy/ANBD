@@ -27,8 +27,8 @@ AND N_BNO > 0
 </select>
 
 <sql id="who">
-	<if test="who == 'receive'.toString()">AND N_RECEIVER = #{id} AND N_R_DELETE_CHK = 1</if>
-	<if test="who == 'send'.toString()">AND N_SENDER = #{id} AND N_S_DELETE_CHK = 1</if>
+	<if test="who == 'receive'.toString()">AND N_RECEIVER = #{id}</if>
+	<if test="who == 'send'.toString()">AND N_SENDER = #{id}</if>
 </sql>
 
 
@@ -82,7 +82,7 @@ WHERE N_BNO = #{n_bno}
 </update>
 
 <update id="delete_receive2" parameterType="int">
-UPDATE NOTE SET N_R_DELETE_CHK = 0
+UPDATE NOTE SET R_DELETE_CHK = 0
 WHERE N_BNO = #{n_bno}
 </update>
 

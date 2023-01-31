@@ -173,20 +173,6 @@
    });
 
 </script>
-<style>
-	.paging{
-		position: absolute;
- 		bottom: 0;
- 		text-align: center;
- 		margin: auto;
- 		display: block;
- 		padding-bottom: 5px;
- 		width: 100%;
-	}
-	.minicon3{
-		position: relative;
-	}
-</style>
 </head>
 <body>
    <div>
@@ -201,9 +187,11 @@
    <form name="noteForm" action="/note/note_list" method="get">
         <!-- 바 -->
         <div class="sidemenu3">
-        	<br>
-        	<div style="text-align: center">${id } 님</div>
-        	<br><br>
+        	<div class="myImg">
+        		<img src="../resources/images/아나바다2.png" width="150px" height="150px"/>
+        		<br>
+        		${id } 님
+        	</div>
         	<div style="padding-top: 10px">
 	        	<button type="button" name="send" id="send" class="n_btn1" style="display: block; margin: auto;">쪽지 보내기</button>
 	        	<ul style="margin-top: 5px;">
@@ -224,7 +212,7 @@
         </div>
         
         <!-- 내용 -->
-        <div class="minicon3" style="height: 580px;">
+        <div class="minicon3" style="background-color: white; border-top: 1px solid #e9e9e9">
 		    
             <table class="n_list">
             <tr>
@@ -253,10 +241,11 @@
             </tr>
             
             <!-- 안읽으면 1, 읽으면 0 -->
+            <!-- 쪽지함에서 삭제했으면 0, 안했으면 1 -->
             <!-- 받은 쪽지함 -> 보낸 쪽지함 -->
             <c:forEach items="${n_list}" var="n_list">
             <c:choose>
-            <c:when test="${who eq 'receive'}">
+            <c:when test="${who eq 'receive' && n_list.n_r_delete_chk eq 1}">
             <tr onmouseover="this.style.backgroundColor = '#f9f9f9'" onmouseout="this.style.backgroundColor = ''">
                <td style="text-align: center">
                   <input type="checkbox" name="delete" class="delete" value="${n_list.n_bno}">
@@ -281,7 +270,7 @@
                <td>${n_list.n_s_time }</td>
             </tr>
             </c:when>
-            <c:when test="${who eq 'send'}">
+            <c:when test="${who eq 'send' && n_list.n_s_delete_chk eq 1}">
                <tr onmouseover="this.style.backgroundColor = '#e5e5e5'" onmouseout="this.style.backgroundColor = ''">
                <td style="text-align: center">
                   <input type="checkbox" name="delete" class="delete" value="${n_list.n_bno}">
@@ -305,8 +294,7 @@
             </c:choose>
             </c:forEach>
          </table>
-         
-         <div class="paging">
+         <div style="margin-bottom: 0px; text-align: center">
             <c:if test="${pageMaker.prev }">
                <a href="note_list${pageMaker.makeSearch(pageMaker.startPage - 1 )}">이전</a>
             </c:if>

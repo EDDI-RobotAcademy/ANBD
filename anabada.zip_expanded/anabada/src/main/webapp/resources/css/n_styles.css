@@ -16,13 +16,11 @@
 .minicon3 {
   float: left;
   width: 780px;
-  height: 580px;
+  height: auto;
   padding: 0px 0 15px 0;
   box-sizing: border-box;
   border-left: 1px solid #e5e5e5;
   border-top: 1px solid #e5e5e5;
-  background-color: white; 
-  border-top: 1px solid #e9e9e9
 }
 
 .n_btn1 { /*파란 버튼*/

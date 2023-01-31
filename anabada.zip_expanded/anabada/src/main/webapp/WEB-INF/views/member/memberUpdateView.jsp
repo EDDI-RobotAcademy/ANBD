@@ -29,9 +29,8 @@
 		var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
 		var getTel = RegExp(/^[0-9]{10,11}$/);
 		
-		// 닉네임 유효성 검사
-// 		document.getElementById("nicChk").onclick = function() {
-			
+// 		// 닉네임 유효성 검사
+// 		function nickchk() {
 // 			if ($("#nick").val() == "") {
 // 				$("#nickChk").attr("style", "color:#FF0000; padding-left: 5px;");
 // 				$("#nickChk").text("닉네임을 입력해 주세요.");
@@ -58,15 +57,13 @@
 // 							nickOk = false;
 
 // 		 				} else if (data == 0) {
-// 		 					$("#nickChk").attr("style", "color:#0C6BBC; padding-left: 5px;");
-// 		 		            $("#nickChk").text("사용 가능한 닉네임입니다.");
+// 		 					document.getElementById("nickChk").style.display="none";
 // 		 					nickOk = true;
 // 		 				}
 // 		 			}
 // 				})
 // 			}
 // 		}
-		
 		
 
 		// submit 버튼
@@ -103,13 +100,13 @@
 								nickOk = false;
 	
 			 				} else if (data == 0) {
-	 		 					$("#nickChk").attr("style", "color:#0C6BBC; padding-left: 5px;");
-	 		 		            $("#nickChk").text("사용 가능한 닉네임입니다.");
+			 					document.getElementById("nickChk").style.display="none";
 			 					nickOk = true;
 			 				}
 			 			}
 					})
 				}
+
 			
 			// 휴대폰 유효성 검사
 			if ($("#tel").val() == "") {
@@ -205,7 +202,6 @@
 						<div>
 							<label class="membermodify" for="nick">닉네임</label>
 							<input class="modi-box" type="text" id="nick" name="nick" value="${member.nick}" />
-<!-- 							<button type="button" id="nicChk">중복 확인</button> -->
 						</div>
 						
 						<div>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="replyMapper">
+
+<!-- 댓글 보기 조회 -->
+<select id="readReply" resultType="replyVO">
+SELECT A_BNO, R_RNO, R_CONTENT, R_REGDATE, ID, NICK
+FROM A_REPLY
+WHERE A_BNO = #{a_bno}
+</select>
+
+<!-- 댓글 작성 -->
+<insert id="writeReply">
+INSERT INTO A_REPLY (
+	A_BNO, R_RNO, R_CONTENT, ID, NICK
+)
+VALUES (#{a_bno}, A_REPLY_SEQ.NEXTVAL, #{r_content}, #{id}, #{nick})
+</insert>
+
+<select id="selectReply" resultType="replyVO">
+SELECT A_BNO, R_RNO, R_CONTENT, R_REGDATE, NICK
+FROM A_REPLY
+WHERE R_RNO = #{r_rno}
+</select>
+
+<update id="updateReply" parameterType="replyVO">
+UPDATE A_REPLY
+SET R_CONTENT = #{r_content}, R_REGDATE = #{r_regdate}
+WHERE R_RNO = #{r_rno}
+</update>
+
+<delete id="deleteReply" parameterType="replyVO">
+DELETE FROM A_REPLY
+WHERE R_RNO = #{r_rno}
+</delete>
+
+<select id="ReplyList" resultType="replyVO" parameterType="com.anabada.web.vo.ASearchCriteria">
+SELECT A_BNO, R_RNO, R_CONTENT, R_REGDATE, ID, NICK
+FROM(
+	SELECT A_BNO, R_RNO, R_CONTENT, R_REGDATE, ID, NICK,
+	ROW_NUMBER() OVER(ORDER BY R_RNO DESC) AS RNUM 
+	FROM A_REPLY WHERE ID = #{id}
+) A_REPLY
+WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+ORDER BY A_BNO DESC
+</select>
+
+<select id="replyListCount" parameterType="com.anabada.web.vo.ASearchCriteria" resultType="int">
+SELECT COUNT(R_RNO) FROM A_REPLY WHERE ID = #{id} AND R_RNO > 0
+</select>
+
+<select id="myReplyTitle" parameterType="int" resultType="boardVO">
+SELECT A_TITLE
+FROM A_BOARD A1, A_REPLY A2
+WHERE A1.A_BNO = A2.A_BNO
+</select>
+</mapper>
