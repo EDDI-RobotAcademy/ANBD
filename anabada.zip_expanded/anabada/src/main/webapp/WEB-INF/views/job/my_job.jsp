@@ -6,8 +6,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="shortcut icon" href="resources/images/favicon.ico">
-<link rel="manifest" href="resources/images/manifest.json">
+<link rel="shortcut icon" href="../resources/images/favicon.ico">
+<link rel="manifest" href="../resources/images/manifest.json">
 <meta name="theme-color" content="#ffffff">
 <meta charset="UTF-8">
 <title>내 알바 구인 공고</title>
@@ -15,7 +15,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="<c:url value='/css/n_styles.css'/>">
+<link rel="stylesheet" href="../resources/css/n_styles.css">
 <style type="text/css">
    input[type=radio]{
          display: none;
@@ -159,7 +159,7 @@
       <jsp:include page="../includes/nav.jsp" />
    </div>
    <div>
-      <jsp:include page="../includes/header.jsp" />
+      <jsp:include page="../includes/miniHeader.jsp" />
    </div>
    
    <section class="container">
@@ -176,7 +176,7 @@
 					<li class="side-li">참여한 이벤트</li>
 					<br><hr><br>
 					<li class="side-li"><a href="/a_board/myWriteList">내가 쓴 게시글</a></li>
-					<li class="side-li">내가 쓴 댓글</li>
+					<li class="side-li"><a href="/a_board/myReplyList">내가 쓴 댓글</a></li>
 					<br><hr><br>
 					<li class="side-li"><a href="/job/my_job">아르바이트 공고</a></li>
 					<li class="side-li"><a href="/resume/my_resume">아르바이트 지원</a></li>

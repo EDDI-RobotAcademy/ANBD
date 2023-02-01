@@ -423,7 +423,7 @@
     </div>
       
     <div>
-       <jsp:include page="../includes/header.jsp" />
+       <jsp:include page="../includes/miniHeader.jsp" />
     </div>
     
     <div id="wapper" >
@@ -485,7 +485,7 @@
 				</tr>
 				
 				<tr>
-					<td rowspan="2">
+					<td rowspan="2" width="250px;">
 					<c:choose>
 						<c:when test="${empty j_read.j_img}">
 							<img src="../resources/images/아나바다2.png" width="250px" height="250px"/>
@@ -495,9 +495,30 @@
 						</c:otherwise>
 					</c:choose>
 					</td>
-					<td>${j_read.j_method }</td>
+					<c:choose>
+						<c:when test="${j_read.j_method eq '월급'}">
+						<td>
+							<img src="../resources/images/월급.png" width="100px" height="100px"/>
+						</td>
+						</c:when>
+						<c:when test="${j_read.j_method eq '시급'}">
+						<td>
+							<img src="../resources/images/시급.png" width="100px" height="100px"/>
+						</td>
+						</c:when>
+						<c:when test="${j_read.j_method eq '주급'}">
+						<td>
+							<img src="../resources/images/주급.png" width="100px" height="100px"/>
+						</td>
+						</c:when>
+						<c:otherwise>
+						<td>
+							<img src="../resources/images/건당.png" width="100px" height="100px"/>
+						</td>
+						</c:otherwise>
+					</c:choose>
 					<td>근무기간</td>
-					<td>카테고리</td>
+					<td><img src="../resources/images/카테고리.png" width="100px" height="100px"/></td>
 					<td>날짜</td>
 					<td>시간</td>
 				</tr>

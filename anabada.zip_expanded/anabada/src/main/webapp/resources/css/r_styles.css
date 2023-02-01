@@ -132,7 +132,6 @@ a {
 }
 
 .miniheader {
-  display: flex;
   margin: 35px 0 20px 0;
 }
 
@@ -205,6 +204,7 @@ a {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  text-align: right;
 }
 
 .cate-li {
@@ -240,10 +240,21 @@ a {
   float: left;
   width: 180px;
   min-height: 500px;
-  padding: 0 40px 0 0;
+  padding: 0 20px 20px 0;
   box-sizing: border-box;
   list-style-type: none;
   text-align: right;
+}
+
+.sidepro {
+  display: flex;
+  background-color: #f9f9f9;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  justify-content: center;
+  padding: 10px; 
+  border: 1px solid #e9e9e9;
 }
 
 .hello {
@@ -280,7 +291,7 @@ a {
 
 .minicon {
   float: right;
-  width: 780px;
+  width: 800px;
   padding: 0px 0 15px 0;
   box-sizing: border-box;
 }
