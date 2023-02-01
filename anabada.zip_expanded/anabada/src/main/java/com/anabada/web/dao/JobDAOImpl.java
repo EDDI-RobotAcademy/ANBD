@@ -138,11 +138,6 @@ public class JobDAOImpl implements JobDAO{
 	public int report_chk(ComplaintVO vo) throws Exception {
 		return sqlSession.selectOne("jobMapper.report_chk", vo);
 	}
-
-	@Override
-	public void delete_complaint(Map<String, Object> map) throws Exception {
-		sqlSession.delete("jobMapper.delete_complaint", map);
-	}
 	
 	
 

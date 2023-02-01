@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.anabada.web.service.ComplaintService;
 import com.anabada.web.service.JobService;
 import com.anabada.web.vo.ComplaintVO;
 import com.anabada.web.vo.JheartVO;
@@ -41,6 +42,9 @@ public class JobController {
 	
 	@Inject
 	JobService jobService;
+	
+	@Inject
+	ComplaintService complaintService;
 	
 	
 	// 알바 구인 게시물 쓰기 눌렀을 때
@@ -402,7 +406,7 @@ public class JobController {
  		return "/job/complaint_job";
  	}
  	
- 	// 알바 구인 게시물 삭제할 떄
+ 	// 신고 알바 게시물 삭제할 떄
  	@RequestMapping(value = "/delete_admin.ajax", method =RequestMethod.GET)
 	@ResponseBody
  	public boolean delete_admin(@ModelAttribute JobVO vo) throws Exception{
@@ -412,7 +416,8 @@ public class JobController {
  		
  		String j_image = vo.getJ_img();
  		
- 		jobService.job_delete(vo.getJ_bno()); // 디비 삭제 
+ 		//1) 신고게시물 자체 삭제
+ 		jobService.job_delete(vo.getJ_bno());
  		
  		if(j_image != null || j_image != "") { // 컴퓨터에서 삭제
  			File file = null;
@@ -421,13 +426,46 @@ public class JobController {
  			file.delete();
  		}
  		
- 		// 신고내역도 삭제
+ 		//2) 신고내역도 삭제
  		Map<String, Object> map = new HashMap<String, Object>();
  		map.put("c_bno", vo.getJ_bno());
  		map.put("board_type", "job");
  		
- 		jobService.delete_complaint(map);
- 				
+ 		complaintService.delete_complaint(map);
+ 		
+ 		//3) 신고게시물 작성자의 경고 횟수 조회
+ 		int count = complaintService.count_caution(vo.getId());
+ 		System.out.println("신고횟수: " + count);
+ 		
+ 		if(count < 4) { // 경고수 +1
+ 			
+ 			//4-1) 경고수 1추가
+ 			complaintService.add_caution(vo.getId());
+ 			System.out.println("실행테스트");
+ 			
+ 			//4-2) 경고 쪽지 보내기
+ 			String content = "회원님의 알바 구인 게시물은 부적접한 사유로 인해 삭제되었습니다."
+ 					+ "\n회원님은 누적 경고수는 " + ++count + "입니다."
+ 					+ "\n누적 경고수가 5가 되면 회원 강제 탈퇴가 이루어집니다.";
+ 			
+ 			Map<String, Object> map2 = new HashMap<String, Object>();
+ 	 		map2.put("n_receiver", vo.getId());
+ 	 		map2.put("n_content", content);
+ 	 		complaintService.note_caution(map2);
+ 			
+ 		}else { // 5번 되면 회원 탈퇴
+ 			
+ 			//4-1) 강제 탈퇴할 회원의 email
+ 			String email = complaintService.expel_email(vo.getId());
+ 			//4-2) 회원 탈퇴
+ 			complaintService.expel_member(vo.getId());
+ 			//4-3) 회원 탈퇴 당한 회원 이메일 저장
+ 			complaintService.insert_email(email);
+ 			
+ 			// 여유있으면 탈퇴당한 회원의 이메일로 강제탈퇴었다는 이메일도 보내보기!!
+ 			
+ 		}
+ 		
  		boolean result = true;
         return result;
  	}

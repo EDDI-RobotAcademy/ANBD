@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="complaintMapper">
+
+<select id="count_caution" resultType="int" parameterType="String">
+SELECT CAUTION FROM A_MEMBER WHERE ID = #{id}
+</select>
+
+<update id="add_caution" parameterType="String">
+UPDATE A_MEMBER SET CAUTION = CAUTION + 1 
+WHERE ID = #{id} 
+</update>
+
+<insert id="note_caution" parameterType="java.util.Map">
+INSERT INTO NOTE (N_BNO, N_SENDER, N_RECEIVER, N_CONTENT, N_S_TIME, N_READ_CHK, N_R_DELETE_CHK, N_S_DELETE_CHK, N_RNO, n_type)
+	VALUES(NOTE_SEQ.NEXTVAL, 'admin', #{n_receiver}, #{n_content}, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MM:SS'), 1, 1, 1, 0, 'no')
+</insert>
+
+<delete id="expel_member" parameterType="String">
+DELETE FROM A_MEMBER WHERE ID = #{id}
+</delete>
+
+<insert id="insert_email" parameterType="String">
+INSERT INTO EXPELLED_EMAIL(EMAIL) VALUES(#{email})
+</insert>
+
+<select id="expel_email" resultType="String" parameterType="String">
+SELECT EMAIL FROM A_MEMBER WHERE ID = #{id}
+</select>
+
+<delete id="delete_complaint" parameterType="java.util.Map">
+DELETE FROM COMPLAINT WHERE C_BNO = #{c_bno} AND BOARD_TYPE = #{board_type}
+</delete>
+
+</mapper>
