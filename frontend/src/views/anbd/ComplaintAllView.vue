@@ -37,7 +37,7 @@
       </a>
     </v-btn>
 
-    <ComplaintAll :complaint="complaint" @Delete="onDelete"/>
+    <ComplaintAll :complaint="complaint" @Delete="onDelete" />
       
   </v-container>
 
@@ -61,6 +61,7 @@ methods: {
   ...mapActions([
       'requestComplaintAllFromSpring',
       'requestDeleteComplaintToSpring',
+      ''
   ]),
   async onDelete (payload) {
     if(confirm("삭제하시겠습니까?")){
@@ -68,7 +69,8 @@ methods: {
     }else{
       return false
     }
-  }
+  },
+  
 },
 created() {
   this.requestComplaintAllFromSpring()

@@ -7,8 +7,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="shortcut icon" href="resources/images/favicon.ico">
-<link rel="manifest" href="resources/images/manifest.json">
+<link rel="shortcut icon" href="../resources/images/favicon.ico">
+<link rel="manifest" href="../resources/images/manifest.json">
 <meta name="theme-color" content="#ffffff">
 <link rel="stylesheet" href="../resources/css/n_styles.css">
 <meta charset="UTF-8">
