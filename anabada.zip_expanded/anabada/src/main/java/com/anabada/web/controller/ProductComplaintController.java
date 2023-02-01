@@ -71,9 +71,9 @@ public class ProductComplaintController {
 	 
 	  @RequestMapping(value = "/complaintBoard" , method = RequestMethod.GET)
 		public String complaintBoard(PBoardVO pboardVO,
-				Model model/* , @RequestParam(value="href") String href */) throws Exception{
-		 // int pno= pboardVO.getPno();
-		  int pno = 17;
+				Model model , @RequestParam(value="href") String href ) throws Exception{
+		  int pno= pboardVO.getPno();
+		  //int pno = 17;
 		  logger.info("신고 게시물 상세보기  : "+pno);
 		  model.addAttribute("read",productService.read(pno)); // 게시글 정보 
 		  model.addAttribute("filelist",productService.filelist(pno)); // 사진정보 담음
