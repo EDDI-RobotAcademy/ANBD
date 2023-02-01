@@ -83,7 +83,7 @@
 
         // 이 부분에 각자 이동할 url 작성
         if(boardType === 'job'){
-          window.open("http://localhost:8080/job/job_read?j_bno=" + c_bno + "&href=all",  "_blank", 'width=1000px,height=1000px')
+          window.open("http://localhost:8080/job/complaint_job?j_bno=" + c_bno + "&href=all",  "_blank", 'width=1000px,height=1000px')
         }else if(boardType === 'note'){
           window.open("http://localhost:8080/note/complaint_note?n_bno=" + c_bno + "&href=all", "_blank", 'width=460px, height=500px')
         }else if(boardType === 'pboard'){

@@ -135,6 +135,12 @@ public class JobServiceImpl implements JobService {
 	public int report_chk(ComplaintVO vo) throws Exception {
 		return dao.report_chk(vo);
 	}
+
+	// 관리자가 알바 신고 내역 삭제
+	@Override
+	public void delete_complaint(Map<String, Object> map) throws Exception {
+		dao.delete_complaint(map);
+	}
 	
 
 

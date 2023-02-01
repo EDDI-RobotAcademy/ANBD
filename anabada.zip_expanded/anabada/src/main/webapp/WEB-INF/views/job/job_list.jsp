@@ -364,6 +364,7 @@
 <script>
    $(document).ready(function () {
 	   
+	   
       $('#search_addr1').change(function () {
       location.href = "job_list" + '${pageMaker.makeQuery(1)}' + 
       '&j_addr1=' + encodeURIComponent($("#search_addr1 option:selected").val()) + 
