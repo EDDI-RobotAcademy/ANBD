@@ -95,7 +95,7 @@ public class JobController {
 	
 	// 알바 게시판 목록 조회
 	@RequestMapping(value = "/job_list", method = RequestMethod.GET) // 임의
-	public String job_list(Model model, @ModelAttribute JobVO vo, HttpServletRequest req, @ModelAttribute("scri")JobSearchCriteria scri) throws Exception{
+	public String job_list(Model model, @ModelAttribute JobVO vo, @ModelAttribute("scri")JobSearchCriteria scri) throws Exception{
 		
 		logger.info("게시판 보기 눌렀음");
 		
@@ -387,4 +387,48 @@ public class JobController {
        int result = jobService.report_chk(vo);
        return result;
     }
+    
+    
+    // 관리자가 신고된 알바 게시물 보기
+ 	@RequestMapping(value = "/complaint_job", method = RequestMethod.GET)
+ 	public String job_read(JobVO vo, Model model, @RequestParam(value="href") String href) throws Exception{
+ 		
+ 		logger.info("관리자가 신고된 알바 게시물 봄!");
+ 		System.out.println("번호: " + vo.getJ_bno());
+ 		
+ 		model.addAttribute("j_read", jobService.job_read(vo.getJ_bno())); // 게시글 번호로 게시글 객체 불러옴
+ 		model.addAttribute("href", href);
+ 		
+ 		return "/job/complaint_job";
+ 	}
+ 	
+ 	// 알바 구인 게시물 삭제할 떄
+ 	@RequestMapping(value = "/delete_admin.ajax", method =RequestMethod.GET)
+	@ResponseBody
+ 	public boolean delete_admin(@ModelAttribute JobVO vo) throws Exception{
+ 		
+ 		logger.info("관리자가 알바 삭제버튼 눌렀음"); 
+ 		logger.info("이미지 이름:" + vo.getJ_img());
+ 		
+ 		String j_image = vo.getJ_img();
+ 		
+ 		jobService.job_delete(vo.getJ_bno()); // 디비 삭제 
+ 		
+ 		if(j_image != null || j_image != "") { // 컴퓨터에서 삭제
+ 			File file = null;
+ 			file = new File("C:\\upload\\"+j_image);
+ 			System.out.println("파일 경로:"+"C:\\upload\\"+j_image);
+ 			file.delete();
+ 		}
+ 		
+ 		// 신고내역도 삭제
+ 		Map<String, Object> map = new HashMap<String, Object>();
+ 		map.put("c_bno", vo.getJ_bno());
+ 		map.put("board_type", "job");
+ 		
+ 		jobService.delete_complaint(map);
+ 				
+ 		boolean result = true;
+        return result;
+ 	}
 }

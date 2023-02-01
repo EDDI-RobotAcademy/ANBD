@@ -438,7 +438,7 @@
 			<input type="hidden" name="j_addr1" value="${scri.j_addr1 }">
 			<input type="hidden" name="j_day" value="${scri.j_day }">
 			<input type="hidden" name="j_cate" value="${scri.j_cate }">
-			<input type="hidden" name="j_img"" value="${j_read.j_img }"><!-- 삭제할때 사용하려고 -->
+			<input type="hidden" name="j_img" value="${j_read.j_img }"><!-- 삭제할때 사용하려고 -->
 	
 	
 			<table>
