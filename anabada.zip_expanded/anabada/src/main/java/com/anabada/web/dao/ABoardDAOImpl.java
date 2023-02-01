@@ -72,9 +72,16 @@ public class ABoardDAOImpl implements ABoardDAO {
 		return sqlSession.selectOne("boardMapper.writeListCount", scri);
 	}
 
+	//게시글 신고 DB 저장
 	@Override
 	public void reportComplaint(ComplaintVO complaintVO) throws Exception {
 		sqlSession.insert("boardMapper.reportComplaint", complaintVO);
+	}
+
+	//게시글 신고 내역 상세보기
+	@Override
+	public ABoardVO complaintRead(int a_bno) throws Exception {
+		return sqlSession.selectOne("boardMapper.complaintRead", a_bno);
 	}
 
 }

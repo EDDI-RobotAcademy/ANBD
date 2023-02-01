@@ -77,7 +77,7 @@ public class ABoardController {
 	}
 
 	//ckeditor 파일 업로드 
-	 @RequestMapping(value="/fileUpload", method = RequestMethod.POST)
+	 @RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
 	    public void imageUpload(HttpServletRequest request, HttpServletResponse response, MultipartHttpServletRequest multiFile
 	    		, @RequestParam MultipartFile upload) throws Exception{
 	    	// 랜덤 문자 생성
@@ -95,10 +95,11 @@ public class ABoardController {
 	    		byte[] bytes = upload.getBytes();
 	    		
 	    		//이미지 경로 생성
-	    		String path = "C:\\Spring\\workspace\\anabada(좋아요 추가까지만).zip_expanded\\anabada\\src\\main\\webapp\\resources\\ckimage"; // 이미지 경로 설정(폴더 자동 생성)
+	    		String path = "C:\\ckeditor_upload_" + "ckImage/";
 	    		String ckUploadPath = path + uid + "_" + fileName;
 	    		File folder = new File(path);
 	    		System.out.println("path : " + path);	// 이미지 저장경로 console에 확인
+	    		
 	    		//해당 디렉토리 확인
 	    		if(!folder.exists()){
 	    			try{
@@ -120,32 +121,34 @@ public class ABoardController {
 	    	printWriter.println("{\"filename\" : \"" + fileName + "\", \"uploaded\" : 1, \"url\":\"" + fileUrl + "\"}");
 	    	printWriter.flush();
 	    	
-	    	}catch(IOException e){
+	    	}
+	    	catch(IOException e){
 	    		e.printStackTrace();
-	    	} finally {
+	    	} 
+	    	finally {
 	    		try {
 	    		if(out != null) { out.close(); }
 	    		if(printWriter != null) { printWriter.close(); }
-	    	} catch(IOException e) { e.printStackTrace(); }
+	    	} 
+	    		catch(IOException e) { e.printStackTrace(); }
 	    	}
 	    	return;
 	    }
 
-	// 서버로 전송된 이미지 뿌려주기
-	//서버로 전송된 이미지 뿌려주기
+	 	//서버로 전송된 이미지 뿌려주기
 	    @RequestMapping(value = "/ckImgSubmit")
-	    public void ckSubmit(@RequestParam(value="uid") String uid, @RequestParam(value="fileName") String fileName
+	    public void ckSubmit(@RequestParam(value = "uid") String uid, @RequestParam(value="fileName") String fileName
 	    		, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 	    	
 	    	//서버에 저장된 이미지 경로
-	    	String path = "C:\\Spring\\workspace\\anabada(좋아요 추가까지만).zip_expanded\\anabada\\src\\main\\webapp\\resources\\ckimage";	// 저장된 이미지 경로
+	    	String path = "C:\\ckeditor_upload_" + "ckImage/";	// 저장된 이미지 경로
 	    	System.out.println("path : " + path);
 	    	String sDirPath = path + uid + "_" + fileName;
 	    	
 	    	File imgFile = new File(sDirPath);
 	    	
 	    	//사진 이미지 찾지 못하는 경우 예외처리로 빈 이미지 파일을 설정한다.
-	    	if(imgFile.isFile()){
+	    	if(imgFile.isFile()) {
 	    		byte[] buf = new byte[1024];
 	    		int readByte = 0;
 	    		int length = 0;
@@ -155,7 +158,7 @@ public class ABoardController {
 	    		ByteArrayOutputStream outputStream = null;
 	    		ServletOutputStream out = null;
 	    		
-	    		try{
+	    		try {
 	    			fileInputStream = new FileInputStream(imgFile);
 	    			outputStream = new ByteArrayOutputStream();
 	    			out = response.getOutputStream();
@@ -169,19 +172,21 @@ public class ABoardController {
 	    			out.write(imgBuf, 0, length);
 	    			out.flush();
 	    			
-	    		}catch(IOException e){
+	    		}
+	    		catch(IOException e){
 	    			e.printStackTrace();
-	    		}finally {
+	    		}
+	    		finally {
 	    			outputStream.close();
 	    			fileInputStream.close();
 	    			out.close();
-	    			}
-	    		}
+	   			}
+	   		}
 	    }
 
 	//게시판 목록
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Model model, @ModelAttribute("scri") ASearchCriteria scri) throws Exception {
+	public String list(Model model, @ModelAttribute("scri") ASearchCriteria scri, HttpServletRequest req, @RequestParam(value = "loca", required = false) String loca) throws Exception {
 
 		logger.info("게시판 목록 보기");
 		
@@ -192,8 +197,6 @@ public class ABoardController {
 		pageMaker.setTotalCount(service.listCount(scri));
 		
 		model.addAttribute("pageMaker", pageMaker);
-		
-		System.out.println("결과 확인 : " + service.list(scri));
 		
 		return "/a_board/list";
 	}
@@ -357,4 +360,15 @@ public class ABoardController {
 		return "a_board/myWriteList";
 	}
 
+		//게시글 신고 내역 상세보기
+		@RequestMapping(value = "/complaintReadView", method = RequestMethod.GET)
+		public String complaintRead(Model model, ABoardVO boardVO, @ModelAttribute("scri") ASearchCriteria scri, HttpServletRequest req) throws Exception {
+			
+			logger.info("게시글 상세보기");
+			
+			model.addAttribute("read", service.complaintRead(boardVO.getA_bno()));
+			model.addAttribute("scri", scri);
+			
+			return "/a_board/complaintReadView";
+		}
 }

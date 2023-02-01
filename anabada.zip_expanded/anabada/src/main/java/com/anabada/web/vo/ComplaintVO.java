@@ -6,6 +6,7 @@ public class ComplaintVO {
 	private String c_content;
 	private int c_bno;
 	private String board_type;
+	
 	public int getCom_num() {
 		return com_num;
 	}
@@ -36,6 +37,7 @@ public class ComplaintVO {
 	public void setBoard_type(String board_type) {
 		this.board_type = board_type;
 	}
+	
 	@Override
 	public String toString() {
 		return "ComplaintVO [com_num=" + com_num + ", id=" + id + ", c_content=" + c_content + ", c_bno=" + c_bno

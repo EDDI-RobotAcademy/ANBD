@@ -74,4 +74,11 @@ public class ABoardServiceImpl implements ABoardService {
 	public void reportComplaint(ComplaintVO complaintVO) throws Exception {
 		dao.reportComplaint(complaintVO);
 	}
+
+	//게시글 신고 내역 상세보기
+	@Override
+	public ABoardVO complaintRead(int a_bno) throws Exception {
+		return dao.complaintRead(a_bno);
+	}
+
 }
