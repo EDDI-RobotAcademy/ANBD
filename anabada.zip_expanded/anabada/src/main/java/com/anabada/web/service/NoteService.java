@@ -61,5 +61,11 @@ public interface NoteService {
 	// 쪽지 받는 아이디가 존재하는지 체크
 	public int id_chk(String id) throws Exception;
 
+	// 관리자가 신고 쪽지 삭제
+	public void delete_admin(int n_bno) throws Exception;
+
+	// 관리자가 신고 쪽지 삭제한 후 신고 내역도 삭제하는 메소드
+	public void delete_complaint(Map<String, Object> map) throws Exception;
+
 
 }

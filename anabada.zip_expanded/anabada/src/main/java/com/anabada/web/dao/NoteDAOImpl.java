@@ -118,6 +118,18 @@ public class NoteDAOImpl implements NoteDAO{
 	}
 
 
+	@Override
+	public void delete_admin(int n_bno) throws Exception {
+		sqlSession.delete("noteMapper.delete_admin", n_bno);
+	}
+
+
+	@Override
+	public void delete_complaint(Map<String, Object> map) throws Exception {
+		sqlSession.delete("noteMapper.delete_complaint", map);
+	}
+
+
 
 
 }

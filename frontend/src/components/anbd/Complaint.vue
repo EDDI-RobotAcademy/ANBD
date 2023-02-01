@@ -31,9 +31,13 @@
         <span v-if="item.boardType === 'review'">리뷰</span>
       </template>
 
+      <template v-slot:[`item.count`]="{ index }">
+          <span>{{ test[index].count }}</span>
+      </template>
+
       <template v-slot:[`item.show`]="{ item }">
-        <a href="#">확인</a>
-        {{item.c_bno}} && {{item.boardType}}
+          <a @click="popup(item.c_bno, item.boardType)">확인</a>
+          {{item.c_bno}} && {{item.boardType}}
       </template>
 
   </v-data-table>
@@ -67,6 +71,18 @@
                 { text: '게시물 유형', value: 'boardType', width: "100px" },
                 { text: '게시물 보기', value: 'show', width: "100px" },
             ],
+            test: [
+                { count: 1}, // 신고횟수 임의로 count라고 함
+                { count: 2 }, // 신고횟수 임의로 count라고 함
+                { count: 1}, // 신고횟수 임의로 count라고 함
+                { count: 2 }, // 신고횟수 임의로 count라고 함
+                { count: 1}, // 신고횟수 임의로 count라고 함
+                { count: 2 }, // 신고횟수 임의로 count라고 함
+                { count: 1}, // 신고횟수 임의로 count라고 함
+                { count: 2 }, // 신고횟수 임의로 count라고 함
+                
+                
+            ],
 
             
 
@@ -75,7 +91,26 @@
     methods:{
       onDelete (){
         this.$emit('Delete', this.selectedItems) //상위로 연결됨
-      } 
+      },
+      
+      popup(c_bno, boardType){
+
+        // 이 부분에 각자 이동할 url 작성
+        if(boardType === 'job'){
+          window.open("http://localhost:8080/job/job_read?j_bno=" + c_bno + "&href=job",  "_blank", 'width=1000px,height=1000px')
+        }else if(boardType === 'note'){
+          window.open("http://localhost:8080/note/complaint_note?n_bno=" + c_bno + "&href=note", "_blank", 'width=460px, height=500px')
+        }else if(boardType === 'pboard'){
+          window.open("http://localhost:8080/product/readView?pno=" + c_bno + "&href=pboard",'_blank', 'width=1000px,height=1000px')
+        }else if(boardType === 'a_board'){
+          window.open("http://localhost:8080//a_board/complaintReadView?a_bno=" + c_bno + "&href=a_board",'_blank', 'width=1000px,height=1000px')
+        }else if(boardType === 'review'){
+
+          // 리뷰 url은 유진언니가 달기!!
+          window.open("http://localhost:8080/" + c_bno + "&href=review",'_blank', 'width=1000px,height=1000px')
+        }
+
+      }
       
     }
 }

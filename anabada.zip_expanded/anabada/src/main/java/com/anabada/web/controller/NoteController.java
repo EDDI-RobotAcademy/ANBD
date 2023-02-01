@@ -53,7 +53,7 @@ public class NoteController {
 	// 쪽지보내는 ajax
 	@RequestMapping(value="/note_insert.ajax", method = RequestMethod.GET)
 	@ResponseBody
-    public boolean note_insert(HttpServletResponse resp, @ModelAttribute("noteVO") NoteVO noteVO) throws Exception {
+    public boolean note_insert(@ModelAttribute("noteVO") NoteVO noteVO) throws Exception {
         
 		System.out.println("쪽지" + noteVO);
 		
@@ -100,8 +100,8 @@ public class NoteController {
 	// 쪽지 삭제하는 ajax(목록에서)
 	@RequestMapping(value = "/delete_chk.ajax", method =RequestMethod.GET)
 	@ResponseBody
-	public boolean delete_chk(HttpServletResponse resp, @RequestParam(value="delete_array") int[] delete_array, 
-			@RequestParam(value="n_sender") String n_sender, @RequestParam(value="n_receiver") String n_receiver, HttpSession session) throws Exception{
+	public boolean delete_chk(@RequestParam(value="delete_array") int[] delete_array, @RequestParam(value="n_sender") String n_sender, 
+			@RequestParam(value="n_receiver") String n_receiver, HttpSession session) throws Exception{
 		
 		logger.info("쪽지함에서 삭제 눌렀음"); 
 		// 페이징 처리 안해줬음 
@@ -185,7 +185,7 @@ public class NoteController {
 	// 쪽지 삭제하는 ajax(상세보기에서)
 	@RequestMapping(value = "/delete_chk2.ajax", method =RequestMethod.GET)
 	@ResponseBody
-	public boolean delete_chk2(HttpServletResponse resp, @RequestParam(value="n_bno") int n_bno,
+	public boolean delete_chk2(@RequestParam(value="n_bno") int n_bno,
 			@RequestParam(value="n_sender") String n_sender, @RequestParam(value="n_receiver") String n_receiver, HttpSession session) throws Exception{
 			
 		logger.info("쪽지 상세보기에서 삭제 눌렀음"); 
@@ -250,7 +250,7 @@ public class NoteController {
 	// 판매리뷰 쪽지 보내기 ajax
     @RequestMapping(value="/review_note.ajax", method = RequestMethod.GET)
 	@ResponseBody
-	public boolean review_note(HttpServletResponse resp, @ModelAttribute("noteVO") NoteVO noteVO) throws Exception {
+	public boolean review_note(@ModelAttribute("noteVO") NoteVO noteVO) throws Exception {
 	        
     	System.out.println("쪽지" + noteVO);
 			
@@ -308,6 +308,83 @@ public class NoteController {
        int result = noteService.id_chk(id);
        return result;
     }
+    
+    ///////////////////신고 내역
+    // 신고쪽지 보기
+ 	@RequestMapping(value = "/complaint_note", method =RequestMethod.GET)
+ 	public String complaint_note(@ModelAttribute NoteVO noteVO, Model model, HttpSession session, @RequestParam(value="href") String href) throws Exception{
+ 		
+ 		logger.info("신고 쪽지 상세보기로 들어왔음!");
+ 		logger.info("href" + href);
+ 		
+ 		System.out.println("신고 쪽지 번호: " + noteVO.getN_bno());
+ 		
+ 		NoteVO n_read = noteService.note_view(noteVO.getN_bno());
+ 		System.out.println(n_read);
+ 		
+ 		model.addAttribute("n_read", n_read); // 쪽지
+ 		
+ 		int n_rno = n_read.getN_rno(); // 쪽지에 게시물 번호
+ 		String n_type = n_read.getN_type(); // 어떤 타입의 쪽지인지(일반, 중고, 이벤트)
+ 		
+ 		System.out.println("n_rno:" + n_rno);
+ 		System.out.println("엔타입:" + n_type);
+ 		
+ 		if(n_type.equals("event")){ // 이벤트 쪽지일때
+ 			
+ 			EventBoardVO e_read = eventService.read(n_rno);
+ 			
+ 			if(e_read != null) { // 이벤트 삭제되지 않았을 때
+ 				int eno = n_rno;
+ 				model.addAttribute("eno", eno);
+ 			}
+ 			
+ 		}else if(n_type.equals("no") || n_type.equals("review")) { // 일반 쪽지일때(그냥, 중고)
+ 			
+ 			PBoardVO p_read = productService.read(n_read.getN_rno()); // 중고 게시글 관련 쪽지면 게시글 객체 저장
+ 			System.out.println("p_read"+p_read);
+ 			
+ 			if(p_read != null && n_rno > 0) { // 중고 쪽지가 삭제되지 않았을 때
+ 				String path = productService.getImg(n_read.getN_rno()); // 첫번째 사진의 정보를 담음
+ 				
+ 				if (path == null) {// 사진 저장안했으면 기본 사진 저장
+ 					p_read.setP_filepath("/tomcatImg/img.png");
+ 				} else {
+ 					p_read.setP_filepath(path);
+ 					System.out.println(path);
+ 				}
+ 				model.addAttribute("p_read", p_read); // 중고게시글 객체도 저장
+ 			}
+ 			
+ 		}
+ 		// 만약 삭제된 중고, 이벤트 쪽지라면 model로 넘기지 않음
+ 		
+ 		Map<String, Object> map = new HashMap<String, Object>();
+ 		map.put("id", (String)session.getAttribute("id"));
+ 		map.put("n_bno", noteVO.getN_bno());
+ 		
+ 		model.addAttribute("href",href);
+ 		
+ 		return "/note/complaint_note";
+ 	}
+ 	
+ 	@RequestMapping(value = "/delete_admin.ajax", method =RequestMethod.GET)
+	@ResponseBody
+	public boolean delete_admin(@RequestParam(value="n_bno") int n_bno) throws Exception{
+			
+		logger.info("관리자가 신고 쪽지 삭제 눌렀음"); 
+		
+		noteService.delete_admin(n_bno); // 관리자가 신고쪽지 삭제
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+ 		map.put("c_bno", n_bno);
+ 		map.put("board_type", "note");
+ 		
+ 		noteService.delete_complaint(map);
+				
+		boolean result = true;
+		return result;
+	}
     
 
 	
