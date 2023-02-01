@@ -93,7 +93,7 @@
         }else if(boardType === 'review'){
 
           // 리뷰 url은 유진언니가 달기!!
-          window.open("http://localhost:8080/" + c_bno + "&href=all",'_blank', 'width=1000px,height=1000px')
+          window.open("http://localhost:8080/pcomplaint/complaintReview?r_no=" + c_bno + "&href=all",'_blank', 'width=500px,height=400px')
         }
         
       }

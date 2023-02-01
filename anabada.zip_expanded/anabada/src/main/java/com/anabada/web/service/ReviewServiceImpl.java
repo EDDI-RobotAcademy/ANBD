@@ -31,4 +31,10 @@ public class ReviewServiceImpl implements ReviewService {
 		dao.updateLev(reviewVO);
 	}
 
+	//r_no에 해당하는 리뷰 반환 
+	@Override
+	public ReviewVO read(int r_no) throws Exception {
+		return dao.read(r_no);
+	}
+
 }

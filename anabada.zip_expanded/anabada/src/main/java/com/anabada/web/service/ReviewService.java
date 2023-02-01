@@ -11,4 +11,7 @@ public interface ReviewService {
 	// lev 점수 업데이트 
 	void updateLev(ReviewVO reviewVO) throws Exception;
 
+	//r_no에 해당하는 리뷰 반환 
+	ReviewVO read(int r_no) throws Exception;
+
 }

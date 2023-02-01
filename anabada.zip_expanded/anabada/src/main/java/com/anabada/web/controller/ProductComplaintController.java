@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.anabada.web.service.NoteService;
 import com.anabada.web.service.ProductComplaintService;
 import com.anabada.web.service.ProductService;
+import com.anabada.web.service.ReviewService;
 import com.anabada.web.vo.ComplaintVO;
 import com.anabada.web.vo.PBoardVO;
 import com.anabada.web.vo.PfileVO;
+import com.anabada.web.vo.ReviewVO;
 
 @Controller
 @RequestMapping("/pcomplaint/*")
@@ -35,6 +37,8 @@ public class ProductComplaintController {
 	ProductService productService;
 	@Inject
 	NoteService noteService;
+	@Inject
+	ReviewService reviewService;
 	
 	
 	// 중고 상품 게시판 신고 내역 불러오기 
@@ -70,8 +74,7 @@ public class ProductComplaintController {
 	  }
 	 
 	  @RequestMapping(value = "/complaintBoard" , method = RequestMethod.GET)
-		public String complaintBoard(PBoardVO pboardVO,
-				Model model , @RequestParam(value="href") String href ) throws Exception{
+		public String complaintBoard(PBoardVO pboardVO,Model model , @RequestParam(value="href") String href ) throws Exception{
 		  int pno= pboardVO.getPno();
 		  //int pno = 17;
 		  logger.info("신고 게시물 상세보기  : "+pno);
@@ -105,10 +108,26 @@ public class ProductComplaintController {
 				noteService.delete_complaint(map);
 				return true;
 				
-				
-				
-				
 			}
+	  
+	  
+	  //리뷰글 띄우기 
+	 @RequestMapping(value = "/complaintReview" , method = RequestMethod.GET)
+		public String complaintReview(ReviewVO reviewVO,
+				Model model  , @RequestParam(value="href") String href ) throws Exception{
+		 logger.info("신고 접수된 리뷰 띄우기");
+		 
+		ReviewVO review = reviewService.read(reviewVO.getR_no()); // 리뷰 가져옴
+		
+		model.addAttribute("review",review);
+		 
+		 
+		 
+		 
+		 
+		 return  "product/complaintReview";
+	 }
+	  
 		  
 		 
 		  
