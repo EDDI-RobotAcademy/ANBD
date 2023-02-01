@@ -32,4 +32,10 @@ public class ReviewDAOImpl implements ReviewDAO {
 		
 	}
 
+	//r_no에 해당하는 리뷰 반환 
+	@Override
+	public ReviewVO read(int r_no) throws Exception {
+		return sqlSession.selectOne("reviewMapper.read",r_no);
+	}
+
 }
