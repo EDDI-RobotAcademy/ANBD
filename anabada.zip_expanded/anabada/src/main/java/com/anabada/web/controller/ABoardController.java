@@ -360,4 +360,15 @@ public class ABoardController {
 		return "a_board/myWriteList";
 	}
 
+		//게시글 신고 내역 상세보기
+		@RequestMapping(value = "/complaintReadView", method = RequestMethod.GET)
+		public String complaintRead(Model model, ABoardVO boardVO, @ModelAttribute("scri") ASearchCriteria scri, HttpServletRequest req) throws Exception {
+			
+			logger.info("게시글 상세보기");
+			
+			model.addAttribute("read", service.complaintRead(boardVO.getA_bno()));
+			model.addAttribute("scri", scri);
+			
+			return "/a_board/complaintReadView";
+		}
 }
