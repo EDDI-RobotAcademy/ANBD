@@ -53,8 +53,6 @@ public interface JobService {
 
 	public int report_chk(ComplaintVO vo) throws Exception;
 
-	// 관리자 신고 삭제 관련
-	public void delete_complaint(Map<String, Object> map) throws Exception;
 
 
 	

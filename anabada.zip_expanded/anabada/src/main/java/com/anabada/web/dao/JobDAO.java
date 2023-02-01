@@ -52,8 +52,6 @@ public interface JobDAO {
 
 	public int report_chk(ComplaintVO vo) throws Exception;
 
-	// 관리자 알바 신고 내역 삭제
-	public void delete_complaint(Map<String, Object> map) throws Exception;
 
 	
 }

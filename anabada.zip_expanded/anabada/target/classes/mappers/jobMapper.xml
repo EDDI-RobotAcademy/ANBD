@@ -174,9 +174,6 @@ SELECT COUNT(COM_NUM) FROM COMPLAINT
 WHERE ID = #{id} AND BOARD_TYPE = #{board_type} AND C_BNO= #{c_bno}
 </select>
 
-<delete id="delete_complaint" parameterType="java.util.Map">
-DELETE FROM COMPLAINT WHERE C_BNO = #{c_bno} AND BOARD_TYPE = #{board_type}
-</delete>
 
 
 
