@@ -299,7 +299,6 @@ public class ProductController {
 		int pnum = pboardVO.getP_file();
 		pboardVO.setP_file(pnum - num + listnum);
 
-		// ______________________________________________________________
 		if (fileList != null) {
 			for (int i = 0; i < fileList.size(); i++) {
 				int ftotal = pnum + i + 1;
