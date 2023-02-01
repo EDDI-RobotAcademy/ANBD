@@ -26,7 +26,7 @@ $(document).ready(function() {
 	            
 	            $.ajax({
 	                    type: "get",
-	                    url : "/note/delete_admin.ajax",
+	                    url : "/pcomplaint/delete_pro",
 	                    data: {
 	                       id: '{id}',
 	                       n_bno : '${n_read.n_bno}',

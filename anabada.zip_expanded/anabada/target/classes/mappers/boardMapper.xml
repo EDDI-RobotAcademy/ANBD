@@ -106,4 +106,10 @@ INSERT INTO COMPLAINT (COM_NUM, ID, C_CONTENT, C_BNO, BOARD_TYPE)
 VALUES (COMPLAINT_SEQ.NEXTVAL, #{id}, #{c_content}, #{c_bno}, #{board_type})
 </insert>
 
+<select id="complaintRead" parameterType="int" resultType="boardVO">
+	SELECT A_BNO, A_TITLE, A_CONTENT, ID, NICK
+	FROM A_BOARD
+	WHERE A_BNO = #{a_bno}
+</select>
+
 </mapper>
