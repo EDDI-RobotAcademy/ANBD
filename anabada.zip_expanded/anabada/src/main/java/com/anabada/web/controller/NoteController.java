@@ -118,8 +118,24 @@ public class NoteController {
 			noteService.delete_receive(delete_array);
 		}
 		
-		noteService.delete_all(delete_array); // 보낸 사람, 받는 사람 둘다 삭제했으면 디비에서도 삭제
-	
+		// 양쪽에서 삭제된 쪽지들 번호를 받아옴
+		List<NoteVO> complete_delete = noteService.delete_chk(delete_array);
+		System.out.println("noteVo 객체 번호 잘받아와졌는지" + complete_delete);
+		
+		if(complete_delete.isEmpty()) { // 양쪽에서 삭제된 쪽지가 없다면
+			System.out.println("null일때는 이후 작업 안함");
+		}else {
+			noteService.delete_all(delete_array); // 보낸 사람, 받는 사람 둘다 삭제했으면 디비에서도 삭제
+			
+			int[] complaint_array = new int[complete_delete.size()]; 
+			for(int i=0; i<complete_delete.size();i++ ) {
+				complaint_array[i] = complete_delete.get(i).getN_bno();
+			}
+			
+			noteService.delete_complaint(complaint_array); // 신고내역 있다면 신고내역도 삭제
+			System.out.println("신고내역 삭제도 제대로 되지는 검사!!!");
+		}
+		
 		boolean result = true;
 		return result;
         
@@ -202,8 +218,22 @@ public class NoteController {
 		}else if(id.equals(n_receiver)){//보낸사람이랑 로그인한 회원이 같을 때 
 			noteService.delete_receive2(n_bno);
 		}
+		
+		int delete = noteService.delete_chk2(n_bno);
+		System.out.println("카운트 잘받아와졌는지" + delete); // 둘다 삭제한게 아니면 0
+		
+		if(delete > 0) { // 보낸 사람, 받는 사람 둘 다 삭제했을 때
+			noteService.delete_detail(n_bno); // 완전 삭제
 			
-		noteService.delete_detail(n_bno); // 보낸 사람, 받는 사람 둘다 삭제했으면 디비에서도 삭제
+			// 신고 내역도 삭제
+			Map<String, Object> map = new HashMap<String, Object>();
+	 		map.put("c_bno", n_bno);
+	 		map.put("board_type", "note");
+	 		
+	 		complaintService.delete_complaint(map);
+		}else { // 한쪽만 삭제한거라면
+			System.out.println("한쪽만 삭제한거라면 아무것도 안함");
+		}
 				
 		boolean result = true;
 		return result;
@@ -388,37 +418,44 @@ public class NoteController {
  		map.put("board_type", "note");
  		
  		complaintService.delete_complaint(map);
+ 		System.out.println("쪽지보낸사람이 널인지 체크" + id + "!!!!!!!!!");
  		
- 		//3) 신고게시물 작성자의 경고 횟수 조회
- 		int count = complaintService.count_caution(id);
- 		System.out.println("신고횟수: " + count);
+ 		if(id == null || id.equals("")) { // 쪽지 보낸 회원이 이미 탈퇴한 회원일때는 경고수 추가도 회원탈퇴도 시킬 필요 없음!
+ 			System.out.println("널이서 따로 할거 없음");
  		
- 		if(count < 4) { // 경고수 +1
- 			
- 			//4-1) 경고수 1추가
- 			complaintService.add_caution(id);
- 			
- 			//4-2) 경고 쪽지 보내기
- 			String content = "회원님의 쪽지는 부적접한 사유로 인해 삭제되었습니다."
- 					+ "\n회원님은 누적 경고수는 " + ++count + "입니다."
- 					+ "\n누적 경고수가 5가 되면 회원 강제 탈퇴가 이루어집니다.";
- 			
- 			Map<String, Object> map2 = new HashMap<String, Object>();
- 	 		map2.put("n_receiver", id);
- 	 		map2.put("n_content", content);
- 	 		complaintService.note_caution(map2);
- 			
- 		}else { // 5번 되면 회원 탈퇴
- 			
- 			//4-1) 강제 탈퇴할 회원의 email
- 			String email = complaintService.expel_email(id);
- 			//4-2) 회원 탈퇴
- 			complaintService.expel_member(id);
- 			//4-3) 회원 탈퇴 당한 회원 이메일 저장
- 			complaintService.insert_email(email);
- 			
- 			// 여유있으면 탈퇴당한 회원의 이메일로 강제탈퇴었다는 이메일도 보내보기!!
- 			
+ 		}else{	
+ 			//3) 신고게시물 작성자의 경고 횟수 조회
+ 	 		int count = complaintService.count_caution(id);
+ 	 		System.out.println("신고횟수: " + count);
+ 	 		
+ 	 		if(count < 4) { // 경고수 +1
+ 	 			
+ 	 			//4-1) 경고수 1추가
+ 	 			complaintService.add_caution(id);
+ 	 			
+ 	 			//4-2) 경고 쪽지 보내기
+ 	 			String content = "회원님의 쪽지는 부적접한 사유로 인해 삭제되었습니다."
+ 	 					+ "\n회원님은 누적 경고수는 " + ++count + "입니다."
+ 	 					+ "\n누적 경고수가 5가 되면 회원 강제 탈퇴가 이루어집니다.";
+ 	 			
+ 	 			Map<String, Object> map2 = new HashMap<String, Object>();
+ 	 	 		map2.put("n_receiver", id);
+ 	 	 		map2.put("n_content", content);
+ 	 	 		complaintService.note_caution(map2);
+ 	 			
+ 	 		}else { // 5번 되면 회원 탈퇴
+ 	 			
+ 	 			//4-1) 강제 탈퇴할 회원의 email
+ 	 			String email = complaintService.expel_email(id);
+ 	 			
+ 	 			//4-2) 회원 탈퇴
+ 	 			complaintService.expel_member(id);
+ 	 			//4-3) 회원 탈퇴 당한 회원 이메일 저장
+ 	 			complaintService.insert_email(email);
+ 	 			
+ 	 			// 여유있으면 탈퇴당한 회원의 이메일로 강제탈퇴었다는 이메일도 보내보기!!
+ 	 			
+ 	 		}
  		}
 				
 		boolean result = true;

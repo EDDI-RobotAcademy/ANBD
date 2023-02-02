@@ -82,12 +82,22 @@
 				<tr>
 					<td colspan="2">
 					보낸 아이디&nbsp;&nbsp;&nbsp;
+					<c:if test="${empty n_read.n_sender }">
+					(알수없음)
+					</c:if>
+					<c:if test="${not empty n_read.n_sender }">
 					${n_read.n_sender}
+					</c:if>
 					</td>
 				<tr>
 					<td colspan="2">
 					받은 아이디&nbsp;&nbsp;&nbsp;
+					<c:if test="${empty n_read.n_receiver }">
+					(알수없음)
+					</c:if>
+					<c:if test="${not empty n_read.n_receiver }">
 					${n_read.n_receiver}
+					</c:if>
 					</td>
 				</tr>
 				

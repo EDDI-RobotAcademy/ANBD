@@ -124,5 +124,23 @@ public class NoteDAOImpl implements NoteDAO{
 	}
 
 
+	@Override
+	public void delete_complaint(int[] delete_array) throws Exception {
+		sqlSession.delete("noteMapper.delete_complaint", delete_array);
+	}
+
+
+	@Override
+	public List<NoteVO> delete_chk(int[] delete_array) throws Exception {
+		return sqlSession.selectList("noteMapper.delete_chk", delete_array);
+	}
+
+
+	@Override
+	public int delete_chk2(int n_bno) throws Exception {
+		return sqlSession.selectOne("noteMapper.delete_chk2" , n_bno);
+	}
+
+
 
 }
