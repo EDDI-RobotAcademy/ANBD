@@ -18,12 +18,13 @@ public class ComplaintServiceImpl implements ComplaintService{
     ComplaintRepository repository;
 
     @Override
-    public List<Complaint> list() {
-        return repository.findAll(Sort.by(Sort.Direction.DESC, "comNum"));
+    public List<Complaint> allList() {
+
+        return repository.findAllComplaint();
     }
 
     @Override
-    public List<Complaint> joblist(String board_type) {
+    public List<Complaint> boardTypelist(String board_type) {
 
         System.out.println("보트타타타입: " + board_type);
         return repository.findAllByBoardType(board_type);
