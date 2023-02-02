@@ -371,4 +371,27 @@ public class ABoardController {
 			
 			return "/a_board/complaintReadView";
 		}
+		
+		//관리자가 신고된 게시글 삭제
+		@RequestMapping(value = "/admin_delete", method = RequestMethod.GET)
+		@ResponseBody
+		public boolean admin_delete(@RequestParam(value = "a_bno") int a_bno) throws Exception {
+
+			logger.info("관리자가 신고된 게시글 삭제");
+			
+			//신고 게시글 삭제
+			service.delete(a_bno);
+			
+			//신고 내역 삭제
+			Map<String, Object> typeBno = new HashMap<>();
+			
+			typeBno.put("c_bno", a_bno);
+			typeBno.put("board_type", "a_board");
+			
+			service.complaintDelete(typeBno);
+			
+			boolean result = true;
+			return result;
+		}
+		
 }

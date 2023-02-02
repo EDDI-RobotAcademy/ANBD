@@ -1,6 +1,7 @@
 package com.anabada.web.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -54,7 +55,7 @@ public class ABoardDAOImpl implements ABoardDAO {
 		sqlSession.update("boardMapper.update", boardVO);
 	}
 	
-	//게시글 삭제
+	//게시글 삭제, 관리자가 신고한 게시글 삭제
 	@Override
 	public void delete(int a_bno) throws Exception {
 		sqlSession.delete("boardMapper.delete", a_bno);
@@ -82,6 +83,12 @@ public class ABoardDAOImpl implements ABoardDAO {
 	@Override
 	public ABoardVO complaintRead(int a_bno) throws Exception {
 		return sqlSession.selectOne("boardMapper.complaintRead", a_bno);
+	}
+
+	//신고 내역 삭제
+	@Override
+	public void complaintDelete(Map<String, Object> typeBno) {
+		sqlSession.delete("boardMapper.complaintDelete", typeBno);
 	}
 
 }

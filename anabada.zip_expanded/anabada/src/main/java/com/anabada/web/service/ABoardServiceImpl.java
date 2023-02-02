@@ -51,7 +51,7 @@ public class ABoardServiceImpl implements ABoardService {
 		dao.update(boardVO);
 	}
 	
-	//게시글 삭제
+	//게시글 삭제, 관리자가 신고한 게시글 삭제
 	@Override
 	public void delete(int a_bno) throws Exception {
 		dao.delete(a_bno);
@@ -79,6 +79,12 @@ public class ABoardServiceImpl implements ABoardService {
 	@Override
 	public ABoardVO complaintRead(int a_bno) throws Exception {
 		return dao.complaintRead(a_bno);
+	}
+
+	//신고 내역 삭제
+	@Override
+	public void complaintDelete(Map<String, Object> typeBno) throws Exception {
+		dao.complaintDelete(typeBno);
 	}
 
 }
