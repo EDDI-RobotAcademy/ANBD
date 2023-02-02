@@ -25,7 +25,7 @@ public interface ABoardService {
 	//게시글 수정
 	public void update(ABoardVO boardVO) throws Exception;
 	
-	//게시글 삭제
+	//게시글 삭제, 관리자가 신고한 게시글 삭제
 	public void delete(int a_bno) throws Exception;
 	
 	//마이페이지 내가 작성한 글 목록 보기
@@ -39,6 +39,9 @@ public interface ABoardService {
 
 	//게시글 신고 내역 상세보기
 	public ABoardVO complaintRead(int a_bno) throws Exception;
+
+	//신고 내역 삭제
+	public void complaintDelete(Map<String, Object> typeBno) throws Exception;
 
 
 }

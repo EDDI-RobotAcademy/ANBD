@@ -107,9 +107,13 @@ VALUES (COMPLAINT_SEQ.NEXTVAL, #{id}, #{c_content}, #{c_bno}, #{board_type})
 </insert>
 
 <select id="complaintRead" parameterType="int" resultType="boardVO">
-	SELECT A_BNO, A_TITLE, A_CONTENT, ID, NICK
-	FROM A_BOARD
-	WHERE A_BNO = #{a_bno}
+SELECT A_BNO, A_TITLE, A_CONTENT, ID, NICK
+FROM A_BOARD
+WHERE A_BNO = #{a_bno}
 </select>
+
+<delete id="complaintDelete" parameterType="java.util.hashMap">
+DELETE FROM COMPLAINT WHERE BOARD_TYPE = #{a_board} AND C_BNO = #{c_bno}
+</delete>
 
 </mapper>

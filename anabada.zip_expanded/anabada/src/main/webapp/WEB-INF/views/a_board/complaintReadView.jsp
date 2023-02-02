@@ -16,6 +16,38 @@
 </style>
 <script src="//cdn.ckeditor.com/4.19.0/standard/ckeditor.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js""></script>
+<script>
+	$(function() {
+		$("button[name=delete_btn]").on("click", function() {
+			if(confirm("삭제하시겠습니까?")) {
+				$.ajax({
+					type: 'get',
+					url: '/a_board/admin_delete',
+					data: { id: '{id}', a_bno: ${read.a_bno}},
+					dataType: 'json',
+					traditional: true,
+					success: function(data) {
+						alert("게시글 삭제 완료");
+						if(${href eq 'all'}) {
+							window.opener.top.location.href = "http://localhost:8081/complaint-all-view/";
+						}
+						else if(${href eq 'a_board'}) {
+							window.opener.top.location.href = "http://localhost:8081/complaint-view/a_board";
+						}
+						
+						window.close();
+					},
+					error: function(request, status, error) {
+						alert("삭제 실패 : " + error);
+					}
+				});
+			}
+			else {
+				return;
+			}
+		});
+	});
+</script>
 </head>
 <body style="overflow-x: hidden">
 	
