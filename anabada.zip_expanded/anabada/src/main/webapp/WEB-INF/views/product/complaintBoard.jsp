@@ -22,14 +22,15 @@ $(document).ready(function() {
 	
 	  $("button[name=delete]").on("click", function () {
 	         if(confirm("삭제하시겠습니까?")){
+	        	 alert("${read.id}");
 	            
 	            
 	            $.ajax({
 	                    type: "get",
 	                    url : "/pcomplaint/delete_pro",
 	                    data: {
-	                       id: '{id}',
-	                       n_bno : '${n_read.n_bno}',
+	                       id: '${read.id}',
+	                       pno : '${read.pno}',
 	                    },
 	                    dataType :  'json',   // 데이터 타입을 Json으로 변경
 	                    traditional : true,
