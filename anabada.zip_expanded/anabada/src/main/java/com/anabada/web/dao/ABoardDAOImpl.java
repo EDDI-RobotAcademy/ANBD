@@ -85,10 +85,4 @@ public class ABoardDAOImpl implements ABoardDAO {
 		return sqlSession.selectOne("boardMapper.complaintRead", a_bno);
 	}
 
-	//신고 내역 삭제
-	@Override
-	public void complaintDelete(Map<String, Object> typeBno) {
-		sqlSession.delete("boardMapper.complaintDelete", typeBno);
-	}
-
 }
