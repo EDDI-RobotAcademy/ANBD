@@ -7,8 +7,9 @@ import java.util.List;
 
 public interface ComplaintService {
 
-    public List<Complaint> list();
-    public List<Complaint> joblist(String board_type);
+    public List<Complaint> allList();
+
+    public List<Complaint> boardTypelist(String board_type);
 
     public void deleteByParameters(String board_type, long c_bno);
 }

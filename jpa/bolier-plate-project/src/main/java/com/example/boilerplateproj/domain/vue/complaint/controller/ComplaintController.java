@@ -25,16 +25,17 @@ public class ComplaintController {
         log.info("jobList()");
         log.info("보드타입: " + board_type);
 
-        List<Complaint> job = service.joblist(board_type);
-        log.info(job.toString());
-        return job;
+        List<Complaint> boardTypeList = service.boardTypelist(board_type);
+        log.info(boardTypeList.toString());
+        return boardTypeList;
     }
 
     @GetMapping("/all/list")
     public List<Complaint> List () {
         log.info("List()");
 
-        List<Complaint> list = service.list();
+        //List<Complaint> list = service.list();
+        List<Complaint> list = service.allList();
         log.info(list.toString());
         return list;
     }
