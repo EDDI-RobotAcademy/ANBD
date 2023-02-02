@@ -273,6 +273,14 @@ public class ABoardController {
 		logger.info("게시글 삭제 완료");
 		
 		service.delete(boardVO.getA_bno());
+
+		//신고 내역 삭제
+		Map<String, Object> typeBno = new HashMap<>();
+		
+		typeBno.put("c_bno", boardVO.getA_bno());
+		typeBno.put("board_type", "a_board");
+		
+		service.complaintDelete(typeBno);
 		
 		rttr.addAttribute("page", scri.getPage());
 		rttr.addAttribute("perPageNum", scri.getPerPageNum());
