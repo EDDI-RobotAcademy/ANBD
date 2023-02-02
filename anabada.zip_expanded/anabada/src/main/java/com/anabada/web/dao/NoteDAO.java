@@ -65,8 +65,5 @@ public interface NoteDAO {
 	// 관리자가 신고쪽지 삭제
 	public void delete_admin(int n_bno) throws Exception;
 
-	// 관리자가 신고쪽지 삭제한 후 신고내역도 삭제하기 위해서 실행하는 메소드
-	public void delete_complaint(Map<String, Object> map) throws Exception;
-
 
 }

@@ -111,12 +111,6 @@ public class NoteServiceImpl implements NoteService {
 		dao.delete_admin(n_bno);
 	}
 
-	@Override
-	public void delete_complaint(Map<String, Object> map) throws Exception {
-		dao.delete_complaint(map);
-	}
-
-
 
 	
 	

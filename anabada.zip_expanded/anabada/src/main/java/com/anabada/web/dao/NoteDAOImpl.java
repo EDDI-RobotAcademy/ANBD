@@ -124,12 +124,5 @@ public class NoteDAOImpl implements NoteDAO{
 	}
 
 
-	@Override
-	public void delete_complaint(Map<String, Object> map) throws Exception {
-		sqlSession.delete("noteMapper.delete_complaint", map);
-	}
-
-
-
 
 }
