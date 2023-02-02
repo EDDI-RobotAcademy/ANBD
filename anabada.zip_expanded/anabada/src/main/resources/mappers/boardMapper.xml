@@ -112,7 +112,7 @@ FROM A_BOARD
 WHERE A_BNO = #{a_bno}
 </select>
 
-<delete id="complaintDelete" parameterType="java.util.hashMap">
+<delete id="complaintDelete" parameterType="java.util.HashMap">
 DELETE FROM COMPLAINT WHERE BOARD_TYPE = #{a_board} AND C_BNO = #{c_bno}
 </delete>
 
