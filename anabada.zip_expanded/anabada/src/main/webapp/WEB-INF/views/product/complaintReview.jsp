@@ -26,10 +26,10 @@ $(document).ready(function() {
 	            
 	            $.ajax({
 	                    type: "get",
-	                    url : "/pcomplaint/delete_pro",
+	                    url : "/pcomplaint/deleteReview",
 	                    data: {
-	                       id: '{id}',
-	                       n_bno : '${n_read.n_bno}',
+	                       id: '${review.r_consumer}',
+	                       r_no : '${review.r_no}',
 	                    },
 	                    dataType :  'json',   // 데이터 타입을 Json으로 변경
 	                    traditional : true,

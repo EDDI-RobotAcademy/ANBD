@@ -38,4 +38,10 @@ public class ReviewDAOImpl implements ReviewDAO {
 		return sqlSession.selectOne("reviewMapper.read",r_no);
 	}
 
+	//리뷰 삭제 
+	@Override
+	public void delete(int r_no) throws Exception {
+		sqlSession.delete("reviewMapper.delete",r_no);
+	}
+
 }

@@ -14,4 +14,7 @@ public interface ReviewDAO {
 	//r_no에 해당하는 리뷰 반환 
 	ReviewVO read(int r_no) throws Exception;
 
+	//리뷰 삭제 
+	void delete(int r_no) throws Exception;
+
 }

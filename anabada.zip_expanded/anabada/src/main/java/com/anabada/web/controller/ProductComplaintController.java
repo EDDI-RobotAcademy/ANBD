@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.anabada.web.service.ComplaintService;
 import com.anabada.web.service.NoteService;
@@ -92,6 +93,7 @@ public class ProductComplaintController {
 	  
 	  
 	  @RequestMapping(value = "/delete_pro" , method = RequestMethod.GET)
+	  @ResponseBody
 	  public boolean deleteProduct(@RequestParam(value = "pno")int pno,@RequestParam(value = "id")String id  )throws Exception {
 		  logger.info("관리자가 게시글 삭제");
 		  System.out.println("확인123 ㅡ   pno : "+pno + ", id : "+id);
@@ -113,7 +115,9 @@ public class ProductComplaintController {
 				complaintService.add_caution(id); // 경고 1회 
 				
 				
-				return true;
+				boolean result = true;
+				 
+				 return result;
 				
 			}
 	  
@@ -123,25 +127,36 @@ public class ProductComplaintController {
 		public String complaintReview(ReviewVO reviewVO,
 				Model model  , @RequestParam(value="href") String href ) throws Exception{
 		 logger.info("신고 접수된 리뷰 띄우기");
-		 
 		ReviewVO review = reviewService.read(reviewVO.getR_no()); // 리뷰 가져옴
-		
 		model.addAttribute("review",review);
-		 
-		 
-		 
-		 
-		 
 		 return  "product/complaintReview";
 	 }
+	 
+	 
+	 //관리자가 리뷰 삭제 
+	 @RequestMapping(value = "/deleteReview" , method = RequestMethod.GET)
+	 @ResponseBody
+	 public boolean deleteReview(@RequestParam(value = "id")String id, @RequestParam(value = "r_no")int r_no) throws Exception{
+		 logger.info("admin review delete");
+		 
+		 //리뷰 삭제 
+		 reviewService.delete(r_no); 
+		 //신고 내역 삭제 
+		 Map<String, Object> map = new HashMap<String, Object>();
+		 map.put("c_bno", r_no);
+		 map.put("board_type", "review");
+		 complaintService.delete_complaint(map);
+		 //신고 당한 회원에게 경고 1회 
+		complaintService.add_caution(id);  
+		
+		boolean result = true;
+		 
+		 return result;
+	 }
+	 
 	  
 		  
 		 
-		  
-		  
-		  
-	  
-	  
 	  
 		public void deleteRealImg(String filePath) {
 			String realPath = filePath.substring(11);

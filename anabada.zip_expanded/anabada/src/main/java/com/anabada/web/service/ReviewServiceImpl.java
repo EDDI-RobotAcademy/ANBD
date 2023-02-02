@@ -37,4 +37,10 @@ public class ReviewServiceImpl implements ReviewService {
 		return dao.read(r_no);
 	}
 
+	//리뷰 삭제 
+	@Override
+	public void delete(int r_no) throws Exception {
+		dao.delete(r_no);
+	}
+
 }
