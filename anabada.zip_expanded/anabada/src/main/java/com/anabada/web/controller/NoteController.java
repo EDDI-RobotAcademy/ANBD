@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.anabada.web.service.ComplaintService;
 import com.anabada.web.service.EventService;
 import com.anabada.web.service.NoteService;
 import com.anabada.web.service.ProductService;
@@ -49,6 +50,9 @@ public class NoteController {
 	
 	@Inject
 	EventService eventService;
+	
+	@Inject
+	ComplaintService complaintService;
 
 	// 쪽지보내는 ajax
 	@RequestMapping(value="/note_insert.ajax", method = RequestMethod.GET)
@@ -368,19 +372,43 @@ public class NoteController {
  		return "/note/complaint_note";
  	}
  	
+ 	// 관리자가 신고 쪽지 삭제눌렀음
  	@RequestMapping(value = "/delete_admin.ajax", method =RequestMethod.GET)
 	@ResponseBody
-	public boolean delete_admin(@RequestParam(value="n_bno") int n_bno) throws Exception{
+	public boolean delete_admin(@RequestParam(value="n_bno") int n_bno, @RequestParam(value="id") String id) throws Exception{
 			
 		logger.info("관리자가 신고 쪽지 삭제 눌렀음"); 
 		
+		//1) 신고쪽지 자체를 삭제
 		noteService.delete_admin(n_bno); // 관리자가 신고쪽지 삭제
 		
+		//2) 신고내역도 삭제
 		Map<String, Object> map = new HashMap<String, Object>();
  		map.put("c_bno", n_bno);
  		map.put("board_type", "note");
  		
- 		noteService.delete_complaint(map);
+ 		complaintService.delete_complaint(map);
+ 		
+ 		//3) 신고게시물 작성자의 경고 횟수 조회
+ 		int count = complaintService.count_caution(id);
+ 		System.out.println("신고횟수: " + count);
+ 		
+ 		if(count < 4) { // 경고수 +1
+ 			
+ 			//4-1) 경고수 1추가
+ 			complaintService.add_caution(id);
+ 			
+ 			//4-2) 경고 쪽지 보내기
+ 			String content = "회원님의 쪽지는 부적접한 사유로 인해 삭제되었습니다."
+ 					+ "\n회원님은 누적 경고수는 " + ++count + "입니다."
+ 					+ "\n누적 경고수가 5가 되면 회원 강제 탈퇴가 이루어집니다.";
+ 			
+ 			Map<String, Object> map2 = new HashMap<String, Object>();
+ 	 		map2.put("n_receiver", id);
+ 	 		map2.put("n_content", content);
+ 	 		complaintService.note_caution(map2);
+ 			
+ 		}
 				
 		boolean result = true;
 		return result;

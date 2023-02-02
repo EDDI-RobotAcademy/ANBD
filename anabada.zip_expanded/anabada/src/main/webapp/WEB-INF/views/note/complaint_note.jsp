@@ -27,7 +27,7 @@
 				        url : "/note/delete_admin.ajax",
 				        data: {
 				        	id: '${n_read.n_sender}',
-				        	n_bno : '${n_read.n_bno}',
+				        	n_bno : ${n_read.n_bno},
 				        },
 				        dataType :  'json',   // 데이터 타입을 Json으로 변경
 				        traditional : true,

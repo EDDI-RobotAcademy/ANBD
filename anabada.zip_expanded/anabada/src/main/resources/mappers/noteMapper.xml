@@ -122,8 +122,4 @@ SELECT COUNT(ID) FROM A_MEMBER WHERE ID = #{id}
 DELETE FROM NOTE WHERE N_BNO = #{n_bno}
 </delete>
 
-<delete id="delete_complaint" parameterType="java.util.Map">
-DELETE FROM COMPLAINT WHERE C_BNO = #{c_bno} AND BOARD_TYPE = #{board_type}
-</delete>
-
 </mapper>
