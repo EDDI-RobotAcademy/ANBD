@@ -34,6 +34,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.anabada.web.service.ABoardService;
 import com.anabada.web.service.ALikeService;
 import com.anabada.web.service.AReplyService;
+import com.anabada.web.service.ComplaintService;
 import com.anabada.web.vo.ABoardVO;
 import com.anabada.web.vo.ALikeVO;
 import com.anabada.web.vo.APageMaker;
@@ -55,6 +56,9 @@ public class ABoardController {
 	
 	@Inject
 	ALikeService likeService;
+	
+	@Inject
+	ComplaintService complaintService;
 	
 	// 게시판글 작성 화면
 	// 리턴값이랑 경로랑 같다면 안적어줘도 됨
@@ -275,12 +279,12 @@ public class ABoardController {
 		service.delete(boardVO.getA_bno());
 
 		//신고 내역 삭제
-		Map<String, Object> typeBno = new HashMap<>();
+		Map<String, Object> map = new HashMap<>();
 		
-		typeBno.put("c_bno", boardVO.getA_bno());
-		typeBno.put("board_type", "a_board");
+		map.put("c_bno", boardVO.getA_bno());
+		map.put("board_type", "a_board");
 		
-		service.complaintDelete(typeBno);
+		complaintService.delete_complaint(map);
 		
 		rttr.addAttribute("page", scri.getPage());
 		rttr.addAttribute("perPageNum", scri.getPerPageNum());
@@ -391,12 +395,12 @@ public class ABoardController {
 			service.delete(a_bno);
 			
 			//신고 내역 삭제
-			Map<String, Object> typeBno = new HashMap<>();
+			Map<String, Object> map = new HashMap<>();
 			
-			typeBno.put("c_bno", a_bno);
-			typeBno.put("board_type", "a_board");
+			map.put("c_bno", a_bno);
+			map.put("board_type", "a_board");
 			
-			service.complaintDelete(typeBno);
+			complaintService.delete_complaint(map);
 			
 			boolean result = true;
 			return result;

@@ -1,6 +1,5 @@
 package com.anabada.web.service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -79,12 +78,6 @@ public class ABoardServiceImpl implements ABoardService {
 	@Override
 	public ABoardVO complaintRead(int a_bno) throws Exception {
 		return dao.complaintRead(a_bno);
-	}
-
-	//신고 내역 삭제
-	@Override
-	public void complaintDelete(Map<String, Object> typeBno) throws Exception {
-		dao.complaintDelete(typeBno);
 	}
 
 }
