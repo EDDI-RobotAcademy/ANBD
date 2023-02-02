@@ -408,6 +408,17 @@ public class NoteController {
  	 		map2.put("n_content", content);
  	 		complaintService.note_caution(map2);
  			
+ 		}else { // 5번 되면 회원 탈퇴
+ 			
+ 			//4-1) 강제 탈퇴할 회원의 email
+ 			String email = complaintService.expel_email(id);
+ 			//4-2) 회원 탈퇴
+ 			complaintService.expel_member(id);
+ 			//4-3) 회원 탈퇴 당한 회원 이메일 저장
+ 			complaintService.insert_email(email);
+ 			
+ 			// 여유있으면 탈퇴당한 회원의 이메일로 강제탈퇴었다는 이메일도 보내보기!!
+ 			
  		}
 				
 		boolean result = true;
