@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.anabada.web.service.ComplaintService;
 import com.anabada.web.service.NoteService;
 import com.anabada.web.service.ProductComplaintService;
 import com.anabada.web.service.ProductService;
@@ -36,7 +37,7 @@ public class ProductComplaintController {
 	@Inject
 	ProductService productService;
 	@Inject
-	NoteService noteService;
+	ComplaintService complaintService;
 	@Inject
 	ReviewService reviewService;
 	
@@ -91,9 +92,11 @@ public class ProductComplaintController {
 	  
 	  
 	  @RequestMapping(value = "/delete_pro" , method = RequestMethod.GET)
-	  public boolean deleteProduct(@RequestParam(value = "pno")int pno )throws Exception {
+	  public boolean deleteProduct(@RequestParam(value = "pno")int pno,@RequestParam(value = "id")String id  )throws Exception {
 		  logger.info("관리자가 게시글 삭제");
+		  System.out.println("확인123 ㅡ   pno : "+pno + ", id : "+id);
 		  
+		  //서버 사진 삭제 
 		  List<PfileVO> filelist = productService.filelist(pno);
 				for (PfileVO vo : filelist) {
 					deleteRealImg(vo.getFilepath());
@@ -105,7 +108,11 @@ public class ProductComplaintController {
 				Map<String, Object> map = new HashMap<String,Object>();
 				map.put("c_bno", pno);
 				map.put("board_type", "pboard");
-				noteService.delete_complaint(map);
+				complaintService.delete_complaint(map);
+				// 신고당한 회원에게 경고 1회 날리기 
+				complaintService.add_caution(id); // 경고 1회 
+				
+				
 				return true;
 				
 			}
