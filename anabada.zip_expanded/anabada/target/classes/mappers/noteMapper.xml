@@ -57,7 +57,7 @@ WHERE N_BNO IN(
 </update>
 
 <update id="delete_receive" parameterType="java.util.ArrayList">
-UPDATE NOTE SET R_DELETE_CHK = 0
+UPDATE NOTE SET N_R_DELETE_CHK = 0
 WHERE N_BNO IN(
 	<foreach collection="array" item="item" index="index" separator=",">
        #{item}
@@ -67,7 +67,8 @@ WHERE N_BNO IN(
 
 
 <delete id="delete_all" parameterType="java.util.ArrayList">
-DELETE FROM NOTE WHERE ((N_R_DELETE_CHK = 0 AND N_S_DELETE_CHK = 0) OR (N_SENDER IS NULL AND N_RECEIVER IS NULL))
+DELETE FROM NOTE WHERE ((N_R_DELETE_CHK = 0 AND N_S_DELETE_CHK = 0) OR (N_SENDER IS NULL AND N_RECEIVER IS NULL)
+	OR (N_R_DELETE_CHK = 0 AND N_SENDER IS NULL) OR (N_S_DELETE_CHK = 0 AND N_RECEIVER IS NULL))
 AND N_BNO IN(
 	<foreach collection="array" item="item" index="index" separator=",">
        #{item}
@@ -87,8 +88,7 @@ WHERE N_BNO = #{n_bno}
 </update>
 
 <delete id="delete_detail" parameterType="int">
-DELETE FROM NOTE WHERE ((N_R_DELETE_CHK = 0 AND N_S_DELETE_CHK = 0) OR (N_SENDER IS NULL AND N_RECEIVER IS NULL))
-AND N_BNO = #{n_bno}
+DELETE FROM NOTE WHERE N_BNO = #{n_bno}
 </delete>
 
 <select id="get_members" parameterType="java.util.Map" resultType="java.lang.String">
@@ -121,5 +121,31 @@ SELECT COUNT(ID) FROM A_MEMBER WHERE ID = #{id}
 <delete id="delete_admin" parameterType="int">
 DELETE FROM NOTE WHERE N_BNO = #{n_bno}
 </delete>
+
+<delete id="delete_complaint" parameterType="java.util.ArrayList">
+DELETE FROM COMPLAINT WHERE BOARD_TYPE = 'note'
+AND C_BNO IN(
+	<foreach collection="array" item="item" index="index" separator=",">
+       #{item}
+    </foreach>
+)
+</delete>
+
+<select id="delete_chk" parameterType="java.util.ArrayList" resultType="NoteVO">
+SELECT N_BNO FROM NOTE WHERE ((N_R_DELETE_CHK = 0 AND N_S_DELETE_CHK = 0) OR (N_SENDER IS NULL AND N_RECEIVER IS NULL)
+	OR (N_R_DELETE_CHK = 0 AND N_SENDER IS NULL) OR (N_S_DELETE_CHK = 0 AND N_RECEIVER IS NULL)
+)
+AND N_BNO IN(
+	<foreach collection="array" item="item" index="index" separator=",">
+       #{item}
+    </foreach>
+)
+</select>
+
+<select id="delete_chk2" parameterType="int" resultType="int">
+SELECT COUNT(N_BNO) FROM NOTE WHERE ((N_R_DELETE_CHK = 0 AND N_S_DELETE_CHK = 0) OR (N_SENDER IS NULL AND N_RECEIVER IS NULL)
+	OR (N_R_DELETE_CHK = 0 AND N_SENDER IS NULL) OR (N_S_DELETE_CHK = 0 AND N_RECEIVER IS NULL)
+)AND N_BNO = #{n_bno}
+</select>
 
 </mapper>

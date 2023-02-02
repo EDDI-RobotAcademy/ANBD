@@ -111,6 +111,21 @@ public class NoteServiceImpl implements NoteService {
 		dao.delete_admin(n_bno);
 	}
 
+	@Override
+	public void delete_complaint(int[] delete_array) throws Exception {
+		dao.delete_complaint(delete_array);
+	}
+
+	@Override
+	public List<NoteVO> delete_chk(int[] delete_array) throws Exception {
+		return dao.delete_chk(delete_array);
+	}
+
+	@Override
+	public int delete_chk2(int n_bno) throws Exception {
+		return dao.delete_chk2(n_bno);
+	}
+
 
 	
 	

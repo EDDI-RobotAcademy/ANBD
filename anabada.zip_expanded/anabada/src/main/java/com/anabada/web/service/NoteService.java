@@ -64,4 +64,13 @@ public interface NoteService {
 	// 관리자가 신고 쪽지 삭제
 	public void delete_admin(int n_bno) throws Exception;
 
+	// 쪽지 양쪽 모두가 삭제했을 때 신고내역이 있다면 신고내역도 삭제
+	public void delete_complaint(int[] delete_array) throws Exception;
+
+	// 신고내역도 삭제하기 위해서 쪽지가 보내는쪽, 받는 쪽 둘다에서 삭제됐는지 체크(쪽지 목록에서 삭제할때)
+	public List<NoteVO> delete_chk(int[] delete_array) throws Exception;
+
+	// 신고내역도 삭제하기 위해서 쪽지가 보내는 쪽, 받는 쪽 둘다에서 삭제됐는지 체크(쪽지 상세보기에서 삭제할 때)
+	public int delete_chk2(int n_bno) throws Exception;
+
 }
