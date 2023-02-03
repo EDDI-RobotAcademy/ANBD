@@ -52,6 +52,9 @@ public interface JobDAO {
 
 	public int report_chk(ComplaintVO vo) throws Exception;
 
+	// 마이페이지 신고삭제 관련
+	public void delete_complaint(int[] delete_array) throws Exception;
+
 
 	
 }

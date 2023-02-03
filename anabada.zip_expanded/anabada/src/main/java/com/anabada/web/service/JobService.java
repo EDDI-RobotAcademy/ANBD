@@ -53,6 +53,9 @@ public interface JobService {
 
 	public int report_chk(ComplaintVO vo) throws Exception;
 
+	// 마이페이지에서 게시물 삭제할때 신고내역도 있으면 삭제하는거
+	public void delete_complaint(int[] delete_array) throws Exception;
+
 
 
 	

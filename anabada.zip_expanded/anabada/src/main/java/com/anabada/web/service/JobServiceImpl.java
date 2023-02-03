@@ -136,6 +136,12 @@ public class JobServiceImpl implements JobService {
 		return dao.report_chk(vo);
 	}
 
+	// 마이페이지에서 삭제할 때 신고내역이 있다면 삭제하는 메소드
+	@Override
+	public void delete_complaint(int[] delete_array) throws Exception {
+		dao.delete_complaint(delete_array);
+	}
+
 	
 
 
