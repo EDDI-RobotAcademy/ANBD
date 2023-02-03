@@ -45,6 +45,17 @@
 	--bs-btn-disabled-bg: #a1a5a9; 
 	--bs-btn-disabled-border-color: #a1a5a9;
 }
+.searchBox{
+width: 400px;
+margin: auto;
+
+
+}
+.textBox{
+
+width : 300px;
+margin: auto;
+}
 </style>
 </head>
 <body>
@@ -65,6 +76,7 @@
 		<jsp:include page="../includes/eventNav.jsp" />
 	</div> 
 
+<div class="searchBox" >
 			<!-- 검색 기능 -->
 			<div class="input-group mb-3" id="keywordBox">
 				<span class="input-group-text" id="basic-addon1">제 목</span> <input type="text" id="keywordInput" class="form-control" placeholder="검색어를 입력하세요 ">
@@ -73,20 +85,26 @@
 
 
 
-			<div class="isotope_fillter">
-				<ul class="gallery_filter list">
+			<div class="isotope_fillter textBox "  >
+			
+				<ul class="gallery_filter list"  >
 					<li class="active" data-filter="*"><a href="#">All</a></li>
 					<li class="active" data-filter=".ing"><a href="#">진행중인 이벤트</a></li>
 					<li class="active" data-filter=".end"><a href="#">완료된 이벤트</a></li>
 
 				</ul>
-				<div style="text-align: right;">
+				
+				
+			</div>
+			</div>
+			<div style="text-align: right;">
 					<c:if test="${id == 'admin'}">
-						<button onclick="location.href='/event/writeView'">이벤트 등록</button>
+						<button  type="button" class="btn btn-outline-primary"   onclick="location.href='/event/writeView'">이벤트 등록</button>
 					</c:if>
 				</div>
-			</div>
 		</div>
+		
+		<br>  <br>  <br>
 
 		<div class="container">
 			<div  style="width: 1200px; margin: auto; "  class="gallery_f_inner row imageGallery1">

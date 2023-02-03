@@ -219,6 +219,7 @@ ul {
 
 #reviewBox {
 	margin-top: 70px;
+	margin-bottom: 70px;
 }
 
 #reviewBox td {
@@ -269,6 +270,19 @@ ul {
 #alarm {
 	background: no-repeat;
 	border: none;
+}
+.n_btn1{
+
+width: 200px;
+height: 50px;
+font-weight: bold;
+font-size: 20px;
+
+
+}
+#btnDiv{
+
+margin-left: 60px;
 }
 </style>
 <script type="text/javascript">
@@ -830,7 +844,7 @@ function complaint() {
 
 	<!-- header end -->
 
-	<div id="wapper">
+	<div id="wapper"  >
 		<section class="nav"></section>
 		<section class="section" style="border-top: 1px solid #e5e5e5">
 
@@ -1002,9 +1016,9 @@ function complaint() {
 
 
 						<td colspan="3"><c:if test="${read.id != id }">
-								<div>
+								<div id="btnDiv" >
 
-									<button type="button" name="n_send" class="n_btn1" style="display: block; margin: auto;">쪽지 보내기</button>
+									<button type="button" name="n_send" class="n_btn1 btn btn-outline-secondary " style="display: block; margin: auto;">쪽지 보내기</button>
 								</div>
 							</c:if> <c:if test="${read.id == id }">
 								<br>
@@ -1072,7 +1086,7 @@ function complaint() {
 
 
 				<!-- 상품 상세 설명  및 구매자 후기 -->
-				<table id="reviewBox">
+				<table id="reviewBox"  >
 					<tr>
 						<td>
 							<div class="reBox">상 품 상 태</div>
@@ -1203,10 +1217,10 @@ function complaint() {
 
 
 
-	<!-- footer -->
-	<div id="footer">
 
-		<div id="footer">
+	<!-- footer -->
+	<div id="footer"  >
+		<div id="footer"  >
 			<jsp:include page="../includes/footer.jsp" />
 		</div>
 	</div>

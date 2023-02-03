@@ -31,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.anabada.web.service.ComplaintService;
 import com.anabada.web.service.NoteService;
 import com.anabada.web.service.ProductComplaintService;
 import com.anabada.web.service.ProductService;
@@ -44,8 +45,7 @@ import com.anabada.web.vo.ReviewVO;
 import com.anabada.web.vo.SearchCriteriapro;
 import com.anabada.web.vo.SimilerVO;
 import com.fasterxml.jackson.databind.util.JSONPObject;
-//import com.google.gson.JsonArray;
-//import com.google.gson.JsonObject;
+
 
 @Controller
 @RequestMapping("/product/*")
@@ -59,6 +59,8 @@ public class ProductController {
 	ProductService service;
 	@Inject
 	NoteService noteService;
+	@Inject
+	ComplaintService comService;
 
 	@Inject
 	ProductComplaintService complaintService;
@@ -246,6 +248,13 @@ public class ProductController {
 		}
 		service.delete(pno); // 게시글 삭제
 		// 관계 설정때문에 db에서 글삭제시 이미지 테이블에서 이미지도 삭제됨
+		//게시글 삭제시 해당 게시글에 대한 신고 내역 삭제 
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("board_type", "pboard");
+		map.put("c_bno", pno);
+		comService.delete_complaint(map);
+		
+		
 
 		rttr.addAttribute("page", scri.getPage());
 		rttr.addAttribute("keyword", scri.getKeyword());

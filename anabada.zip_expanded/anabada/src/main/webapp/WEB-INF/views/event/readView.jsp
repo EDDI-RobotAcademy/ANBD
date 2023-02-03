@@ -135,7 +135,7 @@ border-radius: 20px;
 	
 	
 	<section class="home_gallery_area p_120"    style="padding-top: 30px; padding-bottom: 10px;" >
-		<div class="container">
+		<div class="container" onclick="location.href='/event/list'" >
 			<div class="main_title">
 				<h2>🌎아나바다와 함께하는 이벤트🌎</h2>
 				<p>Our One Step for the Environment</p>
@@ -178,7 +178,7 @@ border-radius: 20px;
 					<div class="banner_content">
 						<div class="media">
 							<!-- 슬라이드 구현 -->
-							<div class="single-item" id="slick" style="width: 500px; height: 500px;">
+							<div class="single-item" id="slick" style="width: 500px; height: 500px; margin-left:10px; margin-right: 20px;">
 								<c:choose>
 									<c:when test="${ empty filelist }">
 										<div class="d-flex" style="width: 500px;">
