@@ -50,9 +50,14 @@ font {
 input[type='file'] {
 	display: inline;
 }
-img{
-width: 150px; height: 150px;
+.banner{
+
+ padding-top: 30px; padding-bottom: 10px;
+text-align: center;
+margin-bottom: 50px;
+
 }
+
 </style>
 
 </head>
@@ -207,12 +212,12 @@ width: 150px; height: 150px;
 	<div>
 		<jsp:include page="../includes/nav.jsp" />
 	</div>
+
 	
 	
-	
-	<section class="home_gallery_area p_120"    style="padding-top: 30px; padding-bottom: 10px;" >
-		<div class="container">
-			<div class="main_title">
+	<section class="home_gallery_area p_120 banner "     >
+		<div class="container" onclick="location.href='/event/list'" >
+			<div class="main_title"  >
 				<h2>🌎아나바다와 함께하는 이벤트🌎</h2>
 				<p>Our One Step for the Environment</p>
 			</div>
@@ -230,12 +235,12 @@ width: 150px; height: 150px;
 	
 
 
-
-	<form name="editForm" enctype="multipart/form-data" method="post">
-		<input name="eno" type="hidden" value="${update.eno }"> <input id="dlist" name="dlist" type="text" value="">
+<div style="width: 1000px;   margin: auto; margin-top: 30px; " >
+	<form name="editForm" enctype="multipart/form-data" method="post"   >
+		<input name="eno" type="hidden" value="${update.eno }"> <input id="dlist" name="dlist" type="hidden" value="">
 		<table style="margin-left: auto; margin-right: auto;">
 			<tr>
-				<th colspan="5">이벤트 게시판</th>
+				<th colspan="5" style="font-size: 20px;" >이벤트 게시판</th>
 			</tr>
 			<tr>
 				<td colspan="5" style="text-align: right;">
@@ -266,12 +271,12 @@ width: 150px; height: 150px;
 
 		</table>
 
-		<table style="margin-left: auto; margin-right: auto;" >
+		<table  style="margin-left: 40px;" >
 			<tr>
 				<td><c:forEach items="${filelist }" var="filelist">
 
 						<div style="display: inline-block;" id="${filelist.efno }">
-							<img src="${filelist.filepath }">
+							<img src="${filelist.filepath }"  width="150px;" height="150px;" >
 							<button type="button" class="imgbtn" value="${filelist.efno }">삭제</button>
 						</div>
 					</c:forEach></td>
@@ -302,6 +307,7 @@ width: 150px; height: 150px;
 
 
 	</form>
+	</div>
 
 
 
