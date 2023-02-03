@@ -32,6 +32,7 @@ import com.anabada.web.vo.JobCriteria;
 import com.anabada.web.vo.JobPageMaker;
 import com.anabada.web.vo.JobSearchCriteria;
 import com.anabada.web.vo.JobVO;
+import com.anabada.web.vo.NoteVO;
 import com.anabada.web.vo.ResumeVO;
 
 @Controller
@@ -219,7 +220,14 @@ public class JobController {
 			System.out.println("파일 경로:"+"C:\\upload\\"+j_image);
 			file.delete();
 		}
-				
+		
+		// 신고내역 있다면 삭제
+ 		Map<String, Object> map = new HashMap<String, Object>();
+ 		map.put("c_bno", vo.getJ_bno());
+ 		map.put("board_type", "job");
+ 		
+ 		complaintService.delete_complaint(map);
+		
 		return "redirect:/job/job_list"; // 임의
 		// 게시판 기본 상태로 돌아감
 	}
@@ -252,7 +260,6 @@ public class JobController {
 
 		return hlist;
 	}
-	
 	
 	
 	
@@ -299,6 +306,9 @@ public class JobController {
 		jobService.my_jobDelete(delete_array); // 마이페이지 게시물들 번호 배열로 받아서 삭제
 		logger.info("삭제 성공");
 		
+		// 신고내역있다면 삭제
+		jobService.delete_complaint(delete_array);
+					
 		boolean result = true;
 		return result;
 	}

@@ -138,6 +138,12 @@ public class JobDAOImpl implements JobDAO{
 	public int report_chk(ComplaintVO vo) throws Exception {
 		return sqlSession.selectOne("jobMapper.report_chk", vo);
 	}
+
+	// 마이페이지에서 게시물 삭제할 때 신고내역도 있으면 삭제하는 쿼리
+	@Override
+	public void delete_complaint(int[] delete_array) throws Exception {
+		sqlSession.delete("jobMapper.delete_complaint", delete_array);
+	}
 	
 	
 
