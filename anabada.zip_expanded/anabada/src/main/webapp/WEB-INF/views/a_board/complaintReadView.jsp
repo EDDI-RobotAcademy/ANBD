@@ -19,11 +19,13 @@
 <script>
 	$(function() {
 		$("button[name=delete_btn]").on("click", function() {
-			if(confirm("삭제하시겠습니까?")) {
+			
+			if(confirm("게시글을 삭제하시겠습니까?")) {
+				
 				$.ajax({
 					type: 'get',
 					url: '/a_board/admin_delete',
-					data: { id: '{id}', a_bno: ${read.a_bno}},
+					data: { id: '${read.id}', a_bno: ${read.a_bno}},
 					dataType: 'json',
 					traditional: true,
 					success: function(data) {
@@ -84,7 +86,7 @@
 		</div>
 		
 		<div>
-			<button type="button" class="delete_btn">삭제</button> &nbsp;
+			<button type="button" name="delete_btn">삭제</button>
 		</div>
 </section>
 	
