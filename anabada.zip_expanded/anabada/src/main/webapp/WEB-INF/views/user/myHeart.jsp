@@ -22,14 +22,17 @@
 	font-size: 13px;
 }
 
-.rowStyle {
-	background-color: #E1E1E1;
-	height: 2px;
-	width: 600px;
-	border: none;
-	margin-bottom: 0px;
-	margin-top: 0px;
+
+.row_hr{
+margin-bottom: 0px;
+margin-top: 0px;
+
 }
+.tr_data {
+margin-bottom: 30px;
+
+}
+
 
 .infoTable {
 	width: 800px;
@@ -38,12 +41,14 @@
 #totalTable {
 	border-collapse: separate;
 	border-spacing: 0px 0px;
+	
+	
 }
 
 .headTr {
-	background-color: #B6B4B5;
-	color: white;
+	font-weight:bold;
 	text-align: left;
+	
 }
 
 #userBK {
@@ -64,6 +69,12 @@
 	background-color: #F2F2F2;
 	padding-top: 10px;
 	padding-bottom: 10px;
+}
+#title{
+margin-left:20px;
+font-weight: bold;
+
+
 }
 </style>
 
@@ -159,45 +170,22 @@
 		
 
 <div  style="width: 1200px;  margin: auto; " >
-	<div class="sidemenu2">
-				<p class="side-t">회원정보</p>
-				<ul class="side-ul">
-					<br>
-					<li class="side-li"><a href="/member/memberUpdateView">내 정보 관리</a></li>
-					<li class="side-li"><a href="/member/passUpdateView">비밀번호 변경</a></li>
-					<br><hr><br>
-					<li class="side-li"><a href="/userProduct/myStore"  >내 상점 보기</a></li>
-					<li class="side-li"> <a href="/userProduct/myHeartList" style="color:#0C6BBC; font-weight: bold;" >내 찜 목록 보기</a> </li>
-					<li class="side-li">참여한 이벤트</li>
-					<br><hr><br>
-					<li class="side-li"><a href="/a_board/myWriteList">내가 쓴 게시글</a></li>
-					<li class="side-li">내가 쓴 댓글</li>
-					<br><hr><br>
-					<li class="side-li"><a href="/job/my_job">아르바이트 공고</a></li>
-					<li class="side-li"><a href="/resume/my_resume">아르바이트 지원</a></li>
-					<li class="side-li"><a href="/job/my_heart">아르바이트 찜</a></li>
-					<br><hr><br>
-					<li class="side-li">나의 걸음수</li>
-					<br><hr><br>
-					<li class="side-li"><a href="/member/memberDeleteView">회원 탈퇴</a></li>
-				</ul>
-			</div>
+	
 
 
-
+<jsp:include page="../includes/myPageHeader.jsp" />
 
 
 <div class="minicon"  style="float: left;" >
 
-	<form action="">
+<span id="title" >나의 찜목록</span>
+	<form style="margin-top: 30px;"  action="">
 
 		<table style="margin: auto; width: 802px;" id="totalTable">
 
-			<tr>
-				<td colspan="7" style="padding-right: 15px;" ><button type="button" id="delbtn" style="float: right;"  >삭제</button>  </td>
-			</tr>
+			
 			<tr class="headTr">
-				<td colspan="7"><input type="checkbox" id="delete_all"  name="delete_all"  > 전체 선택      </td>
+				<td colspan="7"><input type="checkbox" id="delete_all"  name="delete_all"  > 전체 선택  <button type="button" id="delbtn" style="float: right;" class="btn btn-light"   >삭제</button>   <hr>  </td>
 
 			</tr>
 			<c:if test="${list == null }">
@@ -209,11 +197,11 @@
 			<!-- 반복 -->
 
 			<c:forEach items="${list }" var="list">
-				<tr>
+				<tr onmouseover="this.style.backgroundColor = '#E1E1E1' " onmouseout="this.style.backgroundColor = ''"  class="tr_data" >
 					<td width="40px;"><input type="checkbox" name="deletes" value="${list.pno}"  onclick='checkSelectAll()'  ></td>
 
-					<td colspan="6">
-						<table class="infoTable" onclick="location.href='/product/readView?pno=${list.pno}'" onmouseover="this.style.backgroundColor = '#E1E1E1' " onmouseout="this.style.backgroundColor = ''">
+					<td colspan="6"  >
+						<table class="infoTable" onclick="location.href='/product/readView?pno=${list.pno}'"  >
 
 							<tr>
 
@@ -238,7 +226,9 @@
 				</tr>
 				<tr>
 					<td colspan="7">
-						<hr class="rowStyle">
+					
+					<hr class="row_hr" >
+					
 					</td>
 				</tr>
 
