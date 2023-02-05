@@ -180,7 +180,7 @@
 					
 				} else if (!getTel.test($("#tel").val())) {
 					$("#telChk").attr("style", "color:#FF0000; padding-left: 5px;");
-					$("#telChk").text("숫자만 입력해 주세요.");
+					$("#telChk").text("10~11자의 숫자만 입력해 주세요.");
 					telOk = false;
 					
 				} else {
@@ -342,24 +342,6 @@ button:disabled, button[disabled] {
 					<div>
 						<font id="mailChk" size="2"></font>
 					</div>
-				</div>
-				
-				<div class="mt-22">
-					<label class="reg-font" for="loca">지역</label><br />
-					<select class="reg-select" id="loca" name="loca">
-						<option value="강원">강원</option>
-						<option value="경기">경기</option>
-						<option value="경남">경남</option>
-						<option value="경북">경북</option>
-						<option value="부산">부산</option>
-						<option value="서울">서울</option>
-						<option value="인천">인천</option>
-						<option value="전남">전남</option>
-						<option value="전북">전북</option>
-						<option value="제주">제주</option>
-						<option value="충남">충남</option>
-						<option value="충북">충북</option>
-					</select>
 				</div>
 				
 				<div>

@@ -5,8 +5,8 @@
 <mapper namespace="memberMapper">
 	<!-- 회원가입 -->
 	<insert id="register">
-		INSERT INTO a_member (id, pass, name, nick, tel, email, loca)
-				VALUES (#{id}, #{pass}, #{name}, #{nick}, #{tel}, #{email}, #{loca})
+		INSERT INTO a_member (id, pass, name, nick, tel, email)
+				VALUES (#{id}, #{pass}, #{name}, #{nick}, #{tel}, #{email})
 	</insert>
 	
 	<!-- 아이디 중복 체크 -->
@@ -32,11 +32,35 @@
 	
 	<!-- 로그인 -->
 	<select id="login" resultType="memberVO">
-		SELECT id, pass, name, nick, tel, email, loca
+		SELECT *
 		FROM a_member
 		WHERE id = #{id}
 		AND pass = #{pass}
 	</select>
+	
+	<!-- 아이디 찾기 -->
+	<select id="memberFindId" resultType="memberVO">
+		SELECT *
+		FROM a_member
+		WHERE name = #{name}
+		AND email = #{email}
+	</select>
+	
+	<!-- 비밀번호 찾기 체크 -->
+	<select id="memberPwdCheck" resultType="int">
+		SELECT COUNT(*)
+		FROM a_member
+		WHERE id = #{id}
+		AND email = #{email}
+	</select>
+	
+	<!-- 비밀번호 찾기 업데이트 -->
+	<update id="findPwdUpdate">
+		UPDATE a_member
+		SET pass = #{pass}
+		WHERE id = #{id}
+		AND email = #{email}
+	</update>
 	
 	<!-- 회원 정보 수정 -->
 	<update id="memberUpdate">
@@ -45,8 +69,7 @@
 			name = #{name},
 			nick = #{nick},
 			tel = #{tel},
-			email = #{email},
-			loca = #{loca}
+			email = #{email}
 		WHERE id = #{id}
 	</update>
 	
