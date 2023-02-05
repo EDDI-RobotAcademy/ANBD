@@ -18,7 +18,6 @@
    table{
       width: 100%;
       margin: auto;
-      border-top: 1px solid #e5e5e5;
    }
    tr, td{
       padding: 10px;
@@ -449,6 +448,7 @@
 				<div style="display: inline-block;">
 					<img src="/upload/${j_update.j_img }" width="100px" height="100px"> 
 					<button type="button" class="j_btn3" name="delete_img" value="${j_update.j_img }">삭제</button> 
+					<input type="hidden" name="j_img" value="${j_update.j_img}">
 				</div> 
 				</td>
 			</tr>

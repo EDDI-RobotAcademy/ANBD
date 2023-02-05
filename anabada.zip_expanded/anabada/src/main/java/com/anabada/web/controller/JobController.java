@@ -156,35 +156,36 @@ public class JobController {
 	public String job_update(@ModelAttribute JobVO vo, RedirectAttributes rttr, @RequestParam String d_img) throws Exception{
 		
 		logger.info("수정완료 버튼 눌렀음");
-		System.out.println(d_img);
+		System.out.println("삭제한 사진 :" + d_img);
+		System.out.println("원래 있던 사진: " + vo.getJ_img());
+		System.out.println(!vo.getJ_img().isEmpty());
+		System.out.println(vo.getJ_img().isEmpty());
 		System.out.println(vo);
 		
-		MultipartFile uploadImg = vo.getJ_uploadImg(); // 업로드한 이미지 불러옴. 이미지 선택안해도 아래와 같이 저장됨
-		// org.springframework.web.multipart.commons.CommonsMultipartFile@70f4eb58
-		
-		String imgName = uploadImg.getOriginalFilename(); // 이미지이름 추출
-		
-		if(imgName.lastIndexOf(".") > 0) { // 이미지 선택했다면 확장자때문에 .가 존재. 여기서 이미지 존재하지는 여부 확인
-			String imgExtension = imgName.substring(imgName.lastIndexOf("."),imgName.length());// 확장자 추출
+		if(d_img.isEmpty() && !vo.getJ_img().isEmpty()) { // 사진 있는데 수정안했다면
+			System.out.println("사진은 아무것도 안함");
 			
-			String uploadFolder = "C:\\upload"; // 업로드할 폴더 경로
-
-			/*
-			파일 업로드시 파일명이 동일한 파일이 이미 존재할 수도 있고 사용자가 
-		    업로드 하는 파일명이 언어 이외의 언어로 되어있을 수 있습니다. 
-			타인어를 지원하지 않는 환경에서는 정산 동작이 되지 않습니다.(리눅스가 대표적인 예시)
-			고유한 랜던 문자를 통해 db와 서버에 저장할 파일명을 새롭게 만들어 준다.
-			*/
-			UUID uuid = UUID.randomUUID();
-			System.out.println(uuid.toString());
-			String[] uuids = uuid.toString().split("-");
+		}else{ // 사진 있는데 딴걸로 수정할 때, 사진 없었는데 추가할 때
+			MultipartFile uploadImg = vo.getJ_uploadImg(); // 업로드한 이미지 불러옴. 이미지 선택안해도 아래와 같이 저장됨
 			
-			String uniqueName = uuids[0];
-			System.out.println("생성된 고유문자열: " + uniqueName + ", 확장자명: " + imgExtension);
-			uploadImg.transferTo(new File(uploadFolder+"\\"+uniqueName + imgExtension)); // 해당 경로에 폴더 업로드
-			vo.setJ_img(uniqueName + imgExtension); // 빈에 이미지 이름 저장
+			String imgName = uploadImg.getOriginalFilename(); // 이미지이름 추출
+			
+			if(imgName.lastIndexOf(".") > 0) { // 이미지 선택했다면 확장자때문에 .가 존재. 여기서 이미지 존재하지는 여부 확인
+				String imgExtension = imgName.substring(imgName.lastIndexOf("."),imgName.length());// 확장자 추출
+				
+				String uploadFolder = "C:\\upload"; // 업로드할 폴더 경로
+	
+				UUID uuid = UUID.randomUUID();
+				System.out.println(uuid.toString());
+				String[] uuids = uuid.toString().split("-");
+				
+				String uniqueName = uuids[0];
+				System.out.println("생성된 고유문자열: " + uniqueName + ", 확장자명: " + imgExtension);
+				uploadImg.transferTo(new File(uploadFolder+"\\"+uniqueName + imgExtension)); // 해당 경로에 폴더 업로드
+				vo.setJ_img(uniqueName + imgExtension); // 빈에 이미지 이름 저장
+			}
 		}
-		System.out.println(vo);
+		
 		jobService.job_update(vo);
 		
 		if(d_img != null || d_img != "") { // 이전 사진 컴퓨터에서 삭제

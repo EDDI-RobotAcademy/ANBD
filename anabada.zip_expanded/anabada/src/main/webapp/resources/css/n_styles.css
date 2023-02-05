@@ -11,7 +11,7 @@
   box-sizing: border-box;
   list-style-type: none;
   text-align: right;
-  border-top: 1px solid #e5e5e5;
+  /*border-top: 1px solid #e5e5e5;*/
 }
 
 .minicon3 {
@@ -23,7 +23,7 @@
   border-left: 1px solid #e5e5e5;
   border-top: 1px solid #e5e5e5;
   background-color: white; 
-  border-top: 1px solid #e9e9e9
+  /*border-top: 1px solid #e9e9e9*/
 }
 
 .n_btn1 { /*파란 버튼*/
