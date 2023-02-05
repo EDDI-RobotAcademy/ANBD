@@ -71,8 +71,8 @@
     <section class="container">
 		<table class="r_list">
 		
-			<tr>
-			    <td colspan="6"><font style="font-size: 30px;">알바 지원자 목록</font></td>
+			<tr style="border-top: none">
+			    <td colspan="6" style="border-top: none"><font style="font-size: 30px;">알바 지원자 목록</font></td>
 		    </tr>
 				
 			<tr>
