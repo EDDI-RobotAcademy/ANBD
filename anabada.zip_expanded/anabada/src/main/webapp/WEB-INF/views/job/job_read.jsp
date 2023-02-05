@@ -241,7 +241,7 @@
 			}else{
 				
 				if ($(this).prop('checked')) {
-					$(".himg").attr("src", "../../resources/images/heartB.png");
+					$(".himg").attr("src", "../../resources/images/하트2.png");
 	
 					var params = {
 						j_bno : "${j_read.j_bno}",
@@ -268,7 +268,7 @@
 	
 					});
 				} else {
-					$(".himg").attr("src", "../../resources/images/heartA.png");
+					$(".himg").attr("src", "../../resources/images/하트1.png");
 	
 					var params = {
 						j_bno : "${j_read.j_bno}",
@@ -343,7 +343,6 @@
 <style>
 	table{
 		width: 100%;
-		border-top: 1px solid #c9cdd2;
 	}
 	tr, td{
 		border-bottom: 1px solid #c9cdd2;
@@ -452,27 +451,26 @@
 						<c:if test="${id eq 'admin'}"><!-- 로그인한 아이디(세션에 저장된 아이디(id))와 작성자아이디(j_read.id)가 같으면 수정, 삭제 가능 -->
 							<button type="button" id="delete" class="j_btn3">삭제</button>
 						</c:if>
-						<c:if test="${j_read.id ne id && j_read.id ne 'admin'}">
+						<c:if test="${j_read.id ne id && id ne 'admin'}">
 							<button type="button" id="report" class="j_btn3">신고</button>
 						</c:if>
-						
 					</td>
-					<td>
+					<td style="border-left: none; text-align: right">
 						<label class="rach">
 							<input type="checkbox" id="heart" name="j_heart" value="${j_read.j_heart }" /> 					
 							<c:choose>
 							<c:when test="${heart == 0 }">
-								<img class="himg" style="width: 60px; height: 60px;" src="../../resources/images/heartA.png">
+								<img class="himg" style="width: 30px; height: 30px;" src="../../resources/images/하트1.png">
 							</c:when>
 							<c:otherwise>
-								<img class="himg" style="width: 60px; height: 60px;" src="../../resources/images/heartB.png">
+								<img class="himg" style="width: 30px; height: 30px;" src="../../resources/images/하트2.png">
 							</c:otherwise>
-						    </c:choose>
+							</c:choose>
 						</label>
 					</td>
-					<td style="text-align: right">
-						<span style="color: red; font-size: 30px;"> ❤</span>
-						<div style="inline-block" id="heartCh">${j_read.j_heart }</div>
+					<td style="border-left: none; text-align: right">
+						<img style="width: 30px; height: 30px;" src="../../resources/images/하트2.png">
+						<div style="display: inline" id="heartCh">${j_read.j_heart }</div>
 					</td>
 				</tr>
 		

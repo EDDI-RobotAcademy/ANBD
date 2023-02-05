@@ -155,7 +155,7 @@
    <section class="nav"></section>
    
    <!-- 콘텐츠부분 -->
-   <section class="section" style="border-top: 1px solid #e5e5e5">
+   <section class="section">
    <form name="jobForm" method="get">
       <input type="button" class="j_btn1" id="job_insert" value="알바 구인 공고 작성하기" style="float: right; margin-top: 10px;">
       <br><br>
