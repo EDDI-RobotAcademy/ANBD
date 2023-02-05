@@ -148,6 +148,7 @@
         	<table class="h_list">
         		<tr>
             		<td colspan="5">
+            			<font style="font-size: 30px;">알바 찜 목록</font>&nbsp;&nbsp;
             			<button type="button" name="delete_btn" class="n_btn2">
             			삭제</button>
             		</td>

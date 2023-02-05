@@ -6,8 +6,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="shortcut icon" href="../resources/images/favicon.ico">
-<link rel="manifest" href="../resources/images/manifest.json">
+<link rel="shortcut icon" href="../../resources/images/favicon.ico">
+<link rel="manifest" href="../../resources/images/manifest.json">
 <meta name="theme-color" content="#ffffff">
 <meta charset="UTF-8">
 <title>내 알바 구인 공고</title>
@@ -15,7 +15,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="../resources/css/n_styles.css">
+<link rel="stylesheet" href="../../resources/css/j_styles.css">
 <style type="text/css">
    input[type=radio]{
          display: none;
@@ -47,14 +47,6 @@
       width: 110px;
       height: 110px;
       border-radius: 10px;
-   }
-   
-   .myImg {
-       background-color: #f9f9f9; 
-       text-align: center; 
-       padding-bottom: 5px; 
-       border-bottom: 1px solid #e9e9e9; 
-       border-top: 1px solid #e9e9e9;
    }
    
    .mj_list{
@@ -115,7 +107,7 @@
 	     $('button[name=delete_btn]').on("click", function () {
 	        
 	        if($("input:checkbox[name=delete]").is(":checked") == false) {
-	           alert("선택된 쪽지가 없습니다.");
+	           alert("선택된 게시물이 없습니다.");
 	           return;
 	        }
 	        
@@ -170,7 +162,8 @@
         	<table class="mj_list">
         		<tr>
             		<td colspan="5">
-            			<button type="button" name="delete_btn" class="n_btn2">
+            			<font style="font-size: 30px;">알바 구인 공고 목록</font>&nbsp;&nbsp;
+            			<button type="button" name="delete_btn" class="j_btn3">
             			삭제</button>
             		</td>
             	</tr>
@@ -194,7 +187,7 @@
                         <c:choose>
                         <c:when test="${empty mj_list.j_img}">
                             <a href="/job/job_read?j_bno=${mj_list.j_bno }&page=${cri.page }&perPageNum2=${cri.perPageNum2 }">
-                                <img class="j_img" src="../resources/images/아나바다2.png"/>
+                                <img class="j_img" src="../../resources/images/아나바다2.png"/>
                             </a>
                         </c:when>
                         <c:otherwise>

@@ -17,7 +17,7 @@
 		<br><hr><br>
 		<li class="side-li"><a href="/job/my_job">아르바이트 공고</a></li>
 		<li class="side-li"><a href="/resume/my_resume">아르바이트 지원</a></li>
-		<li class="side-li"><a href="/job/my_heart">아르바이트 찜</a></li>
+		<li class="side-li"><a href="/job/heart_job">아르바이트 찜</a></li>
 		<br><hr><br>
 		<li class="side-li">나의 걸음수</li>
 		<br><hr><br>
