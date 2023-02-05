@@ -30,6 +30,16 @@
 			if (!confirm("삭제하시겠습니까?")) {
 		        return false;
 		    } else {
+		    	
+			 	// 삭제될때 최근 본 게시물도 삭제
+		    	var data = sessionStorage.getItem("recent_job");
+			    data = JSON.parse(data);
+			    
+			    var j_bno = ${j_read.j_bno};
+			        
+			    data.splice('j_bno', 1); // 삭제될때 최근 본 게시물도 삭제
+			    sessionStorage.setItem("recent_job", JSON.stringify(data));
+		    	
 				readForm.attr("action", "/job/job_delete"); // 삭제 컨트롤러로
 				readForm.attr("method", "post"); // 여기서는 페이징처리 필요없으니까 post
 				readForm.submit();
@@ -37,6 +47,15 @@
 		});
 		
 		$("#job_list").on("click", function () { 
+			// 삭제될때 최근 본 게시물도 삭제
+	    	var data = sessionStorage.getItem("recent_job");
+		    data = JSON.parse(data);
+		    
+		    var j_bno = ${j_read.j_bno};
+		        
+		    data.splice('j_bno', 1); // 삭제될때 최근 본 게시물도 삭제
+		    sessionStorage.setItem("recent_job", JSON.stringify(data));
+			
 			readForm.attr("action", "/job/job_list"); 
 			readForm.attr("method", "get");
 			readForm.submit();
@@ -87,41 +106,35 @@
 		});
 		
 		// 알바 지원자들 보기 컨트롤러로 이동. 페이징 처리 안했음
-		$("#show_resume").on("click", function () { // 삭제 버튼 눌렀을 때
+		$("#show_resume").on("click", function () { // 알바 지원자들 보기 버튼 눌렀을 때
 			location.href = "/resume/resume_list?" + 
 				"j_bno=" + '${j_read.j_bno}';
 			
 		});
 		
-		// 알바 지원자들 보기 컨트롤러로 이동. 페이징 처리 안했음
-		$("#show_writeList").on("click", function () { // 삭제 버튼 눌렀을 때
-			location.href = "/job/my_jobList?" +
-				"id=" + "${id}";
-		});
-		
-		 // 최근 본 알바 플로팅배너
-		   // 기본 위치(top)값
-			var floatPosition = parseInt($(".sideBanner").css('top'));
-			var floatHei = parseInt($(".sideBanner").outerHeight()); // 플로팅 배너 길이
-			var footerTop = $('#footer').outerHeight(); // footer가 높이한 위치
+		// 최근 본 알바 플로팅배너
+		// 기본 위치(top)값
+		var floatPosition = parseInt($(".sideBanner").css('top'));
+		var floatHei = parseInt($(".sideBanner").outerHeight()); // 플로팅 배너 길이
+		var footerTop = $('#footer').outerHeight(); // footer가 높이한 위치
 			
-			// scroll 인식
-			$(window).scroll(function() {
+		// scroll 인식
+		$(window).scroll(function() {
 			  
-			    // 현재 스크롤 위치
-			    var currentTop = $(window).scrollTop(); // 현재 윈도우 스크린 위치
-			    var bannerTop = currentTop + floatPosition + "px"; // 
-			    var val = $(document).height() - footerTop;
-			    var hei = currentTop + floatPosition + floatHei;
+			// 현재 스크롤 위치
+			var currentTop = $(window).scrollTop(); // 현재 윈도우 스크린 위치
+			var bannerTop = currentTop + floatPosition + "px"; // 
+			var val = $(document).height() - footerTop;
+			var hei = currentTop + floatPosition + floatHei;
 			    
-			    //이동 애니메이션
-			    if (hei < footerTop){
-			    	$(".sideBanner").stop().animate({
-			   	    	"top" : bannerTop
-			   	    }, 500);
-			    }
+			//이동 애니메이션
+			if (hei < footerTop){
+			    $(".sideBanner").stop().animate({
+			   	    "top" : bannerTop
+			   	}, 500);
+			}
 		
-			}).scroll(); 
+		}).scroll(); 
 		
 		
 		// 최근 본 알바!!!!!!!!sessionStroage
@@ -132,12 +145,12 @@
 		    var data = sessionStorage.getItem("recent_job");
 		     
 		    if(data){//만약 데이터가 들어있다면
-		        alert("들어있음")
+		        //alert("들어있음")
 		        //데이터가 있을 경우 json으로 파싱
 		        data = JSON.parse(data);
 		        //alert("사이즈 : "+data.length);
 		        
-		        var j_bno = '${j_read.j_bno}';
+		        var j_bno = ${j_read.j_bno};
 		        
 		        //중복될 번호들을 따로 뽑아
 		        //배열에 넣은후 값을 비교 한후
@@ -150,20 +163,20 @@
 		        //alert("중복 결과 : "+idxOf);
 		 
 		        if(idxOf<0){
-		            alert("중복안됨")
+		            //alert("중복안됨")
 		            //중복이 되지 않으면 객체 삽입
 		            //즉, 찾고자 하는 값이 배열에 들어 있지 않은 경우
 		            data.unshift({
-		                   "j_bno":'${j_read.j_bno}',
+		                   "j_bno":${j_read.j_bno},
 		                   "j_title":'${j_read.j_title}',
 		                   "j_img":'${j_read.j_img}'
 		                    });
 		        }else{
-		            alert("중복됨");
+		            //alert("중복됨");
 		        	// 이미 봤다면 이전 기록 삭제하고 다시 추가
 		        	data.splice(idxOf, 1);
 		            data.unshift({
-		                   "j_bno":'${j_read.j_bno}',
+		                   "j_bno":${j_read.j_bno},
 		                   "j_title":'${j_read.j_title}',
 		                   "j_img":'${j_read.j_img}'
 		                    });
@@ -176,7 +189,7 @@
 		    //객체를 넣어줌
 		        alert("비어있음")
 		        data=[{
-		               "j_bno":'${j_read.j_bno}',
+		               "j_bno":${j_read.j_bno},
 		               "j_title":'${j_read.j_title}',
 		               "j_img":'${j_read.j_img}'
 		                }];
