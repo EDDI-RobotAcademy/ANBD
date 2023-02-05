@@ -168,7 +168,6 @@ $(document).ready(function () {
 	table{
 		width: 100%;
 		margin: auto;
-		border-top: 1px solid #ced4da;
 	}
 	tr, td{ 
       	padding: 10px;
