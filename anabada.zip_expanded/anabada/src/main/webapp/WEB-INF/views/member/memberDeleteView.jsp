@@ -46,17 +46,7 @@
 	<div>
 		<section class="container">
 			<!-- 메뉴 -->
-			<div class="sidemenu2">
-				<p class="side-t">회원정보</p>
-				<ul class="side-ul">
-					<li class="side-li"><a href="/member/memberUpdateView">내 정보 관리</a></li>
-					<li class="side-li"><a href="/member/passUpdateView">비밀번호 변경</a></li>
-					<br/>
-					<li class="side-li">나의 걸음수</li>
-					<br/>
-					<li class="side-li"><a href="/member/memberDeleteView">회원 탈퇴</a></li>
-				</ul>
-			</div>
+			<jsp:include page="/WEB-INF/views/includes/myPageHeader.jsp" />
 		
 			<div class="minicon">
 				<div class="mtitle">

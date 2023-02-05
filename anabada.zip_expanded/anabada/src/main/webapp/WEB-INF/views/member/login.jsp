@@ -23,40 +23,60 @@
 		$("#memberUpdateBtn").on("click", function() {
 			location.href = "member/memberUpdateView";
 		})
+		
+		var formObj = $("form[name='homeForm]");
+		
+		$("#submit").on("click", function() {
+			if ($("#id").val() == "") {
+				$("#Chk").attr("style", "color:#FF0000;");
+	            $("#Chk").text("아이디와 비밀번호를 확인해 주세요.");
+	            $("#id").focus();
+	            return false;
+			
+			} else if ($("#pass").val() == "") {
+				$("#Chk").attr("style", "color:#FF0000;");
+	            $("#Chk").text("아이디와 비밀번호를 확인해 주세요.");
+	            $("#pass").focus();
+	            return false;
+			}
+			
+			formObj.attr("action", "/member/login");
+			formObj.submit();
+		})
 	});
 </script>
 </head>
 
 <body>
-	<form name='homeForm' method="post" action="/member/login">
-		<c:if test="${id == null}">
-			<div>
-				<label for="id"></label>
-				<input type="text" id="id" name="id">
-			</div>
+	<form name='homeForm' method="post">
+		<div>
+			<label for="id"></label>
+			<input type="text" id="id" name="id">
+		</div>
+	
+		<div>
+			<label for="userPass"></label>
+			<input type="password" id="pass" name="pass">
+		</div>
 		
-			<div>
-				<label for="userPass"></label>
-				<input type="password" id="pass" name="pass">
-			</div>
+		<div>
+			<font id="Chk" size="2">
+				<c:if test="${msg == false}">
+					<font style="color:#FF0000;">아이디와 비밀번호를 확인해 주세요.</font>
+				</c:if>
+			</font>
+		</div>
+	
+		<div>
+			<button type="submit" id="submit">로그인</button>
+		</div>
 		
-			<div>
-				<button type="submit">로그인</button>
-				<a href="./registerAgree">회원가입</a>
-			</div>	
-		</c:if>
+		<div>
+			<a href="./findId">아이디 찾기</a>
+			<a href="./findPass">비밀번호 찾기</a>
+			<a href="./registerAgree">회원가입</a>
+		</div>
 		
-		<c:if test="${id != null}">
-			<div>
-				<p>${member.nick}님 환영합니다.</p>
-				<button id="memberUpdateBtn" type="button">회원 정보 수정</button>
-				<button id="logoutBtn" type="button">로그아웃</button>
-			</div>
-		</c:if>
-		
-		<c:if test="${msg == false}">
-			<p>아이디와 비밀번호를 확인해 주세요.</p>
-		</c:if>
 	</form>
 </body>
 </html>

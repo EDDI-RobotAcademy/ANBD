@@ -9,6 +9,15 @@ public interface MemberDAO {
 		
 	// 로그인
 	public MemberVO login(MemberVO vo) throws Exception;
+	
+	// 아이디 찾기
+	public MemberVO memberFindId(MemberVO vo) throws Exception;
+	
+	// 비밀번호 찾기
+	public int memberPwdCheck(MemberVO vo) throws Exception;
+	
+	// 비밀번호 찾기 업데이트
+	public void findPwdUpdate(MemberVO vo) throws Exception;
 		
 	// 회원정보 수정
 	public void memberUpdate(MemberVO vo) throws Exception;

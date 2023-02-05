@@ -8,6 +8,12 @@ public interface MemberService {
 	
 	public MemberVO login(MemberVO vo) throws Exception;
 	
+	public MemberVO memberFindId(MemberVO vo) throws Exception;
+	
+	public int memberPwdCheck(MemberVO vo) throws Exception;
+	
+	public void findPwdUpdate(MemberVO vo) throws Exception;
+	
 	public void memberUpdate(MemberVO vo) throws Exception;
 	
 	public void passUpdate(MemberVO vo) throws Exception;

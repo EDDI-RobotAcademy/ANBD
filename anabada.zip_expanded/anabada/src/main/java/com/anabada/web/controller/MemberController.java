@@ -5,11 +5,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -70,7 +73,6 @@ public class MemberController {
 		return "/member/registerEnd";
 	}
 	
-	
 	// 아이디 중복 체크
 	@ResponseBody
 	@RequestMapping(value="/member/idChk")
@@ -112,19 +114,19 @@ public class MemberController {
 		HttpSession session = req.getSession();
 		MemberVO login = service.login(vo);
 		
-		if (login == null) {
-			session.setAttribute("member", null);
-			session.setAttribute("id", null);
-			
-			rttr.addFlashAttribute("msg", false);
-			
-		} else {
+		if (login != null) {
 			session.setAttribute("member", login);
 			session.setAttribute("id", login.getId());
 			logger.info("member: " +  login);
+			
+			return "redirect:/";
+			
+		} else {
+			rttr.addFlashAttribute("msg", false);
+			
+			return "redirect:/member/login";
 		}
-		
-		return "redirect:/";
+
 	}
 	
 	// 로그아웃
@@ -133,6 +135,73 @@ public class MemberController {
 		session.invalidate();
 		
 		return "redirect:/"; 
+	}
+	
+	// 아이디 찾기 Get
+	@RequestMapping(value="/member/findId", method = RequestMethod.GET)
+	public void findId() throws Exception {
+		logger.info("아이디 찾기 get ~ ");
+	}
+	
+	// 아이디 찾기 결과
+	@RequestMapping(value="/member/resultId")
+	public String resultId(HttpServletRequest request, Model model,
+		    @RequestParam(required = true, value = "name") String name, 
+		    @RequestParam(required = true, value = "email") String email,
+		    MemberVO vo) {
+
+		try {
+			vo.setName(name);
+			vo.setEmail(email);
+			MemberVO memberFind = service.memberFindId(vo);
+		    
+		    model.addAttribute("vo", memberFind);
+		 
+		} catch (Exception e) {
+		    System.out.println(e.toString());
+		    model.addAttribute("msg", "오류가 발생했습니다.");
+		}
+		 
+		return "/member/resultId";
+	}
+	
+	// 비밀번호 찾기 Get
+	@RequestMapping(value="/member/findPass", method = RequestMethod.GET)
+	public void findPass() throws Exception {
+		logger.info("비밀번호 찾기 get ~ ");
+	}
+	
+	// 비밀번호 찾기 결과
+	@RequestMapping(value="/member/resultPass")
+	public String resultPass(HttpServletRequest request, Model model,
+		    @RequestParam(required = true, value = "id") String id, 
+		    @RequestParam(required = true, value = "email") String email,
+		    MemberVO vo) {
+
+		try {
+			vo.setName(id);
+			vo.setEmail(email);
+			
+			int memberSearch = service.memberPwdCheck(vo);
+		    
+			if(memberSearch == 0) {
+		        model.addAttribute("msg", "기입된 정보가 잘못되었습니다. 다시 입력해주세요.");
+		        return "/member/findPass";
+		    }
+			
+			String newPwd = RandomStringUtils.randomAlphanumeric(10);
+			vo.setPass(newPwd);
+			
+			service.findPwdUpdate(vo);
+			
+			model.addAttribute("newPwd", newPwd);
+			
+		} catch (Exception e) {
+		    System.out.println(e.toString());
+		    model.addAttribute("msg", "오류가 발생했습니다.");
+		}
+		 
+		return "/member/resultPass";
 	}
 
 	// 마이페이지

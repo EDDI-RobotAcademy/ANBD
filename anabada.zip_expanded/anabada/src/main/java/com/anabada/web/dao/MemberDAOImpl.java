@@ -22,6 +22,22 @@ public class MemberDAOImpl implements MemberDAO {
 	public MemberVO login(MemberVO vo) throws Exception {
 		return sql.selectOne("memberMapper.login", vo);
 	}
+	
+	@Override
+	public MemberVO memberFindId(MemberVO vo) throws Exception {
+		return sql.selectOne("memberMapper.memberFindId", vo);
+	}
+	
+	@Override
+	public int memberPwdCheck(MemberVO vo) throws Exception {
+		int result = sql.selectOne("memberMapper.memberPwdCheck", vo);
+		return result;
+	}
+	
+	@Override
+	public void findPwdUpdate(MemberVO vo) throws Exception {
+		sql.update("memberMapper.findPwdUpdate", vo);
+	}
 
 	@Override
 	public void memberUpdate(MemberVO vo) throws Exception {

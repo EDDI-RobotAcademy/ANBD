@@ -173,17 +173,7 @@
 	<div>
 		<section class="container">
 			<!-- 메뉴 -->
-			<div class="sidemenu2">
-				<p class="side-t">회원정보</p>
-				<ul class="side-ul">
-					<li class="side-li"><a href="/member/memberUpdateView">내 정보 관리</a></li>
-					<li class="side-li"><a href="/member/passUpdateView">비밀번호 변경</a></li>
-					<br/>
-					<li class="side-li">나의 걸음수</li>
-					<br/>
-					<li class="side-li"><a href="/member/memberDeleteView">회원 탈퇴</a></li>
-				</ul>
-			</div>
+			<jsp:include page="/WEB-INF/views/includes/myPageHeader.jsp" />
 		
 			<div class="minicon">
 				<div class="mtitle">
@@ -216,25 +206,6 @@
 						<div>
 							<label class="membermodify" for="email">이메일</label>
 							<input class="modi-box" type="text" id="email" name="email" value="${member.email}" />
-						</div>
-						
-						<div>
-							<label class="membermodify" for="loca">지역</label>
-								<select class="modi-select" id="loca" name="loca" onchange="changeValue(this)">
-									<option value="${member.loca}" selected hidden>${member.loca}</option>
-									<option value="강원">강원</option>
-									<option value="경기">경기</option>
-									<option value="경남">경남</option>
-									<option value="경북">경북</option>
-									<option value="부산">부산</option>
-									<option value="서울">서울</option>
-									<option value="인천">인천</option>
-									<option value="전남">전남</option>
-									<option value="전북">전북</option>
-									<option value="제주">제주</option>
-									<option value="충남">충남</option>
-									<option value="충북">충북</option>
-								</select>
 						</div>
 					</div>
 					
