@@ -35,4 +35,21 @@ public class ComplaintServiceImpl implements ComplaintService{
     public void deleteByParameters(String board_type, long c_bno) {
         repository.deleteByParameters(board_type, c_bno);
     }
+
+    @Override
+    public Long totalCount(String boardType, long c_bno) {
+        return repository.totalCount(boardType,c_bno);
+    }
+
+    @Override
+    public Long detailCount(String boardType, long c_bno, String c_content) {
+        return repository.detailCount(boardType,c_bno,c_content);
+    }
+
+    @Override
+    public List<Complaint> findByReson(String boardType, long c_bno) {
+        return repository.findByReson(boardType,c_bno);
+    }
+
+
 }
