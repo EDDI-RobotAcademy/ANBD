@@ -120,6 +120,18 @@
 	              //alert($(this).val());
 	           });
 	           
+		       var data = sessionStorage.getItem("recent_job");
+			   data = JSON.parse(data);
+			   //alert(data.length);
+				    
+			   for(var i = 0; i < delete_array.length; i++){
+			     data.splice('delete_array[i]', 1);
+				 //alert(data.length);
+			   }
+				 
+			   sessionStorage.setItem("recent_job", JSON.stringify(data));
+			   // 삭제될때 최근 본 게시물도 삭제
+	           
 	           $.ajax({
 	               type: "get",
 	               url : "/job/delete_chk.ajax",
@@ -140,6 +152,7 @@
 	           return;
 	        }
 	     });
+	     
         
     });
   
@@ -165,6 +178,7 @@
             			<font style="font-size: 30px;">알바 구인 공고 목록</font>&nbsp;&nbsp;
             			<button type="button" name="delete_btn" class="j_btn3">
             			삭제</button>
+            			<button type="button" name="aa">하하하하</button>
             		</td>
             	</tr>
             	
