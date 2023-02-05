@@ -88,7 +88,6 @@
    }
    .mr_list{
       width: 100%;
-      border-top: 1px solid #e5e5e5;
    }
    .mr_list tr, .mr_list td, .mr_list th{
       border-bottom: 1px solid #e5e5e5;
