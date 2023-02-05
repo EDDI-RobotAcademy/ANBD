@@ -12,4 +12,10 @@ public interface ComplaintService {
     public List<Complaint> boardTypelist(String board_type);
 
     public void deleteByParameters(String board_type, long c_bno);
+
+    public Long totalCount(String boardType, long c_bno);
+
+    public Long detailCount(String boardType, long c_bno, String c_content );
+
+    public List<Complaint> findByReson(String boardType,long c_bno);
 }
