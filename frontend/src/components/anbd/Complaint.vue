@@ -31,9 +31,12 @@
         <span v-if="item.boardType === 'review'">리뷰</span>
       </template>
 
-      <template v-slot:[`item.count`]="{ index }">
+      <!--여기 신고사유 넣기-->
+      <!--
+      <template v-slot:[`item.reason`]="{ index }">
           <span>{{ test[index].count }}</span>
       </template>
+      -->
 
       <template v-slot:[`item.show`]="{ item }">
           <a @click="popup(item.c_bno, item.boardType)">확인</a>
@@ -65,24 +68,17 @@
         return {
             selectedItems: [],
             headerTitle: [
-                { text: '신고횟수', value: 'count', width: "100px" }, // 신고횟수 임의로 count라고 함
+                { text: '신고사유', value: 'reason', width: "100px" }, // 신고횟수 임의로 count라고 함
                 { text: '신고 내용', value: 'c_content', width: "200px" },
                 { text: '게시물 번호', value: 'c_bno', width: "100px" },
                 { text: '게시물 유형', value: 'boardType', width: "100px" },
                 { text: '게시물 보기', value: 'show', width: "100px" },
             ],
-            test: [
-                { count: 1}, // 신고횟수 임의로 count라고 함
-                { count: 2 }, // 신고횟수 임의로 count라고 함
-                { count: 1}, // 신고횟수 임의로 count라고 함
-                { count: 2 }, // 신고횟수 임의로 count라고 함
-                { count: 1}, // 신고횟수 임의로 count라고 함
-                { count: 2 }, // 신고횟수 임의로 count라고 함
-                { count: 1}, // 신고횟수 임의로 count라고 함
-                { count: 2 }, // 신고횟수 임의로 count라고 함
-                
-                
-            ],
+            //test: [
+            //    { count: 1}, // 신고횟수 임의로 count라고 함
+            //    { count: 2 }, // 신고횟수 임의로 count라고 함
+            //    { count: 1}, // 신고횟수 임의로 count라고 함 
+            //],
 
             
 
