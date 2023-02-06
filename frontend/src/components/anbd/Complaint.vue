@@ -34,57 +34,48 @@
       <!--여기 신고사유 넣기-->
      
 
-      <template v-slot:[`item.details`]="{ item }">
-         <v-layout justify-center>
-                <v-dialog v-model="dialog" persisten max-width="400">
-                    <template v-slot:activator="{on}">
-                        <v-btn color="primary" dark v-on="on"  @click="details(item.c_bno, item.boardType)" >상세보기</v-btn>
-                    </template>
-                
-                    <v-card>
-                        <v-card-title class="headline">
-                            
-                        </v-card-title>
-                        <v-card-text>
-                        {{complaintTotal}}
-                       <span v-if="complaintTotal != null"> 비어있지 않음  </span>
-                        <span v-if="complaintTotal == null"> 비어있다  </span>
-                            오늘만 날이다! 먹고 죽엇! 할인 50%!!!!
-                        </v-card-text>
-                        <v-card-text>
-                            지금 당장 결제 하시겠습니까 ?
-                        </v-card-text>
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn color="teal darken-1" text @click="btnClick">
-                                취소
-                            </v-btn>
-                            <v-btn color="purple lighten-1" text @click="btnClick">
-                                결제 승인
-                            </v-btn>
-                        </v-card-actions>
-                    </v-card>
-                </v-dialog>
-            </v-layout>
+     <template v-slot:[`item.details`]="{ item }">
+        <v-layout justify-center>
+          <v-dialog v-model="dialog" persisten max-width="400">
+            <template v-slot:activator="{on}">
+              <v-btn color="primary" dark v-on="on"  @click:row="details(item.c_bno, item.boardType)" >상세보기</v-btn>
+            </template>
 
+            <v-card>
+              <v-card-title class="headline">
+
+              </v-card-title>
+              <v-card-text>
+                {{complaintTotal}}
+                <span v-if="complaintTotal != null"> 비어있지 않음  </span>
+                <span v-if="complaintTotal == null"> 비어있다  </span>
+                오늘만 날이다! 먹고 죽엇! 할인 50%!!!!
+              </v-card-text>
+              <v-card-text>
+                지금 당장 결제 하시겠습니까 ?
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="teal darken-1" text @click="btnClick">
+                  취소
+                </v-btn>
+                <v-btn color="purple lighten-1" text @click="btnClick">
+                  결제 승인
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </v-layout>
       </template>
-    
 
       <template v-slot:[`item.show`]="{ item }">
           <a @click="popup(item.c_bno, item.boardType)">확인</a>
           {{item.c_bno}} && {{item.boardType}}
       </template>
-
+      
   </v-data-table>
   <h5>Selected: {{selectedItems}}</h5>
   </v-container>
-
-
-
-
-
-
-
 </template>
 
   
@@ -162,19 +153,12 @@
        async details(c_bno,boardType){
         
         alert(c_bno + ", "+boardType)
-         await this.alertaaa()
+        await this.alertaaa()
         await this.$emit('onDetails' , {c_bno , boardType})
-        
-         
-
-        
       },
-
       async alertaaa() {
          this.on = true
       }
-
-      
     }
 }
   </script>
