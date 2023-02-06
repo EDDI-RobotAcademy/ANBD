@@ -4,6 +4,7 @@ import HomeView from '../views/HomeView.vue'
 
 import ComplaintAllView from "@/views/anbd/ComplaintAllView"
 import ComplaintView from "@/views/anbd/ComplaintView"
+import TestView from "@/views/test/TestView";
 
 Vue.use(VueRouter)
 
@@ -35,6 +36,11 @@ const routes = [
     props: {
       default: true
     }
+  },
+  {
+    path: '/test-view',
+    name: 'test-view',
+    component: TestView
   },
 ]
 
