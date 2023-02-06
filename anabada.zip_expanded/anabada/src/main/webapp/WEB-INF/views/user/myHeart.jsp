@@ -23,10 +23,10 @@
 }
 
 .rowStyle {
-	background-color: #E1E1E1;
+	 background-color: #D7D7D7;
 	height: 2px;
-	width: 600px;
-	border: none;
+	
+	border: none; 
 	margin-bottom: 0px;
 	margin-top: 0px;
 }
@@ -41,8 +41,6 @@
 }
 
 .headTr {
-	background-color: #B6B4B5;
-	color: white;
 	text-align: left;
 }
 
@@ -64,6 +62,22 @@
 	background-color: #F2F2F2;
 	padding-top: 10px;
 	padding-bottom: 10px;
+}
+#logo_title{
+font-weight: bold;
+margin: 20px;
+font-size: 18px;
+}
+#delbtn{
+margin-left: 20px;
+}
+
+input[type=checkbox] {
+
+transform : scale(1.3);
+margin-left: 10px;
+margin-right: 10px;
+
 }
 </style>
 
@@ -159,29 +173,7 @@
 		
 
 <div  style="width: 1200px;  margin: auto; " >
-	<div class="sidemenu2">
-				<p class="side-t">회원정보</p>
-				<ul class="side-ul">
-					<br>
-					<li class="side-li"><a href="/member/memberUpdateView">내 정보 관리</a></li>
-					<li class="side-li"><a href="/member/passUpdateView">비밀번호 변경</a></li>
-					<br><hr><br>
-					<li class="side-li"><a href="/userProduct/myStore"  >내 상점 보기</a></li>
-					<li class="side-li"> <a href="/userProduct/myHeartList" style="color:#0C6BBC; font-weight: bold;" >내 찜 목록 보기</a> </li>
-					<li class="side-li">참여한 이벤트</li>
-					<br><hr><br>
-					<li class="side-li"><a href="/a_board/myWriteList">내가 쓴 게시글</a></li>
-					<li class="side-li">내가 쓴 댓글</li>
-					<br><hr><br>
-					<li class="side-li"><a href="/job/my_job">아르바이트 공고</a></li>
-					<li class="side-li"><a href="/resume/my_resume">아르바이트 지원</a></li>
-					<li class="side-li"><a href="/job/my_heart">아르바이트 찜</a></li>
-					<br><hr><br>
-					<li class="side-li">나의 걸음수</li>
-					<br><hr><br>
-					<li class="side-li"><a href="/member/memberDeleteView">회원 탈퇴</a></li>
-				</ul>
-			</div>
+	<jsp:include page="/WEB-INF/views/includes/myPageHeader.jsp" />
 
 
 
@@ -190,14 +182,13 @@
 <div class="minicon"  style="float: left;" >
 
 	<form action="">
+	<div id="logo_title" >나의 찜목록 </div>
 
 		<table style="margin: auto; width: 802px;" id="totalTable">
 
-			<tr>
-				<td colspan="7" style="padding-right: 15px;" ><button type="button" id="delbtn" style="float: right;"  >삭제</button>  </td>
-			</tr>
+			
 			<tr class="headTr">
-				<td colspan="7"><input type="checkbox" id="delete_all"  name="delete_all"  > 전체 선택      </td>
+				<td colspan="7"> <input type="checkbox" id="delete_all"  name="delete_all"  > 전체 선택    <button type="button"  class="btn btn-light" id="delbtn"   >삭제</button>   <hr>  </td>
 
 			</tr>
 			<c:if test="${list == null }">
