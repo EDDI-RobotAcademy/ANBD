@@ -57,7 +57,9 @@ padding-bottom: 40px;
 
 padding-right: 10px;
 }
-
+#p_title{
+height: 33px;
+}
 </style>
 
 <script type="text/javascript">
@@ -218,7 +220,7 @@ padding-right: 10px;
 				</tr>
 				<tr>
 					<td class="td_title" ><h4>판매 가격</h4></td>
-					<td><input name="p_cost" type="text" placeholder="가격을 입력해 주세요" style="width: 180px; height: 30px; font-size: 15px; text-align: center; " class="chk" title="가격을 입력하세요"> 원</td>
+					<td><input name="p_cost" id="p_cost" type="text" placeholder="가격을 입력해 주세요" style="width: 180px; height: 30px; font-size: 15px; text-align: center; " class="chk" title="가격을 입력하세요"> 원</td>
 				</tr>
 
 				<tr>
@@ -270,7 +272,7 @@ padding-right: 10px;
 
 				<tr>
 					<td class="td_title" ><h4>제목</h4></td>
-					<td><input name="p_title" id="p_title" class="chk" title="제목을 입력하세요" type="text" size="58px;" ></td>
+					<td><input name="p_title" id="p_title" class="chk" title="제목을 입력하세요" type="text" size="70px;" ></td>
 
 				</tr>
 				<tr>
