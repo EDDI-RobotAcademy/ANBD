@@ -268,7 +268,7 @@
 본 내용에 동의를 거부하시는 경우에도 아나바다 서비스는 이용이 가능합니다. 다만, 고객 맞춤형 컨텐츠 등 아나바다 이용에 도움이 되는 정보를 수신할 수 없습니다.</textarea>
 			</div>
 			
-			<div>
+			<div align="right" style="margin-top: 10px;">
 				<font id="chkChk" size="2"></font>
 			</div>
 						

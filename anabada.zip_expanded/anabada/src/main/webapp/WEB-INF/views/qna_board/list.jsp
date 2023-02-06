@@ -94,7 +94,7 @@
 												
 													<c:otherwise>
 														<c:if test="${list.q_replycnt > 0}">
-															<td style="font-size: 13px;"><b>답변완료</b></td>
+															<td style="font-size: 13px; color: #0C6BBC;"><b>답변완료</b></td>
 														</c:if>
 													</c:otherwise>
 												</c:choose>

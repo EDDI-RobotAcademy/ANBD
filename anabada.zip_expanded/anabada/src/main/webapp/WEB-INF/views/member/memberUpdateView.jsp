@@ -210,6 +210,10 @@
 					</div>
 					
 					<div>
+						<a href="/member/memberDeleteView">회원 탈퇴</a>
+					</div>
+					
+					<div>
 						<div style="text-align: center;">
 							<font id="nickChk" size="2"></font>
 							<font id="telChk" size="2"></font>

@@ -238,7 +238,7 @@ a {
 
 .sidemenu2 {
   float: left;
-  width: 180px;
+  width: 150px;
   min-height: 500px;
   padding: 0 20px 20px 0;
   box-sizing: border-box;
@@ -279,20 +279,27 @@ a {
 .side-li {
   font-size: 13px;
   cursor: pointer;
-  margin: 3px 0;
+  margin: 6px 0;
+}
+
+.side-line {
+  margin: 20px 0;
+  border-top: 1px solid #f1f2f5;
 }
 
 .side-t {
-  margin: 10px 0 10px 0;
+  margin: 10px 0 15px 0;
   font-size: 24px;
   font-weight: 500;
   cursor: default;
 }
 
 .minicon {
-  float: right;
+  float: left;
   width: 780px;
-  padding: 0px 0 15px 0;
+  min-height: 500px;
+  padding: 0px 0 15px 20px;
+  border-left: 1px solid #f1f2f5;
   box-sizing: border-box;
 }
 
@@ -416,10 +423,9 @@ input[id="termsService3"]:checked + label::before{
 
 .reg-cancle-but {
   align-items: left;
-  justify-content: center;
   width: 216px;
   height: 60px;
-  margin: 35px auto 40px 0;
+  margin: 20px auto 40px 0;
   padding: 0;
   border: none;
   background: #8e8e8e;
@@ -430,10 +436,9 @@ input[id="termsService3"]:checked + label::before{
 
 .reg-agree-but {
   align-items: right;
-  justify-content: center;
   width: 216px;
   height: 60px;
-  margin: 35px 0 40px auto;
+  margin: 20px 0 40px auto;
   padding: 0;
   border: none;
   background: #0C6BBC;
@@ -1141,7 +1146,7 @@ input[id="termsService3"]:checked + label::before{
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0;
+  margin-top: auto;
   padding-top: 10px;
   padding-bottom: 20px;
   vertical-align: bottom;
