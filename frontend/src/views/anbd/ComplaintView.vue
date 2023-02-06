@@ -37,7 +37,7 @@
           </a>
         </v-btn>
   
-        <complaint :complaint="complaint" :boardType="boardType" @Delete="onDelete"   @onDetails="onDetails" />
+        <complaint :complaint="complaint" :boardType="boardType"  :complaintTotal="complaintTotal"  :resonList ="resonList"   @Delete="onDelete"   @onDetails="onDetails" />
         
 
 
@@ -66,7 +66,7 @@
           }
         },
         computed: {
-          ...mapState(['complaint'])
+          ...mapState(['complaint','resonList','complaintTotal'] )
         },
   
         mounted() {
@@ -93,7 +93,8 @@
           },
           async onDetails(payload){
             await this.requestComplaintDetail(payload)
-            alert("111");
+            //alert("111");
+            //alert(this.complaintTotal);
           }
 
 

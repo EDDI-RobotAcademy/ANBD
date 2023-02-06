@@ -12,8 +12,11 @@ export default {
 
     [REQUEST_COMPLAINT_DETAIL_SPRING] (state, passingData) {
         console.log(JSON.stringify(passingData))
-        state.complaintDetails = passingData
+        state. complaintTotal = passingData.complaintTotalRequest
+        state.resonList = passingData.list
         console.log(JSON.stringify(state.complaintDetails))
+       // alert(JSON.stringify(state. complaintTotal))
+       // alert(JSON.stringify( state.resonList))
     }
 
 
