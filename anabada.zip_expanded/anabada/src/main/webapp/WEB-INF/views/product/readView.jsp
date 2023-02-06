@@ -78,7 +78,8 @@
 
 #textbox {
 	width: 490px;
-	height: 320px;
+	/* height: 320px; */
+	height : auto;
 	border-radius: 20px;
 	border-top-left-radius: 0px;
 	border: 2px solid #AFAFAF;
@@ -223,7 +224,7 @@ ul {
 }
 
 #reviewBox td {
-	width: 510px;
+	width: 500px;
 }
 
 #select_table {
@@ -284,6 +285,7 @@ font-size: 20px;
 
 margin-left: 60px;
 }
+
 </style>
 <script type="text/javascript">
    $(document).ready(function() {
@@ -1085,23 +1087,37 @@ function complaint() {
 				<!-- 관련 상품 끝 -->
 
 
-				<!-- 상품 상세 설명  및 구매자 후기 -->
-				<table id="reviewBox"  >
+
+<table>
+<tr> 
+<td>
+		<table id="reviewBox"  >
 					<tr>
 						<td>
-							<div class="reBox">상 품 상 태</div>
+							<div class="reBox">상품 상태</div>
 						</td>
-						<td>
-							<div class="reBox">상점 후기</div>
-						</td>
+						
 					</tr>
 					<tr>
 						<td>
 							<div id="textbox">${read.p_content }</div>
 						</td>
 
+					</tr>
+				</table>
+</td>  
 
 
+<td>
+
+	<table id="reviewBox"  >
+					<tr>
+						<td>
+							<div class="reBox">상점 후기</div>
+						</td>
+						
+					</tr>
+					<tr>
 						<td>
 							<div id="textbox" style="padding-top: 3px;">
 
@@ -1173,19 +1189,30 @@ function complaint() {
 
 								<!-- 페이지 네이션 끝 -->
 							</div>
+							</td>
+							</tr>
+							</table>
 
-						</td>
+				
+				
 
-
-
-
-
-
-					</tr>
-				</table>
+</td>
 
 
-				<!-- 상품 상세 설명 및 구매자 후기  끝  -->
+
+ </tr>
+
+
+</table>
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1310,6 +1337,7 @@ function complaint() {
 			</div>
 		</div>
 	</div>
+
 
 
 
