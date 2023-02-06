@@ -68,7 +68,7 @@
         return {
             selectedItems: [],
             headerTitle: [
-                { text: '신고횟수', value: 'count', width: "100px" }, // 신고횟수 임의로 count라고 함
+                { text: '신고사유', value: 'reason', width: "100px" }, // 신고횟수 임의로 count라고 함
                 { text: '신고 내용', value: 'c_content', width: "200px" },
                 { text: '게시물 번호', value: 'c_bno', width: "100px" },
                 { text: '게시물 유형', value: 'boardType', width: "100px" },
