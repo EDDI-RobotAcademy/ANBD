@@ -22,7 +22,7 @@
 		<%@ include file="../includes/miniHeader.jsp" %>
 	</div>
 	
-	<div>
+	<div style="display: flow-root;">
 		<section class="container">
 			<!-- 메뉴 -->
 			<jsp:include page="/WEB-INF/views/includes/myPageHeader.jsp" />

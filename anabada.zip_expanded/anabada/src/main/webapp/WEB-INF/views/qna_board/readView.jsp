@@ -182,6 +182,11 @@
 					<label for="q_date" class="qna">등록일</label>
 					<div class="qnatitle"><fmt:formatDate value="${read.q_date}" pattern="yyyy-MM-dd HH:mm" /></div>
 				</div>
+
+				<div style="border-bottom: 1px solid #E0E0E0; display: flex; align-items: center;">		
+					<label for="q_title" class="qna">이메일</label>
+					<div id="email" class="qnatitle"><c:out value="${read.email}"/></div>
+				</div>
 				
 				<div style="border-bottom: 1px solid #E0E0E0; display: flex; align-items: center;">		
 					<label for="q_title" class="qna">제목</label>

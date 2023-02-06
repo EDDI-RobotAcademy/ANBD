@@ -13,6 +13,8 @@
 </head>
 
 <body>
+	<div style="margin-top: 25px;"></div>
+	
 	<!-- footer 영역 -->
 	<footer class="foot foot-border" style="background-color: #F9F9F9;">
 		<div class="container">
