@@ -57,7 +57,7 @@ public class ComplaintController {
             service.deleteByParameters(board_type, c_bno);
         }
     }
-    @GetMapping("/details/{c_bno}")
+    @PostMapping("/details")
     public ComplaintDetails details(@RequestBody DetailForm form){
         Long c_bno = Long.parseLong(form.getC_bno())  ;
         String board_type = form.getBoardType();
