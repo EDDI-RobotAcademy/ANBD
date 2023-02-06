@@ -43,9 +43,12 @@
                 
                     <v-card>
                         <v-card-title class="headline">
-                            {{ item.c_bno}}번 {{ item.boardType }}게시물
+                            
                         </v-card-title>
                         <v-card-text>
+                        {{complaintTotal}}
+                       <span v-if="complaintTotal != null"> 비어있지 않음  </span>
+                        <span v-if="complaintTotal == null"> 비어있다  </span>
                             오늘만 날이다! 먹고 죽엇! 할인 50%!!!!
                         </v-card-text>
                         <v-card-text>
@@ -98,9 +101,21 @@
         type: String,
         required: true,
       },
+       complaintTotal:{
+        type : Object,
+        required : true,
+
+      },
+      resonList:{
+        type: Object,
+         required : true,
+      }
     },
     data () {
         return {
+
+          on :false,
+        
             selectedItems: [],
             headerTitle: [
                 { text: '신고사유', value: 'reason', width: "100px" }, // 신고횟수 임의로 count라고 함
@@ -144,18 +159,21 @@
         }
 
       },
-      details(c_bno,boardType){
+       async details(c_bno,boardType){
         
+        alert(c_bno + ", "+boardType)
+         await this.alertaaa()
+        await this.$emit('onDetails' , {c_bno , boardType})
+        
+         
 
         
-       
-        alert(c_bno + ", "+boardType);
-      
-       
+      },
 
-
-        this.$emit('onDetails' , {c_bno , boardType})
+      async alertaaa() {
+         this.on = true
       }
+
       
     }
 }

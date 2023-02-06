@@ -59,12 +59,13 @@ export default {
 
     requestComplaintDetail({  commit },payload){
         console.log("디테일 보기")
-        alert(  JSON.stringify(payload) )
-        const {c_bno, boardType} = payload
-        alert(c_bno + ", "+boardType);
+       // alert(  JSON.stringify(payload) )
+      //  const {c_bno, boardType} = payload
+       // alert(c_bno + ", "+boardType);
         return axios.post('http://localhost:7777/complaint/details', payload)
             .then((res) => {
-                alert(res.data)
+               // alert("가나다")
+              //  alert(res.data)
                 commit(REQUEST_COMPLAINT_DETAIL_SPRING, res.data)
                 console.log('성공')
             })
