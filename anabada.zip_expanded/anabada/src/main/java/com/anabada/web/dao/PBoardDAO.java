@@ -74,4 +74,7 @@ public interface PBoardDAO {
 
 	public int reviewCount(ReviewCriteria rescri) throws Exception;
 
+	//조회수 +1
+	public void cuntup(int pno)throws Exception;
+
 }

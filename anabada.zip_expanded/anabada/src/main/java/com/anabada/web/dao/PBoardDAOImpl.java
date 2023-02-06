@@ -52,8 +52,6 @@ public class PBoardDAOImpl implements PBoardDAO {
 	@Override
 	public PBoardVO read(int pno) {
 
-		sql.update("pBoardMapper.cuntup", pno); // 조회수를 1 올린다.
-
 		return sql.selectOne("pBoardMapper.read", pno); // 게시물 상세보기 정보 전송
 	}
 
@@ -169,6 +167,13 @@ public class PBoardDAOImpl implements PBoardDAO {
 	@Override
 	public int reviewCount(ReviewCriteria rescri) throws Exception {
 		return sql.selectOne("pBoardMapper.reviewCount", rescri);
+	}
+
+	// 조회수 +1
+	@Override
+	public void cuntup(int pno) throws Exception {
+		sql.update("pBoardMapper.cuntup", pno);
+		
 	}
 
 }
