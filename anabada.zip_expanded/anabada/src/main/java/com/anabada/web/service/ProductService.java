@@ -68,6 +68,9 @@ public interface ProductService {
 
 	public int reviewCount(ReviewCriteria rescri) throws Exception ;
 
+	//조회수 +1 
+	public void cuntup(int pno) throws Exception;
+
 	
 
 
