@@ -1,5 +1,6 @@
 import {
     REQUEST_COMPLAINT_FROM_SPRING,
+    REQUEST_COMPLAINT_DETAIL_SPRING,
 } from './mutation-types'
 
 // npm install axios --save-dev
@@ -55,5 +56,22 @@ export default {
           
  
     },
+
+    requestComplaintDetail({  commit },payload){
+        console.log("디테일 보기")
+        alert(  JSON.stringify(payload) )
+        const {c_bno, boardType} = payload
+        alert(c_bno + ", "+boardType);
+        return axios.get(`http://localhost:7777/complaint/details/${c_bno}` ,{c_bno,boardType} )
+            .then((res) => {
+                alert("성공ㅇㅇㅇ")
+                alert(res.data)
+                commit(REQUEST_COMPLAINT_DETAIL_SPRING, res.data)
+                console.log('성공')
+            })
+
+    }
+
+  
     
 }

@@ -1,22 +1,19 @@
 package com.example.boilerplateproj.domain.vue.complaint.controller.request;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
+import java.util.logging.LoggingPermission;
 
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
+public class DetailForm {
 
-public class ComplaintRequest {
-
-    private Long c_bno;
-
+    private String c_bno;
     private String boardType;
 
 }
-
