@@ -182,6 +182,12 @@ public class ProductServiceImpl implements ProductService {
 		return dao.reviewCount(rescri);
 	}
 
+	// 조회수 +1
+	@Override
+	public void cuntup(int pno) throws Exception {
+          dao.cuntup(pno);		
+	}
+
 	
 
 }

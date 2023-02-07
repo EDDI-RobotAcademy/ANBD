@@ -1,7 +1,9 @@
 package com.example.boilerplateproj.domain.vue.complaint.controller;
 
+import com.example.boilerplateproj.domain.vue.complaint.controller.request.ComplaintDetails;
 import com.example.boilerplateproj.domain.vue.complaint.controller.request.ComplaintRequest;
 import com.example.boilerplateproj.domain.vue.complaint.controller.request.ComplaintTotalRequest;
+import com.example.boilerplateproj.domain.vue.complaint.controller.request.DetailForm;
 import com.example.boilerplateproj.domain.vue.complaint.entity.Complaint;
 import com.example.boilerplateproj.domain.vue.complaint.service.ComplaintService;
 import com.fasterxml.jackson.databind.util.JSONPObject;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 @Slf4j
 @RestController
@@ -53,16 +57,13 @@ public class ComplaintController {
             service.deleteByParameters(board_type, c_bno);
         }
     }
-    @GetMapping("/details")
-    public void details(@RequestParam(value = "boardType")String board_type , @RequestParam(value = "c_bno") Long c_bno){
+    @PostMapping("/details")
+    public ComplaintDetails details(@RequestBody DetailForm form){
+        Long c_bno = Long.parseLong(form.getC_bno())  ;
+        String board_type = form.getBoardType();
         log.info("디테일 보기 클릭");
         log.info("타입 : "+board_type + ", c_bno : "+c_bno);
-        /*
-        해야할일
-        1. 해당 보드에 해당하는 총 신고 수
-        2. 해당 보드에 해당하는 사유별 신고수
-        3. '기타'에 해당하는 신고 사유들 모두 가져오기
-        */
+
         ComplaintTotalRequest complaintTotal = new ComplaintTotalRequest();
         complaintTotal.setC_bno(c_bno);
         complaintTotal.setBoardType(board_type);
@@ -109,8 +110,9 @@ public class ComplaintController {
 
         // 기타에 해당하는 사유 가져오기
         List<Complaint> list = service.findByReson(board_type,c_bno);
+        ComplaintDetails complaintDetails = new ComplaintDetails(complaintTotal, list);
 
-
+        return  complaintDetails;
     }
 
 

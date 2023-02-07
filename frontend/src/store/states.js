@@ -1,4 +1,5 @@
 export default {
-    complaint: []
-
+    complaint: [],
+    complaintTotal:[],
+    resonList:[]
 }

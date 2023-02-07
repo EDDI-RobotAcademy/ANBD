@@ -19,7 +19,7 @@
         </template>
 
         <template v-slot:[`item.boardType`]="{ item }">
-          <span v-if="item.boardType === 'job'">알바게시물</span>
+          <span v-if="item.boardType === 'job'">알바</span>
           <span v-if="item.boardType === 'note'">쪽지</span>
           <span v-if="item.boardType === 'pboard'">중고</span>
           <span v-if="item.boardType === 'a_board'">동네생활</span>
@@ -50,7 +50,7 @@
         return {
             selectedItems: [],
             headerTitle: [
-              { text: '신고횟수', value: 'count', width: "100px" }, // 신고횟수 임의로 count라고 함
+              { text: '신고사유', value: 'count', width: "100px" }, // 신고횟수 임의로 count라고 함
               { text: '신고 내용', value: 'c_content', width: "200px" },
               { text: '게시물 번호', value: 'c_bno', width: "100px" },
               { text: '게시물 유형', value: 'boardType', width: "100px" },

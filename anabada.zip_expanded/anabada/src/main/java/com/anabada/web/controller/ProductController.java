@@ -164,6 +164,7 @@ public class ProductController {
 		String id = (String) session.getAttribute("id");
 		int pno = pboardVO.getPno();
 		PBoardVO read = service.read(pno);
+		service.cuntup(pno);
 
 		// User의 찜 여부 조회
 		Map<String, String> check = new HashMap<>();

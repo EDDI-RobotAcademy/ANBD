@@ -37,8 +37,14 @@
           </a>
         </v-btn>
   
-        <complaint :complaint="complaint" :boardType="boardType" @Delete="onDelete"/>
-              
+        <complaint :complaint="complaint" :boardType="boardType"  :complaintTotal="complaintTotal"  :resonList ="resonList"   @Delete="onDelete"   @onDetails="onDetails" />
+        
+
+
+
+
+
+
         </v-container>
         
           
@@ -60,7 +66,7 @@
           }
         },
         computed: {
-          ...mapState(['complaint'])
+          ...mapState(['complaint','resonList','complaintTotal'] )
         },
   
         mounted() {
@@ -71,6 +77,7 @@
           ...mapActions([
               'requestComplaintFromSpring',
               'requestDeleteComplaintToSpring',
+              'requestComplaintDetail',
           ]),
           // 동적 라우팅 감지
           data() {
@@ -84,6 +91,14 @@
                 return false
               }
           },
+          async onDetails(payload){
+            await this.requestComplaintDetail(payload)
+            //alert("111");
+            //alert(this.complaintTotal);
+          }
+
+
+
         },
         created() {
           this.requestComplaintFromSpring(this.boardType)
