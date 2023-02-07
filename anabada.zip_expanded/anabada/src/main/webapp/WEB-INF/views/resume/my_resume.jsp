@@ -89,7 +89,7 @@
    .mr_list{
       width: 100%;
    }
-   .mr_list tr, .mr_list td, .mr_list th{
+   .mr_list tr, .mr_list td{
       border-bottom: 1px solid #e5e5e5;
       padding: 10px;
       vertical-align: middle;
@@ -135,24 +135,24 @@
 		    <table class="mr_list">
 		    	<tr>
 		    		<td colspan="5">
-		    			<font style="font-size: 30px;">알바 지원 목록</font>&nbsp;&nbsp;
+		    			<font style="font-size: 30px;">아르바이트 지원</font>&nbsp;&nbsp;
             			<button type="button" name="delete_btn" class="j_btn3">
             			삭제</button>
             		</td>
 		    	</tr>
 		    	<tr>
-		    		<th>
+		    		<td>
                   		<input type="checkbox" name="delete" value="0" id="delete_all">
-		    		</th>
-		    		<th colspan="2">
+		    		</td>
+		    		<td colspan="2">
 		    			지원한 게시물
-		    		</th>
-		    		<th>
+		    		</td>
+		    		<td>
 		    			지원날짜
-		    		</th>
-		    		<th>
+		    		</td>
+		    		<td>
 		    			지원 수정
-		    		</th>
+		    		</td>
 		    	</tr>
 			    
 			    <c:if test="${not empty mr_list}">
@@ -185,9 +185,9 @@
 						<div class="word">
 							${j_list[status.index].j_addr1 }&nbsp;${j_list[status.index].j_addr2 }
 						</div>
-						<%-- <div class="word">
-							${j_list[status.index].j_method }&nbsp;${j_list[status.index].j_pay }	
-						</div>	 --%>	
+						<div class="word">
+							${j_list[status.index].j_method }&nbsp;${j_list[status.index].j_pay }원
+						</div>
 					</td>
 					<td style="width: 150px; text-align: center;">
 						${mr_list.r_date }

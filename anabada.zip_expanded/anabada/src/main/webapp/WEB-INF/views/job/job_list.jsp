@@ -310,7 +310,7 @@
                        <div class="word2">직종 : ${j_list.j_cate }</div>
                        <div class="word2">날짜 : ${j_list.j_day }</div>
                        <div class="word2">${j_list.j_term }&nbsp;${j_list.j_start }:00 ~ ${j_list.j_end }:00</div>
-                       <div class="word2">${j_list.j_method }&nbsp;${j_list.j_pay }</div>
+                       <div class="word2">${j_list.j_method }&nbsp;${j_list.j_pay }원</div>
                        <div class="word2">${j_list.j_addr1 }</div>
                     </div>
                 </div>

@@ -14,7 +14,7 @@ public class JobVO {
 	private String j_addr2;
 	private String j_cate;
 	private String j_method; // 시급, 일급, 주급, 월급
-	private String j_pay; // 9160원, 300만원
+	private int j_pay; // 숫자만 입력받도록
 	private String j_term; // 하루, 3개월 등
 	private String j_day; // 월-일요일
 	private int j_start; // 알바시작 시간
@@ -68,10 +68,10 @@ public class JobVO {
 	public void setJ_method(String j_method) {
 		this.j_method = j_method;
 	}
-	public String getJ_pay() {
+	public int getJ_pay() {
 		return j_pay;
 	}
-	public void setJ_pay(String j_pay) {
+	public void setJ_pay(int j_pay) {
 		this.j_pay = j_pay;
 	}
 	public String getJ_term() {

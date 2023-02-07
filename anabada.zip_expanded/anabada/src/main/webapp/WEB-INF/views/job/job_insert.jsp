@@ -59,12 +59,11 @@
 	    // submit 눌렀을 때 체크할 것들
 	    $("button[type='submit']").click(function () {
 	       
-	       var title = $("input[name='j_title']").val();
-	       var company = $("input[name='j_company']").val();
-	       var addr1 = $("input[name='j_addr1']").val();
-	       var addr2 = $("input[name='j_addr2']").val();
-	       var pay = $("input[name='j_pay']").val();
+	       var title = $("input[name='j_title']").val().trim();
+	       var company = $("input[name='j_company']").val().trim();
+	       var addr1 = $("input[name='j_addr1']").val().trim();
 	       var cate = $("input:checkbox[name='j_cate']").is(":checked")
+	       var pay = $("input[name='j_pay']").val().trim();
 	       var term = $("input:radio[name='j_term']").is(":checked")
 	       
 	       // 근무기간/요일
@@ -79,92 +78,80 @@
 	       
 	       var start = $("select[name='j_start']").val();
 	       var end = $("select[name='j_end']").val();
-	       var content = $("textarea[name='j_content']").val();
 	        
 	       // 1.제목 null 체크
 	       if(title == ""){
-	          $("#ti_null").text("제목을 작성해주세요.");
-	           $("#ti_null").css("color", "red");
-	           return false;
-	       }else{
-	          $("#ti_null").text("");
+	    	   	alert("제목을 작성해주세요.");
+	    		$("input[name='j_title']").focus();
+				return false;
 	       }
 	       
 	       // 2.상호명 null 체크
 	       if(company == ""){
-	          $("#com_null").text("상호명을 작성해주세요.");
-	           $("#com_null").css("color", "red");
-	           return false;
-	       }else{
-	          $("#com_null").text("");
+	    	    alert("상호명을 작성해주세요.");
+				$("input[name='j_company']").focus();
+	    		return false;
 	       }
 	       
 	       // 3.주소 null 체크
 	       if(addr1 == ""){
-	          $("#a_null").text("주소를 작성해주세요.");
-	           $("#a_null").css("color", "red");
-	           return false;
-	       }else{
-	          $("#a_null").text("");
-	       }
+	    	    alert("주소를 작성해주세요.");
+				$("input[name='j_addr1']").focus();
+	    		return false;
+		   }
 	       
 	       // 5.카테고리 null 체크
 	       if(!cate){
-	          $("#ca_null").text("카테고리를 한개 이상 선택해주세요.");
-	           $("#ca_null").css("color", "red");
-	           return false;
-	       }else{
-	          $("#ca_null").text("");
-	       }
+	    	    alert("카테고리를 한개 이상 선택해주세요.");
+	    		return false;
+		   }
 	       
 	       // 6.임금 null 체크
 	       if(pay == ""){
-	          $("#p_null").text("임금을 작성해주세요.");
-	           $("#p_null").css("color", "red");
-	           return false;
-	       }else{
-	          $("#p_null").text("");
-	       }
+	    	    alert("임금을 작성해주세요.");
+				$("input[name='j_pay']").focus();
+	    		return false;
+		   }
+	       
+	    	// 6-1. 임금 숫자 체크
+		   if(isNaN(pay)){ // 숫자일때 false
+			    alert("임금을 숫자로 작성해주세요.");
+				$("input[name='j_pay']").focus();
+				return false;
+		   }
 	       
 	       // 7.근무기간 null 체크
 	       if(!term){
-	          $("#te_null").text("카테고리를 한개 이상 선택해주세요.");
-	           $("#te_null").css("color", "red");
-	           return false;
-	       }else{
-	          $("#te_null").text("");
+	    	    alert("근무기간을 선택해주세요.")
+				$("input:checkbox[name='j_term']").focus()
+	    		return false;
 	       }
 	       
 	       // 8.근무요일 null 체크
 	       if($("#j_term1").is(":checked") == false) {// 개월인데,
 	          if($("input:checkbox[name='j_day']").is(":checked") == false){//요일 중에 체크 없을 때
-	             $("#d_null").text("요일을 선택해주세요.");
-	              $("#d_null").css("color", "red");
-	              return false;
+	        	  alert("근무요일을 선택해주세요.");
+				  $("input:checkbox[name='j_term2']").focus();
+	        	  return false;
 	          }else if($("input:checkbox[name='j_day']").is(":checked") == true){ // 요일 체크했을 때
 	             $("#ymdpicker").val("");
-	             $("#d_null").text("");
 	          }
 	       }else if($("#j_term1").is(":checked") == true){// 하루인데,
 	          if(plus <= 0){ // 잘못 선택했을 때
-	             $("#d_null").text("날짜를 선택해주세요.");
-	              $("#d_null").css("color", "red");
+	        	  alert("근무일을 다시 확인해주세요.");
 	              return false;
 	          }else if(plus > 0){ // 잘 선택했을 떄
 	             $(".d_days").each(function(index,element){
 	                $(this).prop('checked', false);
 	             });
-	             $("#d_null").text("");
 	          }
 	       }
 	       
 	       // 9.알바시간 체크
 	       if(start == end){
-	          $("#se_null").text("알바시간을 체크해주세요.");
-	           $("#se_null").css("color", "red");
-	           return false;
-	       }else{
-	          $("#se_null").text("");
+	    	    alert("알바시간을 다시 확인해주세요.");
+				$("select[name='j_start']").focus();
+	    		return false;
 	       }
 	      
 	    });
@@ -198,7 +185,6 @@
          <tr>
             <td>      
                <input type="text" name="j_title" id="j_title" class="form-control" >
-               <font id="ti_null"></font>
             </td>
          </tr>
          
@@ -208,7 +194,6 @@
          <tr>
             <td>
                <input type="text" name="j_company" id="j_company" class="form-control">
-               <font id="com_null"></font>
             </td>
          </tr>
          
@@ -218,7 +203,6 @@
             <tr>
                <td>
                   <input type="text" id="j_addr1" name="j_addr1" readonly class="form-control" style="background-color: white">
-                  <font id="a_null"></font>
                </td>
            </tr>
            <tr>
@@ -243,7 +227,6 @@
                   </label>
                <%} %>
                <br>
-               <font id="ca_null"></font>
             </td>
          </tr>
          
@@ -259,7 +242,6 @@
                   <option id="j_method4" value="건당">건당
                </select>&nbsp;
                <input type="text" name="j_pay" id="j_pay" class="form-control" style="width: 200px;display: inline">원<br>
-               <font id="p_null"></font>
             </td>
          </tr>   
          
@@ -284,7 +266,6 @@
                   </label>
                <%} %>
                <br>
-               <font id="te_null"></font>
             </td>
          </tr>
          
@@ -306,7 +287,6 @@
                <%} %>
                </div>
                <br>
-               <font id="d_null"></font>
             </td>
          </tr>
          
@@ -327,7 +307,6 @@
                      <option value="<%=i%>" <%if(i == 18){%> selected <% }%>><%=i %>시</option>
                   <%} %>
                </select>
-               <font id="se_null"></font>
             </td>
          </tr>
          

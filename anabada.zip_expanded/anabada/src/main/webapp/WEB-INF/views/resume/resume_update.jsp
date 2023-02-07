@@ -221,7 +221,7 @@ $(document).ready(function () {
 	                    <font style="font-size: 20px;">${j_read.j_title }</font><br>
 						${j_read.j_company }<br>
 						${j_read.j_addr1 }&nbsp;${j_read.j_addr2 }<br>
-						${j_read.j_method }&nbsp;${j_read.j_pay }
+						${j_read.j_method }&nbsp;${j_read.j_pay }원
 					</td>
 				</tr>
 				
