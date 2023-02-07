@@ -28,7 +28,11 @@
 			<jsp:include page="/WEB-INF/views/includes/myPageHeader.jsp" />
 		
 			<div class="minicon">
-				<h1>마이 페이지 ~.~</h1>
+				<c:forEach items="${list}" var="list">
+					<tr>
+						
+					</tr>
+				</c:forEach>
 			</div>
 		</section>
 	</div>

@@ -24,6 +24,7 @@ a {
 }
 
 .container {
+  display: flow-root;
   width: 100%;
   min-width: 1000px;
   max-width: 1000px;
@@ -288,7 +289,7 @@ a {
 }
 
 .side-t {
-  margin: 10px 0 15px 0;
+  margin: 0 0 15px 0;
   font-size: 24px;
   font-weight: 500;
   cursor: default;
@@ -296,9 +297,10 @@ a {
 
 .minicon {
   float: left;
-  width: 780px;
+  width: auto;
+  min-width: 820px;
   min-height: 500px;
-  padding: 0px 0 15px 20px;
+  padding: 0 20px 15px 20px;
   border-left: 1px solid #f1f2f5;
   box-sizing: border-box;
 }
@@ -507,7 +509,7 @@ input[id="termsService3"]:checked + label::before{
 }
 
 .reg-corp {
-  text-align : center;
+  text-align: center;
   font-size: 9px;
   margin: 0 auto 20px auto;
 }
@@ -540,6 +542,125 @@ input[id="termsService3"]:checked + label::before{
   vertical-align: middle;
 }
 
+
+
+/* 로그인 */
+.login-logo {
+  text-align: center;
+  padding: 120px 0 30px 0;
+  box-sizing: border-box;
+}
+
+.login-box {
+  display: flex;
+  width: 380px;
+  height: 50px;
+  border: 1px solid #D5D5D5;
+  border-radius: 5px 5px 0 0;
+}
+
+.login-box2 {
+  display: flex;
+  width: 380px;
+  height: 50px;
+  border-left: 1px solid #D5D5D5;
+  border-right: 1px solid #D5D5D5;
+  border-bottom: 1px solid #D5D5D5;
+  border-radius: 0 0 5px 5px;
+}
+
+.login-in {
+  width: 380px;
+  height: 48px;
+  padding-left: 12px;
+  padding-right: 12px;
+  border:0 solid black;
+  outline: none;
+  font-size: 14px;
+  border-radius: 5px 5px 0 0;
+}
+
+.login-in2 {
+  width: 380px;
+  height: 48px;
+  padding-left: 12px;
+  padding-right: 12px;
+  border:0 solid black;
+  outline: none;
+  font-size: 14px;
+  border-radius: 0 0 5px 5px;
+}
+
+.login-but {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 380px;
+  height: 60px;
+  margin: 20px auto 20px auto;
+  padding: 0;
+  border: none;
+  border-radius: 5px;
+  background: #0C6BBC;
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+
+/* 아이디, 비밀번호 찾기 */
+.find-chk {
+  display: inline-block;
+  margin-bottom: 15px;
+  font-size: 20px;
+  color: #2d2f43;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.find-notice {
+  display: inline-block;
+  margin-top: 15px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: #2d2f43;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.find-result {
+  width: 380px;
+  min-height: 100px;
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.find-cancle-but {
+  align-items: left;
+  width: 188px;
+  height: 50px;
+  margin: 20px auto 20px 0;
+  padding: 0;
+  border: none;
+  background: #8e8e8e;
+  color: #ffffff;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.find-agree-but {
+  align-items: right;
+  width: 188px;
+  height: 50px;
+  margin: 20px 0 20px auto;
+  padding: 0;
+  border: none;
+  background: #0C6BBC;
+  color: #ffffff;
+  font-size: 15px;
+  cursor: pointer;
+}
 
 
 /* 내 정보 수정 */
@@ -1146,6 +1267,9 @@ input[id="termsService3"]:checked + label::before{
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  left: 0;
+  right: 0;
+  bottom: 0;
   margin-top: auto;
   padding-top: 10px;
   padding-bottom: 20px;
