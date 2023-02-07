@@ -148,7 +148,7 @@
         	<table class="h_list">
         		<tr>
             		<td colspan="5">
-            			<font style="font-size: 30px;">알바 찜 목록</font>&nbsp;&nbsp;
+            			<font style="font-size: 30px;">아르바이트 찜</font>&nbsp;&nbsp;
             			<button type="button" name="delete_btn" class="n_btn2">
             			삭제</button>
             		</td>
@@ -192,20 +192,20 @@
 							${h_list.j_addr1 }&nbsp;${h_list.j_addr2 }
                         </div>
                         <div class="word">
-							${h_list.j_method }&nbsp;${h_list.j_pay }	
+							${h_list.j_method }&nbsp;${h_list.j_pay }원	
 						</div>
                     </td>
                 </tr>
             </c:forEach>
             </c:if>
             
-            <c:if test="${empty h_list}">
-            <tr>
-            	<td colspan="4" style="text-align: center">
-				찜한 알바가 없습니다.            	
-            	</td>
-            </tr>
-            </c:if>
+           	<c:if test="${ empty h_list}">
+			<tr>
+				<td colspan="5" style="text-align: center">
+				찜한 아르바이트가 없습니다.
+				</td>
+			</tr>	
+			</c:if>
          </table>
             
          <c:if test="${not empty h_list}">

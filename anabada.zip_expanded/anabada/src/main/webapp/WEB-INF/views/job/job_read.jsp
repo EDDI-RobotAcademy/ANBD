@@ -535,7 +535,7 @@
 				</tr>
 				
 				<tr>
-					<td style="border-left: 1px solid #c9cdd2;">${j_read.j_pay }</td>
+					<td style="border-left: 1px solid #c9cdd2;">${j_read.j_pay }원</td>
 					<td>${j_read.j_term }</td>
 					<td>${j_read.j_cate }</td>
 					<td>${j_read.j_day }</td>

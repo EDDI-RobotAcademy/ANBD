@@ -339,8 +339,9 @@ public class JobController {
 				h_list.add(jobVO);
 			}
 			
-			model.addAttribute("h_list", h_list);
 		}
+		
+		model.addAttribute("h_list", h_list);
 		
 		JobPageMaker pageMaker = new JobPageMaker();
 		pageMaker.setCri(cri);
@@ -479,5 +480,6 @@ public class JobController {
  		
  		boolean result = true;
         return result;
+        
  	}
 }

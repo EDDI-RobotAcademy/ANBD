@@ -52,8 +52,6 @@
    .mj_list{
       margin: auto;
       width: 95%;
-      /* border-top: 1px solid #e5e5e5; */
-      /* border-collapse: collapse; */
    }
    .mj_list tr, .mj_list td{
       border-bottom: 1px solid #e5e5e5;
@@ -175,10 +173,8 @@
         	<table class="mj_list">
         		<tr>
             		<td colspan="5">
-            			<font style="font-size: 30px;">알바 구인 공고 목록</font>&nbsp;&nbsp;
-            			<button type="button" name="delete_btn" class="j_btn3">
-            			삭제</button>
-            			<button type="button" name="aa">하하하하</button>
+            			<font style="font-size: 30px;">아르바이트 공고</font>&nbsp;&nbsp;
+            			<button type="button" name="delete_btn" class="j_btn3">삭제</button>
             		</td>
             	</tr>
             	
@@ -188,7 +184,7 @@
                		</td>
         			<td colspan="2" style="text-align: center">내용</td>
         			<td style="text-align: center">등록일</td>
-        			<td style="text-align: center">지원자 보기</td>
+        			<td style="text-align: center">지원자</td>
         		</tr>
                 
             	<c:if test="${not empty my_jobList}">
@@ -216,6 +212,8 @@
                         	<font style="font-size: 20px;">${mj_list.j_title }</font>
                         </div>
 						<div class="word">${mj_list.j_company }</div>
+						<div class="word">${mj_list.j_addr1 }&nbsp;${mj_list.j_addr2 }</div>
+						<div class="word">${mj_list.j_method }&nbsp;${mj_list.j_pay }원</div>
                     </td>
                     <td width="150px;" style="text-align: center">
                         ${mj_list.j_date }
