@@ -308,7 +308,7 @@ a {
 
 .aboardcon {
   float: left;
-  width: auto;
+  min-width: 820px;
   max-width: 820px;
   min-height: 500px;
   padding: 0 5px 15px 20px;
