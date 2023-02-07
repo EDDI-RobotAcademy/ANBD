@@ -225,7 +225,7 @@ margin-top: 40px;
 
 		}).scroll();
 
-		// 최근 본 알바 불러오기. sessionStorage
+		
 		function get_recent_item() {
 
 			//sessionStorage.clear(); 
@@ -251,7 +251,7 @@ margin-top: 40px;
 					var li = "<li  ><a href='/product/readView?pno="
 							+ pno
 							+ "'><img width='100' height='100' src='"+p_img+"'/>"
-							+ "<br><div class='sideword' >" + pno + p_title + "</div>"
+							+ "<br><div class='sideword' >" + p_title + "</div>"
 							+ "</a></li>";
 				}
 				if (p_img == null || p_img == "") {
