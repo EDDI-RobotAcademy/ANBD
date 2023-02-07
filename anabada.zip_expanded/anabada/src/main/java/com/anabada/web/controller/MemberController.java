@@ -114,6 +114,9 @@ public class MemberController {
 		HttpSession session = req.getSession();
 		MemberVO login = service.login(vo);
 		
+		// 세션 유지 시간 설정
+		session.setMaxInactiveInterval(-1);
+		
 		if (login != null) {
 			session.setAttribute("member", login);
 			session.setAttribute("id", login.getId());
