@@ -73,8 +73,8 @@ height: 33px;
 			}
 
 			//가격정보에 숫자가 아닌값 있는지 확인하기 
-			if (!(isNaN($("#p_cost").value))) {
-				alert("가격란에는 숫자만 입력해주세요.");
+			if(numCH()){
+				alert(123111);
 				return false;
 			}
 
@@ -175,6 +175,16 @@ height: 33px;
 	function deleteFile(obj) {
 		obj.parent().remove();
 	}
+	
+	function numCH() {
+		var cost = document.getElementById('p_cost').value;
+	if(isNaN(cost)){
+		alert("판매 가격란에는 숫자만 입력하여주세요.");
+		return true;
+	}
+
+		
+	}
 </script>
 
 
@@ -219,7 +229,7 @@ height: 33px;
 					</select></td>
 				</tr>
 				<tr>
-					<td class="td_title" ><h4>판매 가격</h4></td>
+					<td class="td_title" ><h4>판매 가격</h4>   </td>
 					<td><input name="p_cost" id="p_cost" type="text" placeholder="가격을 입력해 주세요" style="width: 180px; height: 30px; font-size: 15px; text-align: center; " class="chk" title="가격을 입력하세요"> 원</td>
 				</tr>
 

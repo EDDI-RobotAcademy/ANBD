@@ -215,21 +215,9 @@ margin-bottom: 50px;
 
 	
 	
-	<section class="home_gallery_area p_120 banner "     >
-		<div class="container" onclick="location.href='/event/list'" >
-			<div class="main_title"  >
-				<h2>🌎아나바다와 함께하는 이벤트🌎</h2>
-				<p>Our One Step for the Environment</p>
-			</div>
-			</div>
 
-		
-
-
-
-		
-		</section>
 		<div >
+		<jsp:include page="../includes/eventHeader.jsp" />
 		<jsp:include page="../includes/eventNav.jsp" />
 	</div> 
 	

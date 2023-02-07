@@ -78,12 +78,13 @@
 
 #textbox {
 	width: 490px;
-	/* height: 320px; */
+	
 	height : auto;
 	border-radius: 20px;
 	border-top-left-radius: 0px;
 	border: 2px solid #AFAFAF;
 	padding: 17px;
+	min-height: 300px;
 }
 
 #re {
@@ -449,7 +450,7 @@ margin-left: 60px;
                var li = "<li  ><a href='/product/readView?pno="
                      + pno
                      + "'><img width='100' height='100' src='"+p_img+"'/>"
-                     + "<br><div class='sideword' >" + pno + p_title + "</div>"
+                     + "<br><div class='sideword' >"  + p_title + "</div>"
                      + "</a></li>";
             }
             if (p_img == null || p_img == "") {
@@ -1100,7 +1101,7 @@ function complaint() {
 					</tr>
 					<tr>
 						<td>
-							<div id="textbox">${read.p_content }</div>
+							<div id="textbox"  >${read.p_content }</div>
 						</td>
 
 					</tr>
@@ -1130,7 +1131,7 @@ function complaint() {
 													<td>
 														<div class="cunsumer">작성자</div> ${review.r_consumer}
 													</td>
-													<td style="font-size: small;"><c:if test="${review.r_score == 0.3 }"> ⭐⭐⭐⭐ </c:if> <c:if test="${review.r_score == 0.2 }"> ⭐⭐⭐ </c:if> <c:if test="${review.r_score == 0.1 }"> ⭐⭐ </c:if> <c:if test="${review.r_score == -0.1 }"> ⭐ </c:if></td>
+													<td style="font-size: small;"><c:if test="${review.r_score == 0.3 }"> ⭐⭐⭐⭐ </c:if> <c:if test="${review.r_score == 0.2 }"> ⭐⭐⭐ </c:if> <c:if test="${review.r_score == 0.1 }"> ⭐⭐ </c:if> <c:if test="${review.r_score == -0.2 }"> ⭐ </c:if></td>
 
 
 
