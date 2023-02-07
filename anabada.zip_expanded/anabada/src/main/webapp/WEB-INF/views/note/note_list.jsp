@@ -200,7 +200,7 @@
    <section class="container">
    <form name="noteForm" action="/note/note_list" method="get">
         <!-- 바 -->
-        <div class="sidemenu3" style="border-top: 1px solid #e5e5e5;">
+        <div class="sidemenu3">
         	<div style="padding-top: 10px">
 	        	<button type="button" name="send" id="send" class="n_btn1" style="display: block; margin: auto;">쪽지 보내기</button>
 	        	<ul style="margin-top: 5px;">
@@ -311,7 +311,6 @@
             </c:if>
                            
             <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
-               <%-- <c:out value="${pageMaker.cri.page == idx ? 'class=info' : '' }"/> --%>
                &nbsp;<a href="note_list${pageMaker.makeSearch(idx)}">${idx }</a>
             </c:forEach>
                            

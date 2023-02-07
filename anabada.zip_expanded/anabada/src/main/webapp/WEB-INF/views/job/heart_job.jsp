@@ -148,9 +148,8 @@
         	<table class="h_list">
         		<tr>
             		<td colspan="5">
-            			<font style="font-size: 30px;">아르바이트 찜</font>&nbsp;&nbsp;
-            			<button type="button" name="delete_btn" class="n_btn2">
-            			삭제</button>
+            			<font style="font-size: 20px;">아르바이트 찜</font>&nbsp;&nbsp;
+            			<button type="button" name="delete_btn" class="n_btn2" style="float: right;">삭제</button>
             		</td>
             	</tr>
             	
@@ -182,18 +181,10 @@
                         </c:choose>
                     </td>
                     <td>
-                        <div class="word">
-                        	<font style="font-size: 20px;">${h_list.j_title }</font>
-                        </div>
-                        <div class="word">
-							${h_list.j_company }
-						</div>
-						<div class="word">
-							${h_list.j_addr1 }&nbsp;${h_list.j_addr2 }
-                        </div>
-                        <div class="word">
-							${h_list.j_method }&nbsp;${h_list.j_pay }원	
-						</div>
+                        <div class="word"><font style="font-size: 18px;">${h_list.j_title }</font></div>
+                        <div class="word"><font style="font-size: 15px;">${h_list.j_company }</font></div>
+						<div class="word"><font style="font-size: 15px;">${h_list.j_addr1 }&nbsp;${h_list.j_addr2 }</font></div>
+                        <div class="word"><font style="font-size: 15px;">${h_list.j_method }&nbsp;${h_list.j_pay }원</font></div>	
                     </td>
                 </tr>
             </c:forEach>

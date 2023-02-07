@@ -241,7 +241,7 @@
                   <option id="j_method3" value="시급">시급
                   <option id="j_method4" value="건당">건당
                </select>&nbsp;
-               <input type="text" name="j_pay" id="j_pay" class="form-control" style="width: 200px;display: inline">원<br>
+               <input type="text" name="j_pay" id="j_pay" class="form-control" style="width: 200px;display: inline" placeholder="숫자로 작성헤주세요.">원<br>
             </td>
          </tr>   
          

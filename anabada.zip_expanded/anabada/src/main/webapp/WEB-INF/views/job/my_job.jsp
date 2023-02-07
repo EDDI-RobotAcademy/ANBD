@@ -173,8 +173,8 @@
         	<table class="mj_list">
         		<tr>
             		<td colspan="5">
-            			<font style="font-size: 30px;">아르바이트 공고</font>&nbsp;&nbsp;
-            			<button type="button" name="delete_btn" class="j_btn3">삭제</button>
+            			<font style="font-size: 20px;">아르바이트 공고</font>&nbsp;&nbsp;
+            			<button type="button" name="delete_btn" class="j_btn3" style="float: right;">삭제</button>
             		</td>
             	</tr>
             	
@@ -208,12 +208,10 @@
                         </c:choose>
                     </td>
                     <td width="320px;">
-                    	<div class="word">
-                        	<font style="font-size: 20px;">${mj_list.j_title }</font>
-                        </div>
-						<div class="word">${mj_list.j_company }</div>
-						<div class="word">${mj_list.j_addr1 }&nbsp;${mj_list.j_addr2 }</div>
-						<div class="word">${mj_list.j_method }&nbsp;${mj_list.j_pay }원</div>
+                    	<div class="word"><font style="font-size: 18px;">${mj_list.j_title }</font></div>
+						<div class="word"><font style="font-size: 15px;">${mj_list.j_company }</font></div>
+						<div class="word"><font style="font-size: 15px;">${mj_list.j_addr1 }&nbsp;${mj_list.j_addr2 }</font></div>
+						<div class="word"><font style="font-size: 15px;">${mj_list.j_method }&nbsp;${mj_list.j_pay }원</font></div>
                     </td>
                     <td width="150px;" style="text-align: center">
                         ${mj_list.j_date }

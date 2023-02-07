@@ -187,7 +187,7 @@
 		    //세션에 데이터가 없을 경우 
 		    //새로운 배열 생성후
 		    //객체를 넣어줌
-		        alert("비어있음")
+		        //alert("비어있음")
 		        data=[{
 		               "j_bno":${j_read.j_bno},
 		               "j_title":'${j_read.j_title}',
@@ -333,7 +333,7 @@
 		            	if(data == 1){
 		            		alert("이미 신고했습니다.");
 		            	}else{
-		            		window.open("/job/job_report?j_bno=${j_read.j_bno}", "신고", "width=400, height=600, left=0, top=0");
+		            		window.open("/job/job_report?j_bno=${j_read.j_bno}", "신고", "width=450, height=500, left=0, top=0");
 		            	}
 		                
 		            },
@@ -359,12 +359,9 @@
 	}
 	tr, td{
 		border-bottom: 1px solid #c9cdd2;
-    	border-left: 1px solid #c9cdd2;
+    	/*border-left: 1px solid #c9cdd2;*/
     	padding: 10px;
 	}
-	td:first-child {
-    	border-left: none;
-  	}
   	
 	/*레이아웃*/
    #wapper {
@@ -455,7 +452,7 @@
 	
 			<table>
 				<tr>
-					<td colspan="4">
+					<td colspan="3">
 					    ${j_read.j_date }&nbsp;&nbsp;
 						<c:if test="${j_read.id eq id}"><!-- 로그인한 아이디(세션에 저장된 아이디(id))와 작성자아이디(j_read.id)가 같으면 수정, 삭제 가능 -->
 							<button type="button" id="update" class="j_btn3">수정</button>
@@ -488,15 +485,14 @@
 				</tr>
 		
 				<tr>
-					<td colspan="6">${j_read.j_company }</td>
+					<td colspan="5">
+					${j_read.j_company }<br>
+					<font style="font-size: 20px; font-weight: bolder;">${j_read.j_title }</font>
+					</td>
 				</tr>
 				
 				<tr>
-					<td colspan="6">${j_read.j_title }</td>
-				</tr>
-				
-				<tr>
-					<td rowspan="2" width="250px;">
+					<td width="250px;" style="text-align: center">
 					<c:choose>
 						<c:when test="${empty j_read.j_img}">
 							<img src="../resources/images/아나바다2.png" width="250px" height="250px"/>
@@ -505,56 +501,51 @@
 							<img src="/upload/${j_read.j_img }" width="250px" height="250px"/>
 						</c:otherwise>
 					</c:choose>
+					<td width="120px;" style="text-align: center">
+						<c:if test="${j_read.j_method eq '월급'}">
+							<img src="../resources/images/월급2.png" width="70px" height="70px"/>
+						</c:if>
+						<c:if test="${j_read.j_method eq '시급'}">
+							<img src="../resources/images/시급2.png" width="70px" height="70px"/>
+						</c:if>
+						<c:if test="${j_read.j_method eq '주급'}">
+							<img src="../resources/images/주급2.png" width="70px" height="70px"/>
+						</c:if>
+						<c:if test="${j_read.j_method eq '건당'}">
+							<img src="../resources/images/건당2.png" width="70px" height="70px"/>
+						</c:if>
+						<br><br>${j_read.j_pay }원
 					</td>
-					<c:choose>
-						<c:when test="${j_read.j_method eq '월급'}">
-						<td>
-							<img src="../resources/images/월급.png" width="100px" height="100px"/>
-						</td>
-						</c:when>
-						<c:when test="${j_read.j_method eq '시급'}">
-						<td>
-							<img src="../resources/images/시급.png" width="100px" height="100px"/>
-						</td>
-						</c:when>
-						<c:when test="${j_read.j_method eq '주급'}">
-						<td>
-							<img src="../resources/images/주급.png" width="100px" height="100px"/>
-						</td>
-						</c:when>
-						<c:otherwise>
-						<td>
-							<img src="../resources/images/건당.png" width="100px" height="100px"/>
-						</td>
-						</c:otherwise>
-					</c:choose>
-					<td>근무기간</td>
-					<td><img src="../resources/images/카테고리.png" width="100px" height="100px"/></td>
-					<td>날짜</td>
-					<td>시간</td>
-				</tr>
-				
-				<tr>
-					<td style="border-left: 1px solid #c9cdd2;">${j_read.j_pay }원</td>
-					<td>${j_read.j_term }</td>
-					<td>${j_read.j_cate }</td>
-					<td>${j_read.j_day }</td>
-					<td>${j_read.j_start }:00 ~ ${j_read.j_end }:00</td>
+					<td width="120px;" style="text-align: center">
+						<img src="../resources/images/달력2.png" width="70px" height="70px"/>
+						<br><br>${j_read.j_term }
+						<!-- 근무기간 -->
+					</td>
+					<td style="text-align: center">
+						<img src="../resources/images/카테고리2.png" width="70px" height="70px"/>
+						<br><br>${j_read.j_cate }
+					</td>
+					<td style="text-align: center">
+						<img src="../resources/images/시계.png" width="70px" height="70px"/>
+						<br><br>${j_read.j_day }&nbsp;&nbsp;${j_read.j_start }:00 ~ ${j_read.j_end }:00
+						<!-- 근무요일과 시간 -->
+					</td>
 				</tr>
 				
 				<!-- 내용 있을 때만 출력 -->
 				<c:if test="${j_read.j_content ne null}">
 				<tr>
 					<td colspan="6">
+					<font style="font-weight: bolder;">상세내용</font><br><br>
 					${fn:replace(j_read.j_content, replaceChar, "<br/>")}
 					</td>
 				</tr>
 				</c:if>
 				
 				<tr>
-					<td colspan="6">
-						<div id="addr">${j_read.j_addr1 } ${j_read.j_addr2 }</div>
-						<br>
+					<td colspan="5">
+					<font style="font-weight: bolder;">주소</font><br><br>
+						<div id="addr" style="padding-bottom: 10px;">${j_read.j_addr1 } ${j_read.j_addr2 }</div>
 						<div id="map" style="width:100%;height:200px; margin: auto"></div>
 					
 					<!-- 해당 주소에 해당하는 지도 띄우기 -->	
