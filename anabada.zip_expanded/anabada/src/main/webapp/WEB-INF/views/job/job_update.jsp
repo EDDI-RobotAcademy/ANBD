@@ -277,7 +277,7 @@
 						<option id="j_method3" value="시급" <c:if test="${j_update.j_method eq '시급'}"> selected </c:if>>시급
 						<option id="j_method4" value="건당" <c:if test="${j_update.j_method eq '건당'}"> selected </c:if>>건당
 					</select>
-					<input type="text" name="j_pay" id="j_pay" value="${j_update.j_pay }" class="form-control" style="width: 200px;display: inline">원<br>
+					<input type="text" name="j_pay" id="j_pay" value="${j_update.j_pay }" class="form-control" style="width: 200px;display: inline" placeholder="숫자로만 작성해주세요.">원<br>
 				</td>
 			</tr>	
 			

@@ -306,12 +306,12 @@
                           </c:otherwise>
                        </c:choose>
                        <div class="word2">${j_list.j_company }</div>
-                       <div class="word2">${j_list.j_title }</div>
-                       <div class="word2">직종 : ${j_list.j_cate }</div>
-                       <div class="word2">날짜 : ${j_list.j_day }</div>
-                       <div class="word2">${j_list.j_term }&nbsp;${j_list.j_start }:00 ~ ${j_list.j_end }:00</div>
+                       <div class="word2"><font style="font-weight: bolder;">${j_list.j_title }</font></div>
+                       <%-- <div class="word2">직종 : ${j_list.j_cate }</div> --%>
+                       <%-- <div class="word2">근무기간 : ${j_list.j_term }</div> --%>
+                       <div class="word2">${j_list.j_day }&nbsp;${j_list.j_start }:00 ~ ${j_list.j_end }:00</div>
                        <div class="word2">${j_list.j_method }&nbsp;${j_list.j_pay }원</div>
-                       <div class="word2">${j_list.j_addr1 }</div>
+                       <div class="word2">${j_list.j_addr1 }&nbsp;${j_list.j_addr2 }</div>
                     </div>
                 </div>
              </c:forEach>

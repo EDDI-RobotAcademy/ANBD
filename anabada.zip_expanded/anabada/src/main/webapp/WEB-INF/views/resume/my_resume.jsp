@@ -59,11 +59,12 @@
 	               type: "get",
 	               url : "/resume/delete_chk.ajax",
 	               data: {
-	                  delete_array : delete_array, 
+	                  delete_array : delete_array,
+					  id : '${id}'
 	               },
 	               traditional : true,
 	               success: function(data){
-	                   alert("삭제했습니다.");
+	                   alert("지원을 삭제했습니다.");
 	                   window.location.reload();
 	               },
 	               error : function(request, status, error) {
@@ -135,9 +136,8 @@
 		    <table class="mr_list">
 		    	<tr>
 		    		<td colspan="5">
-		    			<font style="font-size: 30px;">아르바이트 지원</font>&nbsp;&nbsp;
-            			<button type="button" name="delete_btn" class="j_btn3">
-            			삭제</button>
+		    			<font style="font-size: 20px;">아르바이트 지원</font>&nbsp;&nbsp;
+            			<button type="button" name="delete_btn" class="j_btn3" style="float: right;">삭제</button>
             		</td>
 		    	</tr>
 		    	<tr>
@@ -176,18 +176,10 @@
 	                    </c:choose>
 	                </td>
 	                <td style="width: 400px;">
-						<div class="word">
-							<font style="font-size: 20px;">${j_list[status.index].j_title}</font>
-						</div>
-						<div class="word">
-							${j_list[status.index].j_company }
-						</div>
-						<div class="word">
-							${j_list[status.index].j_addr1 }&nbsp;${j_list[status.index].j_addr2 }
-						</div>
-						<div class="word">
-							${j_list[status.index].j_method }&nbsp;${j_list[status.index].j_pay }원
-						</div>
+						<div class="word"><font style="font-size: 18px;">${j_list[status.index].j_title}</font></div>
+						<div class="word"><font style="font-size: 15px;">${j_list[status.index].j_company }</font></div>
+						<div class="word"><font style="font-size: 15px;">${j_list[status.index].j_addr1 }&nbsp;${j_list[status.index].j_addr2 }</font></div>
+						<div class="word"><font style="font-size: 15px;">${j_list[status.index].j_method }&nbsp;${j_list[status.index].j_pay }원</font></div>
 					</td>
 					<td style="width: 150px; text-align: center;">
 						${mr_list.r_date }

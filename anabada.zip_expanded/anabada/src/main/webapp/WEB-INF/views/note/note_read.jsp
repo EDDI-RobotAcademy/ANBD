@@ -288,7 +288,7 @@
 	<section class="container">
 	<form name="readForm">
 		<!-- 좌측 바 -->
-		<div class="sidemenu3"  style="border-top: 1px solid #e5e5e5;">
+		<div class="sidemenu3">
         	<div style="padding-top: 10px">
 	        	<button type="button" name="send" id="send" class="n_btn1" style="display: block; margin: auto;">쪽지 보내기</button>
 	        	<ul style="margin-top: 5px;">
