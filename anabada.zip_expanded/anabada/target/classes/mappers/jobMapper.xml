@@ -183,6 +183,16 @@ WHERE C_BNO IN (
 ) AND BOARD_TYPE = 'job'
 </delete>
 
+<select id="recent_chk" parameterType="java.util.ArrayList"  resultType="int">
+SELECT J_BNO FROM JOB_BOARD 
+WHERE J_BNO IN (
+	<foreach collection="array" item="item" index="index" separator="," >   
+	#{item}
+	</foreach>
+) ORDER BY ROWNUM
+</select>
+
+
 
 
 </mapper>

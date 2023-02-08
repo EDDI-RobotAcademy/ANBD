@@ -1,5 +1,7 @@
 package com.anabada.web.service;
 
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -55,6 +57,10 @@ public interface JobService {
 
 	// 마이페이지에서 게시물 삭제할때 신고내역도 있으면 삭제하는거
 	public void delete_complaint(int[] delete_array) throws Exception;
+
+	
+	// 최근 본 알바 게시물 삭제돼었는지 체크
+	public List recent_chk(int[] recent_array) throws Exception;
 
 
 
