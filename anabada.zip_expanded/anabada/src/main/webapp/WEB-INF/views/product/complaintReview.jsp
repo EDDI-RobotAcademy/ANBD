@@ -22,21 +22,31 @@ $(document).ready(function() {
 	
 	  $("button[name=delete]").on("click", function () {
 	         if(confirm("삭제하시겠습니까?")){
+	        	 alert('${review.r_consumer }');
 	            
 	            
 	            $.ajax({
 	                    type: "get",
 	                    url : "/pcomplaint/deleteReview",
 	                    data: {
-	                       id: '${review.r_consumer}',
+	                       r_consumer: '${review.r_consumer}',
 	                       r_no : '${review.r_no}',
+	                       r_content : '${review.r_content }'
 	                    },
 	                    dataType :  'json',   // 데이터 타입을 Json으로 변경
 	                    traditional : true,
 	                    success: function(data){
 	                        alert("삭제했습니다.");
-	                        window.parent.postMessage('Done', 'http://localhost:8081/complaint-all-view/');
-	                        window.close();
+	                        if(${href eq 'all'}){
+								alert("전체 새로고침");
+						    	window.opener.top.location.href = "http://localhost:8081/complaint-all-view/";
+						    	
+						    }else if(${href eq 'review'}){
+						    	alert("리뷰 새로고침");
+						    	window.opener.top.location.href = "http://localhost:8081/complaint-view/review";
+						    }
+				            		
+				            window.close();
 	                    },
 	                    error : function(request, status, error) {
 	                     alert("삭제 실패:" + error);
