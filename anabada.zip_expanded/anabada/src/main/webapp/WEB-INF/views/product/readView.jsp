@@ -545,6 +545,12 @@ margin-left: 60px;
       });
       //찜버튼 이벤트 
       $("#heart").on("click", function() {
+    	  
+    	  if("${id}" == ""){
+    		  alert("회원 전용 서비스입니다. 로그인 후 이용해주세요");
+    		  return false;
+    	  }
+    	  
          if ($(this).prop('checked')) {
             $(".himg").attr("src", "../../resources/images/heartB.png");
             var params = {
