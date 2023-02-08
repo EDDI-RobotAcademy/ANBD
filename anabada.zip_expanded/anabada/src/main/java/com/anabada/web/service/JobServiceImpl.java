@@ -1,5 +1,6 @@
 package com.anabada.web.service;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -140,6 +141,12 @@ public class JobServiceImpl implements JobService {
 	@Override
 	public void delete_complaint(int[] delete_array) throws Exception {
 		dao.delete_complaint(delete_array);
+	}
+
+	// 최근 본 알바 게시물 삭제돼었는지 체크
+	@Override
+	public List recent_chk(int[] recent_array) throws Exception {
+		return dao.recent_chk(recent_array);
 	}
 
 	

@@ -1,5 +1,6 @@
 package com.anabada.web.dao;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -54,6 +55,8 @@ public interface JobDAO {
 
 	// 마이페이지 신고삭제 관련
 	public void delete_complaint(int[] delete_array) throws Exception;
+
+	public List recent_chk(int[] recent_array) throws Exception;
 
 
 	

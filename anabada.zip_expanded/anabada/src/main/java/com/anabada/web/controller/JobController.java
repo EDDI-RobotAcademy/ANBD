@@ -3,6 +3,8 @@ package com.anabada.web.controller;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -487,4 +489,19 @@ public class JobController {
         return result;
         
  	}
+ 	
+ 	//최근 본 게시물 삭제 체크
+ 	@RequestMapping(value = "/recent_chk.ajax", method = RequestMethod.GET)
+	@ResponseBody
+	public List recent_chk(@RequestParam(value="recent_array") int[] recent_array) throws Exception{
+				
+		logger.info("최근 본 게시물 삭제 체크"); 
+		System.out.println(recent_array);
+		
+		List recent_chk = jobService.recent_chk(recent_array); // 마이페이지 게시물들 번호 배열로 받아서 삭제
+		
+		System.out.println(recent_chk);
+		return recent_chk;
+	}
+ 	
 }
