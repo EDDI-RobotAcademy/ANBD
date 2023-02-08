@@ -125,7 +125,7 @@ public class ProductComplaintController {
 					
 					Map<String, Object> note = new HashMap<String,Object>();
 					note.put("n_receiver", id);
-					note.put("n_content", content("중고게시판",vo.getP_title(), count));
+					note.put("n_content", content("중고게시판 게시글",vo.getP_title(), count));
 					complaintService.note_caution(note);
 					
 					
@@ -163,9 +163,12 @@ public class ProductComplaintController {
 	 //관리자가 리뷰 삭제 
 	 @RequestMapping(value = "/deleteReview" , method = RequestMethod.GET)
 	 @ResponseBody
-	 public boolean deleteReview(@RequestParam(value = "id")String id, @RequestParam(value = "r_no")int r_no) throws Exception{
+	 public boolean deleteReview( @ModelAttribute ReviewVO vo ) throws Exception{
 		 logger.info("admin review delete");
 		 
+		 int r_no = vo.getR_no();
+		 String id = vo.getR_consumer();
+		 System.out.println("r_no : "+r_no+", id : "+id+ ", 내용 : "+vo.getR_content());
 		 //리뷰 삭제 
 		 reviewService.delete(r_no); 
 		 //신고 내역 삭제 
@@ -176,6 +179,22 @@ public class ProductComplaintController {
 		 //신고 당한 회원에게 경고 1회 
 		complaintService.add_caution(id);  
 		
+		// 총 신고당한 횟수 
+		int count = complaintService.count_caution(id);
+		System.out.println("제제 횟수 : "+count);
+		if(count <5) {
+			Map<String, Object> note = new HashMap<String,Object>();
+			note.put("n_receiver", id);
+			note.put("n_content", content("후기",vo.getR_content(), count));
+			complaintService.note_caution(note);
+			
+		}else {
+			String email = complaintService.expel_email(id); // 회원 email가져옴
+			complaintService.expel_member(id); // 회원 탈퇴 
+			complaintService.insert_email(email); // 블렉 리스트에 이메일 저장 
+		}
+		
+		
 		boolean result = true;
 		 
 		 return result;
@@ -183,7 +202,7 @@ public class ProductComplaintController {
 	 
 	  
 		  public String content(String board_type,String title, int count) {
-			  return  "회원님의"+board_type+" 게시글'"+title+"'은 게시 부적합한 사유로 인해 삭제 되었습니다."
+			  return  "회원님의 "+board_type+" '"+title+"'은 게시 부적합한 사유로 인해 삭제 되었습니다."
 						+"\n회원님의 현재 누적 경고수는 "+count+"회 입니다."
 						+"\n 누적 경고 수가 5회가 되면 강제 탈퇴됨을 알려드립니다.";
 		  }
