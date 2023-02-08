@@ -570,7 +570,6 @@ margin-left: 60px;
                   element.innerText = res.hnum;
                },
                error : function(request, status, error) {
-                  alert("error:" + error);
                }
             });
          } else {
@@ -590,7 +589,6 @@ margin-left: 60px;
                   element.innerText = res.hnum;
                },
                error : function(XMLRequest, textStatus, errorThrown) {
-                  alert("error:" + error);
                }
             });
          }
@@ -621,11 +619,9 @@ margin-left: 60px;
          }
          
          // 모달창 띄우는 쿼리 
-         //모달창에서 id 선택  var dd + ''
          var params = {
             pno : "${read.pno}",
             p_buy : str
-            // 변수 전달 구매자 아이디 
          }
          $.ajax({
             type : "POST",
@@ -693,7 +689,6 @@ margin-left: 60px;
               });
             
             $("#selectModal").modal("hide"); // 모달창 닫기
-//            // 이때 readonly로 바꾸기
           
           }else{
              return false;
@@ -731,7 +726,7 @@ margin-left: 60px;
 			        traditional : true,
 		            data : {
 		            	id: '${id}',
-		            	c_bno: ${read.pno},
+		            	c_bno: btn_val,
 		            	board_type: 'review'
 		            },
 		            success:function(data){

@@ -428,6 +428,7 @@ public class ProductController {
        System.out.println(vo);
        
        int result = complaintService.validation(vo); // 신고 여부체크 
+       System.out.println("횟수 : "+result);
        return result;
     }
     
