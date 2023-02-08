@@ -22,7 +22,7 @@ public interface ResumeService {
 
 	public List<JobVO> my_resumeJob(int[] jbno_array) throws Exception;
 
-	public void my_resumeDelete(int[] delete_array) throws Exception;
+	public void my_resumeDelete(Map<String, Object> map) throws Exception;
 
 	public ResumeVO resume_read(int r_bno) throws Exception;
 

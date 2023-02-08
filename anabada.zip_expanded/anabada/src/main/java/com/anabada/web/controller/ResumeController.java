@@ -163,12 +163,15 @@ public class ResumeController {
 	@RequestMapping(value = "/delete_chk.ajax", method = RequestMethod.GET)
 	@ResponseBody
 	public void delete_chk(HttpServletResponse resp, @RequestParam(value="delete_array") int[] delete_array, 
-		HttpSession session) throws Exception{
+		@RequestParam(value="id") String id) throws Exception{
 				
-		logger.info("알바 지원 마이페이지에서 삭제 눌렀음"); 
-		// 페이징 처리 안해줬음 
-				
-		resumeService.my_resumeDelete(delete_array); // 마이페이지 게시물들 번호 배열로 받아서 삭제
+		logger.info("알바 지원 마이페이지에서 지원 삭제 눌렀음");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("array", delete_array);
+		
+		resumeService.my_resumeDelete(map); // 마이페이지 게시물들 번호 배열로 받아서 삭제
 			
 		logger.info("삭제 성공");
 	}

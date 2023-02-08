@@ -56,7 +56,7 @@ DELETE FROM RESUME_BOARD WHERE R_BNO IN(
 	<foreach collection="array" item="item" index="index" separator=",">
        #{item}
     </foreach>
-)
+) AND ID = #{id}
 </delete>
 
 <select id="read" parameterType="int" resultType="ResumeVO">
