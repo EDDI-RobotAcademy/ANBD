@@ -126,6 +126,11 @@ public class NoteServiceImpl implements NoteService {
 		return dao.delete_chk2(n_bno);
 	}
 
+	@Override
+	public void delete_noReadCount(int[] delete_array) throws Exception {
+		dao.delete_noReadCount(delete_array);
+	}
+
 
 	
 	

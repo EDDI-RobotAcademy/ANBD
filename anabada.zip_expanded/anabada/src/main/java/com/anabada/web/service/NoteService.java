@@ -73,4 +73,7 @@ public interface NoteService {
 	// 신고내역도 삭제하기 위해서 쪽지가 보내는 쪽, 받는 쪽 둘다에서 삭제됐는지 체크(쪽지 상세보기에서 삭제할 때)
 	public int delete_chk2(int n_bno) throws Exception;
 
+	// 쪽지 목록에서 쪽지 여러개 삭제할 때 안읽은 쪽지가 있다면 안읽은 쪽지 개수도 줄이는 메소드
+	public void delete_noReadCount(int[] delete_array) throws Exception;
+
 }
