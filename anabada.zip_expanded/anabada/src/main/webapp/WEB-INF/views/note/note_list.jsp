@@ -231,7 +231,7 @@
             	<button type="button" name="delete_btn" class="n_btn2">
             	삭제</button>
             	<c:if test="${who eq 'receive'}">
-            	&nbsp;읽지 않은 메시지 ${no_read }
+            	&nbsp;읽지 않은 쪽지 ${no_read }
             	</c:if>
             	</td>
             </tr>

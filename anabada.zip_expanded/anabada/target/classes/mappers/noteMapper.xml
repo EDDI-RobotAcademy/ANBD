@@ -148,4 +148,13 @@ SELECT COUNT(N_BNO) FROM NOTE WHERE ((N_R_DELETE_CHK = 0 AND N_S_DELETE_CHK = 0)
 )AND N_BNO = #{n_bno}
 </select>
 
+<update id="delete_noReadCount" parameterType="java.util.ArrayList">
+UPDATE NOTE SET N_READ_CHK = 0
+WHERE N_BNO IN(
+	<foreach collection="array" item="item" index="index" separator=",">
+       #{item}
+    </foreach>
+)
+</update>
+
 </mapper>

@@ -142,5 +142,11 @@ public class NoteDAOImpl implements NoteDAO{
 	}
 
 
+	@Override
+	public void delete_noReadCount(int[] delete_array) throws Exception {
+		sqlSession.update("noteMapper.delete_noReadCount", delete_array);
+	}
+
+
 
 }

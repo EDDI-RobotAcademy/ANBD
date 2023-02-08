@@ -116,6 +116,7 @@ public class NoteController {
 			noteService.delete_send(delete_array); 
 		}else if(id.equals(n_receiver)){//보낸사람이랑 로그인한 회원이 같을 때 
 			noteService.delete_receive(delete_array);
+			noteService.delete_noReadCount(delete_array);
 		}
 		
 		// 양쪽에서 삭제된 쪽지들 번호를 받아옴

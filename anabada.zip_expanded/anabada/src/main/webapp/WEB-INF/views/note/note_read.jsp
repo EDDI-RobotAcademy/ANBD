@@ -332,7 +332,12 @@
 				</tr>
 				<tr>
 					<td colspan="2">
+					<c:if test="${empty n_read.n_receiver }">
+					받은 사람&nbsp;&nbsp;(알수없음)<br>
+					</c:if>
+					<c:if test="${not empty n_read.n_receiver }">
 					받은 사람&nbsp;&nbsp;${n_read.n_receiver }<br>
+					</c:if>
 					보낸 시간&nbsp;&nbsp;${n_read.n_s_time }<br>
 					</td>
 				</tr>
@@ -346,8 +351,11 @@
 					<c:if test="${n_read.n_sender eq 'admin' }">
 					보낸 사람&nbsp;&nbsp;관리자<br>
 					</c:if>
-					<c:if test="${n_read.n_sender ne 'admin' }">
+					<c:if test="${n_read.n_sender ne 'admin' && not empty n_read.n_sender }">
 					보낸 사람&nbsp;&nbsp;${n_read.n_sender }<br>
+					</c:if>
+					<c:if test="${empty n_read.n_sender }">
+					보낸 사람&nbsp;&nbsp;(알수없음)<br>
 					</c:if>
 					받은 시간&nbsp;&nbsp;${n_read.n_s_time }<br>
 					</td>
@@ -371,7 +379,7 @@
 					</td>
 					<td>
 						${p_read.p_title}<br>
-						${p_read.p_cost}<br>
+						${p_read.p_cost}원<br>
 					</td>
 				</tr>
 				</c:when>
@@ -385,7 +393,7 @@
 					</td>
 					<td>
 						${p_read.p_title}<br>
-						${p_read.p_cost}<br>
+						${p_read.p_cost}원<br>
 						<!-- 받은 사람만 후기 작성하기 버튼 누를수있도록 -->
 						<c:if test="${n_read.n_receiver eq id }">
 						   <button type="button" class="review" name="review">후기 작성하기</button>
