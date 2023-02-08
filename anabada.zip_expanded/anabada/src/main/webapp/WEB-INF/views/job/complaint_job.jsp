@@ -22,15 +22,6 @@
 			
 			if(confirm("알바 게시물을 삭제하시겠습니까?")){
 				
-				var data = sessionStorage.getItem("recent_job");
-			    data = JSON.parse(data);
-			    
-			    var j_bno = ${j_read.j_bno};
-			        
-			    data.splice('j_bno', 1); // 삭제될때 최근 본 게시물도 삭제
-			    sessionStorage.setItem("recent_job", JSON.stringify(data));
-			 	// 삭제될때 최근 본 게시물도 삭제
-				
 				$.ajax({
 				        type: "get",
 				        url : "/job/delete_admin.ajax",
@@ -62,6 +53,7 @@
 			}else{
 				return;
 			}
+		}
 			
 		});
 		 

@@ -187,7 +187,7 @@
 		<!-- 수정해도 등록날짜는 안바뀌도록 했음 -->
 		<table>
 			<tr>
-				<td><font style="font-size:30px;">알바 구인 공고 작성</font>
+				<td><font style="font-size:30px;">알바 구인 공고 수정</font>
 			</tr>
 				
 			<tr>

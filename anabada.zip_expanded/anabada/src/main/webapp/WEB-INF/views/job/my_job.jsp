@@ -25,7 +25,7 @@
    
    .mj_list{
       margin: auto;
-      width: 95%;
+      width: 100%;
    }
    .mj_list tr, .mj_list td{
       border-bottom: 1px solid #e5e5e5;
@@ -92,7 +92,7 @@
 	              //alert($(this).val());
 	           });
 	           
-		       var data = sessionStorage.getItem("recent_job");
+		      /*  var data = sessionStorage.getItem("recent_job");
 			   data = JSON.parse(data);
 			   //alert(data.length);
 				    
@@ -102,7 +102,7 @@
 			   }
 				 
 			   sessionStorage.setItem("recent_job", JSON.stringify(data));
-			   // 삭제될때 최근 본 게시물도 삭제
+			   // 삭제될때 최근 본 게시물도 삭제 */
 	           
 	           $.ajax({
 	               type: "get",
@@ -143,7 +143,7 @@
    <form style="width: 1000px">
      <jsp:include page="/WEB-INF/views/includes/myPageHeader.jsp" />
         <!-- 내용 -->
-        <div class="minicon">
+        <div class="aboardcon">
         	<table class="mj_list">
         		<tr>
             		<td colspan="5">

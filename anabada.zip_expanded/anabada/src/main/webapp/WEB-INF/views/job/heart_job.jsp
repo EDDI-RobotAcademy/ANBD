@@ -111,7 +111,7 @@
      	<jsp:include page="/WEB-INF/views/includes/myPageHeader.jsp" />
 
         <!-- 내용 -->
-        <div class="minicon">
+        <div class="aboardcon">
         	<table class="h_list">
         		<tr>
             		<td colspan="5">
