@@ -160,7 +160,7 @@ WHERE J_BNO IN (
 	<foreach collection="array" item="item" index="index" separator="," >   
 	#{item}
 	</foreach>
-)
+) AND ID = #{id}
 </delete>
 
 <!-- 신고 -->

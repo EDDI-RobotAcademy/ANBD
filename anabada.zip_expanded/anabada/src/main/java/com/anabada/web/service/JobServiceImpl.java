@@ -120,8 +120,8 @@ public class JobServiceImpl implements JobService {
 
 	// 알바 찜 삭제
 	@Override
-	public void heart_delete(int[] delete_array) throws Exception {
-		dao.heart_delete(delete_array);
+	public void heart_delete(Map map) throws Exception {
+		dao.heart_delete(map);
 	}
 
 	// 알바 신고 등록

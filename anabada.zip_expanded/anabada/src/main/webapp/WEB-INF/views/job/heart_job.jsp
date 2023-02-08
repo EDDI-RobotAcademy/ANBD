@@ -17,44 +17,11 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="../resources/css/n_styles.css">
 <style type="text/css">
-   input[type=radio]{
-         display: none;
-         margin: 10px; 
-   }
-   
-   input[type=radio] + label{
-         display: inline-block;
-         margin:-2px;
-         padding: 8px 10px;
-         background-color: #f5f5f5;
-         border: 1px solid #ccc;
-         font-size: 13px !important;
-         width: 110px;
-         text-align: center;
-   }
-   
-   label{ /*마우스 모양 바뀌게*/
-         cursor: pointer;
-   }
-   
-   input[type=radio]:radio + label{
-         background-image: none;
-         background-color: #3598dc;
-      color:#fff;
-   }
    
    .j_img { 
       width: 110px;
       height: 110px;
       border-radius: 10px;
-   }
-   
-   .myImg {
-       background-color: #f9f9f9; 
-       text-align: center; 
-       padding-bottom: 5px; 
-       border-bottom: 1px solid #e9e9e9; 
-       border-top: 1px solid #e9e9e9;
    }
    
    .h_list{
@@ -92,12 +59,12 @@
 	     $('button[name=delete_btn]').on("click", function () {
 	        
 	        if($("input:checkbox[name=delete]").is(":checked") == false) {
-	           alert("선택된 쪽지가 없습니다.");
+	           alert("선택된 찜 게시물이 없습니다.");
 	           return;
 	        }
 	        
 	        
-	        if(confirm("삭제하시겠습니까?")){
+	        if(confirm("찜을 해제하시겠습니까?")){
 	           // 배열로 선언
 	           var delete_array = new Array(); //j_bno를 담음
 	           $('input[name=delete]:checked').each(function (i) {
@@ -113,7 +80,7 @@
 	               },
 	               traditional : true,
 	               success: function(data){
-	                   alert("삭제했습니다.");
+	                   alert("찜이 해제되었습니다.");
 	                   window.location.reload();
 	               },
 	               error : function(request, status, error) {
@@ -181,10 +148,10 @@
                         </c:choose>
                     </td>
                     <td>
-                        <div class="word"><font style="font-size: 18px;">${h_list.j_title }</font></div>
-                        <div class="word"><font style="font-size: 15px;">${h_list.j_company }</font></div>
-						<div class="word"><font style="font-size: 15px;">${h_list.j_addr1 }&nbsp;${h_list.j_addr2 }</font></div>
-                        <div class="word"><font style="font-size: 15px;">${h_list.j_method }&nbsp;${h_list.j_pay }원</font></div>	
+                        ${h_list.j_company }<br>
+                        <font style="font-weight: bolder;">${h_list.j_title }</font><br>
+                        ${h_list.j_method }&nbsp;${h_list.j_pay }원<br>
+						${h_list.j_addr1 }&nbsp;${h_list.j_addr2 }
                     </td>
                 </tr>
             </c:forEach>

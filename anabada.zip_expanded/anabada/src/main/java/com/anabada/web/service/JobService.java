@@ -46,7 +46,7 @@ public interface JobService {
 
 	public int heart_jobListCount(String id) throws Exception;
 
-	public void heart_delete(int[] delete_array) throws Exception;
+	public void heart_delete(Map<String, Object> map) throws Exception;
 
 	// 알바 신고 관련
 	public void report_insert(ComplaintVO vo) throws Exception;
