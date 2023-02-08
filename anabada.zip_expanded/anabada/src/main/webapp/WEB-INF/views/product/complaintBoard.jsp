@@ -31,13 +31,25 @@ $(document).ready(function() {
 	                    data: {
 	                       id: '${read.id}',
 	                       pno : '${read.pno}',
+	                       p_title:'${read.p_title}'
 	                    },
 	                    dataType :  'json',   // 데이터 타입을 Json으로 변경
 	                    traditional : true,
 	                    success: function(data){
 	                        alert("삭제했습니다.");
-	                        window.parent.postMessage('Done', 'http://localhost:8081/complaint-all-view/');
-	                        window.close();
+	                        
+	                        if(${href eq 'all'}){
+								alert("전체 새로고침");
+						    	window.opener.top.location.href = "http://localhost:8081/complaint-all-view/";
+						    	
+						    }else if(${href eq 'pboard'}){
+						    	alert("부분 새로고침");
+						    	window.opener.top.location.href = "http://localhost:8081/complaint-view/pboard";
+						    }
+				            		
+				            window.close();
+	                        
+	                       
 	                    },
 	                    error : function(request, status, error) {
 	                     alert("삭제 실패:" + error);

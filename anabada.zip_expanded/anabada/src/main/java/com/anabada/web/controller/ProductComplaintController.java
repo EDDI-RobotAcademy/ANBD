@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -91,28 +92,50 @@ public class ProductComplaintController {
 		  return "product/complaintBoard";
 	  }
 	  
+	
+	  
 	  
 	  @RequestMapping(value = "/delete_pro" , method = RequestMethod.GET)
 	  @ResponseBody
-	  public boolean deleteProduct(@RequestParam(value = "pno")int pno,@RequestParam(value = "id")String id  )throws Exception {
+	  public boolean deleteProduct(@ModelAttribute PBoardVO vo  )throws Exception {
 		  logger.info("관리자가 게시글 삭제");
-		  System.out.println("확인123 ㅡ   pno : "+pno + ", id : "+id);
-		  
+		  System.out.println("확인123 ㅡ   pno : "+vo.getPno() + ", id : "+vo.getId() + "title : "+vo.getP_title());
+		  int pno = vo.getPno();
+		  String id = vo.getId();
 		  //서버 사진 삭제 
 		  List<PfileVO> filelist = productService.filelist(pno);
-				for (PfileVO vo : filelist) {
-					deleteRealImg(vo.getFilepath());
+				for (PfileVO filevo : filelist) {
+					deleteRealImg(filevo.getFilepath());
 				}
+				//1. 게시글 삭제
+				productService.delete(pno); 
 				
-				productService.delete(pno); // 게시글 삭제 
-				
-				// 신고 내역 삭제 
+				//2. 신고 내역 삭제 
 				Map<String, Object> map = new HashMap<String,Object>();
 				map.put("c_bno", pno);
 				map.put("board_type", "pboard");
 				complaintService.delete_complaint(map);
-				// 신고당한 회원에게 경고 1회 날리기 
+				//3. 신고당한 회원에게 경고 1회 날리기 
 				complaintService.add_caution(id); // 경고 1회 
+				//4. 해당 회원의 총 경고 당한 횟수 
+				int count = complaintService.count_caution(id);
+				System.out.println("제제 당한 횟수 : "+count);
+				if(count<5) {
+					// 제제 회원에게 쪽지 보내기 
+					
+					Map<String, Object> note = new HashMap<String,Object>();
+					note.put("n_receiver", id);
+					note.put("n_content", content("중고게시판",vo.getP_title(), count));
+					complaintService.note_caution(note);
+					
+					
+					
+				}else { // 5회가 되면 회원 탈퇴 시키기 
+					String email = complaintService.expel_email(id); // 회원 email가져옴
+					complaintService.expel_member(id); // 회원 탈퇴 
+					complaintService.insert_email(email); // 블렉 리스트에 이메일 저장 
+					
+				}
 				
 				
 				boolean result = true;
@@ -120,6 +143,10 @@ public class ProductComplaintController {
 				 return result;
 				
 			}
+	  
+	  
+	  
+	  
 	  
 	  
 	  //리뷰글 띄우기 
@@ -155,7 +182,11 @@ public class ProductComplaintController {
 	 }
 	 
 	  
-		  
+		  public String content(String board_type,String title, int count) {
+			  return  "회원님의"+board_type+" 게시글'"+title+"'은 게시 부적합한 사유로 인해 삭제 되었습니다."
+						+"\n회원님의 현재 누적 경고수는 "+count+"회 입니다."
+						+"\n 누적 경고 수가 5회가 되면 강제 탈퇴됨을 알려드립니다.";
+		  }
 		 
 	  
 		public void deleteRealImg(String filePath) {
