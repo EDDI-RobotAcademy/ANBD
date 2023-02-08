@@ -352,16 +352,19 @@ public class JobController {
 		
 	}
 	
-	// 마이페이지 게시물 삭제 ajax
+	// 내 아르바이트 찜 게시물 삭제 ajax
 	@RequestMapping(value = "/delete_chk2.ajax", method = RequestMethod.GET)
 	@ResponseBody
 	public boolean delete_chk2(HttpServletResponse resp, @RequestParam(value="delete_array") int[] delete_array, 
 			HttpSession session) throws Exception{
 				
 		logger.info("찜 목록에서 삭제 눌렀음"); 
-		// 페이징 처리 안해줬음 
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", session.getAttribute("id")); // 세션에 저장된 아이디
+		map.put("array", delete_array);
 				
-		jobService.heart_delete(delete_array); // 마이페이지 게시물들 번호 배열로 받아서 삭제
+		jobService.heart_delete(map); // 마이페이지 게시물들 번호 배열로 받아서 삭제
 		logger.info("삭제 성공");
 			
 		boolean result = true;
@@ -444,6 +447,7 @@ public class JobController {
  		map.put("board_type", "job");
  		
  		complaintService.delete_complaint(map);
+ 		System.out.println("2번 실행됨");
  		
  		//3) 신고게시물 작성자의 경고 횟수 조회
  		int count = complaintService.count_caution(vo.getId());
@@ -464,6 +468,7 @@ public class JobController {
  	 		map2.put("n_receiver", vo.getId());
  	 		map2.put("n_content", content);
  	 		complaintService.note_caution(map2);
+ 	 		System.out.println("4번실행");
  			
  		}else { // 5번 되면 회원 탈퇴
  			

@@ -122,8 +122,8 @@ public class JobDAOImpl implements JobDAO{
 
 	// 알바 찜에서 삭제
 	@Override
-	public Object heart_delete(int[] delete_array) throws Exception {
-		return sqlSession.delete("jobMapper.h_delete", delete_array);
+	public Object heart_delete(Map map) throws Exception {
+		return sqlSession.delete("jobMapper.h_delete", map);
 	}
 
 	//////////////////알바 신고

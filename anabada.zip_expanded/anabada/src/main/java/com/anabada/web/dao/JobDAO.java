@@ -45,7 +45,7 @@ public interface JobDAO {
 
 	public int heart_jobLisCount(String id) throws Exception;
 
-	public Object heart_delete(int[] delete_array) throws Exception;
+	public Object heart_delete(Map map) throws Exception;
 
 	// 알바 신고 관련
 	public void report_insert(ComplaintVO vo) throws Exception;

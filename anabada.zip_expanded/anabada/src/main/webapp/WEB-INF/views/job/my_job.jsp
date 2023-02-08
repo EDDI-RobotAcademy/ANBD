@@ -17,32 +17,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="../../resources/css/j_styles.css">
 <style type="text/css">
-   input[type=radio]{
-         display: none;
-         margin: 10px; 
-   }
-   
-   input[type=radio] + label{
-         display: inline-block;
-         margin:-2px;
-         padding: 8px 10px;
-         background-color: #f5f5f5;
-         border: 1px solid #ccc;
-         font-size: 13px !important;
-         width: 110px;
-         text-align: center;
-   }
-   
-   label{ /*보낸 쪽지함, 받은 쪽지함 선택할 떄 마우스 모양 바뀌게*/
-         cursor: pointer;
-   }
-   
-   input[type=radio]:radio + label{
-         background-image: none;
-         background-color: #3598dc;
-      color:#fff;
-   }
-   
    .j_img { 
       width: 110px;
       height: 110px;
@@ -179,7 +153,7 @@
             	</tr>
             	
         		<tr>
-        			<td style="text-align: center">
+        			<td style="text-align: center" width="10px">
                   		<input type="checkbox" name="delete" value="0" id="delete_all">
                		</td>
         			<td colspan="2" style="text-align: center">내용</td>
@@ -208,10 +182,10 @@
                         </c:choose>
                     </td>
                     <td width="320px;">
-                    	<div class="word"><font style="font-size: 18px;">${mj_list.j_title }</font></div>
-						<div class="word"><font style="font-size: 15px;">${mj_list.j_company }</font></div>
-						<div class="word"><font style="font-size: 15px;">${mj_list.j_addr1 }&nbsp;${mj_list.j_addr2 }</font></div>
-						<div class="word"><font style="font-size: 15px;">${mj_list.j_method }&nbsp;${mj_list.j_pay }원</font></div>
+						<div class="word">${mj_list.j_company }</div>
+                    	<div class="word"><font style="font-weight: bolder;">${mj_list.j_title }</font></div>
+						<div class="word">${mj_list.j_method }&nbsp;${mj_list.j_pay }원</div>
+						<div class="word">${mj_list.j_addr1 }&nbsp;${mj_list.j_addr2 }</div>
                     </td>
                     <td width="150px;" style="text-align: center">
                         ${mj_list.j_date }

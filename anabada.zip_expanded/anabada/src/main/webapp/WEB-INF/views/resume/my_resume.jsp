@@ -47,7 +47,7 @@
 	        }
 	        
 	        
-	        if(confirm("삭제하시겠습니까?")){
+	        if(confirm("지원을 삭제하시겠습니까?")){
 	           // 배열로 선언
 	           var delete_array = new Array(); //j_bno를 담음
 	           $('input[name=delete]:checked').each(function (i) {
@@ -64,7 +64,7 @@
 	               },
 	               traditional : true,
 	               success: function(data){
-	                   alert("지원을 삭제했습니다.");
+	                   alert("지원이 삭제되었습니다.");
 	                   window.location.reload();
 	               },
 	               error : function(request, status, error) {
@@ -83,20 +83,17 @@
 </script>
 <style type="text/css">
    .j_img { 
-      width: 80px;
-      height: 80px;
+      width: 110px;
+      height: 110px;
       border-radius: 10px;
    }
    .mr_list{
+   	  margin: auto;
       width: 100%;
    }
    .mr_list tr, .mr_list td{
       border-bottom: 1px solid #e5e5e5;
       padding: 10px;
-      vertical-align: middle;
-   }
-   .mr_list th{
-   	  text-align: center;
    }
    
    .update{ /*지원수정 버튼*/
@@ -129,7 +126,7 @@
     </div>
     
     <section class="container">
-    <form name="resumeForm">
+    <form name="resumeForm" style="width: 1000px">
     	<jsp:include page="/WEB-INF/views/includes/myPageHeader.jsp" />
     	
     	<div class="minicon">
@@ -141,16 +138,13 @@
             		</td>
 		    	</tr>
 		    	<tr>
-		    		<td>
+		    		<td style="text-align: center" width="10px">
                   		<input type="checkbox" name="delete" value="0" id="delete_all">
 		    		</td>
-		    		<td colspan="2">
+		    		<td colspan="2" style="text-align: center">
 		    			지원한 게시물
 		    		</td>
-		    		<td>
-		    			지원날짜
-		    		</td>
-		    		<td>
+		    		<td style="text-align: center">
 		    			지원 수정
 		    		</td>
 		    	</tr>
@@ -158,7 +152,7 @@
 			    <c:if test="${not empty mr_list}">
 				<c:forEach items="${mr_list}" var="mr_list" varStatus="status">
 		    	<tr>
-					<td style="text-align: center" width="50px">
+					<td style="text-align: center" width="10px">
 	                  	<input type="checkbox" name="delete" class="delete" value="${mr_list.r_bno}">
 	               	</td>
 					<td style="width: 100px;">
@@ -175,16 +169,13 @@
 	                    </c:otherwise>
 	                    </c:choose>
 	                </td>
-	                <td style="width: 400px;">
-						<div class="word"><font style="font-size: 18px;">${j_list[status.index].j_title}</font></div>
-						<div class="word"><font style="font-size: 15px;">${j_list[status.index].j_company }</font></div>
-						<div class="word"><font style="font-size: 15px;">${j_list[status.index].j_addr1 }&nbsp;${j_list[status.index].j_addr2 }</font></div>
-						<div class="word"><font style="font-size: 15px;">${j_list[status.index].j_method }&nbsp;${j_list[status.index].j_pay }원</font></div>
+	                <td style="width: 450px;">
+						<div class="word">${j_list[status.index].j_company }</div>
+						<div class="word"><font style="font-weight: bolder;">${j_list[status.index].j_title}</font></div>
+						<div class="word">${j_list[status.index].j_method }&nbsp;${j_list[status.index].j_pay }원</div>
+						<div class="word">${j_list[status.index].j_addr1 }&nbsp;${j_list[status.index].j_addr2 }</div>
 					</td>
-					<td style="width: 150px; text-align: center;">
-						${mr_list.r_date }
-					</td>
-					<td style="width: 100px; text-align: center;">
+					<td style="width: 130px; text-align: center;">
 						<button type="button" class="update" id="${mr_list.r_bno },${j_list[status.index].j_bno}">수정</button>
 					</td>
 				</tr>	
