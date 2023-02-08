@@ -413,14 +413,14 @@
 	   
 	   // 최근 본 알바 플로팅배너
 	   // 기본 위치(top)값
-		var floatPosition = parseInt($(".sideBanner").css('top'));
-		var floatHei = parseInt($(".sideBanner").outerHeight()); // 플로팅 배너 길이
-		var footerTop = $('#footer').outerHeight(); // footer가 높이한 위치
+	   var floatPosition = parseInt($(".sideBanner").css('top'));
+	   var floatHei = parseInt($(".sideBanner").outerHeight()); // 플로팅 배너 길이
+	   var footerTop = $('#footer').outerHeight(); // footer가 높이한 위치
 		
-		// scroll 인식
-		$(window).scroll(function() {
+	   // scroll 인식
+	   $(window).scroll(function() {
 		  
-		    // 현재 스크롤 위치
+			// 현재 스크롤 위치
 		    var currentTop = $(window).scrollTop(); // 현재 윈도우 스크린 위치
 		    var bannerTop = currentTop + floatPosition + "px"; // 
 		    var val = $(document).height() - footerTop;
@@ -436,55 +436,90 @@
 		}).scroll(); 
 	   
 		
-	    // 최근 본 알바 불러오기. sessionStorage
-	    function get_recent_item(){
-	    	
-		    //sessionStorage.clear(); 
-		    var $recentItemList = $("#recentItemList");
-		    
-		    var items = sessionStorage.getItem("recent_job");
-		    
-		    if(items == null){
-		    	var li = "<br><br><li>최근 본 상품이 없습니다.</li>"
-		    	$recentItemList.append(li);
-		    }
-		
-		    //alert(key)
-		    
-		    var realitem = JSON.parse(items);
-		    
-		    //파싱된 객체의 길이로 for문 돌리기
-		     for (var i = 0; i < 6; i++) {
-		        var j_bno = realitem[i].j_bno;
-		        var j_title = realitem[i].j_title;
-		        var j_img = realitem[i].j_img;
-		        
-		        if(j_img != null || j_img != ""){
-			        var li = "<li><a href='/job/job_read?j_bno="+j_bno+"'><img width='100' height='100' src='/upload/"+j_img+"'/>"
-			        	+ "<br><div class='word'>" + j_title+ "</div>" + "</a></li>";
-		        }
-		        if(j_img == null || j_img == ""){
-		        	var li = "<li><a href='/job/job_read?j_bno="+j_bno+"'><img width='100' height='100' src='../resources/images/아나바다2.png'/>"
-			        	+ "<br><div class='word'>" + j_title+ "</divs>" + "</a></li>";
-		        }
-		 
-		        //ul에 붙이기
-		        $recentItemList.append(li);
-		        
-		    }
-		    
-		}
-		
 		$(".recent_btn").click(function () {
 			var ih = $(this).index() == 0 ? -135 : 135; //위아래로 움직이는 px 숫자
 			var obj = $('.recent_list');
 			obj.animate({ scrollTop:obj.scrollTop() + ih }, 100);
 	    });
 		
-		// 이거 젤 마지막에 둬야지 정상적으로 실행됨
+		
+		// 최근 본 알바 불러오기. sessionStorage
+		function get_recent_item(){
+			
+		   	
+			//sessionStorage.clear(); 
+			var $recentItemList = $("#recentItemList");
+			    
+			var items = sessionStorage.getItem("recent_job");
+			    
+			if(items == null){
+			  	var li = "<br><br><li>최근 본 상품이 없습니다.</li>"
+			    $recentItemList.append(li);
+			}
+			
+			var realitem = JSON.parse(items);
+			    
+			var recent_array = new Array();
+			//최근 본 게시물 삭제 체크
+			for (var j = 0; j < 6; j++) {
+			    	
+			    if(JSON.stringify(realitem[j]) != null){
+			    	var recent = JSON.stringify(realitem[j].j_bno);
+			    	recent_array.push(recent);
+			    	//alert(recent_array);
+			    }
+			}
+			    
+			$.ajax({
+		        type: "get",
+		        url : "/job/recent_chk.ajax",
+		        data: {
+		           recent_array : recent_array, 
+		        },
+		        traditional : true,
+		        success: function(data){
+		           //alert("성공");
+		           //alert(data);
+		           alert(JSON.stringify(realitem));
+		           	   
+		           //파싱된 객체의 길이로 for문 돌리기
+		           for (var i = 0; i < 6; i++) {
+			      		
+			      	   if(data.includes(realitem[i].j_bno)){
+				       	    var j_bno = realitem[i].j_bno;
+				       	    alert(j_bno);
+				       		var j_title = realitem[i].j_title;
+				       		var j_img = realitem[i].j_img;
+				       		alert("제목" + j_title);
+				       		//alert("이미지 + /" + j_img + "/");
+				       		        	
+				       		if(j_img != ""){
+				       			var li = "<li><a href='/job/job_read?j_bno="+j_bno+"'><img width='100' height='100' src='/upload/"+j_img+"'/>"
+				       			    + "<br><div class='word'>" + j_title+ "</div>" + "</a></li>";
+				       			alert(i);
+				       		}else{
+				       		    var li = "<li><a href='/job/job_read?j_bno="+j_bno+"'><img width='100' height='100' src='../resources/images/아나바다2.png'/>"
+				       			    + "<br><div class='word'>" + j_title+ "</divs>" + "</a></li>";
+				       		   	alert(i);
+				       		}
+			      	   //ul에 붙이기
+			      	   $recentItemList.append(li);
+			      	   }
+			       }
+		      		 
+		        },
+		        error : function(request, status, error) {
+					alert("삭제 실패:" + error);
+				}
+		    });
+			
+		}
+		
 		get_recent_item();
+		// 이거 젤 마지막에 둬야지 정상적으로 실행됨
 
    
 	});
+   
 </script>
 </html>

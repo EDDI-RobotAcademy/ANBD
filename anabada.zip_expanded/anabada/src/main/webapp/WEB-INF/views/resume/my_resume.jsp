@@ -129,7 +129,7 @@
     <form name="resumeForm" style="width: 1000px">
     	<jsp:include page="/WEB-INF/views/includes/myPageHeader.jsp" />
     	
-    	<div class="minicon">
+    	<div class="aboardcon">
 		    <table class="mr_list">
 		    	<tr>
 		    		<td colspan="5">

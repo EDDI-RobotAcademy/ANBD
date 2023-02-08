@@ -51,7 +51,7 @@
     	text-align: center;
     }
     .word{
-    	width:200px;
+    	width:250px;
 	    overflow: hidden;
 	    text-overflow: ellipsis;
 	    white-space: nowrap;
@@ -85,19 +85,19 @@
 	                    <img class="j_img" src="/upload/${j_read.j_img }">
 	                </c:otherwise>
 	                </c:choose>
-	                <font style="font-size: 20px;">${j_read.j_title }</font><br>
 					${j_read.j_company }<br>
-					${j_read.j_addr1 }&nbsp;${j_read.j_addr2 }<br>
-					${j_read.j_method }&nbsp;${j_read.j_pay }원
+	                <font style="font-weight: bolder;">${j_read.j_title }</font><br>
+					${j_read.j_method }&nbsp;${j_read.j_pay }원<br>
+					${j_read.j_addr1 }&nbsp;${j_read.j_addr2 }
 				</td>
 			</tr>
 			
 			<tr>
-				<th width="100px">이름</th>
-				<th width="100px">나이</th>
+				<th width="120px">이름</th>
+				<th width="50px">나이</th>
 				<th width="50px">성별</th>
 				<th width="150px">전화번호</th>
-				<th colspan="3" width="450px">경력</th>
+				<th colspan="3" width="480px">경력</th>
 				<th width="150px">지원날짜</th>
 			</tr>
 			
@@ -112,7 +112,7 @@
 				<td class="content">${r_list.r_tel }</td>
 				<td class="content">
 					<c:set var="company_list" value="${fn:split(r_list.r_company, ',')}" />
-					<div style="width: 200px;" class="word">
+					<div style="width: 230px;" class="word">
 					<c:forEach var="company" items="${company_list}" varStatus="varStatus">
 					${company}<br>
 					</c:forEach>
@@ -127,7 +127,7 @@
 				<td class="content">
 					<c:set var="end_list" value="${fn:split(r_list.r_end, ',')}" />
 					<c:forEach var="end" items="${end_list}" varStatus="varStatus">
-					${end}<br>
+					<c:if test="${not empty end}">~&nbsp;&nbsp;&nbsp;&nbsp;</c:if>${end}<br>
 					</c:forEach>
 				</td>
 				<td class="content">

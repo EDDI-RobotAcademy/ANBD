@@ -224,10 +224,10 @@
 	                            <img class="j_img" src="/upload/${j_read.j_img }">
 	                         </c:otherwise>
 	                    </c:choose>
-	                    <font style="font-size: 20px;">${j_read.j_title }</font><br>
 						${j_read.j_company }<br>
-						${j_read.j_addr1 }&nbsp;${j_read.j_addr2 }<br>
-						${j_read.j_method }&nbsp;${j_read.j_pay }원
+	                    <font style="font-weight: bolder;">${j_read.j_title }</font><br>
+						${j_read.j_method }&nbsp;${j_read.j_pay }원<br>
+						${j_read.j_addr1 }&nbsp;${j_read.j_addr2 }
 					</td>
 				</tr>
 				
@@ -305,13 +305,13 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content ">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">쪽지</h1>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">경력</h1>
                 </div>
                     <div class="modal-body">
                         <table style="width: 100%">
                             <tbody>
                                 <tr>
-                                    <th style="width: 10%">회사명</th>
+                                    <th style="width: 10%">가게명</th>
                                     <td>
                                        <input type="text" id="company" class="form-control"/><br>
                                        <div id="c_null"></div>
