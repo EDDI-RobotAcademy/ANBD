@@ -61,8 +61,8 @@ public class ResumeServiceImpl implements ResumeService {
 
 	//내 알바 지원 삭제에서 삭제
 	@Override
-	public void my_resumeDelete(int[] delete_array) throws Exception {
-		dao.my_resumeDelete(delete_array);
+	public void my_resumeDelete(Map map) throws Exception {
+		dao.my_resumeDelete(map);
 	}
 
 	// 내 지원 상세보기(수정할때)

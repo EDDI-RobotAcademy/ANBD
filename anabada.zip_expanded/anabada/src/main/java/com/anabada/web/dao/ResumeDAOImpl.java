@@ -61,8 +61,8 @@ public class ResumeDAOImpl implements ResumeDAO {
 
 	//마이 알바 지원목록에서 지원서 삭제
 	@Override
-	public void my_resumeDelete(int[] delete_array) throws Exception {
-		sqlSession.delete("resumeMapper.mr_delete", delete_array);
+	public void my_resumeDelete(Map map) throws Exception {
+		sqlSession.delete("resumeMapper.mr_delete", map);
 	}
 
 	// 내 지원서 상세보기(수정할때)
