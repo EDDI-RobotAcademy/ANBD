@@ -374,12 +374,15 @@ public class ABoardController {
 
 		//게시글 신고 내역 상세보기
 		@RequestMapping(value = "/complaintReadView", method = RequestMethod.GET)
-		public String complaintRead(Model model, ABoardVO boardVO, @ModelAttribute("scri") ASearchCriteria scri, HttpServletRequest req) throws Exception {
+		public String complaintRead(Model model, ABoardVO boardVO, @ModelAttribute("scri") ASearchCriteria scri, HttpServletRequest req,
+				@RequestParam(value = "href") String href) throws Exception {
 			
 			logger.info("게시글 상세보기");
 			
 			model.addAttribute("read", service.complaintRead(boardVO.getA_bno()));
 			model.addAttribute("scri", scri);
+			model.addAttribute("href", href);
+			
 			
 			return "/a_board/complaintReadView";
 		}
