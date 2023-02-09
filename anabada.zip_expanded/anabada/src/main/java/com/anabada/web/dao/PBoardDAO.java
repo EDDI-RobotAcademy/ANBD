@@ -80,4 +80,7 @@ public interface PBoardDAO {
 	// 최근본 목록 유효성 검사 
 	public List recent_chk(int[] recent_array) throws Exception;
 
+	// pno에 해당하는 게시글이 존재하는지 유효성 검사 
+	public int postExistence(int pno) throws Exception;
+
 }
