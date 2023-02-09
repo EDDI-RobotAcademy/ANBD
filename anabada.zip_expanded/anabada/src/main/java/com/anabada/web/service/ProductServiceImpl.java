@@ -188,6 +188,12 @@ public class ProductServiceImpl implements ProductService {
           dao.cuntup(pno);		
 	}
 
+	// 최근본 목록 유효성 검사 
+	@Override
+	public List recent_chk(int[] recent_array) throws Exception {
+		return dao.recent_chk(recent_array);
+	}
+
 	
 
 }

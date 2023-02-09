@@ -83,6 +83,7 @@ public class ProductComplaintController {
 		  logger.info("신고 게시물 상세보기  : "+pno);
 		  model.addAttribute("read",productService.read(pno)); // 게시글 정보 
 		  model.addAttribute("filelist",productService.filelist(pno)); // 사진정보 담음
+		  model.addAttribute("href",href);
 		  
 		  for(int i=0 ; i< productService.filelist(pno).size() ; i++) {
 		  System.out.println("사진정보 : "   +  productService.filelist(pno).get(i));
@@ -156,6 +157,7 @@ public class ProductComplaintController {
 		 logger.info("신고 접수된 리뷰 띄우기");
 		ReviewVO review = reviewService.read(reviewVO.getR_no()); // 리뷰 가져옴
 		model.addAttribute("review",review);
+		model.addAttribute("href",href);
 		 return  "product/complaintReview";
 	 }
 	 

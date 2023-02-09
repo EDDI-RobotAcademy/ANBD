@@ -176,4 +176,10 @@ public class PBoardDAOImpl implements PBoardDAO {
 		
 	}
 
+	// 최근본 목록 유효성 검사 
+	@Override
+	public List recent_chk(int[] recent_array) throws Exception {
+		return sql.selectList("pBoardMapper.recent_chk",recent_array);
+	}
+
 }

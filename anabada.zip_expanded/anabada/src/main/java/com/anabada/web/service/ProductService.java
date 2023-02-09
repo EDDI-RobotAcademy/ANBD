@@ -71,6 +71,9 @@ public interface ProductService {
 	//조회수 +1 
 	public void cuntup(int pno) throws Exception;
 
+	// 최근본 목록 유효성 검사 
+	public List recent_chk(int[] recent_array) throws Exception;
+
 	
 
 

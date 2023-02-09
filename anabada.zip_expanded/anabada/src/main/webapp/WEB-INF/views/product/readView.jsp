@@ -394,7 +394,7 @@ margin-left: 60px;
                   //즉, 찾고자 하는 값이 배열에 들어 있지 않은 경우
                   //.unshift() : 배열의 맨 앞에 값을 추가한다.
                   data.unshift({
-                         "pno":'${read.pno}',
+                         "pno":${read.pno},
                          "p_title":'${read.p_title}',
                          "p_img":'${filelist[0].filepath}'
                           });
@@ -403,7 +403,7 @@ margin-left: 60px;
                  // 이미 봤다면 이전 기록 삭제하고 다시 추가
                  data.splice(idxOf, 1);
                   data.unshift({
-                      "pno":'${read.pno}',
+                      "pno":${read.pno},
                          "p_title":'${read.p_title}',
                          "p_img":'${filelist[0].filepath}'
                           });
@@ -416,7 +416,7 @@ margin-left: 60px;
           //객체를 넣어줌
           //    alert("비어있음")
               data=[{
-                   "pno":'${read.pno}',
+                   "pno":${read.pno},
                       "p_title":'${read.p_title}',
                       "p_img":'${filelist[0].filepath}'
                       }];
@@ -429,43 +429,89 @@ margin-left: 60px;
         
       }     
        
-      function get_recent_item(){
-          
-          var $recentItemList = $("#recentItemList");
-          
-          var items = sessionStorage.getItem("recent_product");
-          //alert(key)
-          
-          //인수로 전달받은 문자열을 자바스크립트 객체로 변환
-          var realitem = JSON.parse(items);
-          
-          //파싱된 객체의 길이로 for문 돌리기
-           for (var i = 0; i < realitem.length; i++) {
-               var pno = realitem[i].pno;
-              var p_title = realitem[i].p_title;
-              var p_img = realitem[i].p_img; 
-            //  alert(pno+", "+p_title+", "+p_img);
-            
-            if (p_img != null || p_img != "") {
-               var li = "<li  ><a href='/product/readView?pno="
-                     + pno
-                     + "'><img width='100' height='100' src='"+p_img+"'/>"
-                     + "<br><div class='sideword' >"  + p_title + "</div>"
-                     + "</a></li>";
-            }
-            if (p_img == null || p_img == "") {
-               var li = "<li  ><a href='/product/readView?pno="
-                     + pno
-                     + "'><img width='100' height='100' src='../resources/images/아나바다.png'/>"
-                     + "<br><div class='sideword' >" + pno + p_title + "</div>"
-                     + "</a></li>";
-            }
 
-            //ul에 붙이기
-            $recentItemList.append(li);
-         }
-          
-      }
+      
+      
+      function get_recent_item() {
+
+			//sessionStorage.clear(); 
+			var $recentItemList = $("#recentItemList");
+
+			var items = sessionStorage.getItem("recent_product");
+
+			if (items == null) {
+				var li = "<br><br><li>최근 본 상품이 없습니다.</li>"
+				$recentItemList.append(li);
+			}
+
+			//alert(key)
+
+			  var realitem = JSON.parse(items);
+
+
+			var recent_array = new Array();
+			//최근 본 게시물 유효성 검사 
+			for (var j = 0; j < 6; j++) {
+
+				//최근 본 목록의 pno를 배열에 담아서 에이젝스로 유효성 검사 넘김
+				if (JSON.stringify(realitem[j]) != null) {
+					var recent = JSON.stringify(realitem[j].pno);
+					recent_array.push(recent);
+					//alert(recent_array);
+				}
+			}
+			$.ajax({
+
+				type : "get",
+				url : "/product/recent_chk",
+				data:{
+					recent_array : recent_array,
+				},
+				 traditional : true, // int형으로 넘기기 위해 작성 
+
+	              success: function(data){
+	            	
+                    
+	                  //파싱된 객체의 길이로 for문 돌리기
+	                  for (var i = 0; i < 6; i++) {
+	                      
+	                      if(data.includes(realitem[i].pno)){
+	                           var pno = realitem[i].pno;
+	                          var p_title = realitem[i].p_title;
+	                          var p_img = realitem[i].p_img;
+
+	                                     
+	                          if (p_img != null || p_img != "") {
+	          					var li = "<li  ><a href='/product/readView?pno="
+	          							+ pno
+	          							+ "'><img width='100' height='100' src='"+p_img+"'/>"
+	          							+ "<br><div class='sideword' >" + p_title + "</div>"
+	          							+ "</a></li>";
+	          				}
+	                          else {
+	          					var li = "<li  ><a href='/product/readView?pno="
+	          							+ pno
+	          							+ "'><img width='100' height='100' src='../resources/images/아나바다.png'/>"
+	          							+ "<br><div class='sideword' >" + pno + p_title + "</div>"
+	          							+ "</a></li>";
+	          				}
+	                      //ul에 붙이기
+	                      $recentItemList.append(li);
+	                      }
+	                 }
+	            	  
+	            	  
+	              },
+	              error : function (request, status, error) {
+					alert("실패 : "+error);
+				}
+				
+
+			});
+		}
+      
+      
+      
       
       $(".recent_btn").click(function() {
          var ih = $(this).index() == 0 ? -130 : 130; //위아래로 움직이는 px 숫자
