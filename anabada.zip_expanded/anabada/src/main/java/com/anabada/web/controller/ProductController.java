@@ -428,6 +428,7 @@ public class ProductController {
        System.out.println(vo);
        
        int result = complaintService.validation(vo); // 신고 여부체크 
+       System.out.println("횟수 : "+result);
        return result;
     }
     
@@ -448,34 +449,17 @@ public class ProductController {
 	
 	
 	
-	
-	
-	
-	
-	// 신고에 대한 유효성 검사 밑 신고 접수 메소드
-	private String complaint (ComplaintVO vo) throws Exception{
-		
-       if(vo.getBoard_type() =="pboard") { // pboard에 대한 신고일때
-    	   int check = complaintService.validation(vo); 
-    	   if(check == 0) { // 신고한적 없음으로 신고하기 
-    			 complaintService.insert(vo);
-    			 return "ok";
-    		 }else { // 신고한적 있음 
-    			 return "이미 신고한 게시물입니다.";
-    		 }
-    	   
-    	   
-       }else { // 리뷰에 대한 신고 
-    	   
-    	   
-    	   
-    	   
-       }
-		
-		
-		
-		return null;
+	//최근본 목록 유효성 검사 
+	@RequestMapping(value = "/recent_chk", method = RequestMethod.GET)
+	@ResponseBody
+	public List recent_chk(@RequestParam(value = "recent_array")int[] recent_array) throws Exception{
+		logger.info("최근본 게시물 유효성 검사");
+		System.out.println("검사 내역 : "+recent_array);
+		List recent_chk = service.recent_chk(recent_array); // 유효성 검사 통과한 pno만 담음 
+		System.out.println("통과 : "+ recent_chk);
+		return recent_chk;
 	}
+	
 	
 	
 	
