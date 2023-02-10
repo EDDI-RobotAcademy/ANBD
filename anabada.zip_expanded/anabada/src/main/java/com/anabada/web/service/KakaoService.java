@@ -115,13 +115,20 @@ public class KakaoService {
 
 			String nickname = properties.getAsJsonObject().get("nickname").getAsString();
 			String email = kakao_account.getAsJsonObject().get("email").getAsString();
+			
+			int index = email.indexOf("@");
+			String id = email.substring(0, index);
+			
+			System.out.println("service id : " + id);
 
 			userInfo.put("nickname", nickname);
 			userInfo.put("email", email);
+			userInfo.put("id", id);
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 		KakaoVO result = dao.findkakao(userInfo);
 		
 		if(result == null) {
@@ -136,4 +143,10 @@ public class KakaoService {
 			// 정보가 이미 있기 때문에 result를 리턴함.
 		}
 	}
+
+//	public Object makeId(String account_email) {
+//		return dao.makeId(account_email);
+//	}
+
+
 }

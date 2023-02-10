@@ -93,4 +93,17 @@
 		WHERE id = #{id}
 		AND pass = #{pass}
 	</delete>
+	
+	<!-- 카카오 로그인 정보 찾기 -->
+   <select id="findkakao" parameterType="java.util.HashMap" resultType="kakaoVO">
+	  SELECT * FROM kakao
+	  WHERE nickname = #{nickname} and account_email = #{email}
+   </select>
+   
+   <!-- 정보 저장 -->
+   <insert id="kakaoinsert" parameterType="java.util.HashMap">
+   	 INSERT INTO kakao(nickname, account_email, id)
+   	 VALUES (#{nickname}, #{email}, #{id})
+   </insert>
+   
 </mapper>

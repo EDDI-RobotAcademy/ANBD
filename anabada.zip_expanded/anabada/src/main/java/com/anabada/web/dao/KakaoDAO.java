@@ -23,7 +23,12 @@ public class KakaoDAO {
 	public KakaoVO findkakao(HashMap<String, Object> userInfo) {
 		System.out.println("nickname : " + userInfo.get("nickname"));
 		System.out.println("email : " + userInfo.get("email"));
+		System.out.println("id : " + userInfo.get("id"));
 		return sql.selectOne("memberMapper.findkakao", userInfo);
 	}
+
+//	public Object makeId(String account_email) {
+//		return sql.update("memberMapper.makeId", account_email);
+//	}
 
 }
