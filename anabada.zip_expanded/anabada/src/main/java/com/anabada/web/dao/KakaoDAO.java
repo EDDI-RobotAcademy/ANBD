@@ -27,8 +27,4 @@ public class KakaoDAO {
 		return sql.selectOne("memberMapper.findkakao", userInfo);
 	}
 
-//	public Object makeId(String account_email) {
-//		return sql.update("memberMapper.makeId", account_email);
-//	}
-
 }

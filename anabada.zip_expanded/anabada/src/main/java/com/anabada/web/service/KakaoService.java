@@ -144,9 +144,4 @@ public class KakaoService {
 		}
 	}
 
-//	public Object makeId(String account_email) {
-//		return dao.makeId(account_email);
-//	}
-
-
 }
