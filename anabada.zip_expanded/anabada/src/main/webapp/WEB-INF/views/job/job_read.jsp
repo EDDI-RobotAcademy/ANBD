@@ -41,14 +41,14 @@
              sessionStorage.setItem("recent_job", JSON.stringify(data));
              
             readForm.attr("action", "/job/job_delete"); // 삭제 컨트롤러로
-            readForm.attr("method", "post"); // 여기서는 페이징처리 필요없으니까 post
+            readForm.attr("method", "get"); // 여기서는 페이징처리 필요없으니까 post
             readForm.submit();
           }
       });
       
       $("#job_list").on("click", function () { 
-         // 삭제될때 최근 본 게시물도 삭제
-         
+
+    	 // 목록으로 돌아감(페이징처리함)
          readForm.attr("action", "/job/job_list"); 
          readForm.attr("method", "get");
          readForm.submit();
@@ -464,7 +464,7 @@
          <section class="nav"></section>
 
       <section class="section">
-      <form name="readForm" role="form" method="post">
+      <form name="readForm" role="form">
          <input type="hidden" name="j_bno" value="${j_read.j_bno }">
          <input type="hidden" name="page" value="${scri.page }">
          <input type="hidden" name="perPageNum" value="${scri.perPageNum }">
@@ -621,12 +621,12 @@
             </tr>
             <tr style="border-bottom: 0px">
                <td colspan="6" style="border-bottom: 0px; text-align: center">
-                  <button type="button" id="job_list" class="j_btn1" style="display: inline; width: 100px">이전으로</button>
+                  <button type="button" id="job_list" class="j_btn1" style="display: inline; width: 100px">알바 게시판</button>
                   <c:if test="${j_read.id ne id}"><!-- 로그인한 아이디(세션에 저장된 아이디)와 작성자아이디가 같으면 수정, 삭제 가능 -->
                      <button type="button" id="resume" class="j_btn1" style="display: inline; width: 100px">지원하기</button>
                   </c:if>
                   <c:if test="${j_read.id eq id}"><!-- 로그인한 아이디(세션에 저장된 아이디)와 작성자아이디가 같으면 수정, 삭제 가능 -->
-                     <button type="button" id="show_resume" class="j_btn1" style="display: inline; width: 100px">지원자들 보기</button>
+                     <button type="button" id="show_resume" class="j_btn1" style="display: inline; width: 100px">지원자 보기</button>
                   </c:if>
                   
                </td>

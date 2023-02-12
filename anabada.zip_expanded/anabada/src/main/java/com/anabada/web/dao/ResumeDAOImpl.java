@@ -76,6 +76,12 @@ public class ResumeDAOImpl implements ResumeDAO {
 	public void resume_update(ResumeVO vo) throws Exception {
 		sqlSession.update("resumeMapper.update", vo);
 	}
+
+	// 알바 지원 삭제(낱개)
+	@Override
+	public void resume_delete(int r_bno) throws Exception {
+		sqlSession.delete("resumeMapper.delete", r_bno);
+	}
 	
 	
 

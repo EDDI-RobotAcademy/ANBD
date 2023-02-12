@@ -187,7 +187,7 @@ public class ResumeController {
 		return "/resume/resume_update"; // 수정 페이지로 이동
 	}
 	
-	//지원 게시물 수정
+	//지원 게시물 수정 완료했을 때
 	@RequestMapping(value = "/resume_update", method = RequestMethod.GET)
 	public String resume_update(HttpServletResponse resp, ResumeVO vo, @ModelAttribute("cri") ResumeCriteria cri, Model model) throws Exception{
 			
@@ -200,6 +200,19 @@ public class ResumeController {
 	        
         return "redirect:/resume/my_resume";
 	}
+	
+	// 지원 삭제 눌렀을 때
+	@RequestMapping(value = "/resume_delete", method = RequestMethod.GET)
+	public String resume_delete(ResumeVO vo, @ModelAttribute("cri") ResumeCriteria cri, RedirectAttributes rttr) throws Exception{
+				
+		logger.info("알비 지원 삭제 버튼 누름~~");
+				
+		System.out.println(vo);
+		resumeService.resume_delete(vo.getR_bno());
+		rttr.addFlashAttribute("cri", cri);
+				
+	    return "redirect:/resume/my_resume";
+    }
 	
 	
 	

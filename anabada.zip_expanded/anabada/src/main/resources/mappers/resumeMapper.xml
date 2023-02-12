@@ -70,5 +70,8 @@ R_COMPANY = #{r_company}, R_START = #{r_start}, R_END = #{r_end}
 WHERE R_BNO = #{r_bno}
 </update>
 
+<delete id="delete" parameterType="int">
+DELETE FROM RESUME_BOARD WHERE R_BNO = #{r_bno}
+</delete>
 
 </mapper>
