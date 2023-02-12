@@ -48,13 +48,6 @@
       
       $("#job_list").on("click", function () { 
          // 삭제될때 최근 본 게시물도 삭제
-          var data = sessionStorage.getItem("recent_job");
-          data = JSON.parse(data);
-          
-          var j_bno = ${j_read.j_bno};
-              
-          data.splice('j_bno', 1); // 삭제될때 최근 본 게시물도 삭제
-          sessionStorage.setItem("recent_job", JSON.stringify(data));
          
          readForm.attr("action", "/job/job_list"); 
          readForm.attr("method", "get");
@@ -95,8 +88,8 @@
                       '&j_term=' + encodeURIComponent('${scri.j_term}') + 
                       '&j_day=' + encodeURIComponent('${scri.j_day}') + 
                       '&j_cate=' + encodeURIComponent('${scri.j_cate}');
-                         }
-                     },
+                     }
+                 },
                  error : function(request, status, error) {
                      alert("오류:" + error);
                }
@@ -628,7 +621,7 @@
             </tr>
             <tr style="border-bottom: 0px">
                <td colspan="6" style="border-bottom: 0px; text-align: center">
-                  <button type="button" id="job_list" class="j_btn1" style="display: inline; width: 150px">게시판으로 돌아가기</button>
+                  <button type="button" id="job_list" class="j_btn1" style="display: inline; width: 100px">이전으로</button>
                   <c:if test="${j_read.id ne id}"><!-- 로그인한 아이디(세션에 저장된 아이디)와 작성자아이디가 같으면 수정, 삭제 가능 -->
                      <button type="button" id="resume" class="j_btn1" style="display: inline; width: 100px">지원하기</button>
                   </c:if>

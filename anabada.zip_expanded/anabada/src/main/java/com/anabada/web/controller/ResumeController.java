@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.anabada.web.service.JobService;
 import com.anabada.web.service.ResumeService;
@@ -66,18 +67,15 @@ public class ResumeController {
 		
 	// 알바지원페이지 작성하고 지원하기 눌렀을 때 실행
 	@RequestMapping(value = "/resume_insert", method = RequestMethod.POST)
-	public String resume_insert(@ModelAttribute ResumeVO vo, @ModelAttribute("scri") JobSearchCriteria scri, Model model) throws Exception{
+	public String resume_insert(@ModelAttribute ResumeVO vo, @ModelAttribute("scri") JobSearchCriteria scri, RedirectAttributes rttr) throws Exception{
 		
 		logger.info("지원서 다 썼음!");
-		
 		System.out.println(vo);
-		
-		model.addAttribute(model);
-		model.addAttribute("scri", scri);
-		
 		resumeService.resume_insert(vo);
 					
-		return "redirect:/job/job_list"; // 알바 게시판 컨트롤러로 이동
+		rttr.addFlashAttribute("scri", scri);
+		rttr.addAttribute("j_bno", vo.getJ_bno());
+		return "redirect:/job/job_read"; // 알바 게시판 컨트롤러로 이동
 	}
 	
 	// 해당 구인 게시물의 지원자들 목록 보기. 새로운 페이징 처리 위해 get
