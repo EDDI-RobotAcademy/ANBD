@@ -246,17 +246,16 @@
 				       //alert(j_bno);
 				       var j_title = realitem[i].j_title;
 				       var j_img = realitem[i].j_img;
-				       alert("제목" + j_title);
 				       //alert("이미지 + /" + j_img + "/");
 				       		        	
 				       if(j_img != ""){
 				       		var li = "<li><a href='/job/job_read?j_bno="+j_bno+"'><img width='100' height='100' src='/upload/"+j_img+"'/>"
 				       			+ "<br><div class='word'>" + j_title+ "</div>" + "</a></li>";
-				       	    alert(i);
+				       	    //alert(i);
 				       }else{
 				       		var li = "<li><a href='/job/job_read?j_bno="+j_bno+"'><img width='100' height='100' src='../resources/images/아나바다2.png'/>"
 				       			+ "<br><div class='word'>" + j_title+ "</divs>" + "</a></li>";
-				       		alert(i);
+				       		//alert(i);
 				       }
 			      //ul에 붙이기
 			      $recentItemList.append(li);

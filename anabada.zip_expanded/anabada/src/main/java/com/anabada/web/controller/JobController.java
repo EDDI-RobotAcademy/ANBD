@@ -498,7 +498,8 @@ public class JobController {
 		logger.info("최근 본 게시물 삭제 체크"); 
 		System.out.println(recent_array);
 		
-		List recent_chk = jobService.recent_chk(recent_array); // 마이페이지 게시물들 번호 배열로 받아서 삭제
+		List recent_chk = jobService.recent_chk(recent_array); // 존재하는 게시물 번호를 받음 
+		// 게시물들 번호 배열로 받아서 삭제 예정
 		
 		System.out.println(recent_chk);
 		return recent_chk;
