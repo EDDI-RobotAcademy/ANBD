@@ -76,6 +76,12 @@ public class ResumeServiceImpl implements ResumeService {
 	public void resume_update(ResumeVO vo) throws Exception {
 		dao.resume_update(vo);
 	}
+
+	// 알바 지원서 삭제(낱개)
+	@Override
+	public void resume_delete(int r_bno) throws Exception {
+		dao.resume_delete(r_bno);
+	}
 	
 	
 

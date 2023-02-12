@@ -50,7 +50,7 @@ $(document).ready(function () {
 	    
 	    // 회사명 null 체크
 	    if(company == null || company == ""){
-	    	$("#c_null").text("회사명을 입력해주세요.");
+	    	$("#c_null").text("가게명을 입력해주세요.");
     		$("#c_null").css("color", "red");
     		return false;
 	    }else{
@@ -77,11 +77,11 @@ $(document).ready(function () {
     		return false;
 		}
 	    
-		var career = "<div style='margin:5px;'>" +
-			"회사명&nbsp;" + "<input type='text' name='r_company' class='form-control' style='width: 30%' readonly value=" + company + ">" +
-			"&nbsp;&nbsp;&nbsp;시작&nbsp;" + "<input type='text' name='r_start' class='form-control' style='width: 15%' readonly value=" + start + ">&nbsp;&nbsp;~" +
-			"&nbsp;&nbsp;끝&nbsp;" + "<input type='text' name='r_end' class='form-control' style='width: 15%' readonly value=" + end + ">" +
-			"&nbsp;&nbsp;&nbsp;<button type='button' name='delete_btn' class='j_btn2' style='width: 50px;height:25px; display: inline' onclick='delete_btn();'>" + "삭제" + "</button>" +
+		var career = "<div style='margin:5px; padding'>" +
+			"회사명&nbsp;" + "<input type='text' name='r_company' class='form-control' style='width: 40%; background-color: white' readonly value=" + company + ">" +
+			"&nbsp;&nbsp;&nbsp;&nbsp;시작&nbsp;" + "<input type='text' name='r_start' class='form-control' style='width: 15%; background-color: white' readonly value=" + start + ">&nbsp;&nbsp;&nbsp;&nbsp;~" +
+			"&nbsp;&nbsp;&nbsp;&nbsp;끝&nbsp;" + "<input type='text' name='r_end' class='form-control' style='width: 15%; background-color: white' readonly value=" + end + ">" +
+			"&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' name='delete_btn' class='j_btn2' style='width: 50px; height:25px; display: inline' onclick='delete_btn();'>" + "삭제" + "</button>" +
 			"<div>";
 		var $career_list = $("#career_list");
 		$career_list.append(career);
@@ -93,63 +93,53 @@ $(document).ready(function () {
 	// submit할 때 체크해야 할 것들
 	$("button[type='submit']").click(function () {
 		
-		var name = $("input[name='r_name']").val();
-		var tel = $("input[name='r_tel']").val();
+		var name = $("input[name='r_name']").val().trim();
+		var tel = $("input[name='r_tel']").val().trim();
 		var count = (tel.match(/-/g) || []).length;
 		
-		var age = $("input[name='r_age']").val();
+		var age = $("input[name='r_age']").val().trim();
 		var number = isNaN(age); // 숫자가 아니면 true
 		
 		var gender = $("input[name='r_gender']").is(":checked");
 		
 		// 1.이름 null 체크
 		if(name == ""){
-			$("#n_null").text("이름을 작성해주세요.");
-    		$("#n_null").css("color", "red");
+			alert("이름을 작성해주세요.");
+			$("input[name='r_name']").focus();
     		return false;
-		}else{
-			$("#n_null").text("");
 		}
 		
 		// 2.나이 null 체크
 		if(age == ""){
-			$("#a_null").text("나이를 작성해주세요.");
-    		$("#a_null").css("color", "red");
+			alert("나이를 작성해주세요.");
+			$("input[name='r_age']").focus();
     		return false;
 		}else if(number){
-			$("#a_null").text("숫자로 작성해주세요.");
-    		$("#a_null").css("color", "red");
+			alert("나이를 숫자로 작성해주세요.");
+			$("input[name='r_age']").focus();
     		return false;
-		}else{
-			$("#a_null").text("");
 		}
 		
 		// 3.성별 null 체크
 		if(!gender){
-			$("#g_null").text("성별을 선택해주세요.");
-    		$("#g_null").css("color", "red");
+			alert("성별을 선택해주세요.");
     		return false;
-		}else{
-			$("#g_null").text("");
 		}
 		
 		// 4.전화번호 null 체크
 		if(tel == ""){
-			$("#t_null").text("전화번호를 작성해주세요.");
-    		$("#t_null").css("color", "red");
+			alert("전화번호를 작성해주세요.");
+			$("input[name='r_tel']").focus();
     		return false;
 		}else if(count < 2){
-			$("#t_null").text("전화번호를 다시 작성해주세요.");
-    		$("#t_null").css("color", "red");
+			alert("전화번호에 '-'을 기입해주세요.");
+			$("input[name='r_tel']").focus();
     		return false;
-		}else{
-			$("#t_null").text("");
 		}
 		
 		//6.필수 항목 모두 선택했는지
 		if($('.essential:checked').length != $('.essential').length){
-			$("#e_null").text("필수 항목에 동의해주세요.");
-			$("#e_null").css("color", "red");
+			alert("필수 항목에 동의해주세요.")
     		return false;
 		}
 		
@@ -157,8 +147,20 @@ $(document).ready(function () {
 	
 	// 경력 지우기
 	$(document).on('click', 'button[name=delete_btn]', function() {
-	    alert('삭제합니다.');
 	    $(this).closest("div").remove();
+	});
+	
+	// 지원 삭제
+	$("#delete_resume").click(function () {
+		
+		if(confirm("알바 지원을 삭제하시겠습니까?")){
+			location.href = "/resume/resume_delete" 
+			+ "?r_bno=" + '${r_read.r_bno}'
+			+ "&page=" + '${cri.page}'
+			+ "&perPageNum" + '${cri.perPageNum}'
+		}else{
+			return false;
+		}
 	});
 	
 });
@@ -186,6 +188,7 @@ $(document).ready(function () {
     	margin-right: 10px;
     	border-radius: 0.25rem;
     }
+
 </style>
 </head>
 <body>
@@ -229,8 +232,6 @@ $(document).ready(function () {
 					<td class="info">이름</td>
 					<td>
 						<input type="text" name="r_name" id="r_name" class="form-control" style="width: 40%" value="${r_read.r_name}">
-						<br>
-						<div id="n_null"></div>
 					</td>
 				</tr>
 				
@@ -238,8 +239,6 @@ $(document).ready(function () {
 					<td class="info">나이</td>
 					<td>
 						<input type="text" name="r_age" id="r_age" class="form-control" style="width: 40%" value="${r_read.r_age}" placeholder="숫자로 입력해주세요.">&nbsp;세
-						<br>
-						<div id="a_null"></div>
 					</td>
 				</tr>
 				
@@ -257,8 +256,6 @@ $(document).ready(function () {
 							<c:if test="${r_read.r_gender eq '여'}"> checked </c:if>>
 							&nbsp;여
 						</label>
-						<br>
-						<div id="g_null"></div>
 					</td>
 				</tr>
 				
@@ -266,8 +263,6 @@ $(document).ready(function () {
 					<td class="info">전화번호</td>
 					<td>
 						<input type="text" name="r_tel" id="r_tel" class="form-control" placeholder="-을 넣어 작성해주세요." value="${r_read.r_tel}">
-						<br>
-						<div id="t_null"></div>
 					</td>
 				</tr>
 				
@@ -282,10 +277,10 @@ $(document).ready(function () {
 							<div id="career_list">
 								<c:forEach var="company" items="${r_company }" varStatus="status"> 
 								<div style="margin:5px;">
-				                	회사명&nbsp;<input type="text" name="r_company" class="form-control" style="width: 30%" readonly value="${company}">&nbsp;&nbsp;
-									시작&nbsp;<input type="text" name="r_start" class="form-control" style="width: 15%" readonly value="${start[status.index] }">
-									&nbsp;~&nbsp;
-									끝&nbsp;<input type="text" name="r_end" class="form-control" style="width: 15%" readonly value="${end[status.index] }">&nbsp;&nbsp;
+				                	회사명&nbsp;<input type="text" name="r_company" class="form-control" style="width: 40%; background-color: white" readonly value="${company}">&nbsp;&nbsp;&nbsp;
+									시작&nbsp;<input type="text" name="r_start" class="form-control" style="width: 15%; background-color: white" readonly value="${start[status.index] }">&nbsp;&nbsp;
+									~&nbsp;&nbsp;&nbsp;&nbsp;
+									끝&nbsp;<input type="text" name="r_end" class="form-control" style="width: 15%; background-color: white" readonly value="${end[status.index] }">&nbsp;&nbsp;&nbsp;
 									<button type="button" name="delete_btn" class="j_btn2" style="width: 50px;height:25px; display: inline" onclick="delete_btn();">삭제</button>
 								</div>
 								</c:forEach>
@@ -305,13 +300,13 @@ $(document).ready(function () {
 					<input type="checkbox" class="essential" checked>&nbsp;(필수)개인정보 수집 및 이용 동의<br>
 					<input type="checkbox" class="essential" checked>&nbsp;(필수)개인정보 제 3자 제공 동의
 					<br>
-					<div id="e_null"></div>
 					</td>
 				</tr>
 				
 				<tr>
-					<td colspan="2">
-						<button type="submit" class="j_btn1">수정완료</button>
+					<td colspan="2" style="text-align: center">
+						<button type="submit" class="j_btn1" style="display: inline; width: 100px;">수정 완료</button>
+						<button type="button" id="delete_resume" class="j_btn1" style="display: inline; width: 100px;">지원 삭제</button>
 					</td>
 				</tr>
 			</table>
@@ -332,7 +327,7 @@ $(document).ready(function () {
                                 <tr>
                                     <th style="width: 10%">가게명</th>
                                     <td>
-                                       <input type="text" id="company" class="form-control"/><br>
+                                       <input type="text" id="company" class="form-control" autocomplete="off"/><br>
                                        <div id="c_null"></div>
                                     </td>
                                 </tr>

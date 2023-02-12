@@ -110,6 +110,7 @@ public class JobController {
 		System.out.println("알바 게시판:" + jobService.job_list(scri));
 		
 		JobPageMaker pageMaker = new JobPageMaker();
+		System.out.println("페이징처리확인: " +scri);
 		pageMaker.setCri(scri);
 		pageMaker.setTotalCount(jobService.job_listCount(scri)); // 게시글 총 개수 받아서 페이징 처리함
 		
@@ -204,8 +205,8 @@ public class JobController {
 	}
 	
 	// 알바 구인 게시물 삭제할 떄
-	@RequestMapping(value = "/job_delete", method = RequestMethod.POST)
-	public String job_delete(@ModelAttribute JobVO vo) throws Exception{
+	@RequestMapping(value = "/job_delete", method = RequestMethod.GET)
+	public String job_delete(@ModelAttribute JobVO vo, @ModelAttribute("cri")JobSearchCriteria cri, RedirectAttributes rttr) throws Exception{
 		
 		logger.info("사장이 삭제버튼 눌렀음"); 
 		// 페이징 처리 안해줬음 
@@ -230,8 +231,11 @@ public class JobController {
  		map.put("board_type", "job");
  		
  		complaintService.delete_complaint(map);
+ 		
+ 		rttr.addAttribute("page", cri.getPage());
+ 		rttr.addAttribute("perPageNum", cri.getPerPageNum());
 		
-		return "redirect:/job/job_list"; // 임의
+		return "redirect:/job/my_job"; // 삭제했으면 마이페이지 게시판으로 이동
 		// 게시판 기본 상태로 돌아감
 	}
 	
@@ -284,7 +288,7 @@ public class JobController {
 		map.put("id", id); // 세션에 저장된 아이디
 		map.put("rowStart2", cri.getRowStart2());
 		map.put("rowEnd2", cri.getRowEnd2());
-		System.out.println(cri.getRowStart() + "하하하하" + cri.getRowEnd());
+		System.out.println("하하하" + cri);
 			
 		model.addAttribute("my_jobList", jobService.my_jobList(map)); // 세션에 저장된 아이디와 같은 아이디가 쓴 글 불러움
 		System.out.println(jobService.my_jobList(map));

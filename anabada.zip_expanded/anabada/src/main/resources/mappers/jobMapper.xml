@@ -311,7 +311,4 @@ WHERE J_BNO IN (
 ) ORDER BY ROWNUM
 </select>
 
-
-
-
 </mapper>
