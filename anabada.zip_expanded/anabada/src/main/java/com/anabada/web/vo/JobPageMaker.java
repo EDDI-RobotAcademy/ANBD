@@ -130,10 +130,10 @@ public class JobPageMaker{
 				UriComponentsBuilder.newInstance()
 				.queryParam("page", page)
 				.queryParam("perPageNum", cri.getPerPageNum())
-				.queryParam("j_addr1", encoding(((JobSearchCriteria)cri).getJ_addr1()))
-				.queryParam("j_term", encoding(((JobSearchCriteria)cri).getJ_term()))
-				.queryParam("j_day", encoding(((JobSearchCriteria)cri).getJ_day()))
-				.queryParam("j_cate", encoding(((JobSearchCriteria)cri).getJ_cate()))
+				.queryParam("j_addr1", ((JobSearchCriteria)cri).getJ_addr1())
+				.queryParam("j_term", ((JobSearchCriteria)cri).getJ_term())
+				.queryParam("j_day", ((JobSearchCriteria)cri).getJ_day())
+				.queryParam("j_cate", ((JobSearchCriteria)cri).getJ_cate())
 				.build();
 		
 		return uriComponents.toUriString();
