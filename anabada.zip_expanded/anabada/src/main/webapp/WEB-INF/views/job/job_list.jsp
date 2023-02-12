@@ -316,6 +316,14 @@
          
       <div class="container">
          <!-- 여기부터는 게시물들 -->
+          <c:if test="${empty j_list }">
+          <div style="text-align: center">
+             선택된 조건과 일치하는 게시물이 존재하지 않습니다.
+             <br><br>
+             <img class="j_img" src="../resources/images/minilogo.png" style="width: 250px; height: 80px;"/>
+             <br><br>
+          </div>
+          </c:if>
           <div class="boxes">
              <c:forEach var="j_list" items="${j_list}">
                  <div>
@@ -501,114 +509,34 @@
      // 주소 select 박스 선택할때
       $('#search_addr1').change(function () {
          
-       var chk_name = $(this).attr("name");
-        var chk_all = $(this).val();
-        
-        
         // 1)근무기간
         var chk_arr1 = [];
-         var count1 = $("input[name=j_term]:checked").length;
-         if(count1 < 4 || (count1 == 4 && chk_all == "모두")){
-           $("input[name=j_term]:checked").each(function () {
-                 var chk1 = $(this).val();
-              chk_arr1.push(chk1);
-            });
-         }else{
-            alert("근무기간은 3개까지 선택가능합니다.");
-            return false;
-         }
-        
-        if(chk_name == "j_term" && chk_all == '모두'){ // 근무기간이 모두일때
-           if($("#j_term1").is(":checked")){ // 모두선택한 상태에서 모두를 눌렀을 때
-              chk_arr1 = [];
-              chk_arr1.push(chk_all); // 모두만 담음
-             }else{ // 모두 안눌렀을 때 모두 눌렀을때
-                chk_arr1 = [];
-                chk_arr1.push(chk_all); // 모두만 담음
-            }
-        }else if(chk_name == "j_term" && chk_all != '모두'){ // 모두 아닐때
-           var index = chk_arr1.indexOf("모두"); // 모두가 있다면 인덱스 찾음
-           if(index >= 0){
-              chk_arr1.splice(index, 1); // a부터 1만큼 삭제 ( 자기자신 )
-           }
-        }
-        
-        if(chk_arr1.length == 0){ // 만약 모두 아니고 다른 거 하나 선택했는데 그거 해제했을 때(이거 처리안해주면 null 나옴)
-           chk_arr1.push("모두");
-        }
+        $("input[name=j_term]:checked").each(function () {
+           var chk1 = $(this).val();
+           chk_arr1.push(chk1);
+        });
         
         
-        // 2)근무횟수
         var chk_arr2 = [];
-        var count2 = $("input[name=j_day]:checked").length;
-        if(count2 < 4 || (count2 == 4 && chk_all == "모두")){
-           $("input[name=j_day]:checked").each(function () {
-              var chk2 = $(this).val();
-              chk_arr2.push(chk2);
-            });
-        }else{
-           alert("근무횟수는 3개까지 선택가능합니다.");
-           return false;
-        }
+        $("input[name=j_day]:checked").each(function () {
+           var chk2 = $(this).val();
+           chk_arr2.push(chk2);
+        });
 
-        if(chk_name == "j_day" && chk_all == '모두'){ // 근무기간이 모두일때
-           if($("#j_day1").is(":checked")){ // 모두선택한 상태에서 모두를 눌렀을 때
-              chk_arr2 = [];
-              chk_arr2.push(chk_all); // 모두만 담음
-             }else{ // 모두 안눌렀을 때 모두 눌렀을때
-                chk_arr2 = [];
-                chk_arr2.push(chk_all); // 모두만 담음
-            }
-        }else if(chk_name == "j_day" && chk_all != '모두'){ // 모두 아닐때
-           var index = chk_arr2.indexOf("모두"); // 모두가 있다면 인덱스 찾음
-           if(index >= 0){
-              chk_arr2.splice(index, 1); // a부터 1만큼 삭제 ( 자기자신 )
-           }
-        }
-        
-        if(chk_arr2.length == 0){ // 만약 모두 아니고 다른 거 하나 선택했는데 그거 해제했을 때(이거 처리안해주면 null 나옴)
-           chk_arr2.push("모두");
-        }
-        
         // 3)근무카테고리
         var chk_arr3 = [];
-        var count3 = $("input[name=j_cate]:checked").length;
-        if(count3 < 4 || (count3 == 4 && chk_all == "모두")){
-           $("input[name=j_cate]:checked").each(function () {
-              var chk3 = $(this).val();
-              chk_arr3.push(chk3);
-            });
-        }else{
-           alert("업직종은 3개까지 선택 가능합니다.");
-           return false;
-        }
-
-        if(chk_name == "j_cate" && chk_all == '모두'){ // 근무기간이 모두일때
-           if($("#j_cate1").is(":checked")){ // 모두선택한 상태에서 모두를 눌렀을 때
-              chk_arr3 = [];
-              chk_arr3.push(chk_all); // 모두만 담음
-             }else{ // 모두 안눌렀을 때 모두 눌렀을때
-                chk_arr3 = [];
-                chk_arr3.push(chk_all); // 모두만 담음
-            }
-        }else if((chk_name == "j_cate" && chk_all != '모두')){ // 모두 아닐때
-           var index = chk_arr3.indexOf("모두"); // 모두가 있다면 인덱스 찾음
-           if(index >= 0){
-              chk_arr3.splice(index, 1); // a부터 1만큼 삭제 ( 자기자신 )
-           }
-        }
-        
-        if(chk_arr3.length == 0){ // 만약 모두 아니고 다른 거 하나 선택했는데 그거 해제했을 때(이거 처리안해주면 null 나옴)
-           chk_arr3.push("모두");
-        }
-         
+        $("input[name=j_cate]:checked").each(function () {
+           var chk3 = $(this).val();
+           chk_arr3.push(chk3);
+        });
+      
         // 마지막 링크 이동
-      location.href = "job_list" + '${pageMaker.makeQuery(1)}' + 
+        location.href = "job_list" + '${pageMaker.makeQuery(1)}' + 
          '&j_addr1=' + encodeURIComponent($("#search_addr1 option:selected").val()) + 
          '&j_term=' + chk_arr1 + 
          '&j_day=' + chk_arr2 + 
          '&j_cate=' + chk_arr3;
-        });
+     });
    
 
       // 알바 구인공고 쓰기 버튼 눌렀을 때
