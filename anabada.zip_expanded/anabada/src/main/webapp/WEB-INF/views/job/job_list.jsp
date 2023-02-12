@@ -647,7 +647,7 @@
                    
               },
               error : function(request, status, error) {
-               alert("삭제 실패:" + error);
+              	alert("삭제 실패:" + error);
             }
           });
          
