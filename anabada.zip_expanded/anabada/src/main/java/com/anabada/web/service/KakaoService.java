@@ -117,7 +117,10 @@ public class KakaoService {
 			String email = kakao_account.getAsJsonObject().get("email").getAsString();
 			
 			int index = email.indexOf("@");
-			String id = email.substring(0, index);
+			String tid = email.substring(0, index);
+			String ka = "ka_";
+			
+			String id = ka.concat(tid);
 			
 			System.out.println("service id : " + id);
 
