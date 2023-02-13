@@ -499,4 +499,16 @@ public class JobController {
 		return recent_chk;
 	}
  	
+ 	// 게시물 상세보기로 이동할때 삭제된 게시물인지 유효성 체크
+ 	@RequestMapping(value = "/read_chk.ajax", method = RequestMethod.GET)
+	@ResponseBody
+	public int read_chk(@RequestParam(value="j_bno") int j_bno) throws Exception{
+				
+		logger.info("게시물 상세보기할때 삭제 유효성 체크"); 
+		int read_chk = jobService.read_chk(j_bno); // 존재하는 게시물 번호를 받음 
+		
+		System.out.println(read_chk);
+		return read_chk;
+	}
+ 	
 }

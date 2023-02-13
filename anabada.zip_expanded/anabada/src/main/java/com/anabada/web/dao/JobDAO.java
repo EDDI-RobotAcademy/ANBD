@@ -58,6 +58,9 @@ public interface JobDAO {
 
 	public List recent_chk(int[] recent_array) throws Exception;
 
+	// 상세보기 유효성 체크
+	public int read_chk(int j_bno) throws Exception;
+
 
 	
 }

@@ -327,7 +327,7 @@
           <div class="boxes">
              <c:forEach var="j_list" items="${j_list}">
                  <div>
-                   <div class="read" onclick="location.href='/job/job_read?j_bno=${j_list.j_bno }&page=${scri.page }&perPageNum=${scri.perPageNum }&j_addr1=${scri.j_addr1 }&j_term=${scri.j_term }&j_day=${scri.j_day}&j_cate=${scri.j_cate}'">
+                   <div class="read" onclick="readView(${j_list.j_bno})">
                     <!-- a태그 누르면  -->   
                        <c:choose>
                           <c:when test="${empty j_list.j_img}">
@@ -339,11 +339,11 @@
                        </c:choose>
                        <div class="word2">${j_list.j_company }</div>
                        <div class="word2"><font style="font-weight: bolder;">${j_list.j_title }</font></div>
-                       <%-- <div class="word2">직종 : ${j_list.j_cate }</div> --%>
-                       <%-- <div class="word2">근무기간 : ${j_list.j_term }</div> --%>
                        <div class="word2">${j_list.j_day }&nbsp;${j_list.j_start }:00 ~ ${j_list.j_end }:00</div>
                        <div class="word2">${j_list.j_method }&nbsp;${j_list.j_pay }원</div>
                        <div class="word2">${j_list.j_addr1 }&nbsp;${j_list.j_addr2 }</div>
+                       <div class="word2">직종 : ${j_list.j_cate }</div>
+                       <div class="word2">근무기간 : ${j_list.j_term }</div>
                     </div>
                 </div>
              </c:forEach>
@@ -626,18 +626,18 @@
                  for (var i = 0; i < 6; i++) {
                      
                      if(data.includes(realitem[i].j_bno)){
-                          var j_bno = realitem[i].j_bno;
+                         var j_bno = realitem[i].j_bno;
                          var j_title = realitem[i].j_title;
                          var j_img = realitem[i].j_img;
                          //alert("이미지 + /" + j_img + "/");
                                     
                          if(j_img != ""){
-                            var li = "<li><a href='/job/job_read?j_bno="+j_bno+"'><img width='100' height='100' src='/upload/"+j_img+"'/>"
+                            var li = "<li><a href='javascript:void(0);' onclick='readView(" + j_bno +")'><img width='100' height='100' src='/upload/"+j_img+"'/>"
                                 + "<br><div class='word'>" + j_title+ "</div>" + "</a></li>";
                             //alert(i);
                          }else{
-                             var li = "<li><a href='/job/job_read?j_bno="+j_bno+"'><img width='100' height='100' src='../resources/images/아나바다2.png'/>"
-                                + "<br><div class='word'>" + j_title+ "</divs>" + "</a></li>";
+                             var li = "<li><a href='javascript:void(0);' onclick='readView(" + j_bno +")'><img width='100' height='100' src='../resources/images/아나바다2.png'/>"
+                                + "<br><div class='word'>" + j_title+ "</div>" + "</a></li>";
                                //alert(i);
                          }
                      //ul에 붙이기
@@ -656,8 +656,41 @@
       get_recent_item();
       // 이거 젤 마지막에 둬야지 정상적으로 실행됨
 
-   
    });
+   
+   function readView(param) {
+		
+ 	  var bno = param;
+ 	  
+ 	  // 게시물 상세보기로 이동할때 삭제된 게시물인지 유효성 체크
+      $.ajax({
+           type: "get",
+           url : "/job/read_chk.ajax",
+           data: {
+              j_bno : bno, 
+           },
+           traditional : true,
+           success: function(data){
+              
+              if(data > 0){
+                  location.href="/job/job_read?j_bno=" + bno + 
+                   "&page=${scri.page }&perPageNum=${scri.perPageNum }" + 
+                   "&j_addr1=${scri.j_addr1 }" + 
+                   "&j_term=${scri.j_term }" +
+                   "&j_day=${scri.j_day}" + 
+                   "&j_cate=${scri.j_cate}";
+              }else{
+                 alert("해당게시물은 삭제되었습니다.");
+                 return false;
+              }
+                
+           },
+           error : function(request, status, error) {
+              alert("상세보기 ajax 실패:" + error);
+           }
+       });
+ 	  
+   }
    
 </script>
 </html>

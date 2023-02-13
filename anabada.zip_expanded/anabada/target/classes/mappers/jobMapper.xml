@@ -160,18 +160,18 @@ AND J_BNO > 0
 </sql>
 <sql id="day">	
 	<if test="j_day != null">
-		<if test="j_day == '주1'.toString()">AND REGEXP_COUNT(J_DAY, ',') = 0</if>
+		<if test="j_day == '주1'.toString()">AND (REGEXP_COUNT(J_DAY, ',') = 0 AND J_DAY NOT LIKE 20 || '%')</if>
 		<if test="j_day == '주2'.toString()">AND REGEXP_COUNT(J_DAY, ',') = 1</if>
 		<if test="j_day == '주3'.toString()">AND REGEXP_COUNT(J_DAY, ',') = 2</if>
 		<if test="j_day == '주4'.toString()">AND REGEXP_COUNT(J_DAY, ',') = 3</if>
 		<if test="j_day == '주5'.toString()">AND REGEXP_COUNT(J_DAY, ',') = 4</if>
 		<if test="j_day == '주말'.toString()">AND J_DAY = '토,일'</if>
 		
-		<if test="j_day == '주1,주2'.toString()">AND (REGEXP_COUNT(J_DAY, ',') = 0 OR REGEXP_COUNT(J_DAY, ',') = 1)</if>
-		<if test="j_day == '주1,주3'.toString()">AND (REGEXP_COUNT(J_DAY, ',') = 0 OR REGEXP_COUNT(J_DAY, ',') = 2)</if>
-		<if test="j_day == '주1,주4'.toString()">AND (REGEXP_COUNT(J_DAY, ',') = 0 OR REGEXP_COUNT(J_DAY, ',') = 3)</if>
-		<if test="j_day == '주1,주5'.toString()">AND (REGEXP_COUNT(J_DAY, ',') = 0 OR REGEXP_COUNT(J_DAY, ',') = 4)</if>
-		<if test="j_day == '주1,주말'.toString()">AND (REGEXP_COUNT(J_DAY, ',') = 0 OR J_DAY = '토,일')</if>
+		<if test="j_day == '주1,주2'.toString()">AND ((REGEXP_COUNT(J_DAY, ',') = 0 AND J_DAY NOT LIKE 20 || '%') OR REGEXP_COUNT(J_DAY, ',') = 1)</if>
+		<if test="j_day == '주1,주3'.toString()">AND ((REGEXP_COUNT(J_DAY, ',') = 0 AND J_DAY NOT LIKE 20 || '%') OR REGEXP_COUNT(J_DAY, ',') = 2)</if>
+		<if test="j_day == '주1,주4'.toString()">AND ((REGEXP_COUNT(J_DAY, ',') = 0 AND J_DAY NOT LIKE 20 || '%') OR REGEXP_COUNT(J_DAY, ',') = 3)</if>
+		<if test="j_day == '주1,주5'.toString()">AND ((REGEXP_COUNT(J_DAY, ',') = 0 AND J_DAY NOT LIKE 20 || '%') OR REGEXP_COUNT(J_DAY, ',') = 4)</if>
+		<if test="j_day == '주1,주말'.toString()">AND ((REGEXP_COUNT(J_DAY, ',') = 0 AND J_DAY NOT LIKE 20 || '%') OR J_DAY = '토,일')</if>
 		<if test="j_day == '주2,주3'.toString()">AND (REGEXP_COUNT(J_DAY, ',') = 1 OR REGEXP_COUNT(J_DAY, ',') = 2)</if>
 		<if test="j_day == '주2,주4'.toString()">AND (REGEXP_COUNT(J_DAY, ',') = 1 OR REGEXP_COUNT(J_DAY, ',') = 3)</if>
 		<if test="j_day == '주2,주5'.toString()">AND (REGEXP_COUNT(J_DAY, ',') = 1 OR REGEXP_COUNT(J_DAY, ',') = 4)</if>
@@ -183,16 +183,16 @@ AND J_BNO > 0
 		<if test="j_day == '주4,주말'.toString()">AND (REGEXP_COUNT(J_DAY, ',') = 3 OR J_DAY = '토,일')</if>
 		<if test="j_day == '주5,주말'.toString()">AND (REGEXP_COUNT(J_DAY, ',') = 4 OR J_DAY = '토,일')</if>
 		
-		<if test="j_day == '주1,주2,주3'.toString()">AND (REGEXP_COUNT(J_DAY, ',') = 0 OR REGEXP_COUNT(J_DAY, ',') = 1 OR REGEXP_COUNT(J_DAY, ',') = 2)</if>
-		<if test="j_day == '주1,주2,주4'.toString()">AND (REGEXP_COUNT(J_DAY, ',') = 0 OR REGEXP_COUNT(J_DAY, ',') = 1 OR REGEXP_COUNT(J_DAY, ',') = 3)</if>
-		<if test="j_day == '주1,주2,주5'.toString()">AND (REGEXP_COUNT(J_DAY, ',') = 0 OR REGEXP_COUNT(J_DAY, ',') = 1 OR REGEXP_COUNT(J_DAY, ',') = 4)</if>
-		<if test="j_day == '주1,주2,주말'.toString()">AND (REGEXP_COUNT(J_DAY, ',') = 0 OR REGEXP_COUNT(J_DAY, ',') = 1 OR J_DAY = '토,일')</if>
-		<if test="j_day == '주1,주3,주4'.toString()">AND (REGEXP_COUNT(J_DAY, ',') = 0 OR REGEXP_COUNT(J_DAY, ',') = 2 OR REGEXP_COUNT(J_DAY, ',') = 3)</if>
-		<if test="j_day == '주1,주3,주5'.toString()">AND (REGEXP_COUNT(J_DAY, ',') = 0 OR REGEXP_COUNT(J_DAY, ',') = 2 OR REGEXP_COUNT(J_DAY, ',') = 4)</if>
-		<if test="j_day == '주1,주3,주말'.toString()">AND (REGEXP_COUNT(J_DAY, ',') = 0 OR REGEXP_COUNT(J_DAY, ',') = 2 OR J_DAY = '토,일')</if>
-	    <if test="j_day == '주1,주4,주5'.toString()">AND (REGEXP_COUNT(J_DAY, ',') = 0 OR REGEXP_COUNT(J_DAY, ',') = 3 OR REGEXP_COUNT(J_DAY, ',') = 4)</if>
-	    <if test="j_day == '주1,주4,주말'.toString()">AND (REGEXP_COUNT(J_DAY, ',') = 0 OR REGEXP_COUNT(J_DAY, ',') = 3 OR J_DAY = '토,일')</if>
-	    <if test="j_day == '주1,주5,주말'.toString()">AND (REGEXP_COUNT(J_DAY, ',') = 0 OR REGEXP_COUNT(J_DAY, ',') = 4 OR J_DAY = '토,일')</if>
+		<if test="j_day == '주1,주2,주3'.toString()">AND ((REGEXP_COUNT(J_DAY, ',') = 0 AND J_DAY NOT LIKE 20 || '%') OR REGEXP_COUNT(J_DAY, ',') = 1 OR REGEXP_COUNT(J_DAY, ',') = 2)</if>
+		<if test="j_day == '주1,주2,주4'.toString()">AND ((REGEXP_COUNT(J_DAY, ',') = 0 AND J_DAY NOT LIKE 20 || '%') OR REGEXP_COUNT(J_DAY, ',') = 1 OR REGEXP_COUNT(J_DAY, ',') = 3)</if>
+		<if test="j_day == '주1,주2,주5'.toString()">AND ((REGEXP_COUNT(J_DAY, ',') = 0 AND J_DAY NOT LIKE 20 || '%') OR REGEXP_COUNT(J_DAY, ',') = 1 OR REGEXP_COUNT(J_DAY, ',') = 4)</if>
+		<if test="j_day == '주1,주2,주말'.toString()">AND ((REGEXP_COUNT(J_DAY, ',') = 0 AND J_DAY NOT LIKE 20 || '%') OR REGEXP_COUNT(J_DAY, ',') = 1 OR J_DAY = '토,일')</if>
+		<if test="j_day == '주1,주3,주4'.toString()">AND ((REGEXP_COUNT(J_DAY, ',') = 0 AND J_DAY NOT LIKE 20 || '%') OR REGEXP_COUNT(J_DAY, ',') = 2 OR REGEXP_COUNT(J_DAY, ',') = 3)</if>
+		<if test="j_day == '주1,주3,주5'.toString()">AND ((REGEXP_COUNT(J_DAY, ',') = 0 AND J_DAY NOT LIKE 20 || '%') OR REGEXP_COUNT(J_DAY, ',') = 2 OR REGEXP_COUNT(J_DAY, ',') = 4)</if>
+		<if test="j_day == '주1,주3,주말'.toString()">AND ((REGEXP_COUNT(J_DAY, ',') = 0 AND J_DAY NOT LIKE 20 || '%') OR REGEXP_COUNT(J_DAY, ',') = 2 OR J_DAY = '토,일')</if>
+	    <if test="j_day == '주1,주4,주5'.toString()">AND ((REGEXP_COUNT(J_DAY, ',') = 0 AND J_DAY NOT LIKE 20 || '%') OR REGEXP_COUNT(J_DAY, ',') = 3 OR REGEXP_COUNT(J_DAY, ',') = 4)</if>
+	    <if test="j_day == '주1,주4,주말'.toString()">AND ((REGEXP_COUNT(J_DAY, ',') = 0 AND J_DAY NOT LIKE 20 || '%') OR REGEXP_COUNT(J_DAY, ',') = 3 OR J_DAY = '토,일')</if>
+	    <if test="j_day == '주1,주5,주말'.toString()">AND ((REGEXP_COUNT(J_DAY, ',') = 0 AND J_DAY NOT LIKE 20 || '%') OR REGEXP_COUNT(J_DAY, ',') = 4 OR J_DAY = '토,일')</if>
 	    <if test="j_day == '주2,주3,주4'.toString()">AND (REGEXP_COUNT(J_DAY, ',') = 1 OR REGEXP_COUNT(J_DAY, ',') = 2 OR REGEXP_COUNT(J_DAY, ',') = 3)</if>
 	    <if test="j_day == '주2,주3,주5'.toString()">AND (REGEXP_COUNT(J_DAY, ',') = 1 OR REGEXP_COUNT(J_DAY, ',') = 2 OR REGEXP_COUNT(J_DAY, ',') = 4)</if>
 	    <if test="j_day == '주2,주3,주말'.toString()">AND (REGEXP_COUNT(J_DAY, ',') = 1 OR REGEXP_COUNT(J_DAY, ',') = 2 OR J_DAY = '토,일')</if>
@@ -309,6 +309,10 @@ WHERE J_BNO IN (
 	#{item}
 	</foreach>
 ) ORDER BY ROWNUM
+</select>
+
+<select id="read_chk" parameterType="int" resultType="int">
+SELECT COUNT(J_BNO) FROM JOB_BOARD WHERE J_BNO = #{j_bno}
 </select>
 
 </mapper>
