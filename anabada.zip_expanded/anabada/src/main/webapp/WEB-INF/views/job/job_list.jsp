@@ -498,10 +498,10 @@
       
       // 마지막 링크 이동
       location.href = "job_list" + '${pageMaker.makeQuery(1)}' + 
-         '&j_addr1=' + encodeURIComponent($("#search_addr1 option:selected").val()) + 
-         '&j_term=' + encodeURIComponent(chk_arr1) + 
-         '&j_day=' + encodeURIComponent(chk_arr2) + 
-         '&j_cate=' + encodeURIComponent(chk_arr3);
+         '&j_addr1=' + $("#search_addr1 option:selected").val() + 
+         '&j_term=' + chk_arr1 + 
+         '&j_day=' + chk_arr2 + 
+         '&j_cate=' + chk_arr3;
       
      }); 
       
@@ -532,10 +532,10 @@
       
         // 마지막 링크 이동
         location.href = "job_list" + '${pageMaker.makeQuery(1)}' + 
-         '&j_addr1=' + encodeURIComponent($("#search_addr1 option:selected").val()) + 
-         '&j_term=' + encodeURIComponent(chk_arr1) + 
-         '&j_day=' + encodeURIComponent(chk_arr2) + 
-         '&j_cate=' + encodeURIComponent(chk_arr3);
+         '&j_addr1=' + $("#search_addr1 option:selected").val() + 
+         '&j_term=' + chk_arr1 + 
+         '&j_day=' + chk_arr2 + 
+         '&j_cate=' + chk_arr3;
      });
    
 

@@ -144,14 +144,14 @@ public class JobController {
 	
 	// 알바 수정 게시물 페이지로 가는거
 	@RequestMapping(value = "/job_update", method = RequestMethod.GET)
-	public String job_update_view(JobVO vo, @ModelAttribute("scri") JobSearchCriteria scri, Model model) throws Exception{
+	public String job_update_view(@RequestParam(value="j_bno") int j_bno, Model model) throws Exception{
 		
 		logger.info("사장이 수정하려고함~~");
 		
-		model.addAttribute("j_update", jobService.job_read(vo.getJ_bno()));
-		model.addAttribute("scri", scri);
+		model.addAttribute("j_update", jobService.job_read(j_bno));
+		//model.addAttribute("scri", scri);
 		
-		return "/job/job_update"; // 수정 페이지로 이동
+		return "/job/job_update"; // 수정 페이지로 이동. 이때 마이페이지에서 수정한다고 가정하고 페이징은 마이페이지로 함
 	}
 	
 	// 알바 게시글 수정게시글에서 수정 버튼 눌렀을 때 실행
@@ -161,9 +161,6 @@ public class JobController {
 		logger.info("수정완료 버튼 눌렀음");
 		System.out.println("삭제한 사진 :" + d_img);
 		System.out.println("원래 있던 사진: " + vo.getJ_img());
-		System.out.println(!vo.getJ_img().isEmpty());
-		System.out.println(vo.getJ_img().isEmpty());
-		System.out.println(vo);
 		
 		if(d_img.isEmpty() && !vo.getJ_img().isEmpty()) { // 사진 있는데 수정안했다면
 			System.out.println("사진은 아무것도 안함");
@@ -199,19 +196,17 @@ public class JobController {
 		}
 		
 		rttr.addAttribute("j_bno", vo.getJ_bno());
+		//rttr.addFlashAttribute("scri", scri);
 		
-		return "redirect:/job/job_read"; // 컨트롤러로 이동
-		// 게시물 상세보기로
+		return "redirect:/job/job_read";
+		// 게시물 상세보기로. 마이페이지에서 수정한다고 치고 수정완료하고 다시 마이페이지로 돌아감(페이징처리)
 	}
 	
-	// 알바 구인 게시물 삭제할 떄
+	// 알바 구인 게시물 삭제할 때
 	@RequestMapping(value = "/job_delete", method = RequestMethod.GET)
-	public String job_delete(@ModelAttribute JobVO vo, @ModelAttribute("cri")JobSearchCriteria cri, RedirectAttributes rttr) throws Exception{
+	public String job_delete(@ModelAttribute JobVO vo, RedirectAttributes rttr) throws Exception{
 		
 		logger.info("사장이 삭제버튼 눌렀음"); 
-		// 페이징 처리 안해줬음 
-		
-		//String j_image = jobService.get_image(vo.getJ_bno()); // 디비에 저장된 이미지 이름 불러옴
 		
 		logger.info("이미지 이름:" + vo.getJ_img());
 		String j_image = vo.getJ_img();
@@ -232,11 +227,10 @@ public class JobController {
  		
  		complaintService.delete_complaint(map);
  		
- 		rttr.addAttribute("page", cri.getPage());
- 		rttr.addAttribute("perPageNum", cri.getPerPageNum());
+ 		//rttr.addFlashAttribute("scri", scri);
 		
-		return "redirect:/job/my_job"; // 삭제했으면 마이페이지 게시판으로 이동
-		// 게시판 기본 상태로 돌아감
+		return "redirect:/job/job_list"; 
+		// 삭제했으면 게시판으로 이동
 	}
 	
 	
@@ -279,8 +273,6 @@ public class JobController {
 		logger.info("사장이 지가 쓴 알바 글 목록 보려고함~~~");
 			
 		HttpSession session = req.getSession(); // HttpServletRequest는 HttpSession 객체 만드는데 필요
-		//아이디 임의로 준거이!!!!!!!!!!!!!!!!!!
-		//session.setAttribute("id", "korea");
 		String id = (String)session.getAttribute("id");
 			
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -298,7 +290,7 @@ public class JobController {
 		pageMaker.setTotalCount2(jobService.my_jobListCount(id));
 		model.addAttribute("pageMaker", pageMaker);
 		
-		return "/job/my_job";
+		return "/job/my_job"; // 삭제하고 마이페이지로 다시 돌아감(페이징 처리함)
 	}
 		
 	// 마이페이지 게시물 삭제 ajax
@@ -354,7 +346,7 @@ public class JobController {
 		pageMaker.setTotalCount2(jobService.heart_jobListCount(id));
 		model.addAttribute("pageMaker", pageMaker);
 		
-		return "/job/heart_job";
+		return "/job/heart_job"; // 페이징처리함
 		
 	}
 	
@@ -390,13 +382,11 @@ public class JobController {
     @RequestMapping(value = "/report_insert", method = RequestMethod.GET)
     public String report_insert(@ModelAttribute ComplaintVO vo, Model model) throws Exception{
     	
-    	
     	logger.info("알바 신고 디비에 저장하려고 함~~");
     	
     	jobService.report_insert(vo);
     	
     	model.addAttribute("success", "success");
-    	
     	
     	return "/job/report";
     }

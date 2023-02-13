@@ -60,8 +60,7 @@
 			
 			var j_bno = $(this).attr("id");
 			
-			location.href = "/resume/resume_list" +
-				'?j_bno=' + j_bno;
+			location.href = "/resume/resume_list" + '?j_bno=' + j_bno;
 		});
 		
 		

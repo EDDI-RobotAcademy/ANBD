@@ -20,38 +20,34 @@
 
       var readForm = $("form[name='readForm']");
       
-      $("#update").on("click", function () { // 수정 버튼 눌렀을 때
-         readForm.attr("action", "/job/job_update"); // 수정 컨트롤러로 돌아감
-         readForm.attr("method", "get");
-         readForm.submit();
+      $("#update").on("click", function () { // 수정 완료(페이징처리안함)
+    	 
+    	 location.href = "/job/job_update" + '?j_bno=' + ${j_read.j_bno};
+    	 
       });
       
-      $("#delete").on("click", function () { // 삭제 버튼 눌렀을 때
+      $("#delete").on("click", function () { // 삭제하고(페이징처리 안함)
          if (!confirm("삭제하시겠습니까?")) {
               return false;
+              
           } else {
-             
-             // 삭제될때 최근 본 게시물도 삭제
-             var data = sessionStorage.getItem("recent_job");
-             data = JSON.parse(data);
-             
-             var j_bno = ${j_read.j_bno};
-                 
-             data.splice('j_bno', 1); // 삭제될때 최근 본 게시물도 삭제
-             sessionStorage.setItem("recent_job", JSON.stringify(data));
-             
-            readForm.attr("action", "/job/job_delete"); // 삭제 컨트롤러로
-            readForm.attr("method", "get"); // 여기서는 페이징처리 필요없으니까 post
+            
+            readForm.attr("action", "/job/job_delete");
+            readForm.attr("method", "get"); 
             readForm.submit();
           }
       });
       
-      $("#job_list").on("click", function () { 
+      $("#job_list").on("click", function () { // 게시판 목록으로 돌아감
 
     	 // 목록으로 돌아감(페이징처리함)
-         readForm.attr("action", "/job/job_list"); 
-         readForm.attr("method", "get");
-         readForm.submit();
+    	 location.href = "/job/job_list" + 
+    	  '?page=' + ${scri.page} +
+    	  '&perPageNum=' + ${scri.perPageNum} +
+          '&j_addr1=' + '${scri.j_addr1}' + 
+          '&j_term=' + '${scri.j_term}' + 
+          '&j_day=' + '${scri.j_day}' + 
+          '&j_cate=' + '${scri.j_cate}';
       });
       
       // 알바 지원하기 컨트롤러로 이동
@@ -81,13 +77,13 @@
                         }
                      }else{
                          location.href= "/resume/resume_insert" + 
-                      '?page=' + '${scri.page }' +
-                      '&perPageNum=' + '${scri.perPageNum }' +
-                      '&j_bno=' + '${j_read.j_bno}' + // resume_job.jsp에서 j_bno이름으로 값 받음
-                      '&j_addr1=' + encodeURIComponent('${scri.j_addr1}') + 
-                      '&j_term=' + encodeURIComponent('${scri.j_term}') + 
-                      '&j_day=' + encodeURIComponent('${scri.j_day}') + 
-                      '&j_cate=' + encodeURIComponent('${scri.j_cate}');
+                      		'?page=' + '${scri.page }' +
+                      		'&perPageNum=' + '${scri.perPageNum }' +
+                      		'&j_bno=' + ${j_read.j_bno} + // resume_job.jsp에서 j_bno이름으로 값 받음
+                      		'&j_addr1=' + '${scri.j_addr1}' + 
+                      		'&j_term=' + '${scri.j_term}' + 
+                      		'&j_day=' + '${scri.j_day}' + 
+                      		'&j_cate=' + '${scri.j_cate}';
                      }
                  },
                  error : function(request, status, error) {
@@ -464,7 +460,7 @@
          <section class="nav"></section>
 
       <section class="section">
-      <form name="readForm" role="form">
+      <form name="readForm">
          <input type="hidden" name="j_bno" value="${j_read.j_bno }">
          <input type="hidden" name="page" value="${scri.page }">
          <input type="hidden" name="perPageNum" value="${scri.perPageNum }">
@@ -628,7 +624,6 @@
                   <c:if test="${j_read.id eq id}"><!-- 로그인한 아이디(세션에 저장된 아이디)와 작성자아이디가 같으면 수정, 삭제 가능 -->
                      <button type="button" id="show_resume" class="j_btn1" style="display: inline; width: 100px">지원자 보기</button>
                   </c:if>
-                  
                </td>
             </tr>
             
