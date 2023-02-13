@@ -151,6 +151,12 @@ public class JobDAOImpl implements JobDAO{
 	public List recent_chk(int[] recent_array) throws Exception {
 		return sqlSession.selectList("jobMapper.recent_chk", recent_array);
 	}
+
+	// 상세보기 삭제 유효성 체크
+	@Override
+	public int read_chk(int j_bno) throws Exception {
+		return sqlSession.selectOne("jobMapper.read_chk", j_bno);
+	}
 	
 	
 

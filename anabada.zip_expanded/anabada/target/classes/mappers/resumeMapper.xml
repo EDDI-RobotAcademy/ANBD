@@ -33,8 +33,8 @@ SELECT COUNT(*) FROM RESUME_BOARD WHERE J_BNO = #{j_bno} and ID = #{id}
 SELECT J_BNO, R_BNO, R_COMPANY, R_START, R_END, R_DATE, ID  
 FROM(SELECT J_BNO, R_BNO, R_COMPANY, R_START, R_END, R_DATE, ID, 
     ROW_NUMBER() OVER(ORDER BY R_BNO ASC) AS RNUM
-    FROM RESUME_BOARD) JOB
-WHERE (RNUM BETWEEN #{rowStart} AND #{rowEnd}) AND (ID = #{id})
+    FROM RESUME_BOARD WHERE ID = #{id}) JOB
+WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
 ORDER BY R_BNO ASC
 </select>
 
@@ -43,7 +43,7 @@ SELECT COUNT(J_BNO) FROM RESUME_BOARD WHERE ID = #{id}
 </select>
 
 <select id="mr_job" resultType="JobVO" parameterType="java.util.ArrayList">
-SELECT J_BNO, J_TITLE, J_COMPANY, J_ADDR1, J_ADDR2, J_METHOD, J_PAY FROM JOB_BOARD
+SELECT J_BNO, J_TITLE, J_COMPANY, J_ADDR1, J_ADDR2, J_METHOD, J_PAY, J_IMG FROM JOB_BOARD
 WHERE J_BNO IN (
 	<foreach collection="array" item="item" index="index" separator=",">
        #{item}

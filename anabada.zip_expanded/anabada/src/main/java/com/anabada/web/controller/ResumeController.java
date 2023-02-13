@@ -127,11 +127,8 @@ public class ResumeController {
 		map.put("rowStart", cri.getRowStart());
 		map.put("rowEnd", cri.getRowEnd());
 		
-		
 		List<ResumeVO> mr_list = resumeService.my_resumeList(map);
 		model.addAttribute("mr_list", mr_list);
-		
-		System.out.println("하하하하");
 		
 		pageMaker.setTotalCount(resumeService.my_resumeListCount(id));
 		model.addAttribute("pageMaker", pageMaker);
@@ -139,7 +136,7 @@ public class ResumeController {
 		//알바 게시물 객체도 보여주기 위해서
 		int[] jbno_array = new int[mr_list.size()]; 
 		System.out.println("하하하하");
-		System.out.println(mr_list.size());
+		System.out.println("사이즈" + mr_list.size());
 		 
 		// 알바 지원목록이 있을때만 해당 알바 구인 공고 게시물 번호 배열들을 전달함
 		if(mr_list.size() != 0) {
@@ -151,6 +148,7 @@ public class ResumeController {
 			
 			List<JobVO> j_list = resumeService.my_resumeJob(jbno_array);
 			model.addAttribute("j_list", j_list);
+			System.out.println("내가 지원한 알바들" + j_list);
 		}
 		
 		return "/resume/my_resume"; // 알바 게시판 컨트롤러로 이동

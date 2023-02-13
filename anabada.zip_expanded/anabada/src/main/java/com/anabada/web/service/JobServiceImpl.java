@@ -149,6 +149,12 @@ public class JobServiceImpl implements JobService {
 		return dao.recent_chk(recent_array);
 	}
 
+	// 상세보기 삭제 유효성 체크
+	@Override
+	public int read_chk(int j_bno) throws Exception {
+		return dao.read_chk(j_bno);
+	}
+
 	
 
 
