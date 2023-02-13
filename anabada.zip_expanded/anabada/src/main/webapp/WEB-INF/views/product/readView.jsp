@@ -337,8 +337,7 @@ margin-left: 60px;
               //JSON.parse() : json 문자열을 javascript객체로 변환
               data = JSON.parse(data);
               //alert("사이즈 : "+data.length);
-              
-              var pno = '${read.pno}';
+              var pno = ${read.pno};
               
               //중복될 번호들을 따로 뽑아
               //배열에 넣은후 값을 비교 한후

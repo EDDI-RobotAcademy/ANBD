@@ -139,7 +139,9 @@ ul {
 
 		
 		//게시글 유효성 검사 
-		$("#postExistence").click(function() {
+		$(".postExistence").click(function() {
+			
+			
 			
 			var url = $(this).attr('title');
 			var pno =$(this).attr('pno');
@@ -472,7 +474,7 @@ ul {
 
 							<c:forEach items="${list }" var="list">
 								<!-- test -->
-								<div class="col mb-5" id="postExistence"  pno="${list.pno }"   title="/product/readView?pno=${list.pno}&p_type=${list.p_type}&page=${scri.page }&perPageNum=${scri.perPageNum }&searchType=${scri.searchType }&keyword=${scri.keyword }&productType=${scri.productType}" >
+								<div class="col mb-5 postExistence" id="postExistence"  pno="${list.pno }"     title="/product/readView?pno=${list.pno}&p_type=${list.p_type}&page=${scri.page }&perPageNum=${scri.perPageNum }&searchType=${scri.searchType }&keyword=${scri.keyword }&productType=${scri.productType}" >
 									
 									
 									<div class="card h-100">
