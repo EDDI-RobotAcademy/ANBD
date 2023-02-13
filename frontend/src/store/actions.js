@@ -65,7 +65,7 @@ export default {
         return axios.post('http://localhost:7777/complaint/details', payload)
             .then((res) => {
                // alert("가나다")
-              //  alert(res.data)
+               // alert(res.data)
                 commit(REQUEST_COMPLAINT_DETAIL_SPRING, res.data)
                 console.log('성공')
             })
