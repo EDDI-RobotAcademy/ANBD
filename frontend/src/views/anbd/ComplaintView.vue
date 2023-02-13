@@ -92,6 +92,7 @@
               }
           },
           async onDetails(payload){
+            alert("상세보기123");
             await this.requestComplaintDetail(payload)
             //alert("111");
             //alert(this.complaintTotal);

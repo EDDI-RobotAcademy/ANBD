@@ -6,6 +6,7 @@
       :headers="headerTitle"
       :items="complaint"
       :items-per-page="10"
+                @click:row="readRow"
       class="elevation-1"
       show-select
       item-key="comNum"
@@ -36,7 +37,7 @@
 
      <template v-slot:[`item.details`]="{ item }">
         <v-layout justify-center>
-          <v-dialog v-model="dialog" persisten max-width="400">
+          <v-dialog v-model="dialog" persisten max-width="800"  :retain-focus="false"  >
             <template v-slot:activator="{on}">
               <v-btn color="primary" dark v-on="on"  @click="details(item.c_bno, item.boardType)" >상세보기</v-btn>
             </template>
@@ -46,9 +47,8 @@
  총 신고 횟수 : {{complaintTotal.totalNum}} 회
               </v-card-title>
               <v-card-text>
-                {{complaintTotal}}
-                {{resonList}}
-               
+                
+              
               <table   border="1"  >
               <tr>  
               <td>  <span v-if="item.boardType === 'pboard'">   판매 금지 물품 판매  </span> <span  v-else>욕설, 비방, 차별, 혐오 </span>      </td>  <td> {{complaintTotal.type1}} </td>   <td>홍보,영리목적</td>   <td>{{complaintTotal.type2}}</td> 
@@ -66,21 +66,16 @@
               </v-card-text>
 
  <v-card-text>
-                 <v-btn color="teal darken-1" @click="toggleOnOff"> 기타 {{complaintTotal.type7}}건 보기 </v-btn>
-              <div v-if="toggle" >
-                
  
-         <v-data-table
+기타 {{complaintTotal.type7}}건 
+   <v-data-table
             :headers="resonTitle"
             :items="resonList"
             :items-per-page="10"
            
             class="elevation-1"/>
 
-  
-
-
-              </div>
+              
 </v-card-text>
 
       
@@ -102,8 +97,8 @@
           {{item.c_bno}} && {{item.boardType}}
       </template>
   </v-data-table>
-  <h5>Selected: {{selectedItems}}</h5>
-  {{complaint}}
+ 
+ 
   </v-container>
 
 
@@ -131,6 +126,7 @@
       resonList:{
         type: Object,
          required : true,
+  
       }
     },
   mounted() {
@@ -141,16 +137,14 @@
         return {
 
           dialog : false,
-          on :false,
-          toggle:false,
+        
         
             selectedItems: [],
             headerTitle: [
-                { text: '신고사유', value: 'reason', width: "100px" }, // 신고횟수 임의로 count라고 함
                 { text: '신고 내용', value: 'c_content', width: "200px" },
                 { text: '게시물 번호', value: 'c_bno', width: "100px" },
                 { text: '게시물 유형', value: 'boardType', width: "100px" },
-                {text : '상세사유' , value : 'details' , width : "100px"},
+                {text : '상세 사유' , value : 'details' , width : "100px"},
                 { text: '게시물 보기', value: 'show', width: "100px" },
             ],
 
@@ -175,9 +169,7 @@
         this.$emit('Delete', this.selectedItems) //상위로 연결됨
       },
 
-      toggleOnOff : function(){
-        this.toggle = !this.toggle
-      },
+    
    
       
       popup(c_bno, boardType){
@@ -197,17 +189,18 @@
 
       },
        async details(c_bno,boardType){
-        
+       
+       
         this.dialog = true
-        await this.alertaaa()
+      
         await this.$emit('onDetails' , {c_bno , boardType})
       },
-      async alertaaa() {
-         this.on = true
-         
-      },
-      btnClick(){
-        this.dialog = false
+    
+      async btnClick(){
+  
+       this.dialog = false
+       
+        
       }
     }
 }
