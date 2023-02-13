@@ -296,36 +296,5 @@ public class MemberController {
 		return "/member/memberDeleteEnd";
 	}
 	
-	//카카오 로그인
-	@RequestMapping(value="/member/kakaoLogin", method=RequestMethod.GET)
-	public String kakaoLogin(Model model, @RequestParam(value = "code", required = false) String code, HttpSession session) throws Exception {
-		
-		System.out.println(code);
-		
-		String access_Token = kakao.getAccessToken(code);
-		KakaoVO userInfo = kakao.getUserInfo(access_Token);
-		
-//		String email = userInfo.getAccount_email();
-//		//@의 인덱스 값을 찾음
-//		int index = email.indexOf("@");
-//		//@앞까지 추출
-//		String id = email.substring(0, index);
-		
-		System.out.println("###access_Token#### : " + access_Token);
-		System.out.println("###nickname#### : " + userInfo.getNickname());
-		System.out.println("###email#### : " + userInfo.getAccount_email());
-		System.out.println("###id### : " + userInfo.getId());
-		
-		session.setAttribute("kakaoN", userInfo.getNickname());
-		session.setAttribute("kakaoE", userInfo.getAccount_email());
-		session.setAttribute("id", userInfo.getId());
-		
-		if(userInfo.getAccount_email() != null) {
-			session.setAttribute("email", userInfo.getAccount_email());
-			session.setAttribute("access_Token", access_Token);
-			session.setAttribute("id", userInfo.getId());
-		}
-		return "redirect:/";
-	}
 
 }

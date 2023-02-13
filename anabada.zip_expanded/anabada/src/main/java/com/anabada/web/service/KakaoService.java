@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.anabada.web.dao.KakaoDAO;
 import com.anabada.web.vo.KakaoVO;
+import com.anabada.web.vo.MemberVO;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -81,7 +82,7 @@ public class KakaoService {
 			return access_Token;
 	}
 	
-	public KakaoVO getUserInfo(String access_Token) throws Exception {
+	public MemberVO getUserInfo(String access_Token) throws Exception {
 
 		// 요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
 		HashMap<String, Object> userInfo = new HashMap<String, Object>();
@@ -124,7 +125,7 @@ public class KakaoService {
 			
 			System.out.println("service id : " + id);
 
-			userInfo.put("nickname", nickname);
+			userInfo.put("nick", nickname);
 			userInfo.put("email", email);
 			userInfo.put("id", id);
 
@@ -132,7 +133,7 @@ public class KakaoService {
 			e.printStackTrace();
 		}
 		
-		KakaoVO result = dao.findkakao(userInfo);
+		MemberVO result = dao.findkakao(userInfo);
 		
 		if(result == null) {
 		// result가 null이면 정보가 저장이 안되있는거므로 정보를 저장.
@@ -146,5 +147,6 @@ public class KakaoService {
 			// 정보가 이미 있기 때문에 result를 리턴함.
 		}
 	}
+
 
 }
