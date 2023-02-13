@@ -35,7 +35,7 @@ $(document).ready(function() {
 	
 	// 신고된 후면 창 닫히게
 	if(${not empty success}){
-		alert("신고돼었습니다.");
+		alert("신고되었습니다.");
 		window.close();
 	}
 	

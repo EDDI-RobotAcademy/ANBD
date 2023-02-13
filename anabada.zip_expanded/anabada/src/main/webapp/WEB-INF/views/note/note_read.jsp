@@ -247,7 +247,7 @@
 	            	if(data == 1){
 	            		alert("이미 신고했습니다.");
 	            	}else{
-	                	window.open("/note/note_report?n_bno=${n_read.n_bno}", "신고", "width=400, height=600, left=0, top=0");
+	                	window.open("/note/note_report?n_bno=${n_read.n_bno}", "신고", "width=450, height=500, left=0, top=0");
 	            	}
 	                
 	            },
@@ -320,7 +320,7 @@
 						<button type="button" name="n_reply" class="d_btn">답장</button>
 						</c:if>
 						<button type="button" name="list" class="d_btn">목록</button>
-						<c:if test="${scri.who eq 'receive'}">
+						<c:if test="${scri.who eq 'receive' && n_read.n_sender ne 'admin'}">
 						<button type="button" id="report" class="d_btn">신고</button>
 						</c:if>
 					</td>
