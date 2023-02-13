@@ -37,7 +37,7 @@
       </a>
     </v-btn>
 
-    <ComplaintAll :complaint="complaint" @Delete="onDelete" />
+    <ComplaintAll :complaint="complaint" @Delete="onDelete"  :boardType="boardType" :complaintTotal="complaintTotal"  :resonList ="resonList"  @onDetails="onDetails"  />
       
   </v-container>
 
@@ -54,14 +54,14 @@ import ComplaintAll from "@/components/anbd/ComplaintAll.vue";
 export default {
 name: "CompalintAllView",
 components: {ComplaintAll},
-computed: {
-  ...mapState(['complaint'])
-},
+    computed: {
+          ...mapState(['complaint','resonList','complaintTotal'] )
+        },
 methods: {
   ...mapActions([
       'requestComplaintAllFromSpring',
       'requestDeleteComplaintToSpring',
-      ''
+      'requestComplaintDetail'
   ]),
   async onDelete (payload) {
     if(confirm("삭제하시겠습니까?")){
@@ -70,6 +70,13 @@ methods: {
       return false
     }
   },
+    async onDetails(payload){
+            await this.requestComplaintDetail(payload)
+            //alert("111");
+            //alert(this.complaintTotal);
+          }
+
+
   
 },
 created() {
