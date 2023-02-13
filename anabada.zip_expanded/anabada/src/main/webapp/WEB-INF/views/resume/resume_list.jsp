@@ -162,7 +162,7 @@
 			
 			<c:if test="${empty r_list }">
 			<tr>
-				<td colspan="8" style="text-align: center">지원자가 없습니다.
+				<td colspan="8" style="text-align: center; border-bottom: 1px solid #ced4da">지원자가 없습니다.
 				<br>
 				</td>
 			</tr>
