@@ -157,7 +157,7 @@ $(document).ready(function () {
 			location.href = "/resume/resume_delete" 
 			+ "?r_bno=" + '${r_read.r_bno}'
 			+ "&page=" + '${cri.page}'
-			+ "&perPageNum" + '${cri.perPageNum}'
+			+ "&perPageNum" + '${cri.perPageNum}';
 		}else{
 			return false;
 		}

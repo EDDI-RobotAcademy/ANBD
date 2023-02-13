@@ -147,17 +147,16 @@
 	
 	
 		$("#cancel").click(function () {
-			location.href="job_list?";
-			// 페이징 처리 없이 리스트 처음 화면으로 돌아감
+			location.href="/job/job_read?" + 'j_bno=' + ${j_update.j_bno};
+			// 수정 취소하면 상세보기로 이동
 		});
 		
 		// 이미지 수정하기
 		$(document).on('click', 'button[name=delete_img]', function() {
-		    alert('삭제합니다.');
 		    
 		    var di = $(this).val();
 		    $("#d_img").attr('value', di);
-		    alert(di);
+		    //alert(di);
 		    
 		    $(this).closest("div").remove();
 		    
@@ -183,6 +182,8 @@
 	<section class="container">
 	<form name="job_update" action="/job/job_update" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="j_bno" value="${j_update.j_bno }">
+		<input type="hidden" name="page" value="${cri.page }">
+		<input type="hidden" name="perPageNum2" value="${cri.perPageNum2 }">
 		
 		<!-- 수정해도 등록날짜는 안바뀌도록 했음 -->
 		<table>

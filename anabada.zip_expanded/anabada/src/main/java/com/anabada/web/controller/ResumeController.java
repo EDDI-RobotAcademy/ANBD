@@ -75,10 +75,10 @@ public class ResumeController {
 					
 		rttr.addFlashAttribute("scri", scri);
 		rttr.addAttribute("j_bno", vo.getJ_bno());
-		return "redirect:/job/job_read"; // 알바 게시판 컨트롤러로 이동
+		return "redirect:/job/job_read"; // 알바 상세보기로 다시 이동
 	}
 	
-	// 해당 구인 게시물의 지원자들 목록 보기. 새로운 페이징 처리 위해 get
+	// 해당 구인 게시물의 지원자들 목록 보기
 	@RequestMapping(value = "/resume_list", method = RequestMethod.GET)
 	public String resume_list(@ModelAttribute ResumeVO resumeVO, @ModelAttribute JobVO jobVO, @ModelAttribute("cri") ResumeCriteria cri, Model model) throws Exception {
 		
@@ -98,9 +98,9 @@ public class ResumeController {
 		map.put("rowEnd", cri.getRowEnd());
 		
 		// 해당 게시글 번호로 게시글 제목 가져오는 쿼리
-		model.addAttribute("r_list", resumeService.resume_list(map));
+		model.addAttribute("r_list", resumeService.resume_list(map)); // 지원자들 목록
 		model.addAttribute("j_bno", resumeVO.getJ_bno()); // 페이지 유지하기 위해
-		model.addAttribute("j_read", jobService.job_read(jobVO.getJ_bno()));
+		model.addAttribute("j_read", jobService.job_read(jobVO.getJ_bno())); // 해당 알바 게시물
 		
 		pageMaker.setTotalCount(resumeService.resume_listCount(resumeVO.getJ_bno())); // 게시글 총 개수 받아서 페이징 처리함
 		System.out.println("총개수: " + resumeService.resume_listCount(resumeVO.getJ_bno()));
@@ -152,7 +152,6 @@ public class ResumeController {
 			List<JobVO> j_list = resumeService.my_resumeJob(jbno_array);
 			model.addAttribute("j_list", j_list);
 		}
-		
 		
 		return "/resume/my_resume"; // 알바 게시판 컨트롤러로 이동
 	}
