@@ -31,7 +31,6 @@
 .rach input[type='checkbox'] {
 	display: none;
 }
-
 .rach input[type='checkbox']+span {
 	display: inline-block;
 	padding: 5px 5px;
@@ -42,13 +41,11 @@
 	cursor: pointer;
 	color: #E55555;
 }
-
 .rach input[type='checkbox']:checked+span {
 	background-color: #FD7D7D;
 	color: white;
 	border-radius: 10px;
 }
-
 .slick-arrow {
 	z-index: 2; /* prev버튼은 위치 이동시 이미지 뒤로 숨겨짐 */
 	position: absolute; /* 원하는 위치에 지정  */
@@ -57,12 +54,10 @@
 	height: 50px;
 	transform: translateY(-25px);
 }
-
 .slick-prev.slick-arrow { /* prev 이전 */
 	position: absolute;
 	left: 0px;
 }
-
 .slick-next.slick-arrow { /* next 다음 */
 	right: 10px;
 }
@@ -70,12 +65,10 @@
 .slick-dots {
 	text-align: center;
 }
-
 .slick-dots li {
 	display: inline-block;
 	margin: 0 5px;
 }
-
 #textbox {
 	width: 490px;
 	
@@ -86,7 +79,6 @@
 	padding: 17px;
 	min-height: 300px;
 }
-
 #re {
 	text-align: center;
 	font-weight: bold;
@@ -97,7 +89,6 @@
 	height: 30px;
 	border-bottom: 2px;
 }
-
 .box {
 	display: inline;
 	border-radius: 7px;
@@ -109,7 +100,6 @@
 	margin-right: 0px;
 	letter-spacing: 2px;
 }
-
 .reBox {
 	padding: 5px;
 	background-color: #AFAFAF;
@@ -121,7 +111,6 @@
 	border-top-right-radius: 7px;
 	width: 100px;
 }
-
 #userBK {
 	width: 100px;
 	display: inline-block;
@@ -134,19 +123,16 @@
 	margin-right: 10px;
 	letter-spacing: 2px;
 }
-
 #btndiv {
 	float: right;
 	margin-bottom: 30px;
 }
-
 #book option, #book {
 	text-align: center;
 	font-weight: bold;
 	color: #3D3D3D;
 	font-size: 17px;
 }
-
 .sideword {
 	width: 110px;
 	overflow: hidden;
@@ -159,30 +145,24 @@
 	margin: auto;
 	height: auto;
 }
-
 .nav, .aside, .section {
 	margin: 3px; /*간격*/
 }
-
 .nav, .section, .aside {
 	float: left;
 }
-
 .nav {
 	width: 70px;
 }
-
 .section {
 	/* background-color: #f9f9f9;    */
 	width: 1000px;
 	border: 0px;
 	border-collapse: collapse;
 }
-
 .aside {
 	
 }
-
 .sideBanner {
 	width: 120px;
 	position: absolute;
@@ -194,7 +174,6 @@
 	margin-left: 10px;
 	margin-top: 10px;
 }
-
 .recent_list {
 	height: 405px;
 	overflow: hidden;
@@ -205,48 +184,39 @@
 	float: left;
 	text-align: center;
 }
-
 #recentItemList li {
 	height: 130px;
 	display: inline-block;
 	text-align: center;
 	margin-bottom: 5px;
 }
-
 ul {
 	list-style: none;
 	margin: 0px;
 	padding: 0px;
 }
-
 #reviewBox {
 	margin-top: 70px;
 	margin-bottom: 70px;
 }
-
 #reviewBox td {
 	width: 500px;
 }
-
 #select_table {
 	width: 100%;
 }
-
 .info, .info td {
 	padding-bottom: 10px;
 }
-
 .m_label {
 	width: 100%;
 	border: 1px solid #e9e9e9;
 	cursor: pointer;
 	padding: 10px;
 }
-
 .n_receiver { /*모달창 사람들 라디오버튼*/
 	display: none;
 }
-
 .p_img {
 	width: 110px;
 	height: 110px;
@@ -259,7 +229,6 @@ ul {
 	margin-top: 50px;
 	font-size: 20px;
 }
-
 .cunsumer {
 	border-radius: 7px;
 	background-color: #AFAFAF;
@@ -268,25 +237,19 @@ ul {
 	font-size: 11px;
 	padding: 0px 2px 0px 2px;
 }
-
 #alarm {
 	background: no-repeat;
 	border: none;
 }
 .n_btn1{
-
 width: 200px;
 height: 50px;
 font-weight: bold;
 font-size: 20px;
-
-
 }
 #btnDiv{
-
 margin-left: 60px;
 }
-
 </style>
 <script type="text/javascript">
    $(document).ready(function() {
@@ -353,7 +316,6 @@ margin-left: 60px;
             $(".sideBanner").stop().animate({
                "top" : headTop
             }, 500);
-
          }
          
       }).scroll();
@@ -429,30 +391,21 @@ margin-left: 60px;
         
       }     
        
-
       
       
       function get_recent_item() {
-
 			//sessionStorage.clear(); 
 			var $recentItemList = $("#recentItemList");
-
 			var items = sessionStorage.getItem("recent_product");
-
 			if (items == null) {
 				var li = "<br><br><li>최근 본 상품이 없습니다.</li>"
 				$recentItemList.append(li);
 			}
-
 			//alert(key)
-
 			  var realitem = JSON.parse(items);
-
-
 			var recent_array = new Array();
 			//최근 본 게시물 유효성 검사 
 			for (var j = 0; j < 6; j++) {
-
 				//최근 본 목록의 pno를 배열에 담아서 에이젝스로 유효성 검사 넘김
 				if (JSON.stringify(realitem[j]) != null) {
 					var recent = JSON.stringify(realitem[j].pno);
@@ -461,14 +414,12 @@ margin-left: 60px;
 				}
 			}
 			$.ajax({
-
 				type : "get",
 				url : "/product/recent_chk",
 				data:{
 					recent_array : recent_array,
 				},
 				 traditional : true, // int형으로 넘기기 위해 작성 
-
 	              success: function(data){
 	            	
                     
@@ -479,7 +430,6 @@ margin-left: 60px;
 	                           var pno = realitem[i].pno;
 	                          var p_title = realitem[i].p_title;
 	                          var p_img = realitem[i].p_img;
-
 	                                     
 	                          if (p_img != null || p_img != "") {
 	          					var li = "<li  ><a href='/product/readView?pno="
@@ -506,7 +456,6 @@ margin-left: 60px;
 					alert("실패 : "+error);
 				}
 				
-
 			});
 		}
       
@@ -517,9 +466,7 @@ margin-left: 60px;
          var ih = $(this).index() == 0 ? -130 : 130; //위아래로 움직이는 px 숫자
       //var ih = $(this).index() == 0 ? -405 : 405; //위아래로 움직이는 px 숫자
       // 위로 : 0 아래로 : 1 
-
       var obj = $('.recent_list');
-
        obj.animate({ scrollTop:obj.scrollTop() + ih }, 100);
    });
       
@@ -764,7 +711,6 @@ margin-left: 60px;
 			   alert('로그인 후 이용해주세요');
 			   return; 
 		   }else{
-
 			$.ajax({
 		            type: "get",
 		            url : "/product/reviewReport_chk",
@@ -791,7 +737,6 @@ margin-left: 60px;
 					}
 		        });
 		   }
-
 		
 	})
       
@@ -800,11 +745,9 @@ margin-left: 60px;
 	
 	
 	
-
 	
 	
 	
-
 	
 	
 	
@@ -835,14 +778,11 @@ margin-left: 60px;
          element.innerText = '판매완료';
       }
    }
-
-
 function complaint() {
 	   if(  "${id}" ==""){
 		   alert('로그인 후 이용해주세요');
 		   return; 
 	   }else{
-
 		$.ajax({
 	            type: "get",
 	            url : "/product/report_chk",
@@ -866,9 +806,6 @@ function complaint() {
 					alert("신고 실패:" + error);
 				}
 	        });
-
-
-
 }
 	
 }
@@ -1225,8 +1162,6 @@ function complaint() {
 										<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
 											<li class="page-item" <c:out value="${pageMaker.cri.page == idx ? 'class=info' : '' }"/>><a class="page-link" href="readView${pageMaker.makeSearch(idx,read.pno,read.p_type)}">${idx }</a></li>
 										</c:forEach>
-
-
 										<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
 											<li class="page-item"><a class="page-link" href="readView${pageMaker.makeSearch(pageMaker.endPage + 1,read.pno,read.p_type)}" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 											</a></li>

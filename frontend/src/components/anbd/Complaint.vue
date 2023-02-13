@@ -38,44 +38,75 @@
         <v-layout justify-center>
           <v-dialog v-model="dialog" persisten max-width="400">
             <template v-slot:activator="{on}">
-              <v-btn color="primary" dark v-on="on"  @click:row="details(item.c_bno, item.boardType)" >상세보기</v-btn>
+              <v-btn color="primary" dark v-on="on"  @click="details(item.c_bno, item.boardType)" >상세보기</v-btn>
             </template>
 
             <v-card>
               <v-card-title class="headline">
-
+ 총 신고 횟수 : {{complaintTotal.totalNum}} 회
               </v-card-title>
               <v-card-text>
                 {{complaintTotal}}
-                <span v-if="complaintTotal != null"> 비어있지 않음  </span>
-                <span v-if="complaintTotal == null"> 비어있다  </span>
-                오늘만 날이다! 먹고 죽엇! 할인 50%!!!!
+                {{resonList}}
+               
+              <table   border="1"  >
+              <tr>  
+              <td>  <span v-if="item.boardType === 'pboard'">   판매 금지 물품 판매  </span> <span  v-else>욕설, 비방, 차별, 혐오 </span>      </td>  <td> {{complaintTotal.type1}} </td>   <td>홍보,영리목적</td>   <td>{{complaintTotal.type2}}</td> 
+               </tr>
+
+               <tr>  
+              <td> 불법 정보 </td>  <td> {{complaintTotal.type3}} </td>   <td>음란, 청소년 유해</td>   <td>{{complaintTotal.type4}}</td> 
+               </tr>
+
+               <tr>  
+              <td> <span v-if="item.boardType === 'pboard'">사기 글이에요  </span>   <span  v-else>개인 정보 노출, 유포, 거래 </span>   </td>  <td> {{complaintTotal.type5}} </td>   <td>도배 스팸</td>   <td>{{complaintTotal.type6}}</td> 
+               </tr>
+
+              </table>
               </v-card-text>
-              <v-card-text>
-                지금 당장 결제 하시겠습니까 ?
-              </v-card-text>
+
+ <v-card-text>
+                 <v-btn color="teal darken-1" @click="toggleOnOff"> 기타 {{complaintTotal.type7}}건 보기 </v-btn>
+              <div v-if="toggle" >
+                
+ 
+         <v-data-table
+            :headers="resonTitle"
+            :items="resonList"
+            :items-per-page="10"
+           
+            class="elevation-1"/>
+
+  
+
+
+              </div>
+</v-card-text>
+
+      
+
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="teal darken-1" text @click="btnClick">
-                  취소
+                  닫기
                 </v-btn>
-                <v-btn color="purple lighten-1" text @click="btnClick">
-                  결제 승인
-                </v-btn>
+               
               </v-card-actions>
             </v-card>
           </v-dialog>
         </v-layout>
       </template>
-
+      
       <template v-slot:[`item.show`]="{ item }">
           <a @click="popup(item.c_bno, item.boardType)">확인</a>
           {{item.c_bno}} && {{item.boardType}}
       </template>
-      
   </v-data-table>
   <h5>Selected: {{selectedItems}}</h5>
+  {{complaint}}
   </v-container>
+
+
 </template>
 
   
@@ -102,10 +133,16 @@
          required : true,
       }
     },
+  mounted() {
+          this.requestComplaintFromSpring(this.boardType)
+        },
+
     data () {
         return {
 
+          dialog : false,
           on :false,
+          toggle:false,
         
             selectedItems: [],
             headerTitle: [
@@ -116,11 +153,18 @@
                 {text : '상세사유' , value : 'details' , width : "100px"},
                 { text: '게시물 보기', value: 'show', width: "100px" },
             ],
-            //test: [
-            //    { count: 1}, // 신고횟수 임의로 count라고 함
-            //    { count: 2 }, // 신고횟수 임의로 count라고 함
-            //    { count: 1}, // 신고횟수 임의로 count라고 함 
-            //],
+
+            resonTitle :[
+              
+              { text  : '신고 내역' , value : 'c_content' , width : "150px"}
+
+
+
+            ]
+         
+
+
+       
 
             
 
@@ -129,6 +173,10 @@
     methods:{
       onDelete (){
         this.$emit('Delete', this.selectedItems) //상위로 연결됨
+      },
+
+      toggleOnOff : function(){
+        this.toggle = !this.toggle
       },
    
       
@@ -144,20 +192,22 @@
         }else if(boardType === 'a_board'){
           window.open("http://localhost:8080//a_board/complaintReadView?a_bno=" + c_bno + "&href=a_board",'_blank', 'width=1000px,height=1000px')
         }else if(boardType === 'review'){
-
-          // 리뷰 url은 유진언니가 달기!!
-          window.open("http://localhost:8080/" + c_bno + "&href=review",'_blank', 'width=1000px,height=1000px')
+          window.open("http://localhost:8080/pcomplaint/complaintReview?r_no=" + c_bno + "&href=review",'_blank', 'width=500px,height=300px')
         }
 
       },
        async details(c_bno,boardType){
         
-        alert(c_bno + ", "+boardType)
+        this.dialog = true
         await this.alertaaa()
         await this.$emit('onDetails' , {c_bno , boardType})
       },
       async alertaaa() {
          this.on = true
+         
+      },
+      btnClick(){
+        this.dialog = false
       }
     }
 }

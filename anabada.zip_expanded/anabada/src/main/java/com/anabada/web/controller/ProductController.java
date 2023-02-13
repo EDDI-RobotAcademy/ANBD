@@ -115,7 +115,7 @@ public class ProductController {
 
 	// 게시판 목록 조회
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Model model, @ModelAttribute("scri") SearchCriteriapro scri) throws Exception {
+	public String list(Model model, @ModelAttribute("scri") SearchCriteriapro scri   ) throws Exception {
 
 		List<PBoardVO> list = service.list(scri);
 		// list의 각각의 pno에 해당하는 사진 정보 가져오기
@@ -136,6 +136,7 @@ public class ProductController {
 		pageMaker.setCri(scri);
 		pageMaker.setTotalCount(service.listCount(scri));
 		model.addAttribute("pageMaker", pageMaker);
+		
 
 		return "product/list";
 	}
@@ -151,86 +152,103 @@ public class ProductController {
 		pageMaker.setCri(scri);
 		pageMaker.setTotalCount(service.listCount(scri));
 		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("scri",scri);
 
 		return "product/listDEMO";
 	}
 
 	// 게시판 글조회
-	@RequestMapping(value = "/readView", method = RequestMethod.GET)
-	public String read(PBoardVO pboardVO, @ModelAttribute("scri") SearchCriteriapro scri, Model model,
-			HttpServletRequest req, HttpServletResponse res, @ModelAttribute("rescri") ReviewCriteria rescri)
-			throws Exception {
-		HttpSession session = req.getSession();
-		String id = (String) session.getAttribute("id");
-		int pno = pboardVO.getPno();
-		PBoardVO read = service.read(pno);
-		service.cuntup(pno);
+		@RequestMapping(value = "/readView", method = RequestMethod.GET)
+		public String read(PBoardVO pboardVO, @ModelAttribute("scri") SearchCriteriapro scri, Model model,
+				HttpServletRequest req, HttpServletResponse res, @ModelAttribute("rescri") ReviewCriteria rescri)
+				throws Exception {
+			HttpSession session = req.getSession();
+			String id = (String) session.getAttribute("id");
+			int pno = pboardVO.getPno();
+			PBoardVO read = service.read(pno);
+			service.cuntup(pno);
 
-		// User의 찜 여부 조회
-		Map<String, String> check = new HashMap<>();
-		check.put("pno", Integer.toString(pboardVO.getPno()));
-		check.put("id", id); // userId
+			// User의 찜 여부 조회
+			Map<String, String> check = new HashMap<>();
+			check.put("pno", Integer.toString(pboardVO.getPno()));
+			check.put("id", id); // userId
 
-		int heart = service.heartCheck(check); // 유저id,게시판 pno 넘기기 눌렀으면 1, 안눌렀으면 0 반환
-		// 유사한 게시글 담아오기
-		List<PBoardVO> similerlist = service.similar(pboardVO); // 6개 담아옴
+			int heart = service.heartCheck(check); // 유저id,게시판 pno 넘기기 눌렀으면 1, 안눌렀으면 0 반환
+			// 유사한 게시글 담아오기
+			List<PBoardVO> similerlist = service.similar(pboardVO); // 6개 담아옴
 
-		List<SimilerVO> listImg = new ArrayList<>(); // JSP로 넘길 유사글 정보담기 (제목, 파일 경로)
-		for (int i = 0; i < similerlist.size(); i++) {
-			PBoardVO pvo = similerlist.get(i); // 유사한 게시글 정보
-			String img = service.getImg(pvo.getPno());
+			List<SimilerVO> listImg = new ArrayList<>(); // JSP로 넘길 유사글 정보담기 (제목, 파일 경로)
+			for (int i = 0; i < similerlist.size(); i++) {
+				PBoardVO pvo = similerlist.get(i); // 유사한 게시글 정보
+				String img = service.getImg(pvo.getPno());
 
-			SimilerVO vo = new SimilerVO();
-			// vo 에 담을 내용: title, pno, filepath
-			vo.setS_title(pvo.getP_title()); // 제목
-			vo.setS_p_type(pvo.getP_type());
-			vo.setS_pno(pvo.getPno());
-			// 해당 pno에 해당하는
-			if (!(img == null)) {
-				vo.setS_filePath(img);
+				SimilerVO vo = new SimilerVO();
+				// vo 에 담을 내용: title, pno, filepath
+				vo.setS_title(pvo.getP_title()); // 제목
+				vo.setS_p_type(pvo.getP_type());
+				vo.setS_pno(pvo.getPno());
+				// 해당 pno에 해당하는
+				if (!(img == null)) {
+					vo.setS_filePath(img);
+				}
+
+				listImg.add(vo);
 			}
 
-			listImg.add(vo);
+			model.addAttribute("heart", heart);
+			// 게시글정보 조회 > model에 담음
+			model.addAttribute("read", read);
+
+			// 사진 정보 저장하기
+			model.addAttribute("filelist", service.filelist(pno));
+
+			// 유사 제품들의 사진 정보 담기
+			model.addAttribute("listImg", listImg); // 사진당 제일 먼저 올린 1장을 받아옴 (s_title, s_filePath)
+
+			// 판매자 상점의 리뷰 담아오기
+			if (read.getId() != null) { // 게시글 상세보기 클릭시 resci에 r_seller 세팅
+				rescri.setR_seller(read.getId()); // rescri 에 serller 이름 세팅
+			}
+
+			List<ReviewVO> reviewList = service.reviewList(rescri);// id에 해당하는 리뷰 반환
+
+			model.addAttribute("reviewList", reviewList); // 리뷰를 담음
+
+			ReviewPageMaker pageMaker = new ReviewPageMaker();
+			pageMaker.setCri(rescri);
+			pageMaker.setTotalCount(service.reviewCount(rescri)); // 갯수
+			model.addAttribute("pageMaker", pageMaker);
+			model.addAttribute("reviewList" + reviewList); // 리뷰 리스트 담기
+
+			logger.info("해당 중고게시글에 쪽지한 사람들 목록");
+			System.out.println("중고게시물 번호: " + pboardVO.getPno());
+
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("id", id);
+			map.put("n_rno", pboardVO.getPno()); // 중고게시글 번호
+			map.put("n_type", "no"); // 게시글에 관한 일반 쪽지
+
+			List<String> members = noteService.get_members(map);
+			model.addAttribute("m_list", members);
+
+			return "product/readView";
 		}
-
-		model.addAttribute("heart", heart);
-		// 게시글정보 조회 > model에 담음
-		model.addAttribute("read", read);
-
-		// 사진 정보 저장하기
-		model.addAttribute("filelist", service.filelist(pno));
-
-		// 유사 제품들의 사진 정보 담기
-		model.addAttribute("listImg", listImg); // 사진당 제일 먼저 올린 1장을 받아옴 (s_title, s_filePath)
-
-		// 판매자 상점의 리뷰 담아오기
-		if (read.getId() != null) { // 게시글 상세보기 클릭시 resci에 r_seller 세팅
-			rescri.setR_seller(read.getId()); // rescri 에 serller 이름 세팅
+		
+		
+		//게시글의 유효성 검사 
+		@RequestMapping(value = "/postExistence")
+		@ResponseBody
+		public int postExistence(@RequestParam("pno")int pno)throws Exception{
+			
+			int result = service.postExistence(pno);
+			System.out.println("체크 : "+result);
+			return result;
+			
 		}
-
-		List<ReviewVO> reviewList = service.reviewList(rescri);// id에 해당하는 리뷰 반환
-
-		model.addAttribute("reviewList", reviewList); // 리뷰를 담음
-
-		ReviewPageMaker pageMaker = new ReviewPageMaker();
-		pageMaker.setCri(rescri);
-		pageMaker.setTotalCount(service.reviewCount(rescri)); // 갯수
-		model.addAttribute("pageMaker", pageMaker);
-		model.addAttribute("reviewList" + reviewList); // 리뷰 리스트 담기
-
-		logger.info("해당 중고게시글에 쪽지한 사람들 목록");
-		System.out.println("중고게시물 번호: " + pboardVO.getPno());
-
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("id", id);
-		map.put("n_rno", pboardVO.getPno()); // 중고게시글 번호
-		map.put("n_type", "no"); // 게시글에 관한 일반 쪽지
-
-		List<String> members = noteService.get_members(map);
-		model.addAttribute("m_list", members);
-
-		return "product/readView";
-	}
+		
+		
+		
+		
 
 	// 게시글 삭제
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)

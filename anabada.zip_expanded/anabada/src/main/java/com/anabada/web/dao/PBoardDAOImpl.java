@@ -182,4 +182,10 @@ public class PBoardDAOImpl implements PBoardDAO {
 		return sql.selectList("pBoardMapper.recent_chk",recent_array);
 	}
 
+	// pno에 해당하는 게시글이 존재하는지 유효성 검사 
+	@Override
+	public int postExistence(int pno) throws Exception {
+		return sql.selectOne("pBoardMapper.postExistence",pno);
+	}
+
 }

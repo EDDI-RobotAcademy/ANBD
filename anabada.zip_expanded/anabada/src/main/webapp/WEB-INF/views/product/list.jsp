@@ -135,6 +135,47 @@ ul {
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 	$(function() {
+		
+
+		
+		//게시글 유효성 검사 
+		$("#postExistence").click(function() {
+			
+			var url = $(this).attr('title');
+			var pno =$(this).attr('pno');
+			
+			$.ajax({
+				type:"get",
+				url : "/product/postExistence",
+			     data : {pno : pno},
+				 traditional : true,
+				 success : function(res){
+					 if(res == 0){
+						 alert("이미 삭제된 게시글 입니다.");
+						 location.reload();
+					 }else{
+						 location.href=url;
+					 }
+				 },
+				 error :function (request,status, error){
+					 alert("이동 실패 : "+error);
+				 }
+			
+				
+			}) // ajax end
+			
+			
+		
+			
+			
+			
+			
+		});
+		
+		
+		
+		
+		
 
 		// 검색어 입력하고 검색 눌렀을떄 
 		$('.searchBtn').on(
@@ -307,13 +348,18 @@ ul {
 		// 이거 젤 마지막에 둬야 함
 		get_recent_item();
 		//최근본 목록 끝 
+		
+		
+	
+		
 
 	});
+	
+
 </script>
 
 </head>
 <body>
-
 
 	<div id="anbdHead">
 		<div>
@@ -426,7 +472,9 @@ ul {
 
 							<c:forEach items="${list }" var="list">
 								<!-- test -->
-								<div class="col mb-5" onclick="location.href='/product/readView?pno=${list.pno}&p_type=${list.p_type}&page=${scri.page }&perPageNum=${scri.perPageNum }&searchType=${scri.searchType }&keyword=${scri.keyword }&productType=${scri.productType} '">
+								<div class="col mb-5" id="postExistence"  pno="${list.pno }"   title="/product/readView?pno=${list.pno}&p_type=${list.p_type}&page=${scri.page }&perPageNum=${scri.perPageNum }&searchType=${scri.searchType }&keyword=${scri.keyword }&productType=${scri.productType}" >
+									
+									
 									<div class="card h-100">
 										<!-- Product image-->
 										<div style="height: 267px;">
@@ -440,11 +488,6 @@ ul {
 												<div class="word">
 													<h5 class="fw-bolder">${list.p_title }</h5>
 												</div>
-
-												<%-- <div>
-														<img  style="width: 30px; height: 30px;" src="../../resources/images/heartB.png"> &nbsp;&nbsp;${list.p_heart }
-													</div>
-													 --%>
 
 
 												<!-- Product price-->
