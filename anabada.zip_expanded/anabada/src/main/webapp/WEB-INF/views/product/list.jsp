@@ -309,7 +309,7 @@ ul {
 	                                	   var li = "<li  ><a href='/product/readView?pno="
 	   	          							+ pno
 	   	          							+ "'><img width='100' height='100' src='../resources/images/img.png'/>"
-	   	          							+ "<br><div class='sideword' >" + pno + p_title + "</div>"
+	   	          							+ "<br><div class='sideword' >" + p_title + "</div>"
 	   	          							+ "</a></li>";
 	                                   }else{
 	                                	   var li = "<li  ><a href='/product/readView?pno="
