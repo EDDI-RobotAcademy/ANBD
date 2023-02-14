@@ -156,6 +156,13 @@ public class JobServiceImpl implements JobService {
 	}
 
 	
+	// 회원 탈퇴할때 알바 관련 이미지도 컴퓨터에서 삭제하기 위해
+	@Override
+	public List img_list(String id) throws Exception {
+		return dao.img_list(id);
+	}
+
+	
 
 
 }

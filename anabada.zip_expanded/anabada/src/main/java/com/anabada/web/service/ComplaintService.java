@@ -1,5 +1,6 @@
 package com.anabada.web.service;
 
+import java.util.List;
 import java.util.Map;
 
 public interface ComplaintService{
@@ -24,5 +25,5 @@ public interface ComplaintService{
 
 	// 관리자 신고 삭제 관련
 	public void delete_complaint(Map<String, Object> map) throws Exception;
-	
+
 }
