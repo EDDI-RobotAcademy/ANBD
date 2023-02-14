@@ -41,7 +41,7 @@ public interface ComplaintRepository extends JpaRepository<Complaint, Long> {
     Long detailCount(@Param("board_type") String boardType, @Param("c_bno")long c_bno, @Param("c_content")String c_content);
 
     @Transactional
-    @Query(value = "select * from complaint c where c.board_type= :board_type and c.c_bno= :c_bno  and c_content not in ('욕설, 비방, 차별, 혐오','판매 금지 물품 판매','홍보,영리목적','불법 정보','음란, 청소년 유해','사기 글이에요','개인 정보 노출, 유포, 거래','도배 스팸')", nativeQuery = true)
+    @Query(value = "select * from complaint c where c.board_type= :board_type and c.c_bno= :c_bno  and c_content not in ('욕설, 비방, 차별, 혐오','판매 금지 물품 판매','홍보, 영리목적','불법 정보','음란, 청소년 유해','사기 글이에요','개인 정보 노출, 유포, 거래','도배, 스팸')", nativeQuery = true)
     List<Complaint> findByReson(@Param("board_type")String boardType,@Param("c_bno")long c_bno);
 
 }

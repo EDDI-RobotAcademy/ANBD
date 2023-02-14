@@ -28,7 +28,7 @@
 
  <template v-slot:[`item.details`]="{ item }">
   <v-layout justify-center>
-          <v-dialog v-model="dialog" persisten max-width="800"  :retain-focus="false"  >
+          <v-dialog v-model="dialog" persisten max-width="650"  :retain-focus="false"  >
             <template v-slot:activator="{on}">
               <v-btn color="primary" dark v-on="on"  @click="details(item.c_bno, item.boardType)" >상세보기</v-btn>
             </template>
@@ -39,24 +39,24 @@
               </v-card-title>
                         <v-card-text>
                 
-              
+             
               <table   class="resonTable"  >
               <tr>  
-              <td>  <div class="box"><span v-if="item.boardType === 'pboard'">   판매 금지 물품 판매  </span> <span  v-else>욕설, 비방, 차별, 혐오 </span> {{complaintTotal.type1}} </div>     </td>    <td> <div class="box"> 홍보,영리목적 {{complaintTotal.type2}} </div> </td>  
+              <td>  <div class="box"><span v-if="complaintTotal.boardType === 'pboard'">   판매 금지 물품 판매  </span> <span  v-else>욕설, 비방, 차별, 혐오 </span> {{complaintTotal.type1}} </div>     </td>    <td> <div class="box"> 홍보, 영리목적 {{complaintTotal.type2}} </div> </td>  
                <td><div class="box"> 불법 정보 {{complaintTotal.type3}} </div></td> 
                </tr>
 
                <tr>  
                 <td><div class="box">음란, 청소년 유해 {{complaintTotal.type4}} </div></td>   
               
-              <td> <div class="box"><span v-if="item.boardType === 'pboard'">  사기 글이에요 </span>   <span  v-else>  개인 정보 노출, 유포, 거래 </span>  {{complaintTotal.type5}} </div>    </td>    <td><div class="box">도배 스팸 {{complaintTotal.type6}}</div> </td> 
+              <td> <div class="box"><span v-if="complaintTotal.boardType === 'pboard'">  사기 글이에요 </span>   <span  v-else>  개인 정보 노출, 유포, 거래 </span>  {{complaintTotal.type5}} </div>    </td>    <td><div class="box">도배, 스팸 {{complaintTotal.type6}}</div> </td> 
                </tr>
 
               </table>
               </v-card-text>
              <v-card-text>
  
-기타 {{complaintTotal.type7}}건 
+<div id="re" >기타 {{complaintTotal.type7}}건 </div>
    <v-data-table
             :headers="resonTitle"
             :items="resonList"
@@ -91,8 +91,7 @@
         </template>
 
       </v-data-table>
-      <h5>Selected: {{selectedItems}}</h5>
-      {{complaint}}
+  
   </v-container>
 </template>
   
@@ -122,7 +121,7 @@
             selectedItems: [],
             headerTitle: [
              
-              { text: '신고 내용', value: 'c_content', width: "200px" },
+             
               { text: '게시물 번호', value: 'c_bno', width: "100px" },
               { text: '게시물 유형', value: 'boardType', width: "100px" },
               {text : '상세 사유' , value : 'details', width : "100px"},
@@ -185,6 +184,7 @@
   
 .resonTable{
 padding: 20px;
+margin: auto;
 
 }
 .resonTable tr td{
@@ -193,11 +193,16 @@ padding: 20px;
 }
 .box{
  border-radius: 7px;
-	padding: 5px;
-	background-color: #AFAFAF;
+	padding: 15px;
+	background-color: #0C6BBC;
 	text-align: center;
 	font-weight: bold;
 	color: white;
+}
+#re{
+  font-weight: bold;
+  margin-bottom: 10px;
+  margin-left : 10px;
 }
 
 

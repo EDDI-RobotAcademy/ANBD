@@ -79,7 +79,7 @@ public class ComplaintController {
             type3 = service.detailCount(board_type,c_bno,"불법 정보");
             type4=service.detailCount(board_type,c_bno,"음란, 청소년 유해");
             type5=service.detailCount(board_type,c_bno,"사기 글이에요");
-            type6=service.detailCount(board_type,c_bno,"도배 스팸");
+            type6=service.detailCount(board_type,c_bno,"도배, 스팸");
             type7 = total -type1-type2-type3-type4-type5-type6;
 
             complaintTotal.setType1(type1);
@@ -92,11 +92,11 @@ public class ComplaintController {
 
         }else {
             type1 =service.detailCount(board_type,c_bno,"욕설, 비방, 차별, 혐오");
-            type2 = service.detailCount(board_type,c_bno,"홍보,영리목적");
+            type2 = service.detailCount(board_type,c_bno,"홍보, 영리목적");
             type3 = service.detailCount(board_type,c_bno,"불법 정보");
             type4=service.detailCount(board_type,c_bno,"음란, 청소년 유해");
             type5=service.detailCount(board_type,c_bno,"개인 정보 노출, 유포, 거래");
-            type6=service.detailCount(board_type,c_bno,"도배 스팸");
+            type6=service.detailCount(board_type,c_bno,"도배, 스팸");
             type7 = total -type1-type2-type3-type4-type5-type6;
 
             complaintTotal.setType1(type1);
@@ -111,6 +111,8 @@ public class ComplaintController {
         // 기타에 해당하는 사유 가져오기
         List<Complaint> list = service.findByReson(board_type,c_bno);
         ComplaintDetails complaintDetails = new ComplaintDetails(complaintTotal, list);
+        System.out.println("보드타입 : "+complaintTotal.getBoardType());
+
 
         return  complaintDetails;
     }
