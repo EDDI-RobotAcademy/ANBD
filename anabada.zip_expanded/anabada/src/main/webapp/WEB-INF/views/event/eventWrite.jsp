@@ -196,14 +196,12 @@ input[type='file'] {
 	<div>
 		<jsp:include page="../includes/nav.jsp" />
 	</div>
-	
-	
-	
-
-		<div >
+	<div>
 		<jsp:include page="../includes/eventHeader.jsp" />
+	</div>
+	<div>
 		<jsp:include page="../includes/eventNav.jsp" />
-	</div> 
+	</div>
 	
 
 	<form name="writeForm" enctype="multipart/form-data" method="post">

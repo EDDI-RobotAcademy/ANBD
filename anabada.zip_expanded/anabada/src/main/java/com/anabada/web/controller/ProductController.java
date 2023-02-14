@@ -116,7 +116,8 @@ public class ProductController {
 	// 게시판 목록 조회
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model, @ModelAttribute("scri") SearchCriteriapro scri   ) throws Exception {
-
+      System.out.println("리스트리스트 ");
+      System.out.println(scri);
 		List<PBoardVO> list = service.list(scri);
 		// list의 각각의 pno에 해당하는 사진 정보 가져오기
 		for (int i = 0; i < list.size(); i++) {
