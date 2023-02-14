@@ -259,6 +259,64 @@ margin-top: 0px;
 </style>
 <script type="text/javascript">
    $(document).ready(function() {
+	   
+	  
+	   
+	   
+	   //찜버튼 이벤트 
+	      $("#heart").on("click", function() {
+	    	  
+	    	  if("${id}" == ""){
+	    		  alert("회원 전용 서비스입니다. 로그인 후 이용해주세요");
+	    		  return false;
+	    	  }
+	    	  
+	         if ($("#heart").is(":checked")) {
+	            $(".himg").attr("src", "../../resources/images/heartB.png");
+	            var params = {
+	               pno : "${read.pno}",
+	               id : "${id}"
+	            }
+	            $.ajax({
+	               type : "POST",
+	               url : "/product/addHeart",
+	               data : params,
+	               dataType : "json",
+	               contetnType : "application/json",
+	               success : function(res) {
+	                  //res.getEncoding('utf-8');
+	                  //var list = JSON.parse(res);
+	                  const element = document.getElementById('heartCh');
+	                  element.innerText = res.hnum;
+	               },
+	               error : function(request, status, error) {
+	               }
+	            });
+	         } else {
+	            $(".himg").attr("src", "../../resources/images/heartA.png");
+	            var params = {
+	               pno : "${read.pno}",
+	               id : "${id}"
+	            }
+	            $.ajax({
+	               type : "POST",
+	               url : "/product/subHeart",
+	               data : params,
+	               dataType : "json",
+	               contetnType : "application/json",
+	               success : function(res) {
+	                  const element = document.getElementById('heartCh');
+	                  element.innerText = res.hnum;
+	               },
+	               error : function(XMLRequest, textStatus, errorThrown) {
+	               }
+	            });
+	         }
+	      }); // 하트 이벤트 끝
+	   
+	   
+	   
+	   
       
       // 쪽지 보내기 버튼 눌렀을 떄 모달창 띄우기
       $("button[name=n_send]").on("click", function () { 
@@ -440,7 +498,7 @@ margin-top: 0px;
                            	   var li = "<li  ><a href='/product/readView?pno="
 	          							+ pno
 	          							+ "'><img width='100' height='100' src='../resources/images/img.png'/>"
-	          							+ "<br><div class='sideword' >" + pno + p_title + "</div>"
+	          							+ "<br><div class='sideword' >" + p_title + "</div>"
 	          							+ "</a></li>";
                               }else{
                            	   var li = "<li  ><a href='/product/readView?pno="
@@ -540,56 +598,7 @@ margin-top: 0px;
          /*  사이즈에 적용될 설정 */
          } ]
       });
-      //찜버튼 이벤트 
-      $("#heart").on("click", function() {
-    	  
-    	  if("${id}" == ""){
-    		  alert("회원 전용 서비스입니다. 로그인 후 이용해주세요");
-    		  return false;
-    	  }
-    	  
-         if ($(this).prop('checked')) {
-            $(".himg").attr("src", "../../resources/images/heartB.png");
-            var params = {
-               pno : "${read.pno}",
-               id : "${id}"
-            }
-            $.ajax({
-               type : "POST",
-               url : "/product/addHeart",
-               data : params,
-               dataType : "json",
-               contetnType : "application/json",
-               success : function(res) {
-                  //res.getEncoding('utf-8');
-                  //var list = JSON.parse(res);
-                  const element = document.getElementById('heartCh');
-                  element.innerText = res.hnum;
-               },
-               error : function(request, status, error) {
-               }
-            });
-         } else {
-            $(".himg").attr("src", "../../resources/images/heartA.png");
-            var params = {
-               pno : "${read.pno}",
-               id : "${id}"
-            }
-            $.ajax({
-               type : "POST",
-               url : "/product/subHeart",
-               data : params,
-               dataType : "json",
-               contetnType : "application/json",
-               success : function(res) {
-                  const element = document.getElementById('heartCh');
-                  element.innerText = res.hnum;
-               },
-               error : function(XMLRequest, textStatus, errorThrown) {
-               }
-            });
-         }
-      }); // 하트 이벤트 끝
+     
       
       
       // 처음 화면에 들어올때 end 이면 수정 불가능 하도록 
@@ -821,6 +830,7 @@ function complaint() {
 
 </head>
 <body>
+
 
 	<!-- header -->
 
