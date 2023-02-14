@@ -1,6 +1,5 @@
 package com.anabada.web.dao;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -112,19 +111,19 @@ public class JobDAOImpl implements JobDAO{
 	// 알바찜 목록
 	@Override
 	public List<JheartVO> heart_jobLIst(Map<String, Object> map) throws Exception {
-		return sqlSession.selectList("jobMapper.h_listPage" , map);
+		return sqlSession.selectList("jHeartMapper.h_listPage" , map);
 	}
 
 	// 알바 찜 개수
 	@Override
 	public int heart_jobLisCount(String id) throws Exception {
-		return sqlSession.selectOne("jobMapper.h_listCount", id);
+		return sqlSession.selectOne("jHeartMapper.h_listCount", id);
 	}
 
 	// 알바 찜에서 삭제
 	@Override
 	public Object heart_delete(Map map) throws Exception {
-		return sqlSession.delete("jobMapper.h_delete", map);
+		return sqlSession.delete("jHeartMapper.h_delete", map);
 	}
 
 	//////////////////알바 신고

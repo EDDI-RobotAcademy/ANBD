@@ -4,16 +4,41 @@
 
 
 <mapper namespace="jHeartMapper">
+<!-- 하트정보 입력 -->
 <insert id="addHeart"  parameterType="hashMap" >
 INSERT INTO HEART_JOB (H_BNO,ID,J_BNO) VALUES (HEART_JOB_SEQ.NEXTVAL, #{id},#{j_bno})
 </insert>
 
+<!-- 해당게시글에 하트를 눌렀는지 확인 -->
 <select id="heartCheck" parameterType="hashMap"  resultType="int" >
 SELECT COUNT(H_BNO) FROM HEART_JOB WHERE J_BNO =#{j_bno} AND ID =#{id}
 </select>
 
+<!-- 하트 해제시 하트 누른 정보 삭제  -->
 <delete id="subHeart" parameterType="hashMap" >
 DELETE FROM HEART_JOB WHERE J_BNO = #{j_bno} AND ID = #{id}
+</delete>
+
+<select id="h_listPage" parameterType="com.anabada.web.vo.JobCriteria" resultType="JheartVO">
+SELECT ID, J_BNO, H_BNO
+FROM(SELECT ID, J_BNO, H_BNO, 
+	ROW_NUMBER() OVER(ORDER BY H_BNO DESC) AS RNUM
+	FROM HEART_JOB WHERE ID = #{id}) HEART
+WHERE RNUM BETWEEN #{rowStart2} AND #{rowEnd2}
+ORDER BY H_BNO DESC
+</select>
+
+<select id="h_listCount" parameterType="com.anabada.web.vo.JobCriteria" resultType="int">
+SELECT COUNT(H_BNO) FROM HEART_JOB WHERE ID = #{id}
+</select>
+
+<delete id="h_delete" parameterType="java.util.ArrayList" >
+DELETE FROM HEART_JOB 
+WHERE J_BNO IN (
+	<foreach collection="array" item="item" index="index" separator="," >   
+	#{item}
+	</foreach>
+) AND ID = #{id}
 </delete>
 
 </mapper>

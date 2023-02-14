@@ -266,6 +266,13 @@
          obj.animate({ scrollTop:obj.scrollTop() + ih }, 100);
        });
       
+      
+      // 찜되었는지 안되어있는지 확인
+      if("${heart}"==1){
+		 $("input:checkbox[id='heart']").prop("checked",true);
+		
+	  }
+      
       //찜버튼 이벤트 
       $("#heart").on("click", function() {
          
@@ -274,7 +281,7 @@
             return false;
          }else{
             
-            if ($(this).prop('checked')) {
+        	if ($("#heart").is(":checked")) {
                $(".himg").attr("src", "../../resources/images/하트2.png");
    
                var params = {
