@@ -66,7 +66,7 @@ public class MemberController {
 		MemberVO login = service.login(vo);
 		
 		session.setAttribute("member", login);
-		session.setAttribute("id", login);
+		session.setAttribute("id", login.getId());
 		logger.info("회원 가입 후 자동 로그인: " +  login);
 		
 		return "redirect:/member/registerEnd";
