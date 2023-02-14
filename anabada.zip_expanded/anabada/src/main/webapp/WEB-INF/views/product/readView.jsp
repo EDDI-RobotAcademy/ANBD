@@ -250,6 +250,12 @@ font-size: 20px;
 #btnDiv{
 margin-left: 60px;
 }
+#trLine{
+height :2px;
+background-color: #DBD9D9;
+margin-top: 0px;
+
+}
 </style>
 <script type="text/javascript">
    $(document).ready(function() {
@@ -430,20 +436,19 @@ margin-left: 60px;
 	                          var p_title = realitem[i].p_title;
 	                          var p_img = realitem[i].p_img;
 	                                     
-	                          if (p_img != null || p_img != "") {
-	          					var li = "<li  ><a href='/product/readView?pno="
+	                          if(p_img == "" || p_img == null){
+                           	   var li = "<li  ><a href='/product/readView?pno="
+	          							+ pno
+	          							+ "'><img width='100' height='100' src='../resources/images/img.png'/>"
+	          							+ "<br><div class='sideword' >" + pno + p_title + "</div>"
+	          							+ "</a></li>";
+                              }else{
+                           	   var li = "<li  ><a href='/product/readView?pno="
 	          							+ pno
 	          							+ "'><img width='100' height='100' src='"+p_img+"'/>"
 	          							+ "<br><div class='sideword' >" + p_title + "</div>"
 	          							+ "</a></li>";
-	          				}
-	                          else {
-	          					var li = "<li  ><a href='/product/readView?pno="
-	          							+ pno
-	          							+ "'><img width='100' height='100' src='../resources/images/아나바다.png'/>"
-	          							+ "<br><div class='sideword' >" + pno + p_title + "</div>"
-	          							+ "</a></li>";
-	          				}
+                              }
 	                      //ul에 붙이기
 	                      $recentItemList.append(li);
 	                      }
@@ -849,10 +854,10 @@ function complaint() {
 
 
 
-						<td colspan="10" style="text-align: right; padding-right: 20px;">
+						<td colspan="10" style="text-align: right; padding-right: 20px;  ">
 
 
-							<div style="display: inline;">
+							<div style="display: inline; ">
 							<br> <br>
 
 								<label class="rach"><input type="checkbox" id="heart" name="p_heart" value="${read.p_heart }" /> <c:choose>
@@ -867,10 +872,10 @@ function complaint() {
 							</div> <c:if test="${id == read.id }">
 
 								<button id="rebtn" style="background-color: white; border: none;" title="글 수정">
-									<img src="../resources/images/edit.png" style="width: 40px; height: 40px;">
+									<img src="../resources/images/edit.png" style="width: 30px; height: 30px;">
 								</button>
 								<button id="delbtn" style="background-color: white; border: none;" title="삭제">
-									<img src="../resources/images/garbage.png" style="width: 40px; height: 40px;">
+									<img src="../resources/images/garbage.png" style="width: 30px; height: 30px;">
 								</button>
 
 							</c:if>
@@ -882,8 +887,8 @@ function complaint() {
 
 
 					<tr>
-						<td colspan="10">
-							<hr style="height: 2px; background-color: #DBD9D9;">
+						<td colspan="10"  >
+							<hr    id="trLine"  >
 						</td>
 					</tr>
 

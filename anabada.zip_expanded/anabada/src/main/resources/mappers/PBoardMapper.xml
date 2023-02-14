@@ -87,6 +87,9 @@
 			<if test="searchType == 't'.toString ">AND P_TITLE LIKE '%' || #{keyword} ||'%'</if>
 			<if test="searchType == 'c'.toString ">AND P_CONTENT LIKE '%' || #{keyword} ||'%'</if>
 			<if test="searchType == 'w'.toString ">AND ID LIKE '%' || #{keyword} ||'%'</if>
+			<if test ="searchType =='all'.toString"> 
+			AND (P_TITLE LIKE '%' || #{keyword} ||'%' OR P_CONTENT LIKE '%' || #{keyword} ||'%' OR ID LIKE '%' || #{keyword} ||'%'    )
+			 </if>
 		</if>
 
 	</sql>

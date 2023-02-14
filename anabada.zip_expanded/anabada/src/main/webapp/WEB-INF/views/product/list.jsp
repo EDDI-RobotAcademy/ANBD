@@ -183,8 +183,10 @@ ul {
 		$('.searchBtn').on(
 				"click",
 				function() {
+				
 
 					var chbtn = $("input[type='radio']:checked").val();
+				
 
 					self.location = "list" + '${pageMaker.makeQuery(1)}'
 							+ '&searchType='
@@ -302,8 +304,24 @@ ul {
 	                          var p_title = realitem[i].p_title;
 	                          var p_img = realitem[i].p_img;
 
-	                                     
-	                          if (p_img != null || p_img != "") {
+	                                 
+	                                   if(p_img == "" || p_img == null){
+	                                	   var li = "<li  ><a href='/product/readView?pno="
+	   	          							+ pno
+	   	          							+ "'><img width='100' height='100' src='../resources/images/img.png'/>"
+	   	          							+ "<br><div class='sideword' >" + pno + p_title + "</div>"
+	   	          							+ "</a></li>";
+	                                   }else{
+	                                	   var li = "<li  ><a href='/product/readView?pno="
+	   	          							+ pno
+	   	          							+ "'><img width='100' height='100' src='"+p_img+"'/>"
+	   	          							+ "<br><div class='sideword' >" + p_title + "</div>"
+	   	          							+ "</a></li>";
+	                                   }
+	                                   
+	                                   
+	                        /*   if (p_img != null || p_img !== "") {
+	                        	  alert(123);
 	          					var li = "<li  ><a href='/product/readView?pno="
 	          							+ pno
 	          							+ "'><img width='100' height='100' src='"+p_img+"'/>"
@@ -316,7 +334,7 @@ ul {
 	          							+ "'><img width='100' height='100' src='../resources/images/아나바다.png'/>"
 	          							+ "<br><div class='sideword' >" + pno + p_title + "</div>"
 	          							+ "</a></li>";
-	          				}
+	          				} */
 	                      //ul에 붙이기
 	                      $recentItemList.append(li);
 	                      }

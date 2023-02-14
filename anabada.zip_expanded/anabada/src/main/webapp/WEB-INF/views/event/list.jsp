@@ -29,85 +29,83 @@
 	width: 400px;
 }
 
-.btn-secondary1 { 
---bs-btn-color: #272a2e; 
-	--bs-btn-bg: #e9ecef; 
-	--bs-btn-border-color: #ced4da; 
-	--bs-btn-hover-color: #fff; 
-	--bs-btn-hover-bg: #a1a5a9; 
-	--bs-btn-hover-border-color: #a1a5a9; 
-	--bs-btn-focus-shadow-rgb: 130, 138, 145; 
-	--bs-btn-active-color: #fff; 
-	--bs-btn-active-bg: #a1a5a9; 
-	--bs-btn-active-border-color: #a1a5a9; 
-	--bs-btn-active-shadow: inset 0 3px 5pxrgba(0, 0, 0, 0.125); 
-	--bs-btn-disabled-color: #fff; 
-	--bs-btn-disabled-bg: #a1a5a9; 
-	--bs-btn-disabled-border-color: #a1a5a9;
+.btn-secondary1 { -
+	-bs-btn-color: #272a2e; -
+	-bs-btn-bg: #e9ecef; -
+	-bs-btn-border-color: #ced4da; -
+	-bs-btn-hover-color: #fff; -
+	-bs-btn-hover-bg: #a1a5a9; -
+	-bs-btn-hover-border-color: #a1a5a9; -
+	-bs-btn-focus-shadow-rgb: 130, 138, 145; -
+	-bs-btn-active-color: #fff; -
+	-bs-btn-active-bg: #a1a5a9; -
+	-bs-btn-active-border-color: #a1a5a9; -
+	-bs-btn-active-shadow: inset 0 3px 5pxrgba(0, 0, 0, 0.125); -
+	-bs-btn-disabled-color: #fff; -
+	-bs-btn-disabled-bg: #a1a5a9; -
+	-bs-btn-disabled-border-color: #a1a5a9;
 }
-.searchBox{
-width: 400px;
-margin: auto;
 
-
+.searchBox {
+	width: 400px;
+	margin: auto;
 }
-.textBox{
 
-width : 300px;
-margin: auto;
+.textBox {
+	width: 300px;
+	margin: auto;
 }
 </style>
 </head>
 <body>
 
-   <div>
-      <jsp:include page="../includes/nav.jsp" />
-   </div>
-
-
-	<section class="home_gallery_area p_120"   >
-		<div class="container">
-			<div class="main_title">
-				<h2>🌎아나바다와 함께하는 이벤트🌎</h2>
-				<p>Our One Step for the Environment</p>
-			</div>
-			
-				<div style="margin-bottom: 50px;" >
+	<div>
+		<jsp:include page="../includes/nav.jsp" />
+	</div>
+	<div>
+		<jsp:include page="../includes/eventHeader.jsp" />
+	</div>
+	<div>
 		<jsp:include page="../includes/eventNav.jsp" />
-	</div> 
+	</div>
 
-<div class="searchBox" >
-			<!-- 검색 기능 -->
-			<div class="input-group mb-3" id="keywordBox">
-				<span class="input-group-text" id="basic-addon1">제 목</span> <input type="text" id="keywordInput" class="form-control" placeholder="검색어를 입력하세요 ">
-				<button type="button" id="searchBtn" class="btn btn-secondary1"  >검색</button>
-			</div>
+	<section class="home_gallery_area p_120">
+		<div class="container">
 
 
 
-			<div class="isotope_fillter textBox "  >
-			
-				<ul class="gallery_filter list"  >
-					<li class="active" data-filter="*"><a href="#">All</a></li>
-					<li class="active" data-filter=".ing"><a href="#">진행중인 이벤트</a></li>
-					<li class="active" data-filter=".end"><a href="#">완료된 이벤트</a></li>
+			<div class="searchBox">
+				<!-- 검색 기능 -->
+				<div class="input-group mb-3" id="keywordBox">
+					<span class="input-group-text" id="basic-addon1">제 목</span> <input type="text" id="keywordInput" class="form-control" placeholder="검색어를 입력하세요 ">
+					<button type="button" id="searchBtn" class="btn btn-secondary1">검색</button>
+				</div>
 
-				</ul>
-				
-				
-			</div>
+
+
+				<div class="isotope_fillter textBox ">
+
+					<ul class="gallery_filter list">
+						<li class="active" data-filter="*"><a href="#">All</a></li>
+						<li class="active" data-filter=".ing"><a href="#">진행중인 이벤트</a></li>
+						<li class="active" data-filter=".end"><a href="#">완료된 이벤트</a></li>
+
+					</ul>
+
+
+				</div>
 			</div>
 			<div style="text-align: right;">
-					<c:if test="${id == 'admin'}">
-						<button  type="button" class="btn btn-outline-primary"   onclick="location.href='/event/writeView'">이벤트 등록</button>
-					</c:if>
-				</div>
+				<c:if test="${id == 'admin'}">
+					<button type="button" class="btn btn-outline-primary" onclick="location.href='/event/writeView'">이벤트 등록</button>
+				</c:if>
+			</div>
 		</div>
-		
-		<br>  <br>  <br>
+
+		<br> <br> <br>
 
 		<div class="container">
-			<div  style="width: 1200px; margin: auto; "  class="gallery_f_inner row imageGallery1">
+			<div style="width: 1200px; margin: auto;" class="gallery_f_inner row imageGallery1">
 
 
 
@@ -187,25 +185,23 @@ margin: auto;
 	<script src="../resources/eve_list/js/theme.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
-<script type="text/javascript">
-$(document).ready(function() {
+	<script type="text/javascript">
+		$(document).ready(
+				function() {
 
- 
-	$("#searchBtn").on("click", function() {
-		self.location = "list" + '${pageMaker.makeQuery(1)}'
-		+ "&keyword="
-		+ encodeURIComponent($('#keywordInput').val());
+					$("#searchBtn").on(
+							"click",
+							function() {
+								self.location = "list"
+										+ '${pageMaker.makeQuery(1)}'
+										+ "&keyword="
+										+ encodeURIComponent($('#keywordInput')
+												.val());
 
-		
- 
+							});
 
-
-		
-		
-	});
-	
-})
-</script>
+				})
+	</script>
 
 </body>
 </html>
