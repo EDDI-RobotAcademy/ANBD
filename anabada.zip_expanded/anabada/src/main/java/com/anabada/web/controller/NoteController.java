@@ -411,7 +411,8 @@ public class NoteController {
  	// 관리자가 신고 쪽지 삭제눌렀음
  	@RequestMapping(value = "/delete_admin.ajax", method =RequestMethod.GET)
 	@ResponseBody
-	public boolean delete_admin(@RequestParam(value="n_bno") int n_bno, @RequestParam(value="id") String id) throws Exception{
+	public boolean delete_admin(@RequestParam(value="n_bno") int n_bno, @RequestParam(value="id") String id,
+			@RequestParam(value="n_content") String n_content) throws Exception{
 			
 		logger.info("관리자가 신고 쪽지 삭제 눌렀음"); 
 		
@@ -440,7 +441,7 @@ public class NoteController {
  	 			complaintService.add_caution(id);
  	 			
  	 			//4-2) 경고 쪽지 보내기
- 	 			String content = "회원님의 쪽지는 부적접한 사유로 인해 삭제되었습니다."
+ 	 			String content = "회원님의 쪽지 '" + n_content + "'는 부적접한 사유로 인해 삭제되었습니다."
  	 					+ "\n회원님은 누적 경고수는 " + ++count + "입니다."
  	 					+ "\n누적 경고수가 5가 되면 회원 강제 탈퇴가 이루어집니다.";
  	 			

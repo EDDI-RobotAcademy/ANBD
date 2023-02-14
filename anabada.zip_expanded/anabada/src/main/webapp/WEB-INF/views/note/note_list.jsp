@@ -136,7 +136,7 @@
              },
              success:function(data){
                  if(data != 1){
-                	 alert("존재하지 않는 id입니다.");
+                	 alert("존재하지 않는 회원입니다.");
                  }else{ // 아이디가 존재할 땐
                 	 
                 	 $.ajax({
