@@ -61,6 +61,9 @@ public interface JobDAO {
 	// 상세보기 유효성 체크
 	public int read_chk(int j_bno) throws Exception;
 
+	// 회원 탈퇴 시 알바 관련 이미지 삭제 위해
+	public List img_list(String id) throws Exception;
+
 
 	
 }

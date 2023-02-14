@@ -315,4 +315,8 @@ WHERE J_BNO IN (
 SELECT COUNT(J_BNO) FROM JOB_BOARD WHERE J_BNO = #{j_bno}
 </select>
 
+<select id="img_list" parameterType="String"  resultType="String">
+SELECT J_IMG FROM JOB_BOARD WHERE ID = #{id} AND J_IMG IS NOT NULL
+</select>
+
 </mapper>

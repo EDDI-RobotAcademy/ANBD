@@ -401,16 +401,16 @@
       
       // 1)근무기간
       var chk_arr1 = [];
-       var count1 = $("input[name=j_term]:checked").length;
-       if(count1 < 4 || (count1 == 4 && chk_all == "모두")){
+      var count1 = $("input[name=j_term]:checked").length;
+      if(count1 < 4 || (count1 == 4 && chk_all == "모두")){
          $("input[name=j_term]:checked").each(function () {
                var chk1 = $(this).val();
             chk_arr1.push(chk1);
           });
-       }else{
+      }else{
           alert("근무기간은 3개까지 선택가능합니다.");
           return false;
-       }
+      }
       
       if(chk_name == "j_term" && chk_all == '모두'){ // 근무기간이 모두일때
          if($("#j_term1").is(":checked")){ // 모두선택한 상태에서 모두를 눌렀을 때
@@ -435,11 +435,26 @@
       // 2)근무횟수
       var chk_arr2 = [];
       var count2 = $("input[name=j_day]:checked").length;
-      if(count2 < 4 || (count2 == 4 && chk_all == "모두")){
+      if(chk_arr1.length == 1 && chk_arr1[0] == "하루" && chk_name == "j_day" && chk_all != "모두"){
+    	 alert("근무기간이 하루일때는 근무횟수를 선택할 수 없습니다.");
+    	 return false;
+      
+      }else if(count2 < 4 || (count2 == 4 && chk_all == "모두")){ // 1)근무기간이 하루로 하나만 선택되어 있는데, 근무횟수 선택하려고 할 때
          $("input[name=j_day]:checked").each(function () {
             var chk2 = $(this).val();
             chk_arr2.push(chk2);
           });
+      
+      	  if(chk_name == "j_term" && chk_all != "하루" && chk_arr1.length == 1 && chk_arr1[0] == "하루" && chk_arr2[0] != "모두"){ //2) 근무횟수가 주?일로 이미 선택되어 있는데, 다른 근무기간을 해제해서 근무기간이 하루만 남을때
+         	 alert("근무기간이 하루일때는 근무횟수를 선택할 수 없습니다.");
+         	 return false;
+      	  }
+      	  
+      	  if(chk_name == "j_term" && chk_all == "하루" && chk_arr1.length == 1 && chk_arr1[0] == "하루" && chk_arr2[0] != "모두"){ //3)근무횟수가 주?일로 이미 선택되어있는데, 근무기간을 하루만 하나 선택했을 때
+        	 alert("근무기간이 하루일때는 근무횟수를 선택할 수 없습니다.");
+        	 return false;
+     	  }
+      	  
       }else{
          alert("근무횟수는 3개까지 선택가능합니다.");
          return false;

@@ -157,6 +157,12 @@ public class JobDAOImpl implements JobDAO{
 	public int read_chk(int j_bno) throws Exception {
 		return sqlSession.selectOne("jobMapper.read_chk", j_bno);
 	}
+
+	// 회원 탈퇴시 알바 관련 이미지 삭제 위해
+	@Override
+	public List img_list(String id) throws Exception {
+		return sqlSession.selectList("jobMapper.img_list", id);
+	}
 	
 	
 

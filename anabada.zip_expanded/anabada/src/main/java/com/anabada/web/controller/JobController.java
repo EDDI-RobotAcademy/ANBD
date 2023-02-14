@@ -470,6 +470,22 @@ public class JobController {
  			
  			//4-1) 강제 탈퇴할 회원의 email
  			String email = complaintService.expel_email(vo.getId());
+ 			
+ 			//4-1-1) 회원 탈퇴시키기 전에 알바 게시물 관련 이미지 서버에서 먼저 삭제
+ 			List img_list = jobService.img_list(vo.getId());
+ 			
+ 			if(img_list != null || !img_list.isEmpty()) { // 사진이 있다면 삭제
+ 				
+ 				for(int i = 0; i < img_list.size(); i++) {
+ 					File file = null;
+ 					file = new File("C:\\upload\\"+ img_list.get(i));
+ 					file.delete();
+ 				}
+ 			}
+ 			
+ 			//4-1-2) 중고 게시물 관련 이미지 삭제
+ 			//4-1-2) 동네생활 관련 이미지 삭제
+ 			
  			//4-2) 회원 탈퇴
  			complaintService.expel_member(vo.getId());
  			//4-3) 회원 탈퇴 당한 회원 이메일 저장
