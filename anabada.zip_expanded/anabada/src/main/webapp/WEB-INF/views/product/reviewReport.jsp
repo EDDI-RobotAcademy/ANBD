@@ -128,17 +128,17 @@ function reportSubmit() {
 		 var inputValue = $("input[name='report']:checked").val(); // 체크한 것의 value
 		
 		 if(inputValue=="1"){
-			 c_content ="판매 금지 물품 판매";
+			 c_content ="욕설, 비방, 차별, 혐오";
 		 }else if(inputValue=="2"){
-			 c_content ="홍보,영리목적";
+			 c_content ="홍보, 영리목적";
 		 }else if(inputValue=="3"){
 			 c_content ="불법 정보";
 		 }else if(inputValue=="4"){
 			 c_content ="음란, 청소년 유해";
 		 }else if(inputValue=="5"){
-			 c_content ="사기 글이에요";
+			 c_content ="개인 정보 노출, 유포, 거래";
 		 }else if(inputValue=="6"){
-			 c_content ="도배 스팸";
+			 c_content ="도배, 스팸";
 		 }else if(inputValue=="7"){
 			 c_content =$("#reson").val();
 		 }

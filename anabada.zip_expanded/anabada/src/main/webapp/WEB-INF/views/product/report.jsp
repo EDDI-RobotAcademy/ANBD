@@ -130,7 +130,7 @@ function reportSubmit() {
 		 if(inputValue=="1"){
 			 c_content ="판매 금지 물품 판매";
 		 }else if(inputValue=="2"){
-			 c_content ="홍보,영리목적";
+			 c_content ="홍보, 영리목적";
 		 }else if(inputValue=="3"){
 			 c_content ="불법 정보";
 		 }else if(inputValue=="4"){
@@ -138,7 +138,7 @@ function reportSubmit() {
 		 }else if(inputValue=="5"){
 			 c_content ="사기 글이에요";
 		 }else if(inputValue=="6"){
-			 c_content ="도배 스팸";
+			 c_content ="도배, 스팸";
 		 }else if(inputValue=="7"){
 			 c_content =$("#reson").val();
 		 }
