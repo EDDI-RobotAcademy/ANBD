@@ -15,11 +15,6 @@ public class KakaoDAO {
 	@Autowired
 	private SqlSessionTemplate sql;
 	
-	//카카오 아이디 정보 db 추가
-	public void kakaoinsert(HashMap<String, Object> userInfo) throws Exception {
-		sql.insert("kakaoMapper.kakaoinsert", userInfo);
-	}
-	
 	//카카오 로그인값 조회
 	public MemberVO findkakao(HashMap<String, Object> userInfo) throws Exception {
 		System.out.println("nick : " + userInfo.get("nick"));
@@ -27,5 +22,11 @@ public class KakaoDAO {
 		System.out.println("id : " + userInfo.get("id"));
 		return sql.selectOne("kakaoMapper.findkakao", userInfo);
 	}
+
+	//카카오 아이디 정보 db 추가
+	public void kakaoinsert(HashMap<String, Object> userInfo) throws Exception {
+		sql.insert("kakaoMapper.kakaoinsert", userInfo);
+	}
+	
 
 }
