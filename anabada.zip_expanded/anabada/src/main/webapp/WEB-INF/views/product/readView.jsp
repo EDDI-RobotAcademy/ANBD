@@ -261,7 +261,13 @@ margin-top: 0px;
    $(document).ready(function() {
 	   
 	  
+
+	   if("${heart}"==1){
+		   $("input:checkbox[id='heart']").prop("checked",true);
+		
+	   }
 	   
+
 	   
 	   //찜버튼 이벤트 
 	      $("#heart").on("click", function() {
