@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="jHeartMapper">
+<insert id="addHeart"  parameterType="hashMap" >
+INSERT INTO HEART_JOB (H_BNO,ID,J_BNO) VALUES (HEART_JOB_SEQ.NEXTVAL, #{id},#{j_bno})
+</insert>
+
+<select id="heartCheck" parameterType="hashMap"  resultType="int" >
+SELECT COUNT(H_BNO) FROM HEART_JOB WHERE J_BNO =#{j_bno} AND ID =#{id}
+</select>
+
+<delete id="subHeart" parameterType="hashMap" >
+DELETE FROM HEART_JOB WHERE J_BNO = #{j_bno} AND ID = #{id}
+</delete>
+
+</mapper>
