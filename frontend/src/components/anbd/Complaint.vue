@@ -43,39 +43,51 @@
             </template>
 
             <v-card>
-                 <v-card-title class="headline">
+              <v-card-title class="headline">
                  총 신고 횟수  {{complaintTotal.totalNum}} 회
               </v-card-title>
-                        <v-card-text>
-                
+              
+              <v-card-text>
              
-              <table   class="resonTable"  >
-              <tr>  
-              <td>  <div class="box"><span v-if="complaintTotal.boardType === 'pboard'">   판매 금지 물품 판매  </span> <span  v-else>욕설, 비방, 차별, 혐오 </span> {{complaintTotal.type1}} </div>     </td>    <td> <div class="box"> 홍보, 영리목적 {{complaintTotal.type2}} </div> </td>  
-               <td><div class="box"> 불법 정보 {{complaintTotal.type3}} </div></td> 
-               </tr>
+                <table   class="resonTable"  >
+                  <tr>  
+                    <td>  
+                      <div class="box"><span v-if="complaintTotal.boardType === 'pboard'">   판매 금지 물품 판매  </span> <span  v-else>욕설, 비방, 차별, 혐오 </span> {{complaintTotal.type1}} </div>     
+                    </td>    
+                    <td> 
+                      <div class="box"> 홍보, 영리목적 {{complaintTotal.type2}} </div> 
+                    </td>  
+                    <td>
+                      <div class="box"> 불법 정보 {{complaintTotal.type3}} </div>
+                    </td> 
+                  </tr>
+                  <tr>  
+                    <td>
+                      <div class="box">음란, 청소년 유해 {{complaintTotal.type4}} </div>
+                    </td>   
+                    <td> 
+                      <div class="box"><span v-if="complaintTotal.boardType === 'pboard'">  사기 글이에요 </span>   <span  v-else>  개인 정보 노출, 유포, 거래 </span>  {{complaintTotal.type5}} </div>    
+                    </td>    
+                    <td>
+                      <div class="box">도배, 스팸 {{complaintTotal.type6}}</div> 
+                    </td> 
+                  </tr>
 
-               <tr>  
-                <td><div class="box">음란, 청소년 유해 {{complaintTotal.type4}} </div></td>   
-              
-              <td> <div class="box"><span v-if="complaintTotal.boardType === 'pboard'">  사기 글이에요 </span>   <span  v-else>  개인 정보 노출, 유포, 거래 </span>  {{complaintTotal.type5}} </div>    </td>    <td><div class="box">도배, 스팸 {{complaintTotal.type6}}</div> </td> 
-               </tr>
-
-              </table>
+                </table>
               </v-card-text>
-             <v-card-text>
+             
+              <v-card-text>
  
-<div id="re" >기타 {{complaintTotal.type7}}건 </div>
-   <v-data-table
-            :headers="resonTitle"
-            :items="resonList"
-            :items-per-page="10"
+                <div id="re" >기타 {{complaintTotal.type7}}건 </div>
+                <v-data-table
+                  :headers="resonTitle"
+                  :items="resonList"
+                  :items-per-page="10"
            
-            class="elevation-1"/>
-
-              
-</v-card-text>
-     <v-card-actions>
+                  class="elevation-1"/>    
+              </v-card-text>
+     
+              <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="teal darken-1" text @click="btnClick">
                   닫기
@@ -83,21 +95,17 @@
                
               </v-card-actions>
 
-
             </v-card>
           </v-dialog>
         </v-layout>
- </template>
+      </template>
       
       <template v-slot:[`item.show`]="{ item }">
-          <a @click="popup(item.c_bno, item.boardType)">확인</a>
-          {{item.c_bno}} && {{item.boardType}}
+          <a @click="popup(item.c_bno, item.boardType)">게시물 보기</a>
       </template>
-  </v-data-table>
- 
+    </v-data-table>
  
   </v-container>
-
 
 </template>
 
@@ -126,49 +134,31 @@
   
       }
     },
-  mounted() {
-          this.requestComplaintFromSpring(this.boardType)
-        },
+    mounted() {
+        this.requestComplaintFromSpring(this.boardType)
+    },
 
     data () {
         return {
 
-          dialog : false,
-        
-        
+            dialog : false,
             selectedItems: [],
             headerTitle: [
-                { text: '신고 내용', value: 'c_content', width: "200px" },
-                { text: '게시물 번호', value: 'c_bno', width: "100px" },
-                { text: '게시물 유형', value: 'boardType', width: "100px" },
-                {text : '상세 사유' , value : 'details' , width : "100px"},
-                { text: '게시물 보기', value: 'show', width: "100px" },
+                { text: '신고 내용', value: 'c_content', width: "200px"},
+                { text: '게시물 번호', value: 'c_bno', width: "100px"},
+                { text: '게시물 유형', value: 'boardType', width: "100px"},
+                {text : '상세 사유' , value : 'details' , width : "100px",  align: 'center'},
+                { text: '신고 게시물', value: 'show', width: "100px"},
             ],
-
             resonTitle :[
-              
               { text  : '신고 내역' , value : 'c_content' , width : "150px"}
-
-
-
             ]
-         
-
-
-       
-
-            
-
         }
     },
     methods:{
       onDelete (){
         this.$emit('Delete', this.selectedItems) //상위로 연결됨
       },
-
-    
-   
-      
       popup(c_bno, boardType){
 
         // 이 부분에 각자 이동할 url 작성
@@ -179,31 +169,26 @@
         }else if(boardType === 'pboard'){
           window.open("http://localhost:8080/pcomplaint/complaintBoard?pno=" + c_bno + "&href=pboard",'_blank', 'width=1000px,height=1000px')
         }else if(boardType === 'a_board'){
-          window.open("http://localhost:8080//a_board/complaintReadView?a_bno=" + c_bno + "&href=a_board",'_blank', 'width=1000px,height=1000px')
+          window.open("http://localhost:8080/a_board/complaintReadView?a_bno=" + c_bno + "&href=a_board",'_blank', 'width=1000px,height=1000px')
         }else if(boardType === 'review'){
           window.open("http://localhost:8080/pcomplaint/complaintReview?r_no=" + c_bno + "&href=review",'_blank', 'width=500px,height=300px')
         }
 
       },
-       async details(c_bno,boardType){
-       
-       
+      async details(c_bno,boardType){ 
         this.dialog = true
-      
         await this.$emit('onDetails' , {c_bno , boardType})
       },
     
       async btnClick(){
-  
-       this.dialog = false
-       
-        
+
+        this.dialog = false
       }
     }
 }
-  </script>
+</script>
   
-  <style scoped>
+<style scoped>
   .resonTable{
 padding: 20px;
 margin: auto;
@@ -228,8 +213,5 @@ margin: auto;
 }
 
 
-
-
-
-  </style>
+</style>
 

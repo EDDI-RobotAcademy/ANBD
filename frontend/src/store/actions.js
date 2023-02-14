@@ -38,10 +38,10 @@ export default {
         alert("길이" + Object.keys(payload).length)
         alert(JSON.stringify(payload))
         for(var i=0; i<Object.keys(payload).length;i++){
-            alert("순서" + i)
-            alert(JSON.stringify(payload[i]))
-            alert(JSON.stringify(payload[i].c_bno))
-            alert(JSON.stringify(payload[i].boardType).replaceAll("\"", ""))
+            //alert("순서" + i)
+            //alert(JSON.stringify(payload[i]))
+            //alert(JSON.stringify(payload[i].c_bno))
+            //alert(JSON.stringify(payload[i].boardType).replaceAll("\"", ""))
             const c_bno = JSON.stringify(payload[i].c_bno)
             const boardType = JSON.stringify(payload[i].boardType).replaceAll("\"", "")
 
