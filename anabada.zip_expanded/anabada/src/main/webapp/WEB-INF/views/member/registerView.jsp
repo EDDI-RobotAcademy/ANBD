@@ -205,8 +205,23 @@
 					emailOk = false;
 						
 				} else {
-					document.getElementById("mailChk").style.display="none";
-					emailOk = true;
+					$.ajax({
+			 			url : "/member/emailChk",
+			 			type : "post",
+			 			dataType : "json",
+			 			data : {"email" : $("#email").val()},
+			 			success : function(data){
+			 				if (data == 1) {
+			 					$("#mailChk").attr("style", "color:#FF0000; padding-left: 5px;");
+			 		            $("#mailChk").text("사용할 수 없는 이메일입니다.");
+								emailOk = false;
+	
+			 				} else if (data == 0) {
+			 					document.getElementById("mailChk").style.display="none";
+								emailOk = true;
+			 				}
+			 			}
+					})
 				}
 			})
 		});

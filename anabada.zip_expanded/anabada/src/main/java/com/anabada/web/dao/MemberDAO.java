@@ -1,6 +1,9 @@
 package com.anabada.web.dao;
 
+import java.util.List;
+
 import com.anabada.web.vo.MemberVO;
+import com.anabada.web.vo.SearchCriteria;
 
 public interface MemberDAO {
 
@@ -36,4 +39,16 @@ public interface MemberDAO {
 	
 	// 닉네임 업데이트 중복 체크
 	public int nickUpdateChk(MemberVO vo) throws Exception;
+	
+	// 이메일 중복 체크
+	public int emailChk(MemberVO vo) throws Exception;
+	
+	// 이메일 업데이트 중복 체크
+	public int emailUpdateChk(MemberVO vo) throws Exception;
+
+	// 회원 목록 보기
+	public List<MemberVO> memberList(SearchCriteria scri) throws Exception;
+	
+	// 총 회원수
+	public int listCount(SearchCriteria scri) throws Exception;
 }

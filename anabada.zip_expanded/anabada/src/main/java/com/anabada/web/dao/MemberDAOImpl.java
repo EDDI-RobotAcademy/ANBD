@@ -1,11 +1,14 @@
 package com.anabada.web.dao;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.anabada.web.vo.MemberVO;
+import com.anabada.web.vo.SearchCriteria;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO {
@@ -70,6 +73,28 @@ public class MemberDAOImpl implements MemberDAO {
 	public int nickUpdateChk(MemberVO vo) throws Exception {
 		int result = sql.selectOne("memberMapper.nickUpdateChk", vo);
 		return result;
+	}
+
+	@Override
+	public int emailChk(MemberVO vo) throws Exception {
+		int result = sql.selectOne("memberMapper.emailChk", vo);
+		return result;
+	}
+
+	@Override
+	public int emailUpdateChk(MemberVO vo) throws Exception {
+		int result = sql.selectOne("memberMapper.emailUpdateChk", vo);
+		return result;
+	}
+
+	@Override
+	public List<MemberVO> memberList(SearchCriteria scri) throws Exception {
+		return sql.selectList("memberMapper.memberList", scri);
+	}
+
+	@Override
+	public int listCount(SearchCriteria scri) throws Exception {
+		return sql.selectOne("memberMapper.listCount", scri);
 	}
 
 }

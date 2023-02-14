@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,8 +19,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.anabada.web.service.KakaoService;
 import com.anabada.web.service.MemberService;
-import com.anabada.web.vo.KakaoVO;
 import com.anabada.web.vo.MemberVO;
+import com.anabada.web.vo.PageMaker;
+import com.anabada.web.vo.SearchCriteria;
 
 @Controller
 @RequestMapping("*")
@@ -56,7 +58,7 @@ public class MemberController {
 	
 	// 회원가입 post
 	@RequestMapping(value = "/member/register", method = RequestMethod.POST)
-	public String postRegister(MemberVO vo, HttpServletRequest req) throws Exception {
+	public String postRegister(MemberVO vo, HttpServletRequest req, HttpServletResponse response) throws Exception {
 		logger.info("회원가입 post ~ ");
 		service.register(vo);
 		
@@ -67,7 +69,7 @@ public class MemberController {
 		session.setAttribute("id", login);
 		logger.info("회원 가입 후 자동 로그인: " +  login);
 		
-		return "/member/registerEnd";
+		return "redirect:/member/registerEnd";
 	}
 	
 	// 회원가입 완료
@@ -102,6 +104,24 @@ public class MemberController {
 	public int nickUpdateChk(MemberVO vo) throws Exception {
 		logger.info("닉네임 업데이트 중복 체크 post ~ ");
 		int result = service.nickUpdateChk(vo);
+		return result;
+	}
+	
+	// 이메일 중복 체크
+	@ResponseBody
+	@RequestMapping(value="/member/emailChk")
+	public int emailChk(MemberVO vo) throws Exception {
+		logger.info("이메일 중복 체크 post ~ ");
+		int result = service.emailChk(vo);
+		return result;
+	}
+
+	// 이메일 업데이트 중복 체크
+	@ResponseBody
+	@RequestMapping(value="/member/emailUpdateChk")
+	public int emailUpdateChk(MemberVO vo) throws Exception {
+		logger.info("이메일 업데이트 중복 체크 post ~ ");
+		int result = service.emailUpdateChk(vo);
 		return result;
 	}
 	
@@ -217,6 +237,23 @@ public class MemberController {
 	public String myPage() throws Exception {
 		logger.info("마이페이지 ~ ");
 		return "member/myPage";
+	}
+	
+	// 회원 목록
+	@RequestMapping(value = "/member/memberListView", method = RequestMethod.GET)
+	public String list(Model model, @ModelAttribute("scri") SearchCriteria scri) throws Exception {
+		logger.info("회원 목록 조회 ~ ");
+				
+		model.addAttribute("list", service.memberList(scri));
+		model.addAttribute("listCount", service.listCount(scri));
+			
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(scri);
+		pageMaker.setTotalCount(service.listCount(scri));
+				
+		model.addAttribute("pageMaker", pageMaker);
+				
+		return "member/memberListView";
 	}
 	
 	// 회원 정보 수정 get

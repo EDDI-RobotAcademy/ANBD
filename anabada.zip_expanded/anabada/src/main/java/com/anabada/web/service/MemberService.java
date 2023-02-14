@@ -1,6 +1,9 @@
 package com.anabada.web.service;
 
+import java.util.List;
+
 import com.anabada.web.vo.MemberVO;
+import com.anabada.web.vo.SearchCriteria;
 
 public interface MemberService {
 
@@ -26,4 +29,11 @@ public interface MemberService {
 	
 	public int nickUpdateChk(MemberVO vo) throws Exception;
 	
+	public int emailChk(MemberVO vo) throws Exception;
+	
+	public int emailUpdateChk(MemberVO vo) throws Exception;
+
+	public List<MemberVO> memberList(SearchCriteria scri) throws Exception;
+	
+	public int listCount(SearchCriteria scri) throws Exception;
 }

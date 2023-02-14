@@ -1,11 +1,14 @@
 package com.anabada.web.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
 import com.anabada.web.dao.MemberDAO;
 import com.anabada.web.vo.MemberVO;
+import com.anabada.web.vo.SearchCriteria;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -70,6 +73,28 @@ public class MemberServiceImpl implements MemberService {
 	public int nickUpdateChk(MemberVO vo) throws Exception {
 		int result = dao.nickUpdateChk(vo);
 		return result;
+	}
+
+	@Override
+	public int emailChk(MemberVO vo) throws Exception {
+		int result = dao.emailChk(vo);
+		return result;
+	}
+
+	@Override
+	public int emailUpdateChk(MemberVO vo) throws Exception {
+		int result = dao.emailUpdateChk(vo);
+		return result;
+	}
+
+	@Override
+	public List<MemberVO> memberList(SearchCriteria scri) throws Exception {
+		return dao.memberList(scri);
+	}
+	
+	@Override
+	public int listCount(SearchCriteria scri) throws Exception {
+		return dao.listCount(scri);
 	}
 
 }

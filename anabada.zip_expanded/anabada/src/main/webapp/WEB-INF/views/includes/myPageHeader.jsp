@@ -23,7 +23,7 @@
 		<li class="side-li">나의 걸음수</li>
 		<c:if test="${member.id == 'admin'}">
 			<li class="side-line"></li>
-			<li class="side-li">회원 관리</li>
+			<li class="side-li"><a href="/member/memberListView">회원 관리</a></li>
 			<li class="side-li"><a href="/qna_board/list">문의 내역</a></li>
 		</c:if>	
 	</ul>
