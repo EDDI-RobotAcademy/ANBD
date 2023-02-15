@@ -207,8 +207,14 @@
 						</div>
 						
 						<div>
+							<c:if test="${id.contains('ka_') == false }">
 							<label class="membermodify" for="name">이름</label>
 							<input class="modi-box-readonly" type="text" id="name" name="name" value="${member.name}" readonly />
+							</c:if>
+							<c:if test="${id.contains('ka_')}">
+							<label class="membermodify" for="name">이름</label>
+							<input class="modi-box" type="text" id="name" name="name" value="${member.name}"/>
+							</c:if>
 						</div>
 						
 						<div>
