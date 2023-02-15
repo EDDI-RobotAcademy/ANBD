@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.anabada.web.service.ComplaintService;
+import com.anabada.web.service.JobService;
 import com.anabada.web.service.NoteService;
 import com.anabada.web.service.ProductComplaintService;
 import com.anabada.web.service.ProductService;
@@ -43,6 +44,8 @@ public class ProductComplaintController {
 	ComplaintService complaintService;
 	@Inject
 	ReviewService reviewService;
+	@Inject
+	JobService jobService;
 	
 	
 	// 중고 상품 게시판 신고 내역 불러오기 
@@ -140,6 +143,18 @@ public class ProductComplaintController {
 					//서버상에서 사진정보 삭제
 					
 					  for(String filePath : filePath_list) { deleteRealImg(filePath); }
+					  
+					//알바 게시물 관련 이미지 서버에서 먼저 삭제(지애)
+			 		List img_list = jobService.img_list(vo.getId());
+			 			
+			 		if(img_list != null || !img_list.isEmpty()) { // 사진이 있다면 삭제
+			 				
+			 			for(int i = 0; i < img_list.size(); i++) {
+			 				File file = null;
+			 				file = new File("C:\\upload\\"+ img_list.get(i));
+			 				file.delete();
+			 			}
+			 		} 
 					 
 					
 					
@@ -212,6 +227,18 @@ public class ProductComplaintController {
 			//서버상에서 사진정보 삭제
 			
 			  for(String filePath : filePath_list) { deleteRealImg(filePath); }
+			  
+			//알바 게시물 관련 이미지 서버에서 먼저 삭제(지애)
+	 		List img_list = jobService.img_list(id);
+	 			
+	 		if(img_list != null || !img_list.isEmpty()) { // 사진이 있다면 삭제
+	 				
+	 			for(int i = 0; i < img_list.size(); i++) {
+	 				File file = null;
+	 				file = new File("C:\\upload\\"+ img_list.get(i));
+	 				file.delete();
+	 			}
+	 		}
 			 
 			
 			
