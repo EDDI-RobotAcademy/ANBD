@@ -21,13 +21,7 @@ public class EventBoardDAOImpl implements EventBoardDAO {
 	//글쓰기 저장
 	@Override
 	public int write(EventBoardVO eventBoardVO) throws Exception {
-		/*
-		 * int pnum;
-		 * 
-		 * if(sql.selectOne("EventMapper.maxeno") == null) { pnum=1; }else { pnum =
-		 * sql.selectOne("EventMapper.maxeno"); } eventBoardVO.setEno(pnum);
-		 * sql.insert("EventMapper.insert",eventBoardVO);
-		 */
+		
 		sql.insert("EventMapper.insert",eventBoardVO);
 		int pnum = sql.selectOne("EventMapper.searchEno",eventBoardVO);
 	
@@ -135,9 +129,9 @@ public class EventBoardDAOImpl implements EventBoardDAO {
 
 	//winner id 가져오기 
 	@Override
-	public String getWin(int i) throws Exception {
+	public String getWin(Map<String, Integer> map) throws Exception {
 		
-		return sql.selectOne("EventMemMapper.getWin",i);
+		return sql.selectOne("EventMemMapper.getWin",map);
 	}
 
 

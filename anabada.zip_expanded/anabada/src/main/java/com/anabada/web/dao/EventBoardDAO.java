@@ -55,7 +55,7 @@ public interface EventBoardDAO {
 	public List<String> getAll(int eno) throws Exception ;
 
 	//winner id 가져오기 
-	public String getWin(int i)throws Exception;
+	public String getWin(Map<String, Integer> map)throws Exception;
 
 	//winnerlist를 db에 저장 (eno , e_winner)
 	public void winner(EventBoardVO vo) throws Exception;
