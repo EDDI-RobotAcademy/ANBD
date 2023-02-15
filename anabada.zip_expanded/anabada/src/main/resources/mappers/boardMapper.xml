@@ -71,7 +71,7 @@ AND A_BNO > 0
 </update>
 
 <select id="read" parameterType="int" resultType="boardVO">
-	SELECT A_BNO, A_TITLE, A_CONTENT, ID, NICK, A_LIKE_CNT
+	SELECT A_BNO, A_TITLE, A_CONTENT, ID, NICK, A_LIKE_CNT, A_TYPE
 	FROM A_BOARD
 	WHERE A_BNO = #{a_bno}
 </select>
