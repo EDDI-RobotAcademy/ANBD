@@ -123,12 +123,7 @@ public class EventServiceImpl implements EventService {
 		return dao.getAll(eno);
 	}
 
-	//winner id 가져오기 
-	@Override
-	public String getWin(int i) throws Exception {
-		
-		return dao.getWin(i);
-	}
+
 
 	//winnerlist를 db에 저장 (eno , e_winner)
 	@Override
@@ -154,6 +149,12 @@ public class EventServiceImpl implements EventService {
 	public void update(EventBoardVO eventboardvo) throws Exception {
 		dao.update(eventboardvo);
 	}
+
+	@Override
+	public String getWin(Map<String, Integer> map) throws Exception {
+		return dao.getWin(map);
+	}
+	
 
 
 

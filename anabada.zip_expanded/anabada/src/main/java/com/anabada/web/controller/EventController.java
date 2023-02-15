@@ -212,7 +212,7 @@ public class EventController {
 	      logger.info("winner");
 	      Map<String, String> winner = new HashMap<>();
 	      //당첨자에게 쪽지 보내기 
-          Map<String, String> winNote = new HashMap<>();
+       Map<String, String> winNote = new HashMap<>();
 	      int num = Integer.parseInt(param.get("num"));
 	      int eno = Integer.parseInt(param.get("eno"));
 	      //int num = param.get("num"); // 당첨자 수
@@ -236,7 +236,7 @@ public class EventController {
 	            
 	            // 당첨자에게 쪽지 보내기 
 	            winNote.put("n_receiver", win);
-	            winNote.put("n_content", "이벤트에 당첨되셨습니다. <br> 자세한 사항은 공지사항을 참조해 주세요");
+	            winNote.put("n_content", "축하합니다! 응모하신 이벤트에 당첨되셨습니다.\n자세한 사항은 이벤트 게시글을 참조해 주세요.");
 	            winNote.put("n_rno", Integer.toString(eno));
 	            noteService.send_event(winNote);
 	            
@@ -260,7 +260,11 @@ public class EventController {
 	         // 각번호에 해당하는 사람들의 id를 뽑아오기 
 	         for(int i : random) {
 	            System.out.println("숫자 : "+i);
-	            String winId = service.getWin(i);
+	        	Map<String, Integer> map = new HashMap<>();
+	            map.put("eno", eno);
+	            map.put("win", i);
+	            String winId = service.getWin(map);
+	            System.out.println("아이디 : "+winId);
 	           // sb.append(service.getWin(i));
 	            sb.append(winId);
 	            sb.append(", ");
@@ -290,6 +294,7 @@ public class EventController {
 	      return winner;
 	   }
 	   
+	
 	
 	
 	//이벤트 게시글 수정하기 클릭했을때 

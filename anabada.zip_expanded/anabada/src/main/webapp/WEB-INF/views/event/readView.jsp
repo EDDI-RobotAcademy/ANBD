@@ -356,6 +356,9 @@ border-radius: 20px;
 				.ready(
 						function() {
 
+							
+							
+							
 							var formObj = $("form[name='readForm']");
 							$("#slick").slick({
 								infinite : true, /* 맨끝이미지에서 끝나지 않고 다시 맨앞으로 이동 */
@@ -587,6 +590,7 @@ border-radius: 20px;
 																const btn = document
 																		.getElementById('completion');
 																btn.disabled = true;
+																
 
 															},
 															error : function(
@@ -597,6 +601,7 @@ border-radius: 20px;
 																		+ error);
 															}
 														});
+												location.reload(true);
 
 											})
 

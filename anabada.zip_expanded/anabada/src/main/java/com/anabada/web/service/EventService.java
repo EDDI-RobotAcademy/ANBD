@@ -56,8 +56,7 @@ public interface EventService {
 	//응모한 모든 인원 반환 
 	public List<String> getAll(int eno) throws Exception ;
 
-	//winner id 가져오기 
-	public String getWin(int i) throws Exception ;
+
 
 	//winnerlist를 db에 저장 (eno , e_winner)
 	public void winner(EventBoardVO vo)throws Exception;
@@ -68,6 +67,9 @@ public interface EventService {
 
 	//수정한 게시글 저장하기
 	public void update(EventBoardVO eventboardvo) throws Exception;
+
+	//Map에 든것 : eno , 숫자 win   당첨자 id가져오기 
+	public String getWin(Map<String, Integer> map) throws Exception;
 
 
 	

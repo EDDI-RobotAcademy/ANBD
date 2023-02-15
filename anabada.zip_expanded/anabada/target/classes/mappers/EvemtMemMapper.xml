@@ -25,8 +25,8 @@ DELETE FROM EVENTMEM WHERE ENO = #{eno} AND ID = #{id}
 SELECT ID FROM EVENTMEM WHERE ENO = #{eno}
 </select>
 <!-- winner id 가져오기  -->
-<select id="getWin" parameterType="int" resultType="String" >
-SELECT ID FROM (SELECT ID, ROW_NUMBER() OVER(ORDER BY ID ) AS RNUM FROM EVENTMEM) WHERE RNUM = #{i}
+<select id="getWin" parameterType="hashMap" resultType="String" >
+SELECT ID FROM (SELECT ID,ENO, ROW_NUMBER() OVER(ORDER BY ID ) AS RNUM FROM EVENTMEM WHERE ENO=#{eno}) WHERE RNUM = #{win}
 </select>
 
 
