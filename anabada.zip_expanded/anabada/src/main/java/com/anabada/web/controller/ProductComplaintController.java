@@ -1,6 +1,7 @@
 package com.anabada.web.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -51,7 +52,6 @@ public class ProductComplaintController {
 		
 		// 중고 게시판에 신고된 리스트 불러오기 
 		List<ComplaintVO> list = service.productList("pboard"); // PBoard에 해당하는 신고 내역 불러오기 
-		
 
 		
 		
@@ -132,6 +132,18 @@ public class ProductComplaintController {
 					
 					
 				}else { // 5회가 되면 회원 탈퇴 시키기 
+					
+					//서버상에서 pfile에 해당하는 사진정보들 삭제 
+					List<Integer> pno_list = complaintService.pno_list(id); // 사용자의 게시글 pno불러오기
+					List<String> filePath_list = complaintService.filePath_list(pno_list); // filePath_list불러오기
+					
+					//서버상에서 사진정보 삭제
+					
+					  for(String filePath : filePath_list) { deleteRealImg(filePath); }
+					 
+					
+					
+					
 					String email = complaintService.expel_email(id); // 회원 email가져옴
 					complaintService.expel_member(id); // 회원 탈퇴 
 					complaintService.insert_email(email); // 블렉 리스트에 이메일 저장 
@@ -162,6 +174,7 @@ public class ProductComplaintController {
 	 }
 	 
 	 
+	 
 	 //관리자가 리뷰 삭제 
 	 @RequestMapping(value = "/deleteReview" , method = RequestMethod.GET)
 	 @ResponseBody
@@ -190,10 +203,22 @@ public class ProductComplaintController {
 			note.put("n_content", content("후기",vo.getR_content(), count));
 			complaintService.note_caution(note);
 			
-		}else {
+		}else { // 회원 탈퇴 시키기 
+			
+			//서버상에서 pfile에 해당하는 사진정보들 삭제 
+			List<Integer> pno_list = complaintService.pno_list(id); // 사용자의 게시글 pno불러오기
+			List<String> filePath_list = complaintService.filePath_list(pno_list); // filePath_list불러오기
+			
+			//서버상에서 사진정보 삭제
+			
+			  for(String filePath : filePath_list) { deleteRealImg(filePath); }
+			 
+			
+			
+			
 			String email = complaintService.expel_email(id); // 회원 email가져옴
 			complaintService.expel_member(id); // 회원 탈퇴 
-			complaintService.insert_email(email); // 블렉 리스트에 이메일 저장 
+			complaintService.insert_email(email); // 블랙 리스트에 이메일 저장 
 		}
 		
 		
@@ -210,7 +235,10 @@ public class ProductComplaintController {
 		  }
 		 
 	  
-		public void deleteRealImg(String filePath) {
+		
+		  
+		  
+		  public void deleteRealImg(String filePath) {
 			String realPath = filePath.substring(11);
 			File file = null;
 			file = new File(CURR_IMAGE_REPO_PATH + realPath);

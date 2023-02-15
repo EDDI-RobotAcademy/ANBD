@@ -101,8 +101,7 @@
 	</sql>
 
 	<!-- 타입에 해당하는 게시글 총 수 구하기 -->
-	<select id="typecount" parameterType="java.lang.String"
-		resultType="int">
+	<select id="typecount" parameterType="java.lang.String" resultType="int">
 		select count(*) from pboard where p_type= #{p_type}
 	</select>
 
