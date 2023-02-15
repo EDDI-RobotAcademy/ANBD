@@ -1133,7 +1133,14 @@ function complaint() {
 											<c:forEach items="${reviewList }" var="review">
 												<tr>
 													<td>
-														<div class="cunsumer">작성자</div> ${review.r_consumer}
+														<div class="cunsumer">작성자</div> 
+														
+														<c:choose>
+														<c:when test="${ empty review.r_consumer}">(알수없음)</c:when>
+														<c:otherwise>${review.r_consumer}</c:otherwise>
+														</c:choose>
+														
+														
 													</td>
 													<td style="font-size: small;"><c:if test="${review.r_score == 0.3 }"> ⭐⭐⭐⭐ </c:if> <c:if test="${review.r_score == 0.2 }"> ⭐⭐⭐ </c:if> <c:if test="${review.r_score == 0.1 }"> ⭐⭐ </c:if> <c:if test="${review.r_score == -0.2 }"> ⭐ </c:if></td>
 
