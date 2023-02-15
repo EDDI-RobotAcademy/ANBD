@@ -34,4 +34,21 @@ SELECT EMAIL FROM A_MEMBER WHERE ID = #{id}
 DELETE FROM COMPLAINT WHERE C_BNO = #{c_bno} AND BOARD_TYPE = #{board_type}
 </delete>
 
+<!-- id에 해당하는 pno list 반환 -->
+<select id="pno_list"  parameterType="String" resultType="int" >
+SELECT PNO FROM PBOARD WHERE ID = #{id}
+</select>
+
+<!-- pno에 해당하는 pfile의 filepath 반환  -->
+
+<select id="filepath_list" parameterType="java.util.List" resultType="String" >
+SELECT FILEPATH FROM PFILE
+WHERE PNO IN(
+<foreach collection="list"  item="item" index="item" separator=",">
+#{item}
+</foreach>
+)
+</select>
+
+
 </mapper>

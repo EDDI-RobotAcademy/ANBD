@@ -1,5 +1,7 @@
 package com.anabada.web.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -47,6 +49,17 @@ public class ComplaintServiceImpl implements ComplaintService{
 	@Override
 	public void delete_complaint(Map<String, Object> map) throws Exception {
 		dao.delete_complaint(map);
+	}
+
+	//id에 해당하는 PNO 리스트 반환
+	@Override
+	public List<Integer> pno_list(String id) throws Exception {
+		return dao.pno_list(id);
+	}
+	// pno에 해당하는 pfile의 filepath 반환 
+	@Override
+	public List<String> filePath_list(List<Integer> pno_list) throws Exception {
+		return dao.filepath_list(pno_list);
 	}
 
 }

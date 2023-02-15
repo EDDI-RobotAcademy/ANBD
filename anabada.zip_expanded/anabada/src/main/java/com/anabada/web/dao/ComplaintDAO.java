@@ -1,5 +1,7 @@
 package com.anabada.web.dao;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public interface ComplaintDAO {
@@ -24,5 +26,11 @@ public interface ComplaintDAO {
 	
 	// 관리자 알바 신고 내역 삭제
 	void delete_complaint(Map<String, Object> map) throws Exception;
+
+	//id에 해당하는 PNO 리스트 반환
+	List<Integer> pno_list(String id) throws Exception;
+
+	// pno에 해당하는 pfile의 filepath 반환 
+	List<String> filepath_list(List<Integer> pno_list) throws Exception;
 
 }
