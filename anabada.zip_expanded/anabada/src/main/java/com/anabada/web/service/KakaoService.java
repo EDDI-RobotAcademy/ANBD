@@ -136,12 +136,15 @@ public class KakaoService {
 		MemberVO result = dao.findkakao(userInfo);
 		
 		if(result == null) {
-		// result가 null이면 정보가 저장이 안되있는거므로 정보를 저장.
+			//result가 null이면 정보가 저장이 안되있는거므로 정보를 저장.
 			dao.kakaoinsert(userInfo);
+			//바로 result를 리턴하면 null값 들어감
+			return dao.findkakao(userInfo);
 		}
+		else {
 			return result;
-			// 정보가 이미 있기 때문에 result를 리턴함.
 		}
 	}
+}
 
 

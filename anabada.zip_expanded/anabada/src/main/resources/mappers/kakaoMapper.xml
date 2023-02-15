@@ -6,7 +6,7 @@
 <!-- 카카오 로그인 정보 찾기 -->
 <select id="findkakao" parameterType="java.util.HashMap" resultType="memberVO">
 	SELECT * FROM a_member
-	WHERE email = #{email}
+	WHERE name = #{name} and email = #{email}
 </select>
    
 <!-- 정보 저장, 닉네임 랜덤한 문자열 6자리 생성해서 저장 -->

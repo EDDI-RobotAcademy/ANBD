@@ -17,7 +17,7 @@ public class KakaoDAO {
 	
 	//카카오 로그인값 조회
 	public MemberVO findkakao(HashMap<String, Object> userInfo) throws Exception {
-		System.out.println("nick : " + userInfo.get("nick"));
+		System.out.println("name : " + userInfo.get("name")); //어차피 nick 컬럼에 저장 되는 값은 랜덤 문자열이기 때문에 service단에서 name컬럼에 저장된 nickname을 불러와서 확인
 		System.out.println("email : " + userInfo.get("email"));
 		System.out.println("id : " + userInfo.get("id"));
 		return sql.selectOne("kakaoMapper.findkakao", userInfo);
