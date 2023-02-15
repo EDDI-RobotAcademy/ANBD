@@ -33,4 +33,7 @@ public interface ComplaintDAO {
 	// pno에 해당하는 pfile의 filepath 반환 
 	List<String> filepath_list(List<Integer> pno_list) throws Exception;
 
+	 //회원 탈퇴시 해당 회원이 남긴 review에서 consumer 을 null로 변경
+	void review_null(String id) throws Exception;
+
 }

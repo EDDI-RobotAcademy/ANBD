@@ -33,6 +33,9 @@ public interface ComplaintService{
 
 
 	public List<String> filePath_list(List<Integer> pno_list) throws Exception;
+
+	 //회원 탈퇴시 해당 회원이 남긴 review에서 consumer 을 null로 변경
+	public void review_null(String id) throws Exception;
 	
 
 }

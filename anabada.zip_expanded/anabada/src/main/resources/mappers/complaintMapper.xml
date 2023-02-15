@@ -50,5 +50,9 @@ WHERE PNO IN(
 )
 </select>
 
+<!-- 회원 탈퇴시 해당 회원이 남긴 review에서 consumer 을 null로 변경 -->
+<update id="review_null" parameterType="String">
+UPDATE REVIEW SET R_CONSUMER = NULL WHERE R_CONSUMER = #{id}
+</update>
 
 </mapper>

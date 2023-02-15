@@ -62,6 +62,12 @@ public class ComplaintDAOImpl implements ComplaintDAO{
 	public List<String> filepath_list(List<Integer> pno_list) throws Exception {
 		return sqlSession.selectList("complaintMapper.filepath_list",pno_list);
 	}
+
+	 //회원 탈퇴시 해당 회원이 남긴 review에서 consumer 을 null로 변경
+	@Override
+	public void review_null(String id) throws Exception {
+		sqlSession.update("complaintMapper.review_null",id);
+	}
 	
 
 }
