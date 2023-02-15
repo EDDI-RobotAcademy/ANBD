@@ -62,4 +62,10 @@ public class ComplaintServiceImpl implements ComplaintService{
 		return dao.filepath_list(pno_list);
 	}
 
+	 //회원 탈퇴시 해당 회원이 남긴 review에서 consumer 을 null로 변경
+	@Override
+	public void review_null(String id) throws Exception {
+		dao.review_null(id);
+	}
+
 }

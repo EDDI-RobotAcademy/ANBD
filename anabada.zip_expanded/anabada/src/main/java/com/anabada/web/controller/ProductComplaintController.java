@@ -132,29 +132,19 @@ public class ProductComplaintController {
 					
 					
 				}else { // 5회가 되면 회원 탈퇴 시키기 
-					
-					//서버상에서 pfile에 해당하는 사진정보들 삭제 
-					List<Integer> pno_list = complaintService.pno_list(id); // 사용자의 게시글 pno불러오기
-					List<String> filePath_list = complaintService.filePath_list(pno_list); // filePath_list불러오기
-					
+			
 					//서버상에서 사진정보 삭제
-					
-					  for(String filePath : filePath_list) { deleteRealImg(filePath); }
-					 
-					
-					
-					
+					deleteWithdrawal(id);
+					 //회원 탈퇴시 해당 회원이 남긴 review에서 consumer 을 null로 변경
+					complaintService.review_null(id);
 					String email = complaintService.expel_email(id); // 회원 email가져옴
 					complaintService.expel_member(id); // 회원 탈퇴 
 					complaintService.insert_email(email); // 블렉 리스트에 이메일 저장 
-					
 				}
 				
 				
 				boolean result = true;
-				 
 				 return result;
-				
 			}
 	  
 	  
@@ -205,15 +195,11 @@ public class ProductComplaintController {
 			
 		}else { // 회원 탈퇴 시키기 
 			
-			//서버상에서 pfile에 해당하는 사진정보들 삭제 
-			List<Integer> pno_list = complaintService.pno_list(id); // 사용자의 게시글 pno불러오기
-			List<String> filePath_list = complaintService.filePath_list(pno_list); // filePath_list불러오기
+		
 			
 			//서버상에서 사진정보 삭제
-			
-			  for(String filePath : filePath_list) { deleteRealImg(filePath); }
-			 
-			
+			deleteWithdrawal(id);
+			complaintService.review_null(id);
 			
 			
 			String email = complaintService.expel_email(id); // 회원 email가져옴
@@ -245,6 +231,21 @@ public class ProductComplaintController {
 			file.delete();
 
 		}
+		  
+		  //회원 탈퇴시 서버상에서 회원이 pboard에 남긴 사진 정보 삭제 
+		  public void deleteWithdrawal(String id) throws Exception{
+				//서버상에서 pfile에 해당하는 사진정보들 삭제 
+				List<Integer> pno_list = complaintService.pno_list(id); // 사용자의 게시글 pno불러오기
+				List<String> filePath_list = complaintService.filePath_list(pno_list); // filePath_list불러오기
+				
+				//서버상에서 사진정보 삭제
+				
+				  for(String filePath : filePath_list) { deleteRealImg(filePath); }
+		  }
+		  
+		  
+	
+		  
 
 	
 	
