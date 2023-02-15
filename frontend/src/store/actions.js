@@ -35,8 +35,8 @@ export default {
     requestDeleteComplaintToSpring ({ }, payload) {
         console.log('requestDeleteComplaintToSpring()')
 
-        alert("길이" + Object.keys(payload).length)
-        alert(JSON.stringify(payload))
+        //alert("길이" + Object.keys(payload).length)
+        //alert(JSON.stringify(payload))
         for(var i=0; i<Object.keys(payload).length;i++){
             //alert("순서" + i)
             //alert(JSON.stringify(payload[i]))

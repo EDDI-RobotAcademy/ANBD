@@ -15,7 +15,7 @@ WHERE ID = #{id}
 
 <insert id="note_caution" parameterType="java.util.Map">
 INSERT INTO NOTE (N_BNO, N_SENDER, N_RECEIVER, N_CONTENT, N_S_TIME, N_READ_CHK, N_R_DELETE_CHK, N_S_DELETE_CHK, N_RNO, n_type)
-	VALUES(NOTE_SEQ.NEXTVAL, 'admin', #{n_receiver}, #{n_content}, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MM:SS'), 1, 1, 1, 0, 'no')
+	VALUES(NOTE_SEQ.NEXTVAL, 'admin', #{n_receiver}, #{n_content}, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'), 1, 1, 1, 0, 'no')
 </insert>
 
 <delete id="expel_member" parameterType="String">

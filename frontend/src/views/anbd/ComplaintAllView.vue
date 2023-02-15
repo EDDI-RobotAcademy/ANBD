@@ -12,7 +12,7 @@
     &nbsp;
     <router-link :to="{ name: 'complaint-view', 
                         params: { boardType: 'job'.toString() }}">
-      <v-btn color="blue" class="button">알바</v-btn>
+      <v-btn color="blue" class="button">아르바이트</v-btn>
     </router-link>
     &nbsp;
     <router-link :to="{ name: 'complaint-view', 
