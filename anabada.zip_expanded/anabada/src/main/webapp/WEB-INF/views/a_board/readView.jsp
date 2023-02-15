@@ -194,8 +194,27 @@
 </div>
 	<!-- 게시글 -->
 	<section class="container">
-	<div class="mcont">
-	<form name="readForm" method="post" role="form">
+		<!-- 지역 카테고리 -->
+   	  <div class="sidemenu2">
+		<p class="side-t">커뮤니티</p>   	  	
+   	  		<ul class="side-ul">
+				<li class="side-li"><a href="/a_board/list">전국</a></li> 
+				<li class="side-li"><a href="/a_board/list?locaType=1">강원</a></li> 	  		
+				<li class="side-li"><a href="/a_board/list?locaType=2">경기</a></li>   	  		
+				<li class="side-li"><a href="/a_board/list?locaType=3">경남</a></li>   	  		
+				<li class="side-li"><a href="/a_board/list?locaType=4">경북</a></li>   	  		
+				<li class="side-li"><a href="/a_board/list?locaType=5">부산</a></li>   	  		
+				<li class="side-li"><a href="/a_board/list?locaType=6">서울</a></li>   	  		
+				<li class="side-li"><a href="/a_board/list?locaType=7">인천</a></li>   	  		
+				<li class="side-li"><a href="/a_board/list?locaType=8">전남</a></li>   	  		
+				<li class="side-li"><a href="/a_board/list?locaType=9">전북</a></li>   	  		
+				<li class="side-li"><a href="/a_board/list?locaType=10">제주</a></li>   	  		
+				<li class="side-li"><a href="/a_board/list?locaType=11">충남</a></li>   	  		
+				<li class="side-li"><a href="/a_board/list?locaType=12">충북</a></li>  
+   	  		</ul>
+   	  </div>
+      <!-- 지역 카테고리 끝 -->
+     <form name="readForm" method="post" role="form">
 		<input type="hidden" id="a_bno" name="a_bno" value="${read.a_bno }"/>
 		<input type="hidden" id="page" name="page" value="${scri.page }"/>
 		<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum }"/>
@@ -204,9 +223,18 @@
 		<input type="hidden" id="cateType" name="cateType" value="${scri.cateType }"/>
 	</form>
 	
+	<div class="aboardcon">
 		<div>
-			<label for="nick" class="form-label">작성자</label>
-			<input type="text" id="nick" name="nick" class="form-control" value="${read.nick}" readonly/>
+			<label for="a_type" class="form-label">말머리</label>
+			<c:if test="${read.a_type == 1 }">
+				<input type="text" class="form-control" id="a_type" name="a_type" value="<c:out value="동네생활"/>" readonly/>
+			</c:if>
+			<c:if test="${read.a_type == 2 }">
+				<input type="text" class="form-control" id="a_type" name="a_type" value="<c:out value="동네맛집"/>" readonly/>
+			</c:if>
+			<c:if test="${read.a_type == 3 }">
+				<input type="text" class="form-control" id="a_type" name="a_type" value="<c:out value="같이해요"/>" readonly/>
+			</c:if>
 		</div>
 		
 		<br>
@@ -219,13 +247,19 @@
 		<br>
 		
 		<div>
+			<label for="nick" class="form-label">작성자</label>
+			<input type="text" id="nick" name="nick" class="form-control" value="${read.nick}" readonly/>
+		</div>
+		
+		<br>
+		
+		<div>
 			<label for="a_content" class="form-label">내용</label>
 			<textarea id="a_content" name="a_content" readonly><c:out value="${read.a_content }"/></textarea>
 			<script type="text/javascript">
-				CKEDITOR.replace('a_content', {filebrowserUploadUrl: '/a_board/fileUpload', width:930, height:300});
+				CKEDITOR.replace('a_content', {filebrowserUploadUrl: '/a_board/fileUpload', width:790, height:300});
 			</script>
 		</div>
-	
 	<!-- 게시글 끝 -->
 	<br>
 	
@@ -254,7 +288,6 @@
 			<button type="button" class="list_btn">목록</button> &nbsp;
 			<button type="button" class="report_btn">신고</button>
 		</div>
-	
 	<hr>
 	
 	<!-- 댓글 -->
