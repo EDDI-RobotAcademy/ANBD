@@ -38,7 +38,29 @@
 }
 </style>
 <script src="//cdn.ckeditor.com/4.19.0/standard/ckeditor.js"></script>
+<script type="text/javascript">
+
+			//글 작성 유효성 검사
+			function formChk() {
+				
+			if($("input:radio[name='a_type']:checked").length < 1) {
+				alert("말머리를 선택해주세요.");
+				return false;
+			}
+			if($("#title").val() == "") {
+				alert("제목을 입력해주세요.");
+				$("#title").focus();
+				return false;
+			}
+			if(CKEDITOR.instances['content'].getData() == "") {
+				alert("내용을 입력해주세요.");
+				CKEDITOR.instances['content'].focus();
+				return false;
+			}
+		}
+</script>
 </head>
+
 <body>
 
 <div>
@@ -48,7 +70,7 @@
 
 <!-- 게시글 작성 -->
 <section class="container">
-<form name="writeForm" method="post" action="/a_board/write" class="mcont">
+<form name="writeForm" method="post" action="/a_board/write" class="mcont" onsubmit="return formChk()">
 <table>
 		<tr>
 			<td>
