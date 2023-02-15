@@ -129,7 +129,6 @@
 					telOk = true;
 			}
 
-			
 			// 이메일 유효성 검사
 			if ($("#email").val() == "") {
 					$("#mailChk").attr("style", "color:#FF0000; padding-left: 5px;");
@@ -144,10 +143,30 @@
 					emailOk = false;
 						
 				} else {
-					document.getElementById("mailChk").style.display="none";
-					emailOk = true;
-			}
+					$.ajax({
+			 			url : "/member/emailUpdateChk",
+			 			type : "post",
+			 			dataType : "json",
+			 			data : {"email" : $("#email").val(),
+			 					"id" : $("#id").val()
+			 				},
+			 			success : function(data){
+			 				if (data == 1) {
+			 					$("#mailChk").attr("style", "color:#FF0000; padding-left: 5px;");
+			 		            $("#mailChk").text("사용 중인 이메일입니다.");
+			 		            $("#email").focus();
+								emailOk = false;
+	
+			 				} else if (data == 0) {
+	 		 					$("#mailChk").attr("style", "color:#0C6BBC; padding-left: 5px;");
+	 		 		            $("#mailChk").text("사용 가능한 이메일입니다.");
+	 		 		          	emailOk = true;
+			 				}
+			 			}
+					})
+				}
 
+			
 			if (nickOk && telOk && emailOk == true) {
 				formObj.attr("action", "/member/memberUpdate");
 				formObj.submit();
@@ -181,7 +200,7 @@
 				</div>
 			
 				<form name="updateForm" method="post" action="/member/memberUpdate" >
-					<div style="margin-top: 20px;">	
+					<div style="margin-top: 20px; text-align: center;">	
 						<div>
 							<label class="membermodify" for="id">아이디</label>
 							<input class="modi-box-readonly" type="text" id="id" name="id" value="${member.id}" readonly />
@@ -209,8 +228,8 @@
 						</div>
 					</div>
 					
-					<div>
-						<a href="/member/memberDeleteView">회원 탈퇴</a>
+					<div style="text-align: right; font-size: 13px; color: #555555;">
+						<a href="/member/memberDeleteView">회원탈퇴</a>
 					</div>
 					
 					<div>

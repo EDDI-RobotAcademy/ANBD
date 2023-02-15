@@ -55,9 +55,6 @@
 	});
 	/* 버튼 스크립트 끝 */
 	
-	$(function() {
-		$("")
-	})
 	
 	/* 글 작성 로그인 유효성 검사 */
 	function write_login() {
@@ -106,7 +103,7 @@
       
       
       <!-- 말머리 카테고리 -->
-     <div class="minicon">
+     <div class="aboardcon">
       <div>
          <label class="chk">
             <input type="radio" id="all" name="all"/><span>전체</span>
@@ -266,5 +263,6 @@
 <div>
 	<jsp:include page="../includes/footer.jsp" />
 </div> 
+
 </body>
 </html>

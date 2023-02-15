@@ -110,6 +110,7 @@ public class JobController {
 		System.out.println("알바 게시판:" + jobService.job_list(scri));
 		
 		JobPageMaker pageMaker = new JobPageMaker();
+		System.out.println("페이징처리확인: " +scri);
 		pageMaker.setCri(scri);
 		pageMaker.setTotalCount(jobService.job_listCount(scri)); // 게시글 총 개수 받아서 페이징 처리함
 		
@@ -143,14 +144,14 @@ public class JobController {
 	
 	// 알바 수정 게시물 페이지로 가는거
 	@RequestMapping(value = "/job_update", method = RequestMethod.GET)
-	public String job_update_view(JobVO vo, @ModelAttribute("scri") JobSearchCriteria scri, Model model) throws Exception{
+	public String job_update_view(@RequestParam(value="j_bno") int j_bno, Model model) throws Exception{
 		
 		logger.info("사장이 수정하려고함~~");
 		
-		model.addAttribute("j_update", jobService.job_read(vo.getJ_bno()));
-		model.addAttribute("scri", scri);
+		model.addAttribute("j_update", jobService.job_read(j_bno));
+		//model.addAttribute("scri", scri);
 		
-		return "/job/job_update"; // 수정 페이지로 이동
+		return "/job/job_update"; // 수정 페이지로 이동. 이때 마이페이지에서 수정한다고 가정하고 페이징은 마이페이지로 함
 	}
 	
 	// 알바 게시글 수정게시글에서 수정 버튼 눌렀을 때 실행
@@ -160,9 +161,6 @@ public class JobController {
 		logger.info("수정완료 버튼 눌렀음");
 		System.out.println("삭제한 사진 :" + d_img);
 		System.out.println("원래 있던 사진: " + vo.getJ_img());
-		System.out.println(!vo.getJ_img().isEmpty());
-		System.out.println(vo.getJ_img().isEmpty());
-		System.out.println(vo);
 		
 		if(d_img.isEmpty() && !vo.getJ_img().isEmpty()) { // 사진 있는데 수정안했다면
 			System.out.println("사진은 아무것도 안함");
@@ -198,19 +196,17 @@ public class JobController {
 		}
 		
 		rttr.addAttribute("j_bno", vo.getJ_bno());
+		//rttr.addFlashAttribute("scri", scri);
 		
-		return "redirect:/job/job_read"; // 컨트롤러로 이동
-		// 게시물 상세보기로
+		return "redirect:/job/job_read";
+		// 게시물 상세보기로. 마이페이지에서 수정한다고 치고 수정완료하고 다시 마이페이지로 돌아감(페이징처리)
 	}
 	
-	// 알바 구인 게시물 삭제할 떄
-	@RequestMapping(value = "/job_delete", method = RequestMethod.POST)
-	public String job_delete(@ModelAttribute JobVO vo) throws Exception{
+	// 알바 구인 게시물 삭제할 때
+	@RequestMapping(value = "/job_delete", method = RequestMethod.GET)
+	public String job_delete(@ModelAttribute JobVO vo, RedirectAttributes rttr) throws Exception{
 		
 		logger.info("사장이 삭제버튼 눌렀음"); 
-		// 페이징 처리 안해줬음 
-		
-		//String j_image = jobService.get_image(vo.getJ_bno()); // 디비에 저장된 이미지 이름 불러옴
 		
 		logger.info("이미지 이름:" + vo.getJ_img());
 		String j_image = vo.getJ_img();
@@ -230,9 +226,11 @@ public class JobController {
  		map.put("board_type", "job");
  		
  		complaintService.delete_complaint(map);
+ 		
+ 		//rttr.addFlashAttribute("scri", scri);
 		
-		return "redirect:/job/job_list"; // 임의
-		// 게시판 기본 상태로 돌아감
+		return "redirect:/job/job_list"; 
+		// 삭제했으면 게시판으로 이동
 	}
 	
 	
@@ -275,8 +273,6 @@ public class JobController {
 		logger.info("사장이 지가 쓴 알바 글 목록 보려고함~~~");
 			
 		HttpSession session = req.getSession(); // HttpServletRequest는 HttpSession 객체 만드는데 필요
-		//아이디 임의로 준거이!!!!!!!!!!!!!!!!!!
-		//session.setAttribute("id", "korea");
 		String id = (String)session.getAttribute("id");
 			
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -284,7 +280,7 @@ public class JobController {
 		map.put("id", id); // 세션에 저장된 아이디
 		map.put("rowStart2", cri.getRowStart2());
 		map.put("rowEnd2", cri.getRowEnd2());
-		System.out.println(cri.getRowStart() + "하하하하" + cri.getRowEnd());
+		System.out.println("하하하" + cri);
 			
 		model.addAttribute("my_jobList", jobService.my_jobList(map)); // 세션에 저장된 아이디와 같은 아이디가 쓴 글 불러움
 		System.out.println(jobService.my_jobList(map));
@@ -294,7 +290,7 @@ public class JobController {
 		pageMaker.setTotalCount2(jobService.my_jobListCount(id));
 		model.addAttribute("pageMaker", pageMaker);
 		
-		return "/job/my_job";
+		return "/job/my_job"; // 삭제하고 마이페이지로 다시 돌아감(페이징 처리함)
 	}
 		
 	// 마이페이지 게시물 삭제 ajax
@@ -350,7 +346,7 @@ public class JobController {
 		pageMaker.setTotalCount2(jobService.heart_jobListCount(id));
 		model.addAttribute("pageMaker", pageMaker);
 		
-		return "/job/heart_job";
+		return "/job/heart_job"; // 페이징처리함
 		
 	}
 	
@@ -386,13 +382,11 @@ public class JobController {
     @RequestMapping(value = "/report_insert", method = RequestMethod.GET)
     public String report_insert(@ModelAttribute ComplaintVO vo, Model model) throws Exception{
     	
-    	
     	logger.info("알바 신고 디비에 저장하려고 함~~");
     	
     	jobService.report_insert(vo);
     	
     	model.addAttribute("success", "success");
-    	
     	
     	return "/job/report";
     }
@@ -462,7 +456,7 @@ public class JobController {
  			System.out.println("실행테스트");
  			
  			//4-2) 경고 쪽지 보내기
- 			String content = "회원님의 알바 구인 게시물은 부적접한 사유로 인해 삭제되었습니다."
+ 			String content = "회원님의 알바 구인 게시물 '" + vo.getJ_title() + "'은 부적접한 사유로 인해 삭제되었습니다."
  					+ "\n회원님은 누적 경고수는 " + ++count + "입니다."
  					+ "\n누적 경고수가 5가 되면 회원 강제 탈퇴가 이루어집니다.";
  			
@@ -476,6 +470,22 @@ public class JobController {
  			
  			//4-1) 강제 탈퇴할 회원의 email
  			String email = complaintService.expel_email(vo.getId());
+ 			
+ 			//4-1-1) 회원 탈퇴시키기 전에 알바 게시물 관련 이미지 서버에서 먼저 삭제
+ 			List img_list = jobService.img_list(vo.getId());
+ 			
+ 			if(img_list != null || !img_list.isEmpty()) { // 사진이 있다면 삭제
+ 				
+ 				for(int i = 0; i < img_list.size(); i++) {
+ 					File file = null;
+ 					file = new File("C:\\upload\\"+ img_list.get(i));
+ 					file.delete();
+ 				}
+ 			}
+ 			
+ 			//4-1-2) 중고 게시물 관련 이미지 삭제
+ 			//4-1-2) 동네생활 관련 이미지 삭제
+ 			
  			//4-2) 회원 탈퇴
  			complaintService.expel_member(vo.getId());
  			//4-3) 회원 탈퇴 당한 회원 이메일 저장
@@ -498,10 +508,23 @@ public class JobController {
 		logger.info("최근 본 게시물 삭제 체크"); 
 		System.out.println(recent_array);
 		
-		List recent_chk = jobService.recent_chk(recent_array); // 마이페이지 게시물들 번호 배열로 받아서 삭제
+		List recent_chk = jobService.recent_chk(recent_array); // 존재하는 게시물 번호를 받음 
+		// 게시물들 번호 배열로 받아서 삭제 예정
 		
 		System.out.println(recent_chk);
 		return recent_chk;
+	}
+ 	
+ 	// 게시물 상세보기로 이동할때 삭제된 게시물인지 유효성 체크
+ 	@RequestMapping(value = "/read_chk.ajax", method = RequestMethod.GET)
+	@ResponseBody
+	public int read_chk(@RequestParam(value="j_bno") int j_bno) throws Exception{
+				
+		logger.info("게시물 상세보기할때 삭제 유효성 체크"); 
+		int read_chk = jobService.read_chk(j_bno); // 존재하는 게시물 번호를 받음 
+		
+		System.out.println(read_chk);
+		return read_chk;
 	}
  	
 }

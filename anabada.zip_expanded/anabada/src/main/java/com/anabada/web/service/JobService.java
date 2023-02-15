@@ -62,6 +62,13 @@ public interface JobService {
 	// 최근 본 알바 게시물 삭제돼었는지 체크
 	public List recent_chk(int[] recent_array) throws Exception;
 
+	// 상세보기 유효성 삭제 체크
+	public int read_chk(int j_bno) throws Exception;
+
+	
+	// 회원 탈퇴할 때 이미지도 컴퓨터에서 삭제하기 위해 
+	public List img_list(String id) throws Exception;
+
 
 
 	

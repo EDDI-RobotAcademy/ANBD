@@ -28,7 +28,8 @@
 				        data: {
 				        	id: '${j_read.id}',
 				        	j_bno : ${j_read.j_bno},
-				        	j_img : '${j_read.j_img}'
+				        	j_img : '${j_read.j_img}',
+				        	j_title : '${j_read.j_title}'
 				        },
 				        dataType :  'json',   // 데이터 타입을 Json으로 변경
 				        traditional : true,
@@ -53,7 +54,6 @@
 			}else{
 				return;
 			}
-		}
 			
 		});
 		 
@@ -75,8 +75,7 @@
 <body>
     <div style="width: 980px">
    		
-		<form name="readForm" role="form" method="post">
-			<input type="hidden" name="j_img" value="${j_read.j_img }"><!-- 삭제할때 사용하려고 -->
+		<form name="readForm">
 	
 			<table>
 				<tr>

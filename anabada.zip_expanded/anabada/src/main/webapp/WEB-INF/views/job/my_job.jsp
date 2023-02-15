@@ -60,8 +60,7 @@
 			
 			var j_bno = $(this).attr("id");
 			
-			location.href = "/resume/resume_list" +
-				'?j_bno=' + j_bno;
+			location.href = "/resume/resume_list" + '?j_bno=' + j_bno;
 		});
 		
 		
@@ -91,18 +90,6 @@
 	              delete_array.push($(this).val());
 	              //alert($(this).val());
 	           });
-	           
-		      /*  var data = sessionStorage.getItem("recent_job");
-			   data = JSON.parse(data);
-			   //alert(data.length);
-				    
-			   for(var i = 0; i < delete_array.length; i++){
-			     data.splice('delete_array[i]', 1);
-				 //alert(data.length);
-			   }
-				 
-			   sessionStorage.setItem("recent_job", JSON.stringify(data));
-			   // 삭제될때 최근 본 게시물도 삭제 */
 	           
 	           $.ajax({
 	               type: "get",
@@ -199,7 +186,7 @@
             
             <c:if test="${empty my_jobList}">
             <tr>
-            	<td colspan="4" style="text-align: center">
+            	<td colspan="5" style="text-align: center">
 				작성한 알바 구인 공고가 없습니다.            	
             	</td>
             </tr>

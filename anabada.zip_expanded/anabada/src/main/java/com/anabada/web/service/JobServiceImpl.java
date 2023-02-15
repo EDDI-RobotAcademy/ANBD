@@ -149,6 +149,19 @@ public class JobServiceImpl implements JobService {
 		return dao.recent_chk(recent_array);
 	}
 
+	// 상세보기 삭제 유효성 체크
+	@Override
+	public int read_chk(int j_bno) throws Exception {
+		return dao.read_chk(j_bno);
+	}
+
+	
+	// 회원 탈퇴할때 알바 관련 이미지도 컴퓨터에서 삭제하기 위해
+	@Override
+	public List img_list(String id) throws Exception {
+		return dao.img_list(id);
+	}
+
 	
 
 

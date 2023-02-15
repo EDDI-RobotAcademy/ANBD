@@ -79,10 +79,14 @@
 			    <td colspan="6" style="border-top: 1px solid #ced4da;">
 			    	<c:choose>
 	                <c:when test="${empty j_read.j_img}">
+	                	<a href="/job/job_read?j_bno=${j_read.j_bno }">
 	                    <img class="j_img" src="../resources/images/아나바다2.png">
+	                    </a>
 	                </c:when>
 	                <c:otherwise>
+	                	<a href="/job/job_read?j_bno=${j_read.j_bno }">
 	                    <img class="j_img" src="/upload/${j_read.j_img }">
+	                    </a>
 	                </c:otherwise>
 	                </c:choose>
 					${j_read.j_company }<br>
@@ -158,7 +162,7 @@
 			
 			<c:if test="${empty r_list }">
 			<tr>
-				<td colspan="8" style="text-align: center">지원자가 없습니다.
+				<td colspan="8" style="text-align: center; border-bottom: 1px solid #ced4da">지원자가 없습니다.
 				<br>
 				</td>
 			</tr>

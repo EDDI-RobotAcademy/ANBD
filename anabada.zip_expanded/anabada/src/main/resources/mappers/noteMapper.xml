@@ -5,7 +5,7 @@
 <mapper namespace="noteMapper">
 <insert id="insert" parameterType="NoteVO">
 INSERT INTO NOTE (N_BNO, N_SENDER, N_RECEIVER, N_CONTENT, N_S_TIME, N_READ_CHK, N_R_DELETE_CHK, N_S_DELETE_CHK, N_RNO, n_type)
-	VALUES(NOTE_SEQ.NEXTVAL, #{n_sender}, #{n_receiver}, #{n_content}, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MM:SS'), 1, 1, 1, #{n_rno}, #{n_type})
+	VALUES(NOTE_SEQ.NEXTVAL, #{n_sender}, #{n_receiver}, #{n_content}, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'), 1, 1, 1, #{n_rno}, #{n_type})
 </insert>
 
 
@@ -98,7 +98,7 @@ SELECT DISTINCT N_SENDER FROM NOTE WHERE n_rno= #{n_rno} AND N_SENDER != #{id} A
 
 <insert id="send_event" parameterType="java.util.Map">
 INSERT INTO NOTE (N_BNO, N_SENDER, N_RECEIVER, N_CONTENT, N_S_TIME, N_READ_CHK, N_R_DELETE_CHK, N_S_DELETE_CHK, N_RNO, n_type)
-	VALUES(NOTE_SEQ.NEXTVAL, 'admin', #{n_receiver}, #{n_content}, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MM:SS'), 1, 1, 1, #{n_rno}, 'event')
+	VALUES(NOTE_SEQ.NEXTVAL, 'admin', #{n_receiver}, #{n_content}, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'), 1, 1, 1, #{n_rno}, 'event')
 
 </insert>
 

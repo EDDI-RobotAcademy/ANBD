@@ -28,5 +28,7 @@ public interface ResumeDAO {
 
 	public void resume_update(ResumeVO vo) throws Exception;
 
+	public void resume_delete(int r_bno) throws Exception;
+
 	
 }

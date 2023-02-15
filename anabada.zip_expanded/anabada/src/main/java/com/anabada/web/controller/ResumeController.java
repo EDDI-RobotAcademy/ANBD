@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.anabada.web.service.JobService;
 import com.anabada.web.service.ResumeService;
@@ -66,21 +67,18 @@ public class ResumeController {
 		
 	// 알바지원페이지 작성하고 지원하기 눌렀을 때 실행
 	@RequestMapping(value = "/resume_insert", method = RequestMethod.POST)
-	public String resume_insert(@ModelAttribute ResumeVO vo, @ModelAttribute("scri") JobSearchCriteria scri, Model model) throws Exception{
+	public String resume_insert(@ModelAttribute ResumeVO vo, @ModelAttribute("scri") JobSearchCriteria scri, RedirectAttributes rttr) throws Exception{
 		
 		logger.info("지원서 다 썼음!");
-		
 		System.out.println(vo);
-		
-		model.addAttribute(model);
-		model.addAttribute("scri", scri);
-		
 		resumeService.resume_insert(vo);
 					
-		return "redirect:/job/job_list"; // 알바 게시판 컨트롤러로 이동
+		rttr.addFlashAttribute("scri", scri);
+		rttr.addAttribute("j_bno", vo.getJ_bno());
+		return "redirect:/job/job_read"; // 알바 상세보기로 다시 이동
 	}
 	
-	// 해당 구인 게시물의 지원자들 목록 보기. 새로운 페이징 처리 위해 get
+	// 해당 구인 게시물의 지원자들 목록 보기
 	@RequestMapping(value = "/resume_list", method = RequestMethod.GET)
 	public String resume_list(@ModelAttribute ResumeVO resumeVO, @ModelAttribute JobVO jobVO, @ModelAttribute("cri") ResumeCriteria cri, Model model) throws Exception {
 		
@@ -100,9 +98,9 @@ public class ResumeController {
 		map.put("rowEnd", cri.getRowEnd());
 		
 		// 해당 게시글 번호로 게시글 제목 가져오는 쿼리
-		model.addAttribute("r_list", resumeService.resume_list(map));
+		model.addAttribute("r_list", resumeService.resume_list(map)); // 지원자들 목록
 		model.addAttribute("j_bno", resumeVO.getJ_bno()); // 페이지 유지하기 위해
-		model.addAttribute("j_read", jobService.job_read(jobVO.getJ_bno()));
+		model.addAttribute("j_read", jobService.job_read(jobVO.getJ_bno())); // 해당 알바 게시물
 		
 		pageMaker.setTotalCount(resumeService.resume_listCount(resumeVO.getJ_bno())); // 게시글 총 개수 받아서 페이징 처리함
 		System.out.println("총개수: " + resumeService.resume_listCount(resumeVO.getJ_bno()));
@@ -129,11 +127,8 @@ public class ResumeController {
 		map.put("rowStart", cri.getRowStart());
 		map.put("rowEnd", cri.getRowEnd());
 		
-		
 		List<ResumeVO> mr_list = resumeService.my_resumeList(map);
 		model.addAttribute("mr_list", mr_list);
-		
-		System.out.println("하하하하");
 		
 		pageMaker.setTotalCount(resumeService.my_resumeListCount(id));
 		model.addAttribute("pageMaker", pageMaker);
@@ -141,7 +136,7 @@ public class ResumeController {
 		//알바 게시물 객체도 보여주기 위해서
 		int[] jbno_array = new int[mr_list.size()]; 
 		System.out.println("하하하하");
-		System.out.println(mr_list.size());
+		System.out.println("사이즈" + mr_list.size());
 		 
 		// 알바 지원목록이 있을때만 해당 알바 구인 공고 게시물 번호 배열들을 전달함
 		if(mr_list.size() != 0) {
@@ -153,8 +148,8 @@ public class ResumeController {
 			
 			List<JobVO> j_list = resumeService.my_resumeJob(jbno_array);
 			model.addAttribute("j_list", j_list);
+			System.out.println("내가 지원한 알바들" + j_list);
 		}
-		
 		
 		return "/resume/my_resume"; // 알바 게시판 컨트롤러로 이동
 	}
@@ -189,7 +184,7 @@ public class ResumeController {
 		return "/resume/resume_update"; // 수정 페이지로 이동
 	}
 	
-	//지원 게시물 수정
+	//지원 게시물 수정 완료했을 때
 	@RequestMapping(value = "/resume_update", method = RequestMethod.GET)
 	public String resume_update(HttpServletResponse resp, ResumeVO vo, @ModelAttribute("cri") ResumeCriteria cri, Model model) throws Exception{
 			
@@ -202,6 +197,19 @@ public class ResumeController {
 	        
         return "redirect:/resume/my_resume";
 	}
+	
+	// 지원 삭제 눌렀을 때
+	@RequestMapping(value = "/resume_delete", method = RequestMethod.GET)
+	public String resume_delete(ResumeVO vo, @ModelAttribute("cri") ResumeCriteria cri, RedirectAttributes rttr) throws Exception{
+				
+		logger.info("알비 지원 삭제 버튼 누름~~");
+				
+		System.out.println(vo);
+		resumeService.resume_delete(vo.getR_bno());
+		rttr.addFlashAttribute("cri", cri);
+				
+	    return "redirect:/resume/my_resume";
+    }
 	
 	
 	

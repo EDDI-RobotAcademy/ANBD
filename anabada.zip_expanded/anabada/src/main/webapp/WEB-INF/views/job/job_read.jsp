@@ -20,45 +20,34 @@
 
       var readForm = $("form[name='readForm']");
       
-      $("#update").on("click", function () { // 수정 버튼 눌렀을 때
-         readForm.attr("action", "/job/job_update"); // 수정 컨트롤러로 돌아감
-         readForm.attr("method", "get");
-         readForm.submit();
+      $("#update").on("click", function () { // 수정 완료(페이징처리안함)
+    	 
+    	 location.href = "/job/job_update" + '?j_bno=' + ${j_read.j_bno};
+    	 
       });
       
-      $("#delete").on("click", function () { // 삭제 버튼 눌렀을 때
+      $("#delete").on("click", function () { // 삭제하고(페이징처리 안함)
          if (!confirm("삭제하시겠습니까?")) {
               return false;
+              
           } else {
-             
-             // 삭제될때 최근 본 게시물도 삭제
-             var data = sessionStorage.getItem("recent_job");
-             data = JSON.parse(data);
-             
-             var j_bno = ${j_read.j_bno};
-                 
-             data.splice('j_bno', 1); // 삭제될때 최근 본 게시물도 삭제
-             sessionStorage.setItem("recent_job", JSON.stringify(data));
-             
-            readForm.attr("action", "/job/job_delete"); // 삭제 컨트롤러로
-            readForm.attr("method", "post"); // 여기서는 페이징처리 필요없으니까 post
+            
+            readForm.attr("action", "/job/job_delete");
+            readForm.attr("method", "get"); 
             readForm.submit();
           }
       });
       
-      $("#job_list").on("click", function () { 
-         // 삭제될때 최근 본 게시물도 삭제
-          var data = sessionStorage.getItem("recent_job");
-          data = JSON.parse(data);
-          
-          var j_bno = ${j_read.j_bno};
-              
-          data.splice('j_bno', 1); // 삭제될때 최근 본 게시물도 삭제
-          sessionStorage.setItem("recent_job", JSON.stringify(data));
-         
-         readForm.attr("action", "/job/job_list"); 
-         readForm.attr("method", "get");
-         readForm.submit();
+      $("#job_list").on("click", function () { // 게시판 목록으로 돌아감
+
+    	 // 목록으로 돌아감(페이징처리함)
+    	 location.href = "/job/job_list" + 
+    	  '?page=' + ${scri.page} +
+    	  '&perPageNum=' + ${scri.perPageNum} +
+          '&j_addr1=' + '${scri.j_addr1}' + 
+          '&j_term=' + '${scri.j_term}' + 
+          '&j_day=' + '${scri.j_day}' + 
+          '&j_cate=' + '${scri.j_cate}';
       });
       
       // 알바 지원하기 컨트롤러로 이동
@@ -88,15 +77,15 @@
                         }
                      }else{
                          location.href= "/resume/resume_insert" + 
-                      '?page=' + '${scri.page }' +
-                      '&perPageNum=' + '${scri.perPageNum }' +
-                      '&j_bno=' + '${j_read.j_bno}' + // resume_job.jsp에서 j_bno이름으로 값 받음
-                      '&j_addr1=' + encodeURIComponent('${scri.j_addr1}') + 
-                      '&j_term=' + encodeURIComponent('${scri.j_term}') + 
-                      '&j_day=' + encodeURIComponent('${scri.j_day}') + 
-                      '&j_cate=' + encodeURIComponent('${scri.j_cate}');
-                         }
-                     },
+                      		'?page=' + '${scri.page }' +
+                      		'&perPageNum=' + '${scri.perPageNum }' +
+                      		'&j_bno=' + ${j_read.j_bno} + // resume_job.jsp에서 j_bno이름으로 값 받음
+                      		'&j_addr1=' + '${scri.j_addr1}' + 
+                      		'&j_term=' + '${scri.j_term}' + 
+                      		'&j_day=' + '${scri.j_day}' + 
+                      		'&j_cate=' + '${scri.j_cate}';
+                     }
+                 },
                  error : function(request, status, error) {
                      alert("오류:" + error);
                }
@@ -246,17 +235,16 @@
 				       //alert(j_bno);
 				       var j_title = realitem[i].j_title;
 				       var j_img = realitem[i].j_img;
-				       alert("제목" + j_title);
 				       //alert("이미지 + /" + j_img + "/");
 				       		        	
 				       if(j_img != ""){
-				       		var li = "<li><a href='/job/job_read?j_bno="+j_bno+"'><img width='100' height='100' src='/upload/"+j_img+"'/>"
+				       		var li = "<li><a href='javascript:void(0);' onclick='readView(" + j_bno +")'><img width='100' height='100' src='/upload/"+j_img+"'/>"
 				       			+ "<br><div class='word'>" + j_title+ "</div>" + "</a></li>";
-				       	    alert(i);
+				       	    //alert(i);
 				       }else{
-				       		var li = "<li><a href='/job/job_read?j_bno="+j_bno+"'><img width='100' height='100' src='../resources/images/아나바다2.png'/>"
-				       			+ "<br><div class='word'>" + j_title+ "</divs>" + "</a></li>";
-				       		alert(i);
+				       		var li = "<li><a href='javascript:void(0);' onclick='readView(" + j_bno +")'><img width='100' height='100' src='../resources/images/아나바다2.png'/>"
+				       			+ "<br><div class='word'>" + j_title+ "</div>" + "</a></li>";
+				       		//alert(i);
 				       }
 			      //ul에 붙이기
 			      $recentItemList.append(li);
@@ -278,6 +266,13 @@
          obj.animate({ scrollTop:obj.scrollTop() + ih }, 100);
        });
       
+      
+      // 찜되었는지 안되어있는지 확인
+      if("${heart}"==1){
+		 $("input:checkbox[id='heart']").prop("checked",true);
+		
+	  }
+      
       //찜버튼 이벤트 
       $("#heart").on("click", function() {
          
@@ -286,7 +281,7 @@
             return false;
          }else{
             
-            if ($(this).prop('checked')) {
+        	if ($("#heart").is(":checked")) {
                $(".himg").attr("src", "../../resources/images/하트2.png");
    
                var params = {
@@ -384,6 +379,40 @@
       
        
    });
+   
+   function readView(param) {
+		
+	 	  var bno = param;
+	 	  
+	 	  // 게시물 상세보기로 이동할때 삭제된 게시물인지 유효성 체크
+	      $.ajax({
+	           type: "get",
+	           url : "/job/read_chk.ajax",
+	           data: {
+	              j_bno : bno, 
+	           },
+	           traditional : true,
+	           success: function(data){
+	              
+	              if(data > 0){
+	                  location.href="/job/job_read?j_bno=" + bno + 
+	                   "&page=${scri.page }&perPageNum=${scri.perPageNum }" + 
+	                   "&j_addr1=${scri.j_addr1 }" + 
+	                   "&j_term=${scri.j_term }" +
+	                   "&j_day=${scri.j_day}" + 
+	                   "&j_cate=${scri.j_cate}";
+	              }else{
+	                 alert("해당게시물은 삭제되었습니다.");
+	                 return false;
+	              }
+	                
+	           },
+	           error : function(request, status, error) {
+	              alert("상세보기 ajax 실패:" + error);
+	           }
+	       });
+	 	  
+	   }
 
 </script>
 <style>
@@ -472,7 +501,7 @@
          <section class="nav"></section>
 
       <section class="section">
-      <form name="readForm" role="form" method="post">
+      <form name="readForm">
          <input type="hidden" name="j_bno" value="${j_read.j_bno }">
          <input type="hidden" name="page" value="${scri.page }">
          <input type="hidden" name="perPageNum" value="${scri.perPageNum }">
@@ -629,14 +658,13 @@
             </tr>
             <tr style="border-bottom: 0px">
                <td colspan="6" style="border-bottom: 0px; text-align: center">
-                  <button type="button" id="job_list" class="j_btn1" style="display: inline; width: 150px">게시판으로 돌아가기</button>
+                  <button type="button" id="job_list" class="j_btn1" style="display: inline; width: 100px">알바 게시판</button>
                   <c:if test="${j_read.id ne id}"><!-- 로그인한 아이디(세션에 저장된 아이디)와 작성자아이디가 같으면 수정, 삭제 가능 -->
                      <button type="button" id="resume" class="j_btn1" style="display: inline; width: 100px">지원하기</button>
                   </c:if>
                   <c:if test="${j_read.id eq id}"><!-- 로그인한 아이디(세션에 저장된 아이디)와 작성자아이디가 같으면 수정, 삭제 가능 -->
-                     <button type="button" id="show_resume" class="j_btn1" style="display: inline; width: 100px">지원자들 보기</button>
+                     <button type="button" id="show_resume" class="j_btn1" style="display: inline; width: 100px">지원자 보기</button>
                   </c:if>
-                  
                </td>
             </tr>
             

@@ -1,5 +1,6 @@
 package com.anabada.web.controller;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.anabada.web.service.ComplaintService;
 import com.anabada.web.service.EventService;
+import com.anabada.web.service.JobService;
 import com.anabada.web.service.NoteService;
 import com.anabada.web.service.ProductService;
 import com.anabada.web.vo.ComplaintVO;
@@ -53,6 +55,9 @@ public class NoteController {
 	
 	@Inject
 	ComplaintService complaintService;
+	
+	@Inject
+	JobService jobService;
 
 	// 쪽지보내는 ajax
 	@RequestMapping(value="/note_insert.ajax", method = RequestMethod.GET)
@@ -406,7 +411,8 @@ public class NoteController {
  	// 관리자가 신고 쪽지 삭제눌렀음
  	@RequestMapping(value = "/delete_admin.ajax", method =RequestMethod.GET)
 	@ResponseBody
-	public boolean delete_admin(@RequestParam(value="n_bno") int n_bno, @RequestParam(value="id") String id) throws Exception{
+	public boolean delete_admin(@RequestParam(value="n_bno") int n_bno, @RequestParam(value="id") String id,
+			@RequestParam(value="n_content") String n_content) throws Exception{
 			
 		logger.info("관리자가 신고 쪽지 삭제 눌렀음"); 
 		
@@ -435,7 +441,7 @@ public class NoteController {
  	 			complaintService.add_caution(id);
  	 			
  	 			//4-2) 경고 쪽지 보내기
- 	 			String content = "회원님의 쪽지는 부적접한 사유로 인해 삭제되었습니다."
+ 	 			String content = "회원님의 쪽지 '" + n_content + "'는 부적접한 사유로 인해 삭제되었습니다."
  	 					+ "\n회원님은 누적 경고수는 " + ++count + "입니다."
  	 					+ "\n누적 경고수가 5가 되면 회원 강제 탈퇴가 이루어집니다.";
  	 			
@@ -448,6 +454,23 @@ public class NoteController {
  	 			
  	 			//4-1) 강제 탈퇴할 회원의 email
  	 			String email = complaintService.expel_email(id);
+ 	 			
+ 	 		    //4-1-1) 회원 탈퇴시키기 전에 알바 게시물 이미지 서버에서 먼저 삭제
+ 	 			List img_list = jobService.img_list(id);
+ 	 			System.out.println(img_list);
+ 	 			
+ 	 			if(img_list != null || !img_list.isEmpty()) { // 사진이 있다면 삭제
+ 	 				
+ 	 				for(int i = 0; i < img_list.size(); i++) {
+ 	 					File file = null;
+ 	 					file = new File("C:\\upload\\"+ img_list.get(i));
+ 	 					file.delete();
+ 	 				}
+ 	 			}
+ 	 			
+ 	 			//4-1-2) 중고 게시물 관련 이미지 삭제
+ 	 			//4-1-2) 동네생활 관련 이미지 삭제
+ 	 			
  	 			
  	 			//4-2) 회원 탈퇴
  	 			complaintService.expel_member(id);

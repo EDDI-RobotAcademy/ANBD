@@ -1,6 +1,6 @@
 package com.anabada.web.service;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Map;
 
@@ -27,11 +27,12 @@ public interface ComplaintService{
 	// 관리자 신고 삭제 관련
 	public void delete_complaint(Map<String, Object> map) throws Exception;
 
+
 	//id에 해당하는 PNO 리스트 반환
 	public List<Integer> pno_list(String id) throws Exception;
 
-	// pno리스트에 해당하는 pfile의 filepath리스트 반환 
-//	public List<String> filePath_list(ArrayList<Integer> pno_list) throws Exception;
+
 	public List<String> filePath_list(List<Integer> pno_list) throws Exception;
 	
+
 }

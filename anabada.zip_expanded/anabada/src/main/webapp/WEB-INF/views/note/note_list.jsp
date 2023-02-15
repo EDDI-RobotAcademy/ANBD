@@ -136,7 +136,7 @@
              },
              success:function(data){
                  if(data != 1){
-                	 alert("존재하지 않는 id입니다.");
+                	 alert("존재하지 않는 회원입니다.");
                  }else{ // 아이디가 존재할 땐
                 	 
                 	 $.ajax({
@@ -253,6 +253,13 @@
             
             <!-- 안읽으면 1, 읽으면 0 -->
             <!-- 받은 쪽지함 -> 보낸 쪽지함 -->
+            <c:if test="${empty n_list }">
+            <tr>
+            	<td colspan="4" style="text-align: center">
+            	쪽지가 없습니다.
+            	</td>
+            </tr>
+            </c:if>
             <c:forEach items="${n_list}" var="n_list">
             <c:choose>
             <c:when test="${who eq 'receive'}">
