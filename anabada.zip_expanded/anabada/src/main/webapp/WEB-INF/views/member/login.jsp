@@ -76,6 +76,9 @@
 
 			<div>
 				<button class="login-but" type="submit" id="submit">로그인</button>
+				<a href="https://kauth.kakao.com/oauth/authorize?client_id=1cd5f25c91f73f916bf1cf73f7a82141&redirect_uri=http://localhost:8080/member/kakaoLogin&response_type=code&scope=profile_nickname,profile_image,account_email">
+					<img src="<c:url value='/images/kakao_login_button.png'/>"/>
+				</a>
 			</div>
 			
 			<div style="text-align: center; font-size: 13px; color: #555555;">
