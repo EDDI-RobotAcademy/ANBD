@@ -32,13 +32,13 @@
 	            </c:when>                                                                         
 	            <c:otherwise>                                                                     
 	                <p>${vo.id}</p>                                              
-	            </c:otherwise>                                                                    
+	            </c:otherwise>
 	        </c:choose>    
         </div>
         
 		<div style="display: flex;">
-			<button class="find-cancle-but" type="button">비밀번호 재발급</button>
-			<button class="find-agree-but" type="button">로그인</button>
+			<button class="find-cancle-but" type="button" onclick="location.href='/member/findPass'">비밀번호 재발급</button>
+			<button class="find-agree-but" type="button" onclick="location.href='/member/login'">로그인</button>
 		</div>
 			
 		<div class="reg-corp" style="margin: 20px auto 20px auto;">

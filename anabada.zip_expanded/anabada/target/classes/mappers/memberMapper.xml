@@ -30,11 +30,40 @@
 		WHERE nick = #{nick} and id != #{id}
 	</select>
 	
+	<!-- 이메일 중복 체크 -->
+	<select id="emailChk" resultType="int">
+		SELECT COUNT(*)
+		FROM a_member a
+		FULL OUTER JOIN expelled_email e
+		ON a.email = e.email
+		WHERE a.email = #{email} OR e.email = #{email}
+	</select>
+	
+	<!-- 이메일 수정 중복 체크 -->
+	<select id="emailUpdateChk" resultType="int">
+		SELECT COUNT(*)
+		FROM a_member a
+		FULL OUTER JOIN expelled_email e
+		ON a.email = e.email
+		WHERE a.email = #{email} AND id != #{id} OR e.email = #{email}
+	</select>
+	
 	<!-- 회원 정보 관리 -->
-	<select id="memberList" resultType="memberVO">
-		SELECT *
+	<select id="memberList" resultType="memberVO" parameterType="com.anabada.web.vo.SearchCriteria">
+		SELECT id, name, nick, tel, email, lev, caution, register_date
+		FROM (SELECT id, name, nick, tel, email, lev, caution, register_date, ROW_NUMBER() OVER(ORDER BY register_date DESC) AS RNUM
 		FROM a_member
-		
+		WHERE 1 = 1
+		) ML
+		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+		ORDER BY register_date DESC
+	</select>
+	
+	<!-- 총 회원수 -->
+	<select id="listCount" parameterType="com.anabada.web.vo.SearchCriteria" resultType="int">
+		SELECT COUNT(*)
+		FROM a_member
+		WHERE 1 = 1
 	</select>
 	
 	<!-- 로그인 -->
@@ -93,4 +122,6 @@
 		WHERE id = #{id}
 		AND pass = #{pass}
 	</delete>
+	
+   
 </mapper>
