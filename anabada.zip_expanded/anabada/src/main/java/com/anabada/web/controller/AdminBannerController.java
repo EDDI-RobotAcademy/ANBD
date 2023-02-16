@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.anabada.web.service.AdminBannerService;
+import com.anabada.web.vo.BannerVO;
 
 @Controller
 @RequestMapping("/a_banner/*") 
@@ -52,15 +53,20 @@ public class AdminBannerController {
 	
 	// 이벤트 배너 수정 페이지
 	@RequestMapping(value = "/bannerUpdate", method = RequestMethod.GET)
-	public String bannerUpdate() throws Exception {
-		return "/a_banner/bannerUpdate";
-	}
-	
+	public String bannerUpdate(Model model, BannerVO vo) throws Exception {
+	      
+		List<BannerVO> filelist = service.list();
+	    model.addAttribute("filelist", filelist);
+	      
+	      return "/a_banner/bannerUpdate";
+	   }
+	   
     // 배너 이미지 수정
-    @RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String update(@RequestParam String dlist, MultipartHttpServletRequest multipartRequest) throws Exception{
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String update(Model model, @RequestParam String dlist, MultipartHttpServletRequest multipartRequest) throws Exception{
 	
     	multipartRequest.setCharacterEncoding("utf-8");
+    	model.addAttribute("blist", service.list());
     	
     	// 삭제해야할 배너 이미지 삭제
         if (!(dlist.equals(""))) {
@@ -77,7 +83,7 @@ public class AdminBannerController {
 			}
 		}
     	
-		return "index";
+		return "redirect:/";
 	}
     
     // 이미지 저장
