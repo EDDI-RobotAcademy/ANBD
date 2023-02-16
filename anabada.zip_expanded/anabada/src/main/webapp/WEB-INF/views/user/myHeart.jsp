@@ -170,16 +170,16 @@ margin-right: 10px;
 	</div>
 	<!-- header end  -->
 
-		
+			<section class="container" >
 
-<div  style="width: 1200px;  margin: auto; " >
+
 	<jsp:include page="/WEB-INF/views/includes/myPageHeader.jsp" />
 
 
 
 
 
-<div class="minicon"  style="float: left;" >
+<div class="aboardcon" style="float: left;"  >
 
 	<form action="">
 	<div id="logo_title" >나의 찜목록 </div>
@@ -268,7 +268,8 @@ margin-right: 10px;
 
 	</form>
 	</div>
-	</div>
+		</section>
+
 
 	<!-- footer -->
 	<div id="footer">
