@@ -17,9 +17,9 @@
 		
 		<div class="cate">
 			<div>
-				<ul class="cate-ul">
+			<%-- 	<ul class="cate-ul">
 					<li class="cate-li"><img src="<c:url value='/images/menu.png'/>"></li>
-				</ul>
+				</ul> --%>
 			</div>
 			
 			<div>
@@ -29,8 +29,11 @@
 					<li class="cate-li"><a href="/a_board/list">동네생활</a></li>
 					<li class="cate-li"><a href="/event/list">이벤트</a></li>
 				</ul>
+				
 			</div>
 		</div>
+		<hr style="color: #B9B9B9;" >
 	</div>
+	
 </body>
 </html>
