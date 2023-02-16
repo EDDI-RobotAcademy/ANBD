@@ -279,6 +279,9 @@
          if(${empty id}){
             alert("로그인 후 이용해주세요.");
             return false;
+         }else if(${id eq 'admin'}){
+        	alert("관리자 모드입니다.");
+        	return false;
          }else{
             
         	if ($("#heart").is(":checked")) {
@@ -523,7 +526,7 @@
                   <c:if test="${id eq 'admin'}"><!-- 로그인한 아이디(세션에 저장된 아이디(id))와 작성자아이디(j_read.id)가 같으면 수정, 삭제 가능 -->
                      <button type="button" id="delete" class="j_btn3">삭제</button>
                   </c:if>
-                  <c:if test="${j_read.id ne id && id ne 'admin'}">
+                  <c:if test="${j_read.id ne id}">
                      <button type="button" id="report" class="j_btn3">신고</button>
                   </c:if>
                </td>
@@ -659,10 +662,10 @@
             <tr style="border-bottom: 0px">
                <td colspan="6" style="border-bottom: 0px; text-align: center">
                   <button type="button" id="job_list" class="j_btn1" style="display: inline; width: 100px">알바 게시판</button>
-                  <c:if test="${j_read.id ne id}"><!-- 로그인한 아이디(세션에 저장된 아이디)와 작성자아이디가 같으면 수정, 삭제 가능 -->
+                  <c:if test="${j_read.id ne id && id ne 'admin'}"><!-- 로그인한 아이디(세션에 저장된 아이디)와 작성자아이디가 같으면 수정, 삭제 가능 -->
                      <button type="button" id="resume" class="j_btn1" style="display: inline; width: 100px">지원하기</button>
                   </c:if>
-                  <c:if test="${j_read.id eq id}"><!-- 로그인한 아이디(세션에 저장된 아이디)와 작성자아이디가 같으면 수정, 삭제 가능 -->
+                  <c:if test="${j_read.id eq id && id ne 'admin'}"><!-- 로그인한 아이디(세션에 저장된 아이디)와 작성자아이디가 같으면 수정, 삭제 가능 -->
                      <button type="button" id="show_resume" class="j_btn1" style="display: inline; width: 100px">지원자 보기</button>
                   </c:if>
                </td>

@@ -102,7 +102,7 @@
 				<th width="50px">성별</th>
 				<th width="150px">전화번호</th>
 				<th colspan="3" width="480px">경력</th>
-				<th width="150px">지원날짜</th>
+				<th width="150px">지원일</th>
 			</tr>
 			
 			<!-- 반복 -->

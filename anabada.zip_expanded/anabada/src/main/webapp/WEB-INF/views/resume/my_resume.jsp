@@ -109,7 +109,7 @@
 	  background-color: #ced4da;
    }
    .word{
-    	width:380px;
+    	width:340px;
 	    overflow: hidden;
 	    text-overflow: ellipsis;
 	    white-space: nowrap;
@@ -145,6 +145,9 @@
 		    			지원한 게시물
 		    		</td>
 		    		<td style="text-align: center">
+		    			지원일
+		    		</td>
+		    		<td style="text-align: center">
 		    			지원 수정
 		    		</td>
 		    	</tr>
@@ -169,11 +172,14 @@
 	                    </c:otherwise>
 	                    </c:choose>
 	                </td>
-	                <td style="width: 450px;">
+	                <td style="width: 360px;">
 						<div class="word">${j_list[status.index].j_company }</div>
 						<div class="word"><font style="font-weight: bolder;">${j_list[status.index].j_title}</font></div>
 						<div class="word">${j_list[status.index].j_method }&nbsp;${j_list[status.index].j_pay }원</div>
 						<div class="word">${j_list[status.index].j_addr1 }&nbsp;${j_list[status.index].j_addr2 }</div>
+					</td>
+					<td style="width: 120px; text-align: center;">
+						${mr_list.r_date }
 					</td>
 					<td style="width: 130px; text-align: center;">
 						<button type="button" class="update" id="${mr_list.r_bno },${j_list[status.index].j_bno}">수정</button>
