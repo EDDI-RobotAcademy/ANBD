@@ -164,6 +164,10 @@ ul {
 				<c:if test="${id == 'admin'}">
 					<button type="button" onclick="location.href='/bannerForm'">폼 작성</button>
 				</c:if>
+				<c:forEach items="${blist}" var="blist">		
+					<div><c:out value="${blist.a_no}" /></div>
+					<div><img width="500px;" height="300px;" src="${blist.a_file}" /></div>
+				</c:forEach>
 			</div>
 
 			<div id="wapper" style="width: 960px; min-height: 500px; height: 100%;">
@@ -173,7 +177,7 @@ ul {
 						<div style="width: 960px;" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 							<c:forEach items="${list}" var="list">
 								<!-- test -->
-								<div class="col mb-5 postExistence" id="postExistence"  pno="${list.pno}" title="/product/readView?pno=${list.pno}&p_type=${list.p_type}&page=${scri.page }&perPageNum=${scri.perPageNum }&searchType=${scri.searchType }&keyword=${scri.keyword }&productType=${scri.productType}" >
+								<div class="col mb-5 postExistence" id="postExistence" pno="${list.pno}" title="/product/readView?pno=${list.pno}&p_type=${list.p_type}&page=${scri.page }&perPageNum=${scri.perPageNum }&searchType=${scri.searchType }&keyword=${scri.keyword }&productType=${scri.productType}" >
 									<div class="card h-100">
 										<!-- Product image-->
 										<div style="height: 267px;">
