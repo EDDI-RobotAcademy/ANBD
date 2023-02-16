@@ -33,7 +33,7 @@ public class ProductServiceImpl implements ProductService {
 	// 글목록 보기
 	@Override
 	public List<PBoardVO> list(SearchCriteriapro scri) throws Exception {
-
+		System.out.println("scr O 2222 :" +scri);
 		return dao.list(scri);
 	}
 

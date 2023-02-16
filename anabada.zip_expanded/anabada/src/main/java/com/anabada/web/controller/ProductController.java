@@ -96,14 +96,10 @@ public class ProductController {
 		// view에서 넘어온 사진들이 담긴 fileList
 		List<String> fileList = fileProcess(multipartRequest);
 
-		pboardVO.setP_file(fileList.size());
-
 		int pnum = service.write(pboardVO); // DB에 insert 실행 , pnum은 해당 개시글의 pno
 		if (fileList != null) {
 			for (int i = 0; i < fileList.size(); i++) {
-				int ftotal = i + 1;
 				Map<String, String> fileMap = new HashMap<>();
-				fileMap.put("fno", String.valueOf(ftotal)); // 게시글 내부에서 파일의 넘버 전달
 				fileMap.put("filePath", "/tomcatImg/" + (String) fileList.get(i)); // 파일의 경로 저장
 				fileMap.put("pno", String.valueOf(pnum)); // 게시글 넘버 저장
 				service.fileSave(fileMap); // 파일 저장
@@ -324,15 +320,10 @@ public class ProductController {
 		// 넘어온 사진 저장
 		List<String> fileList = fileProcess(multipartRequest);
 
-		int listnum = fileList.size();
-		int pnum = pboardVO.getP_file();
-		pboardVO.setP_file(pnum - num + listnum);
 
 		if (fileList != null) {
 			for (int i = 0; i < fileList.size(); i++) {
-				int ftotal = pnum + i + 1;
 				Map<String, String> fileMap = new HashMap<>();
-				fileMap.put("fno", String.valueOf(ftotal)); // 게시글 내부에서 파일의 넘버 전달
 				fileMap.put("filePath", "/tomcatImg/" + (String) fileList.get(i)); // 파일의 경로 저장
 				fileMap.put("pno", String.valueOf(pboardVO.getPno())); // 게시글 넘버 저장
 
