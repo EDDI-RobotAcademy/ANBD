@@ -128,7 +128,7 @@ $(document).ready(function() {
 		if(confirm("사진을 삭제하시겠습니까?")){
 		
 			var va =   $("#dlist").val();
-			$("#dlist").attr('value', va+ inum+ ',');
+			$("#dlist").attr('value', va+ inum+ ','); 
 			$(this).parent().remove();
 			
 			
