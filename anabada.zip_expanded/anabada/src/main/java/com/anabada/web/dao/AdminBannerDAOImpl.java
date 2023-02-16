@@ -24,8 +24,8 @@ public class AdminBannerDAOImpl implements AdminBannerDAO {
 	
 	// 배너 리스트
 	@Override
-	public List<BannerVO> list(SearchCriteria scri) throws Exception {
-		return sql.selectList("adminBannerMapper.imgList", scri);
+	public List<BannerVO> list() throws Exception {
+		return sql.selectList("adminBannerMapper.imgList");
 	}
 
 	// 삭제할때 배너 이미지 경로 가져오기

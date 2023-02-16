@@ -52,24 +52,9 @@ public class AdminBannerController {
 	
 		model.addAttribute("fileList", fileList);
 		       
-		return "/a_banner/bannerList";
+		return "redirect:/";
 	}
 	
-	// 배너 목록
-	@RequestMapping(value = "/bannerList", method = RequestMethod.GET)
-	public String list(Model model, @ModelAttribute("scri") SearchCriteria scri) throws Exception {
-		logger.info("배너 리스트 ~ ");
-		
-		model.addAttribute("blist", service.list(scri));
-		
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(scri);
-		
-		model.addAttribute("pageMaker", pageMaker);
-		
-		return "/a_banner/bannerList";
-	}
-    
     // 배너 이미지 수정
     @RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String update(@RequestParam String dlist, MultipartHttpServletRequest multipartRequest) throws Exception{
