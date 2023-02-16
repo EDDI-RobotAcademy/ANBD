@@ -55,6 +55,9 @@
 	width: 300px;
 	margin: auto;
 }
+#ImgBox{
+width: 335px;
+}
 </style>
 </head>
 <body>
@@ -69,7 +72,7 @@
 		<jsp:include page="../includes/eventNav.jsp" />
 	</div>
 
-	<section class="home_gallery_area p_120">
+	<section class="home_gallery_area p_120"   style="width: 1000px;  margin: auto;" >
 		<div class="container">
 
 
@@ -102,22 +105,22 @@
 			</div>
 		</div>
 
-		<br> <br> <br>
+		<br> 
 
-		<div class="container">
+		
 			<div style="width: 1200px; margin: auto;" class="gallery_f_inner row imageGallery1">
 
 
 
 
 				<c:forEach items="${list }" var="list">
-					<div class="col-lg-4 col-md-4 col-sm-6 ${list.e_type} design print">
+					<div class="col-lg-4 col-md-4 col-sm-6 ${list.e_type} design print" id="ImgBox" >
 						<div class="h_gallery_item" onclick="location.href='/event/readView?eno=${list.eno}&page=${scri.page }&perPageNum=${scri.perPageNum }&searchType=${scri.searchType }&keyword=${scri.keyword }'">
 
-							<div class="g_img_item" style="width: 340px; height: 340px;">
+							<div class="g_img_item" style="width: 300px; height: 340px;">
 
 
-								<img class="img-fluid" width="340px;" height="340px;" src="${list.e_filePath }" alt=""> <a class="light"><img src="../resources/eve_list/img/gallery/icon.png" alt=""></a>
+								<img class="img-fluid" width="300px;" height="340px;" src="${list.e_filePath }" alt=""> <a class="light"><img src="../resources/eve_list/img/gallery/icon.png" alt=""></a>
 
 							</div>
 
