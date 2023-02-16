@@ -35,38 +35,48 @@
 			formObj.attr("method", "post");
 			formObj.submit();
 		});
-	})
+	
+	var dlist=[];
+	
+	$(".imgbtn").on("click" , function() {
+		var inum = $(this).val(); //버튼에 담은 이미지의 fno 
+	    
+		if(confirm("사진을 삭제하시겠습니까?")){
+		
+			var va = $("#dlist").val();
+			$("#dlist").attr('value', va + inum + ','); 
+			$(this).parent().remove();
+			
+		}else{
+			return false;
+		}
+	});
+});
+	
 </script>
 </head>
 
 <body>
-	<form name="updateForm" enctype="multipart/form-data" method="POST">
-		<input type="text" id="fileList" name="fileList" value="${fileList.a_no}">
-		<input type="text" id="fileList" name="fileList" value="${fileList.a_file}">
-		
-		<div>
-			<div class="form-group" id="file-list">
-				<c:forEach items="${blist}" var="filelist" >
-                   <div style="display: inline-block;"  id="${blist.a_no}" > <img  width="150px;" height="150px;"  src="${blist.a_file}"  >  <button  type="button"  class="imgbtn"  value="${blist.a_no}"  >삭제</button> </div> 
+   <form name="updateForm" enctype="multipart/form-data" method="POST">  
+   <input id="dlist" name="dlist" type="hidden"  value="" >    
+      <div>
+         <div class="form-group" id="file-list">
+            <c:forEach items="${filelist}" var="filelist" >
+                   <div style="display: inline-block;"  id="${filelist.a_no}"> 
+                   <img width="150px;" height="150px;"  src="${filelist.a_file}">  
+                   <button  type="button"  class="imgbtn"  value="${filelist.a_no}">삭제</button></div> 
                 </c:forEach>
-                
-                <c:forEach items="${blist}" var="blist">		
-				<div class="imgbox">
-					<div><c:out value="${blist.a_no}" /></div>
-					<div><img width="500px;" height="300px;" class="single-item" id="slick" src="${blist.a_file}" /></div>
-				</div>
-				</c:forEach>
-			
-				<a href="#this" onclick="addFile()">파일추가</a>
-				<div class="file-group">
-					<input type="file" name="file"><a href='#this' name='file-delete'>삭제</a>
-				</div>
-			</div>
-		</div>
-			
-		<div>
-			<button type="submit" class="write_btn">저 장</button>
-		</div>
-	</form>
+         
+            <a href="#this" onclick="addFile()">파일추가</a>
+            <div class="file-group">
+               <input type="file" name="file"><a href='#this' name='file-delete'>삭제</a>
+            </div>
+         </div>
+      </div>
+         
+      <div>
+         <button type="submit" class="write_btn">저 장</button>
+      </div>
+   </form>
 </body>
 </html>

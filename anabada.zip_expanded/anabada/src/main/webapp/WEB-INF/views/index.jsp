@@ -201,19 +201,18 @@ ul {
 	<section class="container">
 		<div class="mcont" style="text-align: center;">
 			<div style="width: 960px; height: 250px; background-color: #cccccc;">
-				배너 부분
+				<div class="single-item" id="slick">
+				<c:forEach items="${blist}" var="blist">		
+				<div class="imgbox">
+					<div><img width="960px;" height="250px;" class="single-item" id="slick" src="${blist.a_file}" /></div>
+				</div>
+				</c:forEach>
+				</div>
+				
 				<c:if test="${id == 'admin'}">
 					<button type="button" onclick="location.href='/bannerForm'">폼 작성</button>
 					<button type="button" onclick="location.href='/a_banner/bannerUpdate'">폼 수정</button>
 				</c:if>
-				<div class="single-item" id="slick">
-				<c:forEach items="${blist}" var="blist">		
-				<div class="imgbox">
-					<div><c:out value="${blist.a_no}" /></div>
-					<div><img width="500px;" height="300px;" class="single-item" id="slick" src="${blist.a_file}" /></div>
-				</div>
-				</c:forEach>
-				</div>
 			</div>
 
 			<div id="wapper" style="width: 960px; min-height: 500px; height: 100%;">
