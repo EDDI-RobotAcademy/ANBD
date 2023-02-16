@@ -15,7 +15,7 @@
 	
 	<div style="clear: both;"></div>
 	
-	<p style="font-size: 11px; margin-bottom: 11px;">당신의 점수는 <br> ${member.lev}초 후에 공개됩니다</p>
+	<p style="font-size: 11px; margin-bottom: 20px; margin-right: 27px;">Lv.${member.lev}</p>
 	
 	<p class="side-t">회원정보</p>
 	<ul class="side-ul">

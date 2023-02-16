@@ -24,31 +24,22 @@
 		<jsp:include page="includes/header.jsp" />
 	</div>
 	
+	<div style="min-width: 1000px; width: 100%; border-bottom: 1px solid #f1f2f5;"></div>
+	
 	<section class="container">
 		<div class="mcont" style="text-align: center;">
+			<div style="width: 960px; height: 250px; background-color: #cccccc;">
+				배너 부분
+				<c:if test="${id == 'admin' }">
+					<button type="button" onclick="location.href='/bannerForm'">폼 작성</button>
+				</c:if>
+			</div>
+			
 			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			아나바다닷컴 파이팅 ~.~ <br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
+			
+			<div style="width: 960px; min-height: 500px; height: 100%; background-color: #eeeeee;">
+				상품 리스트
+			</div>
 		</div>
 	</section>
 	
