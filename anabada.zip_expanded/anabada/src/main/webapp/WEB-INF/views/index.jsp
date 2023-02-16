@@ -204,6 +204,7 @@ ul {
 				배너 부분
 				<c:if test="${id == 'admin'}">
 					<button type="button" onclick="location.href='/bannerForm'">폼 작성</button>
+					<button type="button" onclick="location.href='/a_banner/bannerUpdate'">폼 수정</button>
 				</c:if>
 				<div class="single-item" id="slick">
 				<c:forEach items="${blist}" var="blist">		

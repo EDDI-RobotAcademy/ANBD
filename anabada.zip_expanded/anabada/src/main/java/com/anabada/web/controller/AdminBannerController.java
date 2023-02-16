@@ -2,9 +2,7 @@ package com.anabada.web.controller;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -13,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,8 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.anabada.web.service.AdminBannerService;
-import com.anabada.web.vo.PageMaker;
-import com.anabada.web.vo.SearchCriteria;
 
 @Controller
 @RequestMapping("/a_banner/*") 
@@ -55,6 +50,12 @@ public class AdminBannerController {
 		return "redirect:/";
 	}
 	
+	// 이벤트 배너 수정 페이지
+	@RequestMapping(value = "/bannerUpdate", method = RequestMethod.GET)
+	public String bannerUpdate() throws Exception {
+		return "/a_banner/bannerUpdate";
+	}
+	
     // 배너 이미지 수정
     @RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String update(@RequestParam String dlist, MultipartHttpServletRequest multipartRequest) throws Exception{
@@ -71,7 +72,7 @@ public class AdminBannerController {
     	
     	if (fileList != null) {
 			for (int i = 0; i < fileList.size(); i++) {
-				String filePath = "/tomcatImg/" + (String) fileList.get(i); // 파일의 경로 저장
+				String filePath = "/banner/" + (String) fileList.get(i); // 파일의 경로 저장
 				service.fileSave(filePath); // 파일 저장
 			}
 		}
