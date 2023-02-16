@@ -48,6 +48,8 @@ public class JobController {
 	
 	@Inject
 	ComplaintService complaintService;
+	
+	private static final String JOB_IMG_PATH = "C:\\upload\\"; // 알바 게시판 사진경로 
 	private static final String CURR_IMAGE_REPO_PATH = "C:\\pimages\\"; // 중고상품 게시판 사진경로 
 	
 	// 알바 구인 게시물 쓰기 눌렀을 때
@@ -75,7 +77,7 @@ public class JobController {
 		if(imgName.lastIndexOf(".") > 0) { // 이미지 선택했다면 확장자때문에 .가 존재. 여기서 이미지 존재하지는 여부 확인
 			String imgExtension = imgName.substring(imgName.lastIndexOf("."),imgName.length());// 확장자 추출
 			
-			String uploadFolder = "C:\\upload"; // 업로드할 폴더 경로
+			String uploadFolder = JOB_IMG_PATH; // 업로드할 폴더 경로
 
 			/*
 			파일 업로드시 파일명이 동일한 파일이 이미 존재할 수도 있고 사용자가 
@@ -89,7 +91,7 @@ public class JobController {
 			
 			String uniqueName = uuids[0];
 			System.out.println("생성된 고유문자열: " + uniqueName + ", 확장자명: " + imgExtension);
-			uploadImg.transferTo(new File(uploadFolder+"\\"+uniqueName + imgExtension)); // 해당 경로에 폴더 업로드
+			uploadImg.transferTo(new File(uploadFolder + uniqueName + imgExtension)); // 해당 경로에 폴더 업로드
 			vo.setJ_img(uniqueName + imgExtension); // 빈에 이미지 이름 저장
 		}
 		
@@ -173,7 +175,7 @@ public class JobController {
 			if(imgName.lastIndexOf(".") > 0) { // 이미지 선택했다면 확장자때문에 .가 존재. 여기서 이미지 존재하지는 여부 확인
 				String imgExtension = imgName.substring(imgName.lastIndexOf("."),imgName.length());// 확장자 추출
 				
-				String uploadFolder = "C:\\upload"; // 업로드할 폴더 경로
+				String uploadFolder = JOB_IMG_PATH; // 업로드할 폴더 경로
 	
 				UUID uuid = UUID.randomUUID();
 				System.out.println(uuid.toString());
@@ -181,7 +183,7 @@ public class JobController {
 				
 				String uniqueName = uuids[0];
 				System.out.println("생성된 고유문자열: " + uniqueName + ", 확장자명: " + imgExtension);
-				uploadImg.transferTo(new File(uploadFolder+"\\"+uniqueName + imgExtension)); // 해당 경로에 폴더 업로드
+				uploadImg.transferTo(new File(uploadFolder + uniqueName + imgExtension)); // 해당 경로에 폴더 업로드
 				vo.setJ_img(uniqueName + imgExtension); // 빈에 이미지 이름 저장
 			}
 		}
@@ -190,8 +192,8 @@ public class JobController {
 		
 		if(d_img != null || d_img != "") { // 이전 사진 컴퓨터에서 삭제
 			File file = null;
-			file = new File("C:\\upload\\"+ d_img);
-			System.out.println("파일 경로:"+"C:\\upload\\" + d_img);
+			file = new File(JOB_IMG_PATH + d_img);
+			System.out.println("파일 경로:" + JOB_IMG_PATH + d_img);
 			file.delete();
 		}
 		
@@ -215,8 +217,8 @@ public class JobController {
 		
 		if(j_image != null || j_image != "") { // 컴퓨터에서 삭제
 			File file = null;
-			file = new File("C:\\upload\\"+j_image);
-			System.out.println("파일 경로:"+"C:\\upload\\"+j_image);
+			file = new File(JOB_IMG_PATH + j_image);
+			System.out.println("파일 경로:" + JOB_IMG_PATH + j_image);
 			file.delete();
 		}
 		
@@ -432,8 +434,8 @@ public class JobController {
  		
  		if(j_image != null || j_image != "") { // 컴퓨터에서 삭제
  			File file = null;
- 			file = new File("C:\\upload\\"+j_image);
- 			System.out.println("파일 경로:"+"C:\\upload\\"+j_image);
+ 			file = new File(JOB_IMG_PATH + j_image);
+ 			System.out.println("파일 경로:"+JOB_IMG_PATH+j_image);
  			file.delete();
  		}
  		
@@ -473,22 +475,24 @@ public class JobController {
  			
  			//4-1-1) 회원 탈퇴시키기 전에 알바 게시물 관련 이미지 서버에서 먼저 삭제
  			List img_list = jobService.img_list(vo.getId());
- 			//중고게시판 이미지 삭제
- 			//서버상에서 사진정보 삭제
-			deleteWithdrawal(vo.getId());
-			complaintService.review_null(vo.getId());
  			
  			if(img_list != null || !img_list.isEmpty()) { // 사진이 있다면 삭제
  				
  				for(int i = 0; i < img_list.size(); i++) {
  					File file = null;
- 					file = new File("C:\\upload\\"+ img_list.get(i));
+ 					file = new File(JOB_IMG_PATH + img_list.get(i));
  					file.delete();
  				}
  			}
  			
- 			//4-1-2) 중고 게시물 관련 이미지 삭제
+ 			//4-1-2) 중고 게시물 관련 이미지 서버상에서 삭제
+			deleteWithdrawal(vo.getId());
+			complaintService.review_null(vo.getId());
+ 			
  			//4-1-2) 동네생활 관련 이미지 삭제
+			
+			
+			
  			
  			//4-2) 회원 탈퇴
  			complaintService.expel_member(vo.getId());
@@ -535,25 +539,24 @@ public class JobController {
  	
  	
  	//중고게시판용
-	  public void deleteRealImg(String filePath) {
-			String realPath = filePath.substring(11);
-			File file = null;
-			file = new File(CURR_IMAGE_REPO_PATH + realPath);
-			file.delete();
+	public void deleteRealImg(String filePath) {
+		String realPath = filePath.substring(11);
+		File file = null;
+		file = new File(CURR_IMAGE_REPO_PATH + realPath);
+		file.delete();
 
-		}
+	}
 	  
- 	
-	  //회원 탈퇴시 서버상에서 회원이 pboard에 남긴 사진 정보 삭제 
-	  public void deleteWithdrawal(String id) throws Exception{
-			//서버상에서 pfile에 해당하는 사진정보들 삭제 
-			List<Integer> pno_list = complaintService.pno_list(id); // 사용자의 게시글 pno불러오기
-			List<String> filePath_list = complaintService.filePath_list(pno_list); // filePath_list불러오기
+	//회원 탈퇴시 서버상에서 회원이 pboard에 남긴 사진 정보 삭제 
+	public void deleteWithdrawal(String id) throws Exception{
+		//서버상에서 pfile에 해당하는 사진정보들 삭제 
+		List<Integer> pno_list = complaintService.pno_list(id); // 사용자의 게시글 pno불러오기
+		List<String> filePath_list = complaintService.filePath_list(pno_list); // filePath_list불러오기
 			
-			//서버상에서 사진정보 삭제
+		//서버상에서 사진정보 삭제
 			
-			  for(String filePath : filePath_list) { deleteRealImg(filePath); }
-	  }
+	    for(String filePath : filePath_list) { deleteRealImg(filePath); }
+	}
 	  
  	
  	

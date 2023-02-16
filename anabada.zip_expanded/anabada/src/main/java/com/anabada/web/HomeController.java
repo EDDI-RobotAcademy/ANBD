@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.anabada.web.service.AdminBannerService;
 import com.anabada.web.service.ProductService;
 import com.anabada.web.vo.PBoardVO;
 import com.anabada.web.vo.SearchCriteriapro;
@@ -23,8 +24,11 @@ import com.anabada.web.vo.SearchCriteriapro;
  */
 @Controller
 public class HomeController {
+	
 	@Inject
 	ProductService service;
+	AdminBannerService abservice;
+	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	/**
@@ -43,20 +47,20 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate );
 		
 		
-		//중고 게시글 가져오기 
+		// 중고 게시글 가져오기 
 		SearchCriteriapro scri = new SearchCriteriapro();
 		List<PBoardVO> list = service.list(scri); // 글정보 담아오기 
-		//list에 해당하는 사진 정보 담아오기 
-		for(int i=0 ; i<list.size() ; i++) {
+		// list에 해당하는 사진 정보 담아오기 
+		for(int i=0 ; i < list.size() ; i++) {
 			PBoardVO vo = list.get(i);
 			String path = service.getImg(vo.getPno()); // 첫번쨰 사진의 정보를 담음
-			if(path == null) {
+			if (path == null) {
 				vo.setP_filepath("/tomcatImg/img.png");
-			}else {
+			} else {
 				vo.setP_filepath(path);
 			}
 		}
-		model.addAttribute("list",list);
+		model.addAttribute("list", list);
 		
 		return "index";
 	}
@@ -68,13 +72,13 @@ public class HomeController {
 	}
 	
 	// test
-		@RequestMapping(value = "/test", method = RequestMethod.GET)
-		public String test(Model model) {
-			String kbs = "아름다운 대한민국!";
-			model.addAttribute("datadata", kbs);
-			logger.info("test: " + kbs);
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public String test(Model model) {
+		String kbs = "아름다운 대한민국!";
+		model.addAttribute("datadata", kbs);
+		logger.info("test: " + kbs);
 
-			return "/test/korea";
+		return "/test/korea";
 	}
 		
 }

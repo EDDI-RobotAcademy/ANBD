@@ -35,6 +35,8 @@ import com.anabada.web.vo.ReviewVO;
 public class ProductComplaintController {
 	private static final Logger logger = LoggerFactory.getLogger(ProductComplaintController.class);
 	private static final String CURR_IMAGE_REPO_PATH = "C:\\pimages\\";
+	private static final String JOB_IMG_PATH = "C:\\upload\\"; // 알바 게시판 사진경로 
+	
 	@Inject
 	ProductComplaintService service;
 	
@@ -141,6 +143,20 @@ public class ProductComplaintController {
 					deleteWithdrawal(id);
 					 //회원 탈퇴시 해당 회원이 남긴 review에서 consumer 을 null로 변경
 					complaintService.review_null(id);
+					
+					// 알바 게시물 관련 이미지 서버에서 먼저 삭제
+		 			List img_list = jobService.img_list(id);
+		 			
+		 			if(img_list != null || !img_list.isEmpty()) { // 사진이 있다면 삭제
+		 				
+		 				for(int i = 0; i < img_list.size(); i++) {
+		 					File file = null;
+		 					file = new File(JOB_IMG_PATH + img_list.get(i));
+		 					file.delete();
+		 				}
+		 			}
+					
+					
 
 					String email = complaintService.expel_email(id); // 회원 email가져옴
 					complaintService.expel_member(id); // 회원 탈퇴 
@@ -207,6 +223,18 @@ public class ProductComplaintController {
 			deleteWithdrawal(id);
 			complaintService.review_null(id);
 
+			// 알바 게시물 관련 이미지 서버에서 먼저 삭제
+ 			List img_list = jobService.img_list(id);
+ 			
+ 			if(img_list != null || !img_list.isEmpty()) { // 사진이 있다면 삭제
+ 				
+ 				for(int i = 0; i < img_list.size(); i++) {
+ 					File file = null;
+ 					file = new File(JOB_IMG_PATH + img_list.get(i));
+ 					file.delete();
+ 				}
+ 			}
+			
 			
 			
 			String email = complaintService.expel_email(id); // 회원 email가져옴

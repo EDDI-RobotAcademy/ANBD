@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,35 +21,53 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.anabada.web.service.AdminBannerService;
+import com.anabada.web.vo.PageMaker;
+import com.anabada.web.vo.SearchCriteria;
 
 @Controller
 @RequestMapping("/a_banner/*") 
 public class AdminBannerController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(AdminBannerController.class);
-	
 	private static final String BANNER_IMG_PATH = "C:\\aimages\\";
 	
 	@Inject
 	AdminBannerService service;
 	
 	// 배너 등록
-    @RequestMapping(value = "/insert", method = RequestMethod.POST)
-	public String insert(MultipartHttpServletRequest multipartRequest) throws Exception{
+	@RequestMapping(value = "/insert", method = RequestMethod.POST)
+	public String insert(Model model, MultipartHttpServletRequest multipartRequest) throws Exception {
+		multipartRequest.setCharacterEncoding("utf-8");
 	
-    	multipartRequest.setCharacterEncoding("utf-8");
-
 		// view에서 넘어온 사진들이 담긴 fileList
 		List<String> fileList = fileProcess(multipartRequest);
-    	
-    	if (fileList != null) {
+		       
+		if (fileList != null) {
 			for (int i = 0; i < fileList.size(); i++) {
-				String filePath = "/tomcatImg/" + (String) fileList.get(i); // 파일의 경로 저장
+				String filePath = "/banner/" + (String) fileList.get(i); // 파일의 경로 저장
 				service.fileSave(filePath); // 파일 저장
+				model.addAttribute("filePath", filePath);
 			}
 		}
+	
+		model.addAttribute("fileList", fileList);
+		       
+		return "/a_banner/bannerList";
+	}
+	
+	// 배너 목록
+	@RequestMapping(value = "/bannerList", method = RequestMethod.GET)
+	public String list(Model model, @ModelAttribute("scri") SearchCriteria scri) throws Exception {
+		logger.info("배너 리스트 ~ ");
 		
-		return "index";
+		model.addAttribute("blist", service.list(scri));
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(scri);
+		
+		model.addAttribute("pageMaker", pageMaker);
+		
+		return "/a_banner/bannerList";
 	}
     
     // 배너 이미지 수정
@@ -75,10 +94,8 @@ public class AdminBannerController {
 		return "index";
 	}
     
-    
-    
     // 이미지 저장
- 	private List<String> fileProcess(MultipartHttpServletRequest multipartRequest) throws Exception {
+    public List<String> fileProcess(MultipartHttpServletRequest multipartRequest) throws Exception {
 
  		// Iterator<String> fileNames = multipartRequest.getFileNames();
  		List<MultipartFile> fileNameList = multipartRequest.getFiles("file");
@@ -114,7 +131,7 @@ public class AdminBannerController {
  	
  	
 	// 게시글 수정시 넘어온 이미지 삭제
-	private void removeImg(String dlist) throws Exception {
+    public void removeImg(String dlist) throws Exception {
 
 		String[] list = dlist.split(",");
 		for (String str : list) {

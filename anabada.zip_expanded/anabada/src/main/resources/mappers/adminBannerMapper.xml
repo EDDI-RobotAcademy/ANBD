@@ -13,6 +13,12 @@ values(banner_seq.nextval, #{filePath})
 SELECT A_FILE FROM A_BANNER WHERE A_NO = #{a_no}
 </select>
 
+<select id="imgList" resultType="com.anabada.web.vo.BannerVO">
+	SELECT *
+	FROM a_banner
+	ORDER BY a_no
+</select>
+
 <!-- 게시글 삭제 -->
 <delete id="delete" parameterType="int">
 DELETE FROM A_BANNER WHERE A_NO = #{a_no}

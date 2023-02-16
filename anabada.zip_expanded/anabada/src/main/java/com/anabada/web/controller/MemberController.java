@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.anabada.web.service.ComplaintService;
+import com.anabada.web.service.JobService;
 import com.anabada.web.service.KakaoService;
 import com.anabada.web.service.MemberService;
 import com.anabada.web.vo.MemberVO;
@@ -34,13 +35,16 @@ public class MemberController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	
 	private static final String CURR_IMAGE_REPO_PATH = "C:\\pimages\\";
+	private static final String JOB_IMG_PATH = "C:\\upload\\"; // 알바 게시판 사진경로 
+	
 	@Inject
 	MemberService service;
 	@Inject
 	ComplaintService complaintService;
-	
 	@Inject
 	KakaoService kakao;
+	@Inject
+	JobService jobService;
 	
 	// 회원가입 동의 get
 	@RequestMapping(value = "/member/registerAgree", method = RequestMethod.GET)
@@ -330,6 +334,18 @@ public class MemberController {
 		//회원탈퇴시 중고게시판에 있는 글을 지워준다 
 		deleteWithdrawal(vo.getId());
 		complaintService.review_null(vo.getId()); // 리뷰 null 처리 
+		
+		// 회원 탈퇴 시 알바 관련이미지 서버에서 삭제
+		List img_list = jobService.img_list(vo.getId());
+			
+		if(img_list != null || !img_list.isEmpty()) { // 사진이 있다면 삭제
+				
+			for(int i = 0; i < img_list.size(); i++) {
+				File file = null;
+				file = new File(JOB_IMG_PATH + img_list.get(i));
+				file.delete();
+			}
+		}
 		
 		
 		

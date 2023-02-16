@@ -38,6 +38,7 @@
 			<li class="side-line"></li>
 			<li class="side-li"><a href="/member/memberListView">회원 관리</a></li>
 			<li class="side-li"><a href="/qna_board/list">문의 내역</a></li>
+			<li class="side-li"><a href="/a_banner/bannerList">배너 목록</a></li>
 		</c:if>	
 	</ul>
 </div>
