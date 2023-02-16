@@ -5,6 +5,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="shortcut icon" href="resources/images/favicon.ico">
+<link rel="manifest" href="resources/images/manifest.json">
+<meta name="theme-color" content="#ffffff">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

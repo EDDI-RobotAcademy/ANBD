@@ -32,7 +32,26 @@
 				배너 부분
 				<c:if test="${id == 'admin' }">
 					<button type="button" onclick="location.href='/bannerForm'">폼 작성</button>
+					<button type="button" onclick="location.href='/a_banner/update'">수정</button>
 				</c:if>
+				
+				<div class="single-item" id="slick" style="width: 960px; height: 250px;">
+					<c:choose>
+						<c:when test="${empty fileList}">
+							<div class="imgbox">
+								<img width="960px;" height="250px;" src="<c:url value='/images/search.png'/>">
+							</div>
+						</c:when>
+						
+						<c:otherwise>
+							<c:forEach items="${fileList}" var="list">
+								<div class="imgbox">
+									<img width="960px;" height="250px;" src="${list.filePath}" name="a_file">
+								</div>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
+				</div>
 			</div>
 			
 			<br>
