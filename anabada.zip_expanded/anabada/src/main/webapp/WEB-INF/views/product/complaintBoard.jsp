@@ -22,7 +22,6 @@ $(document).ready(function() {
 	
 	  $("button[name=delete]").on("click", function () {
 	         if(confirm("삭제하시겠습니까?")){
-	        	 alert("${read.id}");
 	            
 	            
 	            $.ajax({
@@ -39,11 +38,9 @@ $(document).ready(function() {
 	                        alert("삭제했습니다.");
 	                        
 	                        if(${href eq 'all'}){
-								alert("전체 새로고침");
 						    	window.opener.top.location.href = "http://localhost:8081/complaint-all-view/";
 						    	
 						    }else if(${href eq 'pboard'}){
-						    	alert("부분 새로고침");
 						    	window.opener.top.location.href = "http://localhost:8081/complaint-view/pboard";
 						    }
 				            		
@@ -123,18 +120,20 @@ tr, td {
 			<div class="box">내용</div>
 			
 			 ${read.p_content} </td> </tr>
+			 <c:if test="${not empty filelist }">
 			<tr> <td colspan="3" > 
 			
-			<c:if test="${not empty filelist }">
+			
 			
 			<c:forEach items="${filelist }" var="list" >
 			<img  src="${list.filepath}" name="p_file" width="150px;" height="150px;" >
 			</c:forEach>
 			
-			</c:if>
+			
 			
 			
 			</td> </tr>
+			</c:if>
 		</table>
 
 

@@ -72,8 +72,7 @@ methods: {
   },
     async onDetails(payload){
             await this.requestComplaintDetail(payload)
-            //alert("111");
-            //alert(this.complaintTotal);
+           
           }
 
 

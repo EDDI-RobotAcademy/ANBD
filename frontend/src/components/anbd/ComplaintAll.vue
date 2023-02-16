@@ -152,7 +152,7 @@
         }else if(boardType === 'note'){
           window.open("http://localhost:8080/note/complaint_note?n_bno=" + c_bno + "&href=all", "_blank", 'width=460px, height=500px')
         }else if(boardType === 'pboard'){
-          window.open("http://localhost:8080/pcomplaint/complaintBoard?pno=" + c_bno + "&href=all",'_blank', 'width=700px,height=700px')
+          window.open("http://localhost:8080/pcomplaint/complaintBoard?pno=" + c_bno + "&href=all",'_blank', 'width=850px,height=700px')
         }else if(boardType === 'a_board'){
           window.open("http://localhost:8080/a_board/complaintReadView?a_bno=" + c_bno + "&href=all",'_blank', 'width=1000px,height=1000px')
         }else if(boardType === 'review'){

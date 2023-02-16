@@ -747,7 +747,7 @@ margin-top: 0px;
 		            	}else{
 		            		
 		            		 var url = "/product/reviewReport?r_no="+btn_val;
-		            		 window.open(url, "신고", "width=520, height=750, left=700, top=100");
+		            		 window.open(url, "신고", "width=700, height=750, left=700, top=100");
 		            	}
 		                
 		            },
@@ -817,7 +817,7 @@ function complaint() {
 	            	if(data == 1){
 	            		alert("이미 신고한 게시글입니다.");
 	            	}else{
-	            		 window.open("/product/report?pno=${read.pno}", "신고", "width=520, height=750, right=100, top=100");
+	            		 window.open("/product/report?pno=${read.pno}", "신고", "width=750, height=750, right=100, top=100");
 	            	}
 	                
 	            },

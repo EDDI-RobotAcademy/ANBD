@@ -11,7 +11,7 @@
 	}
 	.report-background {
 		background-color: white;
-		width: 485px;
+		width: 550px;
 		height: 500px;
 		text-align: left;
 		margin: 15px auto;
