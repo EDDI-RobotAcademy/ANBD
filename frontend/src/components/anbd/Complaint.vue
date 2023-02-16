@@ -27,8 +27,8 @@
       <template v-slot:[`item.boardType`]="{ item }">
         <span v-if="item.boardType === 'job'">아르바이트 게시물</span>
         <span v-if="item.boardType === 'note'">쪽지</span>
-        <span v-if="item.boardType === 'pboard'">중고 게시글</span>
-        <span v-if="item.boardType === 'a_board'">동네생활 게시글</span>
+        <span v-if="item.boardType === 'pboard'">중고 게시물</span>
+        <span v-if="item.boardType === 'a_board'">동네생활 게시물</span>
         <span v-if="item.boardType === 'review'">리뷰</span>
       </template>
 
