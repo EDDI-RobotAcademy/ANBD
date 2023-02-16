@@ -5,26 +5,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="shortcut icon" href="resources/images/favicon.ico">
-<link rel="manifest" href="resources/images/manifest.json">
-<meta name="theme-color" content="#ffffff">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<meta name="description" content="" />
-<meta name="author" content="" />
-<meta charset="UTF-8">
-<title>아나바다</title>
-<link rel="stylesheet" href="<c:url value='/css/r_styles.css'/>">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-<link href="../resources/css/styles.css" rel="stylesheet" />
-<script
-	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
 <script>
 
 $(document).ready(function() {
 	var dlist=[];
-});
 
+$("#slick").slick({
+    infinite : true, /* 맨끝이미지에서 끝나지 않고 다시 맨앞으로 이동 */
+    slidesToShow : 1, /* 화면에 보여질 이미지 갯수*/
+    slidesToScroll : 1, /*  스크롤시 이동할 이미지 갯수 */
+    autoplay : true, /* 자동으로 다음이미지 보여주기 */
+    arrows : true, /* 화살표  */
+    dots : true, /*  아래점  */
+    autoplaySpeed : 1500,/* 다음이미지로 넘어갈 시간 */
+    speed : 1000, /* 다음이미지로 넘겨질때 걸리는 시간 */
+    pauseOnHover : true, /*  마우스 호버시 슬라이드 이동 멈춤 */
+    //vertical:true,/*  세로방향으로 슬라이드를 원하면 추가하기// 기본값 가로방향 슬라이드*/
+    responsive : [ { /* 반응형웹*/
+       breakpoint : 960, /*  기준화면사이즈 */
+       settings : {
+          slidesToShow : 2
+       }
+    /*  사이즈에 적용될 설정 */
+    }, { /* 반응형웹*/
+       breakpoint : 768, /*  기준화면사이즈 */
+       settings : {
+          slidesToShow : 1
+       }
+    /*  사이즈에 적용될 설정 */
+    } ]
+ });
+});
 </script>
 
 <style type="text/css">
@@ -140,7 +159,29 @@ ul {
 	margin: auto;
 	margin-top: 40px;
 }
-
+.slick-arrow {
+   z-index: 2; /* prev버튼은 위치 이동시 이미지 뒤로 숨겨짐 */
+   position: absolute; /* 원하는 위치에 지정  */
+   top: 50%;
+   width: 50px;
+   height: 50px;
+   transform: translateY(-25px);
+}
+.slick-prev.slick-arrow { /* prev 이전 */
+   position: absolute;
+   left: 0px;
+}
+.slick-next.slick-arrow { /* next 다음 */
+   right: 10px;
+}
+/* 아래점 */
+.slick-dots {
+   text-align: center;
+}
+.slick-dots li {
+   display: inline-block;
+   margin: 0 5px;
+}
 /*끝 */
 </style>
 </head>
@@ -164,10 +205,14 @@ ul {
 				<c:if test="${id == 'admin'}">
 					<button type="button" onclick="location.href='/bannerForm'">폼 작성</button>
 				</c:if>
+				<div class="single-item" id="slick">
 				<c:forEach items="${blist}" var="blist">		
+				<div class="imgbox">
 					<div><c:out value="${blist.a_no}" /></div>
-					<div><img width="500px;" height="300px;" src="${blist.a_file}" /></div>
+					<div><img width="500px;" height="300px;" class="single-item" id="slick" src="${blist.a_file}" /></div>
+				</div>
 				</c:forEach>
+				</div>
 			</div>
 
 			<div id="wapper" style="width: 960px; min-height: 500px; height: 100%;">

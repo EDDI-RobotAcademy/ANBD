@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.anabada.web.service.AdminBannerService;
 import com.anabada.web.service.ProductService;
 import com.anabada.web.vo.PBoardVO;
+import com.anabada.web.vo.PageMaker;
+import com.anabada.web.vo.SearchCriteria;
 import com.anabada.web.vo.SearchCriteriapro;
 
 /**
@@ -27,6 +29,8 @@ public class HomeController {
 	
 	@Inject
 	ProductService service;
+	
+	@Inject
 	AdminBannerService abservice;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -46,6 +50,7 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
+		model.addAttribute("blist", abservice.list());
 		
 		// 중고 게시글 가져오기 
 		SearchCriteriapro scri = new SearchCriteriapro();

@@ -9,10 +9,11 @@ public interface AdminBannerService {
 
 	public void fileSave(String filePath) throws Exception;
 	
-	public List<BannerVO> list(SearchCriteria scri) throws Exception;
+	public List<BannerVO> list() throws Exception;
 
 	public String imgPath(int a_no) throws Exception;
 
 	public void deleteImg(int a_no) throws Exception;
+
 
 }

@@ -25,8 +25,8 @@ public class AdminBannerServiceImpl implements AdminBannerService {
 	
 	// 배너 리스트
 	@Override
-	public List<BannerVO> list(SearchCriteria scri) throws Exception {
-		return dao.list(scri);
+	public List<BannerVO> list() throws Exception {
+		return dao.list();
 	}
 
 	// 삭제할 배너 이미지 경로 가져오기
