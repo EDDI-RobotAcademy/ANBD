@@ -1,7 +1,6 @@
 <template>
   <v-container>
-    <v-btn class="ma-2" color="gray" @click="onDelete"> 삭제 </v-btn>
-    
+   
     <v-data-table
       :headers="headerTitle"
       :items="complaint"
@@ -15,20 +14,21 @@
       <template v-slot:top>
         <v-toolbar flat>
           <v-toolbar-title>
-            <span v-if="boardType === 'job'">알바 신고내역</span>
+            <span v-if="boardType === 'job'">아르바이트 신고내역</span>
             <span v-if="boardType === 'note'">쪽지 신고내역</span>
             <span v-if="boardType === 'pboard'">중고 신고내역</span>
             <span v-if="boardType === 'a_board'">동네생활 신고내역</span>
             <span v-if="boardType === 'review'">리뷰 신고내역</span>
+            <v-btn class="ma-2" color="gray" @click="onDelete"> 삭제 </v-btn>
           </v-toolbar-title>
         </v-toolbar>
       </template>
 
       <template v-slot:[`item.boardType`]="{ item }">
-        <span v-if="item.boardType === 'job'">알바</span>
+        <span v-if="item.boardType === 'job'">아르바이트 게시물</span>
         <span v-if="item.boardType === 'note'">쪽지</span>
-        <span v-if="item.boardType === 'pboard'">중고</span>
-        <span v-if="item.boardType === 'a_board'">동네생활</span>
+        <span v-if="item.boardType === 'pboard'">중고 게시글</span>
+        <span v-if="item.boardType === 'a_board'">동네생활 게시글</span>
         <span v-if="item.boardType === 'review'">리뷰</span>
       </template>
 
@@ -144,9 +144,8 @@
             dialog : false,
             selectedItems: [],
             headerTitle: [
-                { text: '신고 내용', value: 'c_content', width: "200px"},
-                { text: '게시물 번호', value: 'c_bno', width: "100px"},
                 { text: '게시물 유형', value: 'boardType', width: "100px"},
+                { text: '게시물 번호', value: 'c_bno', width: "100px"},
                 {text : '상세 사유' , value : 'details' , width : "100px",  align: 'center'},
                 { text: '신고 게시물', value: 'show', width: "100px"},
             ],

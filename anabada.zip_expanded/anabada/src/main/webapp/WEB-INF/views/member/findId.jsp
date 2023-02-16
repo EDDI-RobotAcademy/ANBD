@@ -35,11 +35,16 @@
 			</div>
 	
 			<div class="login-box">
-				<input class="login-in" type="text" id="name" name="name" placeholder="이름">
+				<input class="login-in" type="text" id="name" name="name" placeholder="이름" required>
 			</div>
 			
 			<div class="login-box2">
-				<input class="login-in2" type="text" id="email" name="email" placeholder="이메일">
+				<input class="login-in2" type="text" id="email" name="email" placeholder="이메일" required>
+			</div>
+			
+			<div>
+				<font id="Chk" size="2">
+				</font>
 			</div>
 			
 			<div>

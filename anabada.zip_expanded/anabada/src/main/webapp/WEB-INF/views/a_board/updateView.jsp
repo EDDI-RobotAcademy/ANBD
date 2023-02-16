@@ -42,34 +42,25 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 
-	/* 수정 버튼 스크립트 */
-	$(function() {
-		var formObj = $("form[name='updateForm']")d;
-		
-		$(".update_btn").on("click", function() {
-			if(fn_valiChk()) {
-				return false;
-			}
-			formObj.attr("action", "/a_board/update");
-			formObj.attr("method", "post");
-			formObj.submit();
-		});
-		
-		function fn_valiChk() {
-			var updateForm = ${"form[name='updateForm'] .chk"}.length;
-			for(var i=0; i<updateForm; i++) {
-				if($(".chk").eq(i).val() == "" || $(".chk").eq(i).val() == null) {
-					alert($(".chk").eq(i).attr("placeholder"));
-				}
-			}
+	//글 수정 유효성 검사
+	function formChk() {
+				
+		if($("input:radio[name='a_type']:checked").length < 1) {
+			alert("말머리를 선택해주세요.");
+			return false;
 		}
-		
-		/* $(".cancel_btn").on("click", function() {
-			event.preventDefault();
-			location.href="/a_board/readView?a_bno=${update.a_bno}" + "&page=${scri.page}" + "&perPageNum=${scri.perPageNum}" + 
-			"&searchType=${scri.searchType}" + "&keyword=${scri.keyword}" + "&cateType=${scri.cateType}";
-		}); */
-	});
+		if($("#title").val() == "") {
+			alert("제목을 입력해주세요.");
+			$("#title").focus();
+			return false;
+		}
+		if(CKEDITOR.instances['content'].getData() == "") {
+			alert("내용을 입력해주세요.");
+			CKEDITOR.instances['content'].focus();
+			return false;
+		}
+	}
+	
 </script>
 </head>
 <body>
@@ -81,7 +72,7 @@
 
 <!-- 게시글 수정 -->
 <section class="container">
-<form name="updateForm" method="post" action="/a_board/update" class="mcont">
+<form name="updateForm" method="post" action="/a_board/update" class="mcont" onsubmit="return formChk()">
 	<input type="hidden" name="a_bno" value="${update.a_bno }" readonly="readonly"/>
 	<input type="hidden" name="page" value="${scri.page }"/>
 	<input type="hidden" name="perPageNume" value="${scri.perPageNum }"/>
@@ -102,18 +93,18 @@
 			<td>
 				<br>
 				<select id="loca" name="loca" class="form-select form-select-sm">
-					<option value="강원">강원</option>
-					<option value="경기">경기</option>
-					<option value="경남">경남</option>
-					<option value="경북">경북</option>
-					<option value="부산">부산</option>
-					<option value="서울">서울</option>
-					<option value="인천">인천</option>
-					<option value="전남">전남</option>
-					<option value="전북">전북</option>
-					<option value="제주">제주</option>
-					<option value="충남">충남</option>
-					<option value="충북">충북</option>
+					<option value="1">강원</option>
+					<option value="2">경기</option>
+					<option value="3">경남</option>
+					<option value="4">경북</option>
+					<option value="5">부산</option>
+					<option value="6">서울</option>
+					<option value="7">인천</option>
+					<option value="8">전남</option>
+					<option value="9">전북</option>
+					<option value="10">제주</option>
+					<option value="11">충남</option>
+					<option value="12">충북</option>
 				</select>
 				<br>
 			</td>
@@ -122,14 +113,14 @@
 		<tr>
 			<td>
 				<label for="a_title" class="form-label">제목</label>
-				<input type="text" id="a_title" name="a_title" class="chk form-control" value="${update.a_title }" placeholder="제목을 입력해주세요."/>
+				<input type="text" id="title" name="a_title" class="chk form-control" value="${update.a_title }" placeholder="제목을 입력해주세요."/>
 			</td>
 		</tr>
 		
 		<tr>
 			<td>
 				<label for="a_content" class="form-label">내용</label>
-				<textarea id="a_content" name="a_content" placeholder="내용을 입력해주세요."><c:out value="${update.a_content }"/></textarea>
+				<textarea id="content" name="a_content" placeholder="내용을 입력해주세요."><c:out value="${update.a_content }"/></textarea>
 			<script type="text/javascript">
 				CKEDITOR.replace('a_content', {filebrowserUploadUrl: '/a_board/fileUpload', width:930, height:300});
 			</script>
@@ -150,7 +141,7 @@
 	<!-- 저장 및 취소 버튼 -->
 	<div style="text-align:right;">
 		<br>
-		<button type="submit" class="update_btn">저장</button>&nbsp;
+		<button type="submit">저장</button>&nbsp;
 		<!-- .cancel_btn이 안먹어서 history.go(-2)로 변경, 게시글 목록으로 넘어가게 함 -->
 		<button type="reset" onclick="javascript:history.go(-2)">취소</button>
 	</div>

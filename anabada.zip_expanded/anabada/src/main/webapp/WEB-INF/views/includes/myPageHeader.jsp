@@ -4,6 +4,19 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <div class="sidemenu2">
+	<div class="sidepro" style="float: right;">
+		<div class="sideimg">
+<%--             <img src="<c:url value='/images/lev_1.png'/>" style="width: 60px; height: 60px;"> --%>
+<%--             <img src="<c:url value='/images/lev_2.png'/>" style="width: 55px; height: 55px;"> --%>
+            <img src="<c:url value='/images/lev_3.png'/>" style="width: 55px; height: 55px;">
+<%--             <img src="<c:url value='/images/lev_4.png'/>" style="width: 85px; height: 85px;"> --%>
+		</div>
+	</div>
+	
+	<div style="clear: both;"></div>
+	
+	<p style="font-size: 11px; margin-bottom: 11px;">당신의 점수는 <br> ${member.lev}초 후에 공개됩니다</p>
+	
 	<p class="side-t">회원정보</p>
 	<ul class="side-ul">
 		<li class="side-li"><a href="/member/memberUpdateView">내 정보 관리</a></li>

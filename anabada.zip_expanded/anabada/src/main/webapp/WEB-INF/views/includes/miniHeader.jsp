@@ -31,7 +31,7 @@
 		</div>
 	</div>
 	
-	<div style="border-top: 1px solid #f1f2f5; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 25px;">
+	<div style="min-width: 1000px; width: 100%; border-top: 1px solid #f1f2f5; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 25px;">
 	</div>
 </body>
 </html>

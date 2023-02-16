@@ -33,29 +33,16 @@ public class KakaoController {
 		String access_Token = kakao.getAccessToken(code);
 		MemberVO userInfo = kakao.getUserInfo(access_Token);
 		
-//		String email = userInfo.getAccount_email();
-//		//@의 인덱스 값을 찾음
-//		int index = email.indexOf("@");
-//		//@앞까지 추출
-//		String id = email.substring(0, index);
-		
 		System.out.println("###access_Token#### : " + access_Token);
-		System.out.println("###nickname#### : " + userInfo.getNick());
+		//어차피 nick 컬럼에 저장 되는 값은 랜덤 문자열이기 때문에 service단에서 name컬럼에 저장된 nickname을 불러와서 확인
+		System.out.println("###카카오 로그인할 때 받아오는 nickname값을 name컬럼에 저장#### : " + userInfo.getName());
 		System.out.println("###email#### : " + userInfo.getEmail());
 		System.out.println("###id### : " + userInfo.getId());
-		
-//		session.setAttribute("kakaoN", userInfo.getNick());
-//		session.setAttribute("kakaoE", userInfo.getEmail());
-//		session.setAttribute("id", userInfo.getId());
 		
 		session.setAttribute("member", userInfo);
 		session.setAttribute("id", userInfo);
 		
 		if(userInfo != null) {
-//			session.setAttribute("email", userInfo.getEmail());
-//			session.setAttribute("access_Token", access_Token);
-//			session.setAttribute("id", userInfo.getId());
-			
 			session.setAttribute("member", userInfo);
 			session.setAttribute("id", userInfo.getId());
 			logger.info("member : " + userInfo);
