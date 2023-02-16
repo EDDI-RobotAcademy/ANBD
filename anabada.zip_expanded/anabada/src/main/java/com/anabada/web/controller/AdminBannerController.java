@@ -48,7 +48,7 @@ public class AdminBannerController {
 			}
 		}
 		
-		return "/note/report";
+		return "index";
 	}
     
     // 배너 이미지 수정
