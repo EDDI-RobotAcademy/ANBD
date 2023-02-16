@@ -52,7 +52,7 @@ public class AdminBannerController {
 	
 		model.addAttribute("fileList", fileList);
 		       
-		return "redirect:/a_banner/bannerList";
+		return "/a_banner/bannerList";
 	}
 	
 	// 배너 목록
@@ -67,7 +67,7 @@ public class AdminBannerController {
 		
 		model.addAttribute("pageMaker", pageMaker);
 		
-		return "index";
+		return "/a_banner/bannerList";
 	}
     
     // 배너 이미지 수정

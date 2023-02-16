@@ -11,15 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.anabada.web.service.AdminBannerService;
 import com.anabada.web.service.ProductService;
-import com.anabada.web.vo.BannerVO;
 import com.anabada.web.vo.PBoardVO;
-import com.anabada.web.vo.SearchCriteria;
 import com.anabada.web.vo.SearchCriteriapro;
 
 /**
@@ -31,13 +28,14 @@ public class HomeController {
 	@Inject
 	ProductService service;
 	AdminBannerService abservice;
+	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model, @ModelAttribute("bscri") SearchCriteria bscri) throws Exception{
+	public String home(Locale locale, Model model) throws Exception{
 		
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
@@ -48,12 +46,6 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		// 배너
-//		List<BannerVO> blist = abservice.list(bscri);
-//		model.addAttribute("blist", abservice.list(bscri));
-//		
-//		model.addAttribute("blist", blist);
-
 		
 		// 중고 게시글 가져오기 
 		SearchCriteriapro scri = new SearchCriteriapro();
