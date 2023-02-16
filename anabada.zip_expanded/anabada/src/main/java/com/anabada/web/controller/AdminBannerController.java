@@ -53,11 +53,26 @@ public class AdminBannerController {
     
     // 배너 이미지 수정
     @RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String insert(@RequestParam int n_bno, Model model) throws Exception{
+	public String update(@RequestParam String dlist, MultipartHttpServletRequest multipartRequest) throws Exception{
 	
-		model.addAttribute("n_bno", n_bno);
-		
-		return "/note/report";
+    	multipartRequest.setCharacterEncoding("utf-8");
+    	
+    	// 삭제해야할 배너 이미지 삭제
+        if (!(dlist.equals(""))) {
+    		removeImg(dlist);
+    	}
+        
+		// view에서 넘어온 사진들이 담긴 fileList
+		List<String> fileList = fileProcess(multipartRequest);
+    	
+    	if (fileList != null) {
+			for (int i = 0; i < fileList.size(); i++) {
+				String filePath = "/tomcatImg/" + (String) fileList.get(i); // 파일의 경로 저장
+				service.fileSave(filePath); // 파일 저장
+			}
+		}
+    	
+		return "index";
 	}
     
     
@@ -96,6 +111,29 @@ public class AdminBannerController {
  		return fileList;
 
  	}
+ 	
+ 	
+	// 게시글 수정시 넘어온 이미지 삭제
+	private void removeImg(String dlist) throws Exception {
+
+		String[] list = dlist.split(",");
+		for (String str : list) {
+			int a_no = Integer.parseInt(str);
+			// 사진의 경로 가져오기
+			String imgpath = service.imgPath(a_no);
+			deleteRealImg(imgpath); // 넣어준 경로의 사진을 서버에서 삭제해준다
+			service.deleteImg(a_no); // 해당 이미지를 테이블에서 삭제
+		}
+	}
+	
+	// 해당 경로의 배너 이미지를 삭제하는 메소드
+	public void deleteRealImg(String filePath) {
+		String realPath = filePath.substring(11);
+		File file = null;
+		file = new File(BANNER_IMG_PATH + realPath);
+		file.delete();
+
+	}
 	
 	
 
