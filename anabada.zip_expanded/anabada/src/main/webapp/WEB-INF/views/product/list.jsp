@@ -215,7 +215,12 @@ ul {
 			if ("${id}" == "") {
 				alert('회원 전용 서비스입니다. 로그인 후 이용하세요 ');
 				return;
-			} else {
+			} else if("${id}"=="admin"){
+				alert("관리자 모드입니다.");
+				return;
+			}
+			
+			else  {
 
 				location.href = "/product/writeView";
 			}
