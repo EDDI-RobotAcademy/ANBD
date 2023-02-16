@@ -48,7 +48,7 @@ public class JobController {
 	
 	@Inject
 	ComplaintService complaintService;
-	
+	private static final String CURR_IMAGE_REPO_PATH = "C:\\pimages\\"; // 중고상품 게시판 사진경로 
 	
 	// 알바 구인 게시물 쓰기 눌렀을 때
 	@RequestMapping(value = "/job_insert", method = RequestMethod.GET)
@@ -473,6 +473,10 @@ public class JobController {
  			
  			//4-1-1) 회원 탈퇴시키기 전에 알바 게시물 관련 이미지 서버에서 먼저 삭제
  			List img_list = jobService.img_list(vo.getId());
+ 			//중고게시판 이미지 삭제
+ 			//서버상에서 사진정보 삭제
+			deleteWithdrawal(vo.getId());
+			complaintService.review_null(vo.getId());
  			
  			if(img_list != null || !img_list.isEmpty()) { // 사진이 있다면 삭제
  				
@@ -526,5 +530,33 @@ public class JobController {
 		System.out.println(read_chk);
 		return read_chk;
 	}
+ 	
+ 	
+ 	
+ 	
+ 	//중고게시판용
+	  public void deleteRealImg(String filePath) {
+			String realPath = filePath.substring(11);
+			File file = null;
+			file = new File(CURR_IMAGE_REPO_PATH + realPath);
+			file.delete();
+
+		}
+	  
+ 	
+	  //회원 탈퇴시 서버상에서 회원이 pboard에 남긴 사진 정보 삭제 
+	  public void deleteWithdrawal(String id) throws Exception{
+			//서버상에서 pfile에 해당하는 사진정보들 삭제 
+			List<Integer> pno_list = complaintService.pno_list(id); // 사용자의 게시글 pno불러오기
+			List<String> filePath_list = complaintService.filePath_list(pno_list); // filePath_list불러오기
+			
+			//서버상에서 사진정보 삭제
+			
+			  for(String filePath : filePath_list) { deleteRealImg(filePath); }
+	  }
+	  
+ 	
+ 	
+ 	
  	
 }
