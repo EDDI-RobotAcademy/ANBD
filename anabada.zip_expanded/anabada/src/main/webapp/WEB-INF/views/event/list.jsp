@@ -30,20 +30,20 @@
 }
 
 .btn-secondary1 { -
-	-bs-btn-color: #272a2e; -
-	-bs-btn-bg: #e9ecef; -
-	-bs-btn-border-color: #ced4da; -
-	-bs-btn-hover-color: #fff; -
-	-bs-btn-hover-bg: #a1a5a9; -
-	-bs-btn-hover-border-color: #a1a5a9; -
-	-bs-btn-focus-shadow-rgb: 130, 138, 145; -
-	-bs-btn-active-color: #fff; -
-	-bs-btn-active-bg: #a1a5a9; -
-	-bs-btn-active-border-color: #a1a5a9; -
-	-bs-btn-active-shadow: inset 0 3px 5pxrgba(0, 0, 0, 0.125); -
-	-bs-btn-disabled-color: #fff; -
-	-bs-btn-disabled-bg: #a1a5a9; -
-	-bs-btn-disabled-border-color: #a1a5a9;
+	--bs-btn-color: #272a2e; 
+	--bs-btn-bg: #e9ecef; 
+	--bs-btn-border-color: #ced4da; 
+	--bs-btn-hover-color: #fff; 
+	--bs-btn-hover-bg: #a1a5a9; 
+	--bs-btn-hover-border-color: #a1a5a9; 
+	--bs-btn-focus-shadow-rgb: 130, 138, 145; 
+	--bs-btn-active-color: #fff; 
+	--bs-btn-active-bg: #a1a5a9; 
+	--bs-btn-active-border-color: #a1a5a9; 
+	--bs-btn-active-shadow: inset 0 3px 5pxrgba(0, 0, 0, 0.125); 
+	--bs-btn-disabled-color: #fff; 
+	--bs-btn-disabled-bg: #a1a5a9; 
+	--bs-btn-disabled-border-color: #a1a5a9;
 }
 
 .searchBox {
@@ -81,7 +81,7 @@ width: 335px;
 				<!-- 검색 기능 -->
 				<div class="input-group mb-3" id="keywordBox">
 					<span class="input-group-text" id="basic-addon1">제 목</span> <input type="text" id="keywordInput" class="form-control" placeholder="검색어를 입력하세요 ">
-					<button type="button" id="searchBtn" class="btn btn-secondary1">검색</button>
+					<button type="button" id="searchBtn" class="btn btn-secondary1"  >검색</button>
 				</div>
 
 
