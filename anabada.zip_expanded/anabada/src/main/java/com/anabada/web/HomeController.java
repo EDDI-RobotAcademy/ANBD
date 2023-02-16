@@ -43,7 +43,6 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate );
 		
 		
-		
 		//중고 게시글 가져오기 
 		SearchCriteriapro scri = new SearchCriteriapro();
 		List<PBoardVO> list = service.list(scri); // 글정보 담아오기 
@@ -62,12 +61,11 @@ public class HomeController {
 		return "index";
 	}
 	
-	
-	
-	
-	
-	
-	
+	// 이벤트 배너 등록 페이지
+	@RequestMapping(value = "/bannerForm", method = RequestMethod.GET)
+	public String bannerForm() throws Exception {
+		return "/a_banner/bannerForm";
+	}
 	
 	// test
 		@RequestMapping(value = "/test", method = RequestMethod.GET)

@@ -46,13 +46,7 @@
 			</div>
 		</div>
 
-		<div class="cate">
-			<div>
-				<ul class="cate-ul">
-					<li class="cate-li"><img src="<c:url value='/images/menu.png'/>"></li>
-				</ul>
-			</div>
-
+		<div class="cate" style="float: right;">
 			<div>
 				<ul class="cate-ul">
 					<li class="cate-li"><a href="/product/list">중고게시판</a></li>
