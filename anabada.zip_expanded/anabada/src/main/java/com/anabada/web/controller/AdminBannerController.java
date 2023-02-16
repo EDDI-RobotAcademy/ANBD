@@ -33,7 +33,7 @@ public class AdminBannerController {
 	AdminBannerService service;
 	
 	// 배너 등록
-    @RequestMapping(value = "/insert", method = RequestMethod.GET)
+    @RequestMapping(value = "/insert", method = RequestMethod.POST)
 	public String insert(MultipartHttpServletRequest multipartRequest) throws Exception{
 	
     	multipartRequest.setCharacterEncoding("utf-8");
