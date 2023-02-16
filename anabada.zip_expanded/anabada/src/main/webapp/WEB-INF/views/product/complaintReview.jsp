@@ -22,8 +22,6 @@ $(document).ready(function() {
 	
 	  $("button[name=delete]").on("click", function () {
 	         if(confirm("삭제하시겠습니까?")){
-	        	 alert('${review.r_consumer }');
-	            
 	            
 	            $.ajax({
 	                    type: "get",
@@ -38,11 +36,9 @@ $(document).ready(function() {
 	                    success: function(data){
 	                        alert("삭제했습니다.");
 	                        if(${href eq 'all'}){
-								alert("전체 새로고침");
 						    	window.opener.top.location.href = "http://localhost:8081/complaint-all-view/";
 						    	
 						    }else if(${href eq 'review'}){
-						    	alert("리뷰 새로고침");
 						    	window.opener.top.location.href = "http://localhost:8081/complaint-view/review";
 						    }
 				            		
