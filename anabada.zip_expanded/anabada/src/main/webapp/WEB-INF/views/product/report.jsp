@@ -147,7 +147,7 @@ function reportSubmit() {
 			$("#c_content").attr('value', c_content);
 		 
 		 
-		 alert(c_content);
+		
 		 $("form[name='reportForm']").submit();
 		}
 		else{

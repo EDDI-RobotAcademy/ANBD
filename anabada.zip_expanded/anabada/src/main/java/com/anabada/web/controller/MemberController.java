@@ -1,5 +1,8 @@
 package com.anabada.web.controller;
 
+import java.io.File;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.anabada.web.service.ComplaintService;
 import com.anabada.web.service.KakaoService;
 import com.anabada.web.service.MemberService;
 import com.anabada.web.vo.MemberVO;
@@ -29,8 +33,11 @@ public class MemberController {
 
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	
+	private static final String CURR_IMAGE_REPO_PATH = "C:\\pimages\\";
 	@Inject
 	MemberService service;
+	@Inject
+	ComplaintService complaintService;
 	
 	@Inject
 	KakaoService kakao;
@@ -320,6 +327,12 @@ public class MemberController {
 			return "redirect:/member/memberDeleteView";
 		}
 		
+		//회원탈퇴시 중고게시판에 있는 글을 지워준다 
+		deleteWithdrawal(vo.getId());
+		complaintService.review_null(vo.getId()); // 리뷰 null 처리 
+		
+		
+		
 		service.memberDelete(vo);
 		session.invalidate();
 		return "redirect:/member/memberDeleteEnd";
@@ -332,6 +345,27 @@ public class MemberController {
 		
 		return "/member/memberDeleteEnd";
 	}
+	
+	
+	//중고게시판용
+	  public void deleteRealImg(String filePath) {
+			String realPath = filePath.substring(11);
+			File file = null;
+			file = new File(CURR_IMAGE_REPO_PATH + realPath);
+			file.delete();
+
+		}
+		  
+		  //회원 탈퇴시 서버상에서 회원이 pboard에 남긴 사진 정보 삭제 
+		  public void deleteWithdrawal(String id) throws Exception{
+				//서버상에서 pfile에 해당하는 사진정보들 삭제 
+				List<Integer> pno_list = complaintService.pno_list(id); // 사용자의 게시글 pno불러오기
+				List<String> filePath_list = complaintService.filePath_list(pno_list); // filePath_list불러오기
+				
+				//서버상에서 사진정보 삭제
+				
+				  for(String filePath : filePath_list) { deleteRealImg(filePath); }
+		  }
 	
 
 }
