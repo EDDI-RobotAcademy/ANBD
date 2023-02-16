@@ -220,11 +220,11 @@ public class MemberController {
 			int memberSearch = service.memberPwdCheck(vo);
 		    
 			if(memberSearch == 0) {
-		        model.addAttribute("msg", "기입된 정보가 잘못되었습니다. 다시 입력해주세요.");
+		        model.addAttribute("msg", false);
 		        return "/member/findPass";
 		    }
 			
-			String newPwd = RandomStringUtils.randomAlphanumeric(10);
+			String newPwd = RandomStringUtils.randomAlphanumeric(6);
 			vo.setPass(newPwd);
 			
 			service.findPwdUpdate(vo);

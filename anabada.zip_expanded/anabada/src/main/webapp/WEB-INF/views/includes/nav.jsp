@@ -33,7 +33,7 @@
 
 <body>
 	<!-- nav 영역 -->
-	<nav class="navbar navbar-border">
+	<nav class="navbar">
 		<form class="container" name='homeForm' method="post" action="/member/login">
 			<c:if test="${id == null}">
 					<div class="nav-right">
@@ -59,5 +59,7 @@
 			</c:if>
 		</form>
 	</nav>
+	
+	<div style="min-width: 1000px; width: 100%; border-bottom: 1px solid #f1f2f5;"></div>
 </body>
 </html>

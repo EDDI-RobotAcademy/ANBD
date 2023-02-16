@@ -49,14 +49,26 @@
 	</select>
 	
 	<!-- 회원 정보 관리 -->
-	<select id="memberList" resultType="memberVO">
-		SELECT id, name, nick, tel, email, lev, caution
+
+
+
+	<select id="memberList" resultType="memberVO" parameterType="com.anabada.web.vo.SearchCriteria">
+		SELECT id, name, nick, tel, email, lev, caution, register_date
+		FROM (SELECT id, name, nick, tel, email, lev, caution, register_date, ROW_NUMBER() OVER(ORDER BY register_date DESC) AS RNUM
 		FROM a_member
+		WHERE 1 = 1
+		) ML
+		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+
 		ORDER BY register_date DESC
 	</select>
 	
 	<!-- 총 회원수 -->
-	<select id="listCount" resultType="int">
+
+
+
+	<select id="listCount" parameterType="com.anabada.web.vo.SearchCriteria" resultType="int">
+
 		SELECT COUNT(*)
 		FROM a_member
 		WHERE 1 = 1

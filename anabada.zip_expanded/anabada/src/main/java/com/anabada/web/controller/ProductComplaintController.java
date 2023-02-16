@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.anabada.web.service.ComplaintService;
+import com.anabada.web.service.JobService;
 import com.anabada.web.service.NoteService;
 import com.anabada.web.service.ProductComplaintService;
 import com.anabada.web.service.ProductService;
@@ -43,6 +44,8 @@ public class ProductComplaintController {
 	ComplaintService complaintService;
 	@Inject
 	ReviewService reviewService;
+	@Inject
+	JobService jobService;
 	
 	
 	// 중고 상품 게시판 신고 내역 불러오기 
@@ -134,9 +137,11 @@ public class ProductComplaintController {
 				}else { // 5회가 되면 회원 탈퇴 시키기 
 			
 					//서버상에서 사진정보 삭제
+
 					deleteWithdrawal(id);
 					 //회원 탈퇴시 해당 회원이 남긴 review에서 consumer 을 null로 변경
 					complaintService.review_null(id);
+
 					String email = complaintService.expel_email(id); // 회원 email가져옴
 					complaintService.expel_member(id); // 회원 탈퇴 
 					complaintService.insert_email(email); // 블렉 리스트에 이메일 저장 
@@ -198,8 +203,10 @@ public class ProductComplaintController {
 		
 			
 			//서버상에서 사진정보 삭제
+
 			deleteWithdrawal(id);
 			complaintService.review_null(id);
+
 			
 			
 			String email = complaintService.expel_email(id); // 회원 email가져옴

@@ -35,11 +35,19 @@
 			</div>
 			
 			<div class="login-box">
-				<input class="login-in" type="text" id="id" name="id" placeholder="아이디">
+				<input class="login-in" type="text" id="id" name="id" placeholder="아이디" required>
 			</div>
 	
 			<div class="login-box2">
-				<input class="login-in2" type="text" id="email" name="email" placeholder="이메일">
+				<input class="login-in2" type="text" id="email" name="email" placeholder="이메일" required>
+			</div>
+			
+			<div>
+				<font id="Chk" size="2">
+					<c:if test="${msg == false}">
+						<font style="color:#FF0000;">일치하는 정보가 없습니다.</font>
+					</c:if>
+				</font>
 			</div>
 			
 			<div>

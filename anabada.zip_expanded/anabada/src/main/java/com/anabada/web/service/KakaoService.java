@@ -122,10 +122,10 @@ public class KakaoService {
 			String ka = "ka_";
 			
 			String id = ka.concat(tid);
-			
-			System.out.println("service id : " + id);
 
-			userInfo.put("nick", nickname);
+			System.out.println("service id : " + id);
+			
+			userInfo.put("name", nickname);
 			userInfo.put("email", email);
 			userInfo.put("id", id);
 
@@ -136,17 +136,15 @@ public class KakaoService {
 		MemberVO result = dao.findkakao(userInfo);
 		
 		if(result == null) {
-		// result가 null이면 정보가 저장이 안되있는거므로 정보를 저장.
+			//result가 null이면 정보가 저장이 안되있는거므로 정보를 저장.
 			dao.kakaoinsert(userInfo);
-			// 위 코드가 정보를 저장하기 위해 Repository로 보내는 코드임.
+			//바로 result를 리턴하면 null값 들어감
 			return dao.findkakao(userInfo);
-			// 위 코드는 정보 저장 후 컨트롤러에 정보를 보내는 코드임.
-			//  result를 리턴으로 보내면 null이 리턴되므로 위 코드를 사용.
-		} else {
+		}
+		else {
 			return result;
-			// 정보가 이미 있기 때문에 result를 리턴함.
 		}
 	}
-
-
 }
+
+

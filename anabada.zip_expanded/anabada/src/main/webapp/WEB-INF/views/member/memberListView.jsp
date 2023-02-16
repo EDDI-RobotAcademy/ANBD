@@ -64,14 +64,14 @@
 					</table>
 					
 					<div>
-				      <ul class="pagination">
+				      <ul class="mtm-pagination">
 				         <c:if test="${pageMaker.prev }">
 				            <li><a href="memberListView${pageMaker.makeSearch(pageMaker.startPage - 1 )}">이전</a></li>
 				         </c:if>
-				                     
-				         <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
-				            <li <c:out value="${pageMaker.cri.page == idx ? 'class=info' : '' }"/>>
-				               <a href="memberListView${pageMaker.makeSearch(idx)}">${idx }</a>
+				         
+				         <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+				            <li class="list" <c:out value="${pageMaker.cri.page == idx ? 'class=info' : '' }"/>>
+				               <a href="memberListView${pageMaker.makeSearch(idx)}">${idx}</a>
 				            </li>
 				         </c:forEach>
 				                  
