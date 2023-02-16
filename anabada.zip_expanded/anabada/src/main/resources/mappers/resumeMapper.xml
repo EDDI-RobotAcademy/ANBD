@@ -31,7 +31,7 @@ SELECT COUNT(*) FROM RESUME_BOARD WHERE J_BNO = #{j_bno} and ID = #{id}
 
 <select id="mr_listPage" resultType="ResumeVO" parameterType="java.util.Map">
 SELECT J_BNO, R_BNO, R_COMPANY, R_START, R_END, R_DATE, ID
-FROM(SELECT J_BNO, R_BNO, R_COMPANY, R_START, R_END, R_DATE, ID,
+FROM(SELECT J_BNO, R_BNO, R_COMPANY, R_START, R_END, R_DATE, ID, 
     ROW_NUMBER() OVER(ORDER BY R_BNO ASC) AS RNUM
     FROM RESUME_BOARD WHERE ID = #{id}) JOB
 WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
@@ -48,7 +48,7 @@ WHERE J_BNO IN (
 	<foreach collection="array" item="item" index="index" separator=",">
        #{item}
     </foreach>
-) ORDER BY ROWNUM DESC
+) ORDER BY CASE J_BNO <foreach item="item" collection="array" separator=" " index="index">WHEN #{item} THEN #{index}</foreach> END
 </select>
 
 <delete id="mr_delete" parameterType="java.util.ArrayList">

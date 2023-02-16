@@ -58,6 +58,10 @@ public class NoteController {
 	
 	@Inject
 	JobService jobService;
+	
+	private static final String JOB_IMG_PATH = "C:\\upload\\"; // 알바 게시판 사진경로 
+	private static final String CURR_IMAGE_REPO_PATH = "C:\\pimages\\"; // 중고상품 게시판 사진경로 
+	
 
 	// 쪽지보내는 ajax
 	@RequestMapping(value="/note_insert.ajax", method = RequestMethod.GET)
@@ -463,12 +467,14 @@ public class NoteController {
  	 				
  	 				for(int i = 0; i < img_list.size(); i++) {
  	 					File file = null;
- 	 					file = new File("C:\\upload\\"+ img_list.get(i));
+ 	 					file = new File(JOB_IMG_PATH+ img_list.get(i));
  	 					file.delete();
  	 				}
  	 			}
  	 			
- 	 			//4-1-2) 중고 게시물 관련 이미지 삭제
+ 	 			//4-1-2) 중고 게시물 관련 이미지 서버상에서 삭제
+ 				deleteWithdrawal(id);
+ 				complaintService.review_null(id);
  	 			//4-1-2) 동네생활 관련 이미지 삭제
  	 			
  	 			
@@ -486,6 +492,26 @@ public class NoteController {
 		return result;
 	}
     
+ 	
+ 	//중고게시판용
+	public void deleteRealImg(String filePath) {
+		String realPath = filePath.substring(11);
+		File file = null;
+		file = new File(CURR_IMAGE_REPO_PATH + realPath);
+		file.delete();
+
+	}
+	  
+	//회원 탈퇴시 서버상에서 회원이 pboard에 남긴 사진 정보 삭제 
+	public void deleteWithdrawal(String id) throws Exception{
+		//서버상에서 pfile에 해당하는 사진정보들 삭제 
+		List<Integer> pno_list = complaintService.pno_list(id); // 사용자의 게시글 pno불러오기
+		List<String> filePath_list = complaintService.filePath_list(pno_list); // filePath_list불러오기
+			
+		//서버상에서 사진정보 삭제
+			
+	    for(String filePath : filePath_list) { deleteRealImg(filePath); }
+	}
 
 	
 }
