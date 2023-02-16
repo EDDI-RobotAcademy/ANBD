@@ -137,7 +137,8 @@ public class AdminBannerController {
 	
 	// 해당 경로의 배너 이미지를 삭제하는 메소드
 	public void deleteRealImg(String filePath) {
-		String realPath = filePath.substring(11);
+		String realPath = filePath.substring(7);
+		System.out.println(realPath);
 		File file = null;
 		file = new File(BANNER_IMG_PATH + realPath);
 		file.delete();
