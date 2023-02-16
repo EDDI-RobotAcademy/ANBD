@@ -560,6 +560,9 @@
          if(${empty id}){
             alert("로그인 후 이용해주세요.");
             return false;
+         }else if(${id eq 'admin'}){
+        	alert("관리자 모드입니다."); 
+        	return false;
          }else{
                location.href = "job_insert";
          }
