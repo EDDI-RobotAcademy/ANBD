@@ -26,29 +26,30 @@ import com.anabada.web.service.AdminBannerService;
 public class AdminBannerController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(AdminBannerController.class);
-	
 	private static final String BANNER_IMG_PATH = "C:\\aimages\\";
 	
 	@Inject
 	AdminBannerService service;
 	
 	// 배너 등록
-    @RequestMapping(value = "/insert", method = RequestMethod.POST)
-	public String insert(MultipartHttpServletRequest multipartRequest) throws Exception{
+	@RequestMapping(value = "/insert", method = RequestMethod.POST)
+	public String insert(Model model, MultipartHttpServletRequest multipartRequest) throws Exception {
+		multipartRequest.setCharacterEncoding("utf-8");
 	
-    	multipartRequest.setCharacterEncoding("utf-8");
-
 		// view에서 넘어온 사진들이 담긴 fileList
 		List<String> fileList = fileProcess(multipartRequest);
-    	
-    	if (fileList != null) {
+		       
+		if (fileList != null) {
 			for (int i = 0; i < fileList.size(); i++) {
-				String filePath = "/tomcatImg/" + (String) fileList.get(i); // 파일의 경로 저장
+				String filePath = "/banner/" + (String) fileList.get(i); // 파일의 경로 저장
 				service.fileSave(filePath); // 파일 저장
+				model.addAttribute("filePath", filePath);
 			}
 		}
-		
-		return "index";
+	
+		model.addAttribute("fileList", fileList);
+		       
+		return "redirect:/";
 	}
     
     // 배너 이미지 수정

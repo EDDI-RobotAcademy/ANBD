@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.anabada.web.dao.AdminBannerDAO;
+import com.anabada.web.vo.BannerVO;
 
 @Service
 public class AdminBannerServiceImpl implements AdminBannerService {
