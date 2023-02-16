@@ -32,7 +32,7 @@
 				
 			</div>
 		</div>
-		<hr style="color: #B9B9B9;" >
+		<hr style="color: #B9B9B9; margin: 0px; " >
 	</div>
 	
 </body>

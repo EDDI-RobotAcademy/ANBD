@@ -135,7 +135,7 @@ border-radius: 20px;
 	
 	
 
-		<div >
+		<div   >
 		<jsp:include page="../includes/eventHeader.jsp" />
 		
 		<jsp:include page="../includes/eventNav.jsp" />
@@ -143,7 +143,7 @@ border-radius: 20px;
 	
 
 
-<div  style="background-color: #EEEEEE; padding-top: 50px;  " >
+<div  style="background-color: #F9F9F9; padding-top: 50px;   " >
 
 	<form name="readForm" role="form" >
 		<input type="hidden" name="eno" value="${read.eno}">
@@ -326,7 +326,7 @@ border-radius: 20px;
 
 	</form>
 	</div>
-	<div id="footer">
+	<div id="footer"  >
 			<jsp:include page="../includes/footer.jsp" />
 		</div>
 
