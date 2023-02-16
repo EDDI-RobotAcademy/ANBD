@@ -11,11 +11,11 @@
 	<insert id="insert">
 		INSERT INTO PBOARD(PNO, P_TITLE, P_COST, P_TYPE,
 		P_CON, SELL_A, SELL_B,P_LOCAL,
-		P_CONTENT, P_FILE ,ID)
+		P_CONTENT ,ID)
 		VALUES(pboard_seq.nextval,
 		#{p_title},#{p_cost},#{p_type},
 		#{p_con},#{sell_a},#{sell_b},#{p_local},
-		#{p_content},#{p_file} ,#{id})
+		#{p_content} ,#{id})
 	</insert>
 
 	<!-- 방금 저장한 글의 pno 리턴하기 -->
@@ -62,7 +62,7 @@
 	<select id="read" parameterType="int" resultType="PBoardVO">
 		SELECT PNO,
 		P_TITLE, P_COST, P_TYPE, P_CON, SELL_A, SELL_B, P_CONTENT,
-		P_FILE,P_COUNT,P_HEART, ID, P_REGDATE,P_LOCAL,P_BUY
+		P_COUNT,P_HEART, ID, P_REGDATE,P_LOCAL,P_BUY
 		FROM PBOARD WHERE
 		PNO
 		=#{pno}
@@ -128,9 +128,9 @@
 	<!-- 파일 경로 저장 -->
 	<insert id="fileSave" parameterType="java.util.Map">
 		insert into
-		pfile(fno,ftotal,filepath,pno)
+		pfile(fno,filepath,pno)
 		values( pfile_seq.nextval,
-		#{fno},#{filePath},#{pno} )
+		#{filePath},#{pno} )
 	</insert>
 
 	<!-- 게시글 삭제 -->
@@ -153,7 +153,7 @@
 		UPDATE PBOARD
 		SET P_TITLE = #{p_title} , P_COST = #{p_cost}, P_TYPE = #{p_type},
 		P_CON =#{p_con},SELL_A =#{sell_a},SELL_B =#{sell_b}, P_CONTENT
-		=#{p_content}, P_FILE =#{p_file},
+		=#{p_content}, 
 		P_LOCAL = #{p_local} WHERE PNO =#{pno}
 	</update>
 	<!-- 하트 +1 -->
