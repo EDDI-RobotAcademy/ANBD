@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.anabada.web.service.AdminBannerService;
+import com.anabada.web.vo.PageMaker;
+import com.anabada.web.vo.SearchCriteria;
 
 @Controller
 @RequestMapping("/a_banner/*") 
@@ -49,7 +52,22 @@ public class AdminBannerController {
 	
 		model.addAttribute("fileList", fileList);
 		       
-		return "redirect:/";
+		return "redirect:/a_banner/bannerList";
+	}
+	
+	// 배너 목록
+	@RequestMapping(value = "/bannerList", method = RequestMethod.GET)
+	public String list(Model model, @ModelAttribute("scri") SearchCriteria scri) throws Exception {
+		logger.info("배너 리스트 ~ ");
+		
+		model.addAttribute("blist", service.list(scri));
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(scri);
+		
+		model.addAttribute("pageMaker", pageMaker);
+		
+		return "index";
 	}
     
     // 배너 이미지 수정
@@ -76,10 +94,8 @@ public class AdminBannerController {
 		return "index";
 	}
     
-    
-    
     // 이미지 저장
- 	private List<String> fileProcess(MultipartHttpServletRequest multipartRequest) throws Exception {
+    public List<String> fileProcess(MultipartHttpServletRequest multipartRequest) throws Exception {
 
  		// Iterator<String> fileNames = multipartRequest.getFileNames();
  		List<MultipartFile> fileNameList = multipartRequest.getFiles("file");
@@ -115,7 +131,7 @@ public class AdminBannerController {
  	
  	
 	// 게시글 수정시 넘어온 이미지 삭제
-	private void removeImg(String dlist) throws Exception {
+    public void removeImg(String dlist) throws Exception {
 
 		String[] list = dlist.split(",");
 		for (String str : list) {

@@ -1,11 +1,14 @@
 package com.anabada.web.dao;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.anabada.web.vo.BannerVO;
+import com.anabada.web.vo.SearchCriteria;
 
 @Repository
 public class AdminBannerDAOImpl implements AdminBannerDAO {
@@ -17,6 +20,12 @@ public class AdminBannerDAOImpl implements AdminBannerDAO {
 	@Override
 	public void fileSave(String filePath) throws Exception {
 		sql.insert("adminBannerMapper.fileSave", filePath);
+	}
+	
+	// 배너 리스트
+	@Override
+	public List<BannerVO> list(SearchCriteria scri) throws Exception {
+		return sql.selectList("adminBannerMapper.imgList", scri);
 	}
 
 	// 삭제할때 배너 이미지 경로 가져오기
