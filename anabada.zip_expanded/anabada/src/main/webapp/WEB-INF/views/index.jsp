@@ -43,6 +43,53 @@ $("#slick").slick({
     /*  사이즈에 적용될 설정 */
     } ]
  });
+ 
+ 
+ 
+$(".postExistence").click(function() {
+	
+	
+	
+	var url = $(this).attr('title');
+	var pno =$(this).attr('pno');
+	
+	$.ajax({
+		type:"get",
+		url : "/product/postExistence",
+	     data : {pno : pno},
+		 traditional : true,
+		 success : function(res){
+			 if(res == 0){
+				 alert("이미 삭제된 게시글 입니다.");
+				 location.reload();
+			 }else{
+				 location.href=url;
+			 }
+		 },
+		 error :function (request,status, error){
+			 alert("이동 실패 : "+error);
+		 }
+	
+		
+	}) // ajax end
+	
+	
+
+	
+	
+	
+	
+});
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 });
 </script>
 
@@ -222,7 +269,7 @@ ul {
 						<div style="width: 960px;" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 							<c:forEach items="${list}" var="list">
 								<!-- test -->
-								<div class="col mb-5 postExistence" id="postExistence" pno="${list.pno}" title="/product/readView?pno=${list.pno}&p_type=${list.p_type}&page=${scri.page }&perPageNum=${scri.perPageNum }&searchType=${scri.searchType }&keyword=${scri.keyword }&productType=${scri.productType}" >
+								<div class="col mb-5 postExistence" id="postExistence" pno="${list.pno}" title="/product/readView?pno=${list.pno}&p_type=${list.p_type}" >
 									<div class="card h-100">
 										<!-- Product image-->
 										<div style="height: 267px;">
