@@ -20,7 +20,6 @@
 .rach input[type='radio'] {
 	display: none;
 }
-
 .rach input[type='radio']+span {
 	display: inline-block;
 	padding: 5px 5px;
@@ -30,19 +29,16 @@
 	text-align: center;
 	cursor: pointer;
 }
-
 .rach input[type='radio']:checked+span {
 	background-color: #AEB6BF;
 	color: white;
 	border-radius: 10px;
 }
-
 .img_div {
 	display: inline-block;
 	padding: 10px 10px 10px 10px;
 	border-color: yellow;
 }
-
 /* img{
 width: 150px; height: 150px;
 } */
@@ -55,8 +51,7 @@ width: 150px; height: 150px;
 </style>
 
 <script type="text/javascript">
-
-$(document).ready(function() {
+$(document).ready(function(){
       
       
      $('#summernote').summernote({
@@ -77,7 +72,6 @@ $(document).ready(function() {
 			  ],
 			  
 	
-
 	});
       
       
@@ -85,7 +79,6 @@ $(document).ready(function() {
 	var dlist=[];
 	
 	var formObj = $("form[name='updateForm']");
-
 	$(".write_btn").on("click", function() {
 		if (fn_valiChk() || radio_ch() || ch_ch()) {
 			return false;
@@ -117,7 +110,6 @@ $(document).ready(function() {
 	
 	});
 	
-
 	
 	
 	
@@ -141,28 +133,17 @@ $(document).ready(function() {
 		
 	} );
 	
-
-
-
 	
 	
-
 })
-
-
 function radio_ch() {
-
 	if ($("input[type='radio']:checked").val() != null) {
 		return false;
-
 	} else {
 		alert("상품의 상태를 선택하세요");
 		return true;
 	}
-
 }
-
-
 function fn_valiChk() {
 	var regForm = $("form[name='writeForm'] .chk").length;
 	for (var i = 0; i < regForm; i++) {
@@ -172,26 +153,17 @@ function fn_valiChk() {
 		}
 	}
 }
-
-
 function ch_ch() {
 	const checkPart = document.querySelector('.checkbox-part');
 	const checkboxes = checkPart.querySelectorAll('input');
-
 	for (var i = 0; i < checkboxes.length; i++) {
 		if (checkboxes[i].checked == true) {
-
 			return false;
-
 		}
 	}
-
 	alert("거래 방법을 선택하세요");
 	return true;
-
 }
-
-
 function addFile() {
 	var str = "<div class='file-group'><input type='file' name='file'><a href='#this' name='file-delete'>삭제</a></div>";
 	$("#file-list").append(str);
@@ -200,15 +172,9 @@ function addFile() {
 		deleteFile($(this));
 	});
 }
-
-
 function deleteFile(obj) {
 	obj.parent().remove();
 }
-
-
-
-
 </script>
 
 
