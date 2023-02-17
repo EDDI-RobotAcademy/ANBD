@@ -372,16 +372,19 @@ public class MemberController {
 
 		}
 		  
-		  //회원 탈퇴시 서버상에서 회원이 pboard에 남긴 사진 정보 삭제 
-		  public void deleteWithdrawal(String id) throws Exception{
-				//서버상에서 pfile에 해당하는 사진정보들 삭제 
-				List<Integer> pno_list = complaintService.pno_list(id); // 사용자의 게시글 pno불러오기
+		// 회원 탈퇴시 서버상에서 회원이 pboard에 남긴 사진 정보 삭제
+		public void deleteWithdrawal(String id) throws Exception {
+			// 서버상에서 pfile에 해당하는 사진정보들 삭제
+			List<Integer> pno_list = complaintService.pno_list(id); // 사용자의 게시글 pno불러오기
+
+			if (!pno_list.isEmpty()) { // 작성한 게시글이 존재한다면 실행
 				List<String> filePath_list = complaintService.filePath_list(pno_list); // filePath_list불러오기
-				
-				//서버상에서 사진정보 삭제
-				
-				  for(String filePath : filePath_list) { deleteRealImg(filePath); }
-		  }
-	
+				// 서버상에서 사진정보 삭제
+				for (String filePath : filePath_list) {
+					deleteRealImg(filePath);
+				}
+			}
+
+		}
 
 }
