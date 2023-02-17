@@ -15,6 +15,11 @@
 	$(document).ready(function() {
 		var formObj = $("form[name='updateForm']");
 		
+		$("a[name='file-delete']").on("click", function(e) {
+			e.preventDefault();
+			deleteFile($(this));
+		});
+		
 		$(".write_btn").on("click", function() {
 			formObj.attr("action", "/a_banner/update");
 			formObj.attr("method", "post");
@@ -67,8 +72,10 @@
                    <img width="150px;" height="150px;"  src="${filelist.a_file}">  
                    <button  type="button"  class="imgbtn"  value="${filelist.a_no}">삭제</button></div> 
                 </c:forEach>
-         
-            <a href="#this" onclick="addFile()">파일추가</a>
+                
+         	<div>
+            	<a href="#this" onclick="addFile()">파일추가</a>
+         	</div>
             <div class="file-group">
                <input type="file" name="file"><a href='#this' name='file-delete'>삭제</a>
             </div>

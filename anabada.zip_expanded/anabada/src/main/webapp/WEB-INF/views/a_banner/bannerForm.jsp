@@ -12,6 +12,20 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
+	$(document).ready(function() {
+		var formObj = $("form[name='writeForm']");
+		$("a[name='file-delete']").on("click", function(e) {
+			e.preventDefault();
+			deleteFile($(this));
+		});
+		
+		$(".write_btn").on("click", function() {
+			formObj.attr("action", "/a_banner/insert");
+			formObj.attr("method", "post");
+			formObj.submit();
+		});
+	});
+	
 	//파일 추가를 위한 메소드 
 	function addFile() {
 		var str = "<div class='file-group'><input type='file' name='file'><a href='#this' name='file-delete'>삭제</a></div>";
@@ -26,29 +40,23 @@
 	function deleteFile(obj) {
 		obj.parent().remove();
 	}
-	
-	$(document).ready(function() {
-		var formObj = $("form[name='writeForm']");
-		
-		$(".write_btn").on("click", function() {
-			formObj.attr("action", "/a_banner/insert");
-			formObj.attr("method", "post");
-			formObj.submit();
-		});
-	})
 </script>
 </head>
 
 <body>
 	<form name="writeForm" enctype="multipart/form-data" method="POST">
-		<div>
-			<div class="form-group" id="file-list">
-				<a href="#this" onclick="addFile()">파일추가</a>
-				<div class="file-group">
-					<input type="file" name="file"><a href='#this' name='file-delete'>삭제</a>
-				</div>
-			</div>
-		</div>
+		<table>
+			<tr>
+				<td colspan="2">
+					<div class="form-group" id="file-list">
+						<a href="#this" onclick="addFile()">파일추가</a>
+						<div class="file-group">
+							<input type="file" name="file"><a href='#this' name='file-delete'>삭제</a>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</table>
 			
 		<div>
 			<button type="submit" class="write_btn">저 장</button>
