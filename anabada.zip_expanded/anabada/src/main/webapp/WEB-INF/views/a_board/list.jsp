@@ -63,6 +63,9 @@
 		if(id == "") {
 			alert("로그인 후 작성하실 수 있습니다.");
 		}
+		else if(id == "admin") {
+			alert("관리자 모드입니다.");
+		}
 		else {
 			location.href = "/a_board/writeView";
 		}

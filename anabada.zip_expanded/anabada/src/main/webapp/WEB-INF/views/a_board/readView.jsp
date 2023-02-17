@@ -67,46 +67,8 @@
 	/* 신고 스크립트 끝 */
 	
 	
-	/* 좋아요 스크립트 */
-	$(document).ready(function() {
-		
-		var likeVal = ${Chk};
-		
-		if(likeVal > 0) {
-			$("#heart").on("click", function() {
-			$.ajax ({
-				url: '/a_board/deleteLike',
-				type: 'POST',
-				dataType: 'text',				
-				data: ({'id': '${sessionScope.id}', 'a_bno': '${read.a_bno}' }),
-				success: function(data) {
-					alert("좋아요 취소 성공");
-					$("#heart").attr("src", "<c:url value='/images/clear.png'/>");
-					location.reload();
-				}
-			});
-		});
-		} else {
-			$("#clear").on("click", function() {
-			$.ajax ({
-				url: '/a_board/insertLike',
-				type: 'POST',
-				dataType: 'text',				
-				data: ({'id': '${sessionScope.id}', 'a_bno': '${read.a_bno}' }),
-				success: function(data) {
-					alert("좋아요 성공");
-					$("#clear").attr("src", "<c:url value='/images/heart.png'/>");
-					location.reload();
-				}
-			});
-		});
-	}
-});
-	/* 좋아요 스크립트 끝 */
-	
-	
 	/* 좋아요 로그인 유효성 검사 */
-	$(function() {
+	/* $(function() {
 		$(".like").on("click", function() {
 			var id = "${id}";
 			
@@ -114,14 +76,89 @@
 				alert("로그인 후 이용 가능합니다.");
 			}
 		});
-	});
+	}); */
 	/* 좋아요 로그인 유효성 검사 끝 */
+	
+	
+	/* 좋아요 스크립트 */
+	$(document).ready(function() {
+		
+		var likeVal = ${Chk};
+		
+		if(likeVal > 0) {
+			$("#heart").on("click", function() {
+				
+				var id = "${id}"
+				
+				if(id == "") {
+					alert("로그인 후 이용 가능합니다.");
+					return false;
+				}
+				else if(id == "admin") {
+					alert("관리자 모드입니다.");
+					return false;
+				}
+				else {
+					$.ajax ({
+					url: '/a_board/deleteLike',
+					type: 'POST',
+					dataType: 'text',				
+					data: ({'id': '${sessionScope.id}', 'a_bno': '${read.a_bno}' }),
+					success: function(data) {
+						$("#heart").attr("src", "<c:url value='/images/clear.png'/>");
+						location.reload();
+					}
+				});
+			}
+		});
+		} else {
+			$("#clear").on("click", function() {
+				
+				var id = "${id}"
+					
+					if(id == "") {
+						alert("로그인 후 이용 가능합니다.");
+					}
+					else if(id == "admin") {
+						alert("관리자 모드입니다.");
+					}
+				
+					else { 
+						$.ajax ({
+						url: '/a_board/insertLike',
+						type: 'POST',
+						dataType: 'text',				
+						data: ({'id': '${sessionScope.id}', 'a_bno': '${read.a_bno}' }),
+						success: function(data) {
+							$("#clear").attr("src", "<c:url value='/images/heart.png'/>");
+							location.reload();
+						}
+					});
+				}						
+			});
+		}
+	});
+	/* 좋아요 스크립트 끝 */
 	
 	
 	/* 댓글 작성, 수정, 삭제 스크립트 */
 	$(function() {
 		var replybtn = $("form[name='replyForm']");
 	$(".write_btn").on("click", function() {
+		
+		var id = "${id}"
+
+		if(id == "admin") {
+			alert("관리자 모드입니다.");
+			return false;
+		}
+		
+		if($("#r_content").val() == "") {
+			alert("댓글 내용을 입력해주세요.");
+			$("#r_content").focus();
+			return false;
+		}
+		
 		replybtn.attr("action", "/a_board/replyWrite");
 		replybtn.submit();
 	});
@@ -183,8 +220,9 @@
 		$(location).attr("href", "replyDelete?rno="+rno+"&bno="+bno);
 	});
 	
-	/* 댓글 관련 스크립트 끝 */
 });
+	
+	/* 댓글 관련 스크립트 끝 */
 </script>
 </head>
 <body>
