@@ -1136,7 +1136,7 @@ function complaint() {
 														<div class="cunsumer">작성자</div> 
 														
 														<c:choose>
-														<c:when test="${ empty review.r_consumer}">(알수없음)</c:when>
+														<c:when test="${ empty review.r_consumer}"><span style="font-size: small;" > (알수없음) </span> </c:when>
 														<c:otherwise>${review.r_consumer}</c:otherwise>
 														</c:choose>
 														

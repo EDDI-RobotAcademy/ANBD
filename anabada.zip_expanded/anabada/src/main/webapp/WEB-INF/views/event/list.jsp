@@ -165,7 +165,9 @@ width: 335px;
 
 	<!--================Footer Area =================-->
 
-
+	<div id="footer"  >
+			<jsp:include page="../includes/footer.jsp" />
+		</div>
 
 
 
