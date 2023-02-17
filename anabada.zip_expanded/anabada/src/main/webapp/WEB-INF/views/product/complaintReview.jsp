@@ -92,7 +92,15 @@ tr, td {
 						<button type="button" name="delete" class="d_btn">삭제</button>
 					</div>   </td>    </tr>
 	
-	<tr> <td> <div class="box">작성자</div> ${review.r_consumer } </td> 
+	<tr> <td> <div class="box">작성자</div> 
+	
+	<c:choose>
+	
+	<c:when test="${empty review.r_consumer}">(알수없음)</c:when>
+	<c:otherwise> ${review.r_consumer } </c:otherwise>
+	</c:choose>
+	
+	 </td> 
 	
 	<td>  
 	<c:if test="${review.r_score == 0.3 }"> ⭐⭐⭐⭐ </c:if> <c:if test="${review.r_score == 0.2 }"> ⭐⭐⭐ </c:if> <c:if test="${review.r_score == 0.1 }"> ⭐⭐ </c:if> <c:if test="${review.r_score == -0.1 }"> ⭐ </c:if>

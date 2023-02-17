@@ -66,6 +66,13 @@ height: 33px;
 	$(document).ready(function() {
 
 		var formObj = $("form[name='writeForm']");
+		
+	    $("a[name='file-delete']").on("click", function(e) {
+	         e.preventDefault();
+	         deleteFile($(this));
+	      });
+		
+		
 		// 글 저장 눌렀을때 실행   
 		$(".write_btn").on("click", function() {
 			if (fn_valiChk() || radio_ch() || ch_ch()) {
