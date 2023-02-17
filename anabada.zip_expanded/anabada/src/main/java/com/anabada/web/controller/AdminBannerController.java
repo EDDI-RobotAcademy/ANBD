@@ -57,6 +57,7 @@ public class AdminBannerController {
 	      
 		List<BannerVO> filelist = service.list();
 	    model.addAttribute("filelist", filelist);
+	    model.addAttribute("update", service.imgPath(vo.getA_no()));
 	      
 	      return "/a_banner/bannerUpdate";
 	   }
@@ -124,8 +125,8 @@ public class AdminBannerController {
  	
 	// 게시글 수정시 넘어온 이미지 삭제
     public void removeImg(String dlist) throws Exception {
-
 		String[] list = dlist.split(",");
+		
 		for (String str : list) {
 			int a_no = Integer.parseInt(str);
 			// 사진의 경로 가져오기
@@ -145,6 +146,4 @@ public class AdminBannerController {
 
 	}
 	
-	
-
 }
