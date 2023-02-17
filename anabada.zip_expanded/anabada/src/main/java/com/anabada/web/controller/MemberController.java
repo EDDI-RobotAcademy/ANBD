@@ -292,6 +292,22 @@ public class MemberController {
 		return "/member/memberUpdateEnd";
 	}
 	
+	// 닉네임 변경 창
+	@RequestMapping(value="/member/nickChangeForm")
+	public String nickChangeForm() throws Exception {
+		logger.info("닉네임 변경 창 ~ ");
+		
+		return "/member/nickChangeForm";
+	}
+	
+	// 이메일 변경 창
+	@RequestMapping(value="/member/emailChangeForm")
+	public String emailChangeForm() throws Exception {
+		logger.info("이메일 변경 창 ~ ");
+		
+		return "/member/emailChangeForm";
+	}
+	
 	// 비밀번호 변경 get
 	@RequestMapping(value="/member/passUpdateView", method = RequestMethod.GET)
 	public String passUpdateView() throws Exception {
