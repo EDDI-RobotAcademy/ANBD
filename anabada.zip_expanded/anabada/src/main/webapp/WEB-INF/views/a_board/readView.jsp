@@ -232,26 +232,33 @@
 </div>
 	<!-- 게시글 -->
 	<section class="container">
-		<!-- 지역 카테고리 -->
+	
+	<!-- 지역 카테고리 -->
    	  <div class="sidemenu2">
-		<p class="side-t">커뮤니티</p>   	  	
+		<p class="side-t">아나바다</p>   	  	
    	  		<ul class="side-ul">
-				<li class="side-li"><a href="/a_board/list">전국</a></li> 
-				<li class="side-li"><a href="/a_board/list?locaType=1">강원</a></li> 	  		
-				<li class="side-li"><a href="/a_board/list?locaType=2">경기</a></li>   	  		
-				<li class="side-li"><a href="/a_board/list?locaType=3">경남</a></li>   	  		
-				<li class="side-li"><a href="/a_board/list?locaType=4">경북</a></li>   	  		
-				<li class="side-li"><a href="/a_board/list?locaType=5">부산</a></li>   	  		
-				<li class="side-li"><a href="/a_board/list?locaType=6">서울</a></li>   	  		
-				<li class="side-li"><a href="/a_board/list?locaType=7">인천</a></li>   	  		
-				<li class="side-li"><a href="/a_board/list?locaType=8">전남</a></li>   	  		
-				<li class="side-li"><a href="/a_board/list?locaType=9">전북</a></li>   	  		
-				<li class="side-li"><a href="/a_board/list?locaType=10">제주</a></li>   	  		
-				<li class="side-li"><a href="/a_board/list?locaType=11">충남</a></li>   	  		
-				<li class="side-li"><a href="/a_board/list?locaType=12">충북</a></li>  
+				<li class="side-li all"><a href="/a_board/list">전체글 보기</a></li>
+				<li class="side-line"/>
+			</ul>
+			
+		<p class="side-t">지역별</p>
+			<ul class="side-ul">
+				<li class="side-li loca"><a href="/a_board/loca_list?locaType=1">강원</a></li> 	  		
+				<li class="side-li loca"><a href="/a_board/loca_list?locaType=2">경기</a></li>   	  		
+				<li class="side-li loca"><a href="/a_board/loca_list?locaType=3">경남</a></li>   	  		
+				<li class="side-li loca"><a href="/a_board/loca_list?locaType=4">경북</a></li>   	  		
+				<li class="side-li loca"><a href="/a_board/loca_list?locaType=5">부산</a></li>   	  		
+				<li class="side-li loca"><a href="/a_board/loca_list?locaType=6">서울</a></li>   	  		
+				<li class="side-li loca"><a href="/a_board/loca_list?locaType=7">인천</a></li>   	  		
+				<li class="side-li loca"><a href="/a_board/loca_list?locaType=8">전남</a></li>   	  		
+				<li class="side-li loca"><a href="/a_board/loca_list?locaType=9">전북</a></li>   	  		
+				<li class="side-li loca"><a href="/a_board/loca_list?locaType=10">제주</a></li>   	  		
+				<li class="side-li loca"><a href="/a_board/loca_list?locaType=11">충남</a></li>   	  		
+				<li class="side-li loca"><a href="/a_board/loca_list?locaType=12">충북</a></li>  
    	  		</ul>
    	  </div>
       <!-- 지역 카테고리 끝 -->
+      
      <form name="readForm" method="post" role="form">
 		<input type="hidden" id="a_bno" name="a_bno" value="${read.a_bno }"/>
 		<input type="hidden" id="page" name="page" value="${scri.page }"/>
