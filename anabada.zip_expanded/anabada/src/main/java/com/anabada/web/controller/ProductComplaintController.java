@@ -177,41 +177,50 @@ public class ProductComplaintController {
 		map.put("c_bno", r_no);
 		map.put("board_type", "review");
 		complaintService.delete_complaint(map);
-		// 신고 당한 회원에게 경고 1회
-		complaintService.add_caution(id);
+	   
+	
+		
+		// 이미 탈퇴한 회원이 아닐떄 적용
+		if(!id.isEmpty()) {
+			
+			// 신고 당한 회원에게 경고 1회
+			complaintService.add_caution(id);
 
-		// 총 신고당한 횟수
-		int count = complaintService.count_caution(id);
-		System.out.println("제제 횟수 : " + count);
-		if (count < 5) {
-			Map<String, Object> note = new HashMap<String, Object>();
-			note.put("n_receiver", id);
-			note.put("n_content", content("후기", vo.getR_content(), count));
-			complaintService.note_caution(note);
+			// 총 신고당한 횟수
+			int count = complaintService.count_caution(id);
+			System.out.println("제제 횟수 : " + count);
+			if (count < 5) {
+				Map<String, Object> note = new HashMap<String, Object>();
+				note.put("n_receiver", id);
+				note.put("n_content", content("후기", vo.getR_content(), count));
+				complaintService.note_caution(note);
 
-		} else { // 회원 탈퇴 시키기
+			} else { // 회원 탈퇴 시키기
 
-			// 서버상에서 사진정보 삭제
+				// 서버상에서 사진정보 삭제
 
-			deleteWithdrawal(id);
-			complaintService.review_null(id);
+				deleteWithdrawal(id);
+				complaintService.review_null(id);
 
-			// 알바 게시물 관련 이미지 서버에서 먼저 삭제
-			List img_list = jobService.img_list(id);
+				// 알바 게시물 관련 이미지 서버에서 먼저 삭제
+				List img_list = jobService.img_list(id);
 
-			if (img_list != null || !img_list.isEmpty()) { // 사진이 있다면 삭제
+				if (img_list != null || !img_list.isEmpty()) { // 사진이 있다면 삭제
 
-				for (int i = 0; i < img_list.size(); i++) {
-					File file = null;
-					file = new File(JOB_IMG_PATH + img_list.get(i));
-					file.delete();
+					for (int i = 0; i < img_list.size(); i++) {
+						File file = null;
+						file = new File(JOB_IMG_PATH + img_list.get(i));
+						file.delete();
+					}
 				}
-			}
 
-			String email = complaintService.expel_email(id); // 회원 email가져옴
-			complaintService.expel_member(id); // 회원 탈퇴
-			complaintService.insert_email(email); // 블랙 리스트에 이메일 저장
+				String email = complaintService.expel_email(id); // 회원 email가져옴
+				complaintService.expel_member(id); // 회원 탈퇴
+				complaintService.insert_email(email); // 블랙 리스트에 이메일 저장
+			}
+			
 		}
+	
 
 		boolean result = true;
 
