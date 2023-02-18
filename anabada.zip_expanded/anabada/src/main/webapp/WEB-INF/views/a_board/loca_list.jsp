@@ -35,23 +35,20 @@
 	$(function () {
    		$('#searchBtn').click(function () {
       		var chbtn = $("input[type='radio']:checked").val();
-      			self.location = "list" + '${pageMaker.makeQuery(1)}' + '&searchType=' + $("select option:selected").val() + 
+      			self.location = "loca_list" + '${pageMaker.makeQuery(1)}' + '&searchType=' + $("select option:selected").val() + 
                "&keyword=" + encodeURIComponent($('#keywordInput').val()) + "&cateType=" + encodeURIComponent(chbtn);
   		 });
 
    		$("input[type='radio']").click(function() {
    			var rabtn = $("input[type='radio']:checked").val();
-      			self.location = "list" + '${pageMaker.makeQuery(1)}' + '&searchType=' + $("check option:checked").val()
+      			self.location = "loca_list" + '${pageMaker.makeQuery(1)}' + '&locaType=' + ${scri.locaType} + '&searchType=' + $("check option:checked").val()
          		+ "&keyword=" + encodeURIComponent($('#keywordInput').val()) + "&cateType=" + encodeURIComponent(rabtn);   
    		});
 	
    		$("input[name='all']").click(function() {
-      		self.location = "/a_board/list";
+      		self.location = "/a_board/loca_list?locaType=${scri.locaType}";
    		});
    		
-   		$("li .loca").click(function() {
-   			location.href = "/a_board/loca_list";
-   		})
 	});
 	
 	/* 버튼 스크립트 끝 */
@@ -91,11 +88,11 @@
    	  <div class="sidemenu2">
 		<p class="side-t">아나바다</p>   	  	
    	  		<ul class="side-ul">
-				<li class="side-li all"><a href="/a_board/list">전체글 보기</a></li>
+				<li class="side-li"><a href="/a_board/list">전체글 보기</a></li>
 				<li class="side-line"/>
 			</ul>
 			
-		<p class="side-t">지역별</p>
+		<p class="side-t">지역</p>
 			<ul class="side-ul">
 				<li class="side-li loca"><a href="/a_board/loca_list?locaType=1">강원</a></li> 	  		
 				<li class="side-li loca"><a href="/a_board/loca_list?locaType=2">경기</a></li>   	  		
@@ -121,7 +118,7 @@
      <h3>아나바다 커뮤니티</h3>
      <p style="font-size:13px;">아나바다 회원분들이 자유롭게 소통할 수 있는 공간입니다.</p>
      
-      <div id="radio">
+      <div>
          <!-- input value값을 정하고 그 값으로 c:out 태그 안에 삼항 연산자를 적어줘서 어디에 체크표시가 되는지 구분해줌 -->
          <label class="chk"> 
             <input type="radio" id="cate" name="all"/><span>전체</span>

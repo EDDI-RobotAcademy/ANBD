@@ -204,6 +204,32 @@ public class ABoardController {
 		
 		return "/a_board/list";
 	}
+	
+	//게시판 목록
+		@RequestMapping(value = "/loca_list", method = RequestMethod.GET)
+		public String loca_list(Model model, @ModelAttribute("scri") ASearchCriteria scri, HttpServletRequest req, @RequestParam(value = "loca", required = false) String loca) throws Exception {
+
+			logger.info("게시판 목록 보기");
+			
+			model.addAttribute("list", service.list(scri));
+			
+			APageMaker pageMaker = new APageMaker();
+			pageMaker.setCri(scri);
+			pageMaker.setTotalCount(service.listCount(scri));
+			
+			model.addAttribute("pageMaker", pageMaker);
+			
+			return "/a_board/loca_list";
+		}
+	
+//	@RequestMapping(value = "/postDeleteChk", method = RequestMethod.GET)
+//	public @ResponseBody int postDeleteChk(@RequestParam(value = "a_bno", required = false) int a_bno) throws Exception {
+//		
+//		int result = service.postDeleteChk(a_bno);
+//		System.out.println("a_bno : " + result);
+//		
+//		return result;
+//	}
 
 	//게시글 상세보기
 	@RequestMapping(value = "/readView", method = RequestMethod.GET)
