@@ -112,7 +112,7 @@
 				<li class="side-line"/>
 			</ul>
 			
-		<p class="side-t">지역</p>
+		<p class="side-t">지역별</p>
 			<ul class="side-ul">
 				<li class="side-li loca"><a href="/a_board/loca_list?locaType=1">강원</a></li> 	  		
 				<li class="side-li loca"><a href="/a_board/loca_list?locaType=2">경기</a></li>   	  		
