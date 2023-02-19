@@ -80,4 +80,10 @@ public class ABoardServiceImpl implements ABoardService {
 		return dao.complaintRead(a_bno);
 	}
 
+	@Override
+	public int deleteChk(int a_bno) throws Exception {
+		return dao.deleteChk(a_bno);
+	}
+
+
 }
