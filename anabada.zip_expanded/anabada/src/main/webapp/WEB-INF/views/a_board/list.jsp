@@ -35,8 +35,15 @@
 	$(function () {
    		$('#searchBtn').click(function () {
       		var chbtn = $("input[type='radio']:checked").val();
+      		
+      		if(chbtn == null) {
       			self.location = "list" + '${pageMaker.makeQuery(1)}' + '&searchType=' + $("select option:selected").val() + 
-               "&keyword=" + encodeURIComponent($('#keywordInput').val()) + "&cateType=" + encodeURIComponent(chbtn);
+               "&keyword=" + encodeURIComponent($('#keywordInput').val()) + "&cateType=";
+      		}
+      		else {
+      			self.location = "list" + '${pageMaker.makeQuery(1)}' + '&searchType=' + $("select option:selected").val() + 
+                "&keyword=" + encodeURIComponent($('#keywordInput').val()) + "&cateType=" + encodeURIComponent(chbtn);
+      		}
   		 });
 
    		$("input[type='radio']").click(function() {
@@ -45,10 +52,6 @@
          		+ "&keyword=" + encodeURIComponent($('#keywordInput').val()) + "&cateType=" + encodeURIComponent(rabtn);   
    		});
 	
-   		$("input[name='all']").click(function() {
-      		self.location = "/a_board/list";
-   		});
-   		
    		$("li .loca").click(function() {
    			location.href = "/a_board/loca_list";
    		})
@@ -124,7 +127,7 @@
       <div id="radio">
          <!-- input value값을 정하고 그 값으로 c:out 태그 안에 삼항 연산자를 적어줘서 어디에 체크표시가 되는지 구분해줌 -->
          <label class="chk"> 
-            <input type="radio" id="cate" name="all"/><span>전체</span>
+            <input type="radio" id="cate" name="a_type" value=""<c:out value="${scri.cateType eq '' ? 'checked' : ''}"/>/><span>전체</span>
          </label>
          <label class="chk"> 
             <input type="radio" id="cate" name="a_type" value="1"<c:out value="${scri.cateType eq '1' ? 'checked' : ''}"/>/><span>동네생활</span>
