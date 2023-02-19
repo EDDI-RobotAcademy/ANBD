@@ -113,14 +113,14 @@
 						</div>
 						
 						<div>
-							<label class="membermodify" for="tel">휴대폰 번호</label>
-							<input class="modi-box" type="text" id="tel" name="tel" value="${member.tel}" placeholder="01000000000"/>
-						</div>
-						
-						<div>
 							<label class="membermodify" for="email">이메일</label>
 							<input class="modi-box-readonly" type="text" id="email" name="email" value="${member.email}" placeholder="example@gmail.com" readonly />
 							<button type="button" onclick="emailChange()">변경</button>
+						</div>
+						
+						<div>
+							<label class="membermodify" for="tel">휴대폰 번호</label>
+							<input class="modi-box" type="text" id="tel" name="tel" value="${member.tel}" placeholder="01000000000"/>
 						</div>
 					</div>
 					

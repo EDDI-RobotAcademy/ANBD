@@ -31,6 +31,14 @@ a {
   margin: 0 auto 0 auto;
 }
 
+.help_container {
+  display: flow-root;
+  width: 100%;
+  min-width: 750px;
+  max-width: 750px;
+  margin: 0 auto 0 auto;
+}
+
 
 /* 버튼 디자인 초기화*/
 .btn_reset {
@@ -104,7 +112,7 @@ a {
 .nav-right {
   display: flex;
   justify-content: flex-end;
-  margin-left: auto;
+/*   margin-left: auto; */
 }
 
 .profile {
@@ -882,15 +890,25 @@ input[id="termsService3"]:checked + label::before{
 .helpy {
   text-align: center;
   margin-top: 0;
-  padding: 30px 20px;
-  border-radius: 15px 15px;
+  padding: 40px 0 55px 0;
   box-sizing: border-box;
 }
 
 .mayihelp {
-  font-size: 24px;
+  font-size: 40px;
+  font-weight: 500;
+  letter-spacing: -2px;
   color: #383838;
-  margin: 0 auto 20px 5px;
+  margin: 0 auto 0 auto;
+  padding: 0;
+  cursor: default;
+}
+
+.mayihelpu {
+  font-size: 14px;
+  letter-spacing: -1px;
+  color: #525252;
+  margin: 0px auto 15px auto;
   padding: 0;
   cursor: default;
 }
@@ -898,7 +916,7 @@ input[id="termsService3"]:checked + label::before{
 .fnq-sbox {
   display: flex;
   margin: 0 auto;
-  width: 350px;
+  width: 400px;
   height: 40px;
   border: 1px solid #cccccc;
   border-radius: 10px 10px;
@@ -926,6 +944,30 @@ input[id="termsService3"]:checked + label::before{
   font-size: 13px;
   border-radius: 0 8px 8px 0;
   cursor: pointer;
+}
+
+.menu-box {
+  display: table-cell;
+  vertical-align: middle;
+  width: 350px;
+  height: 160px;
+  background-color: #F9F9F9;
+  border-radius: 8px;
+}
+
+.icon-box {
+  float: left;
+  width: 49%;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.help-icon {
+  margin: 0 auto;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background-color: #fff;
 }
 
 .fnq {
