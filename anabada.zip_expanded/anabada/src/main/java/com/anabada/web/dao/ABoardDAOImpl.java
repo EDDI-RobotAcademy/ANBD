@@ -85,4 +85,10 @@ public class ABoardDAOImpl implements ABoardDAO {
 		return sqlSession.selectOne("boardMapper.complaintRead", a_bno);
 	}
 
+	@Override
+	public int deleteChk(int a_bno) throws Exception {
+		return sqlSession.selectOne("boardMapper.deleteChk", a_bno);
+	}
+
+
 }

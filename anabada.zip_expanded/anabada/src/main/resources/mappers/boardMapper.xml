@@ -112,4 +112,8 @@ FROM A_BOARD
 WHERE A_BNO = #{a_bno}
 </select>
 
+<select id="deleteChk" parameterType="int" resultType="int">
+SELECT COUNT(*) FROM A_BOARD WHERE A_BNO = #{a_bno}
+</select>
+
 </mapper>

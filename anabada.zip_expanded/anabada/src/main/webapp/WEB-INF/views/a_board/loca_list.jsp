@@ -51,7 +51,24 @@
       			self.location = "loca_list" + '${pageMaker.makeQuery(1)}' + '&locaType=' + ${scri.locaType} + '&searchType=' + $("check option:checked").val()
          		+ "&keyword=" + encodeURIComponent($('#keywordInput').val()) + "&cateType=" + encodeURIComponent(rabtn);   
    		});
-	
+   		
+   		//게시글 삭제 유효성 검사
+		$(".deleteChk").on("click", function() {
+			
+			var a_bno = $("#a_bno").val();
+			
+			$.ajax({
+				url: '/a_board/deleteChk',
+				type: 'GET',
+				data: {a_bno: a_bno },
+				success: function(result) {
+					if(result == 0) {
+						alert("이미 삭제된 게시물 입니다");
+						self.location = "/a_board/list";
+					}
+				}
+			});
+		});
 	});
 	
 	/* 버튼 스크립트 끝 */
@@ -212,7 +229,7 @@
                   </c:otherwise>
                </c:choose>            
             </td>
-            <td>
+            <td class="deleteChk">
                <a href="/a_board/readView?a_bno=${list.a_bno}&page=${scri.page }&perPageNum=${scri.perPageNum }&searchType=${scri.searchType }&keyword=${scri.keyword }&cateType=${scri.cateType }">
                <c:out value="${list.a_title }"/>
                </a>

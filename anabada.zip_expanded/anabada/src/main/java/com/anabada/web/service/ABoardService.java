@@ -39,5 +39,7 @@ public interface ABoardService {
 	//게시글 신고 내역 상세보기
 	public ABoardVO complaintRead(int a_bno) throws Exception;
 
+	public int deleteChk(int a_bno) throws Exception;
+
 
 }
