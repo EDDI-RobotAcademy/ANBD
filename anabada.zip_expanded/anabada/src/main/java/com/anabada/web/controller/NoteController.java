@@ -445,7 +445,7 @@ public class NoteController {
  	 			complaintService.add_caution(id);
  	 			
  	 			//4-2) 경고 쪽지 보내기
- 	 			String content = "회원님의 쪽지 '" + n_content + "'는 부적접한 사유로 인해 삭제되었습니다."
+ 	 			String content = "회원님의 쪽지 '" + n_content + "'는 부적절한 사유로 인해 삭제되었습니다."
  	 					+ "\n회원님은 누적 경고수는 " + ++count + "입니다."
  	 					+ "\n누적 경고수가 5가 되면 회원 강제 탈퇴가 이루어집니다.";
  	 			
@@ -502,15 +502,19 @@ public class NoteController {
 
 	}
 	  
-	//회원 탈퇴시 서버상에서 회원이 pboard에 남긴 사진 정보 삭제 
-	public void deleteWithdrawal(String id) throws Exception{
-		//서버상에서 pfile에 해당하는 사진정보들 삭제 
+	// 회원 탈퇴시 서버상에서 회원이 pboard에 남긴 사진 정보 삭제
+	public void deleteWithdrawal(String id) throws Exception {
+		// 서버상에서 pfile에 해당하는 사진정보들 삭제
 		List<Integer> pno_list = complaintService.pno_list(id); // 사용자의 게시글 pno불러오기
-		List<String> filePath_list = complaintService.filePath_list(pno_list); // filePath_list불러오기
-			
-		//서버상에서 사진정보 삭제
-			
-	    for(String filePath : filePath_list) { deleteRealImg(filePath); }
+
+		if (!pno_list.isEmpty()) { // 작성한 게시글이 존재한다면 실행
+			List<String> filePath_list = complaintService.filePath_list(pno_list); // filePath_list불러오기
+			// 서버상에서 사진정보 삭제
+			for (String filePath : filePath_list) {
+				deleteRealImg(filePath);
+			}
+		}
+
 	}
 
 	
