@@ -31,6 +31,13 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 		
+		// 이미지 삭제 버튼 눌렀을 때
+		$(document).on("click", "a[name='file-delete']", function(e) {
+			e.preventDefault();
+			$("input[name='j_uploadImg']").val("");
+		});
+		
+		
 		$("input[name='j_term']").click(function () { // 하루, 몇개월....
 			
 			if($(this).val() == "하루"){
@@ -152,15 +159,15 @@
 		});
 		
 		// 이미지 수정하기
-		$(document).on('click', 'button[name=delete_img]', function() {
+		$(document).on('click', 'a[name=delete_img]', function() {
 		    
-		    var di = $(this).val();
+		    var di = $(this).attr("id");
 		    $("#d_img").attr('value', di);
 		    //alert(di);
 		    
 		    $(this).closest("div").remove();
 		    
-		    var input_img = "<input type='file' name='j_uploadImg'>";
+		    var input_img = "<input type='file' name='j_uploadImg'><a href='#this' name='file-delete'>삭제</a>";
 			var $add = $("#add_img");
 			$add.append(input_img);
 		});
@@ -419,6 +426,7 @@
 			<tr>
 				<td>
 					<input type="file" name="j_uploadImg">
+					<a href='#this' name='file-delete'>삭제</a>
 				</td>
 			</tr>
 			</c:when>
@@ -426,8 +434,8 @@
 			<tr>
 				<td id="add_img">
 				<div style="display: inline-block;">
-					<img src="/upload/${j_update.j_img }" width="100px" height="100px"> 
-					<button type="button" class="j_btn3" name="delete_img" value="${j_update.j_img }">삭제</button> 
+					<img src="/upload/${j_update.j_img }" width="100px" height="100px">&nbsp;&nbsp;&nbsp;&nbsp;
+					<a href="#this" name="delete_img" id="${j_update.j_img }">삭제</a> 
 					<input type="hidden" name="j_img" value="${j_update.j_img}">
 				</div> 
 				</td>

@@ -28,6 +28,12 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function () {
+		
+		// 이미지 삭제 버튼 눌렀을 때
+		$("a[name='file-delete']").on("click", function(e) {
+			e.preventDefault();
+			$("input[name='j_uploadImg']").val("");
+		});
 	    
 	    // 로그인안했으면 알바 구인 공고 못쓰게
 	    $(window).on("load", function () {
@@ -157,6 +163,7 @@
 	    });
 		
 	});
+	
 	
 </script>
 </head>
@@ -326,6 +333,7 @@
          <tr>
             <td>
                <input type="file" name="j_uploadImg" style="border: none">
+               <a href='#this' name='file-delete'>삭제</a>
                <!-- j_uploadImg는 VO클래스에는 있는 칼럼이지만 table에는 없는 칼럼이다.
                우선 j_uploadImg에 선택한 이미지 해시코드를 담고, 
                이후 컨트롤러에서 이미지 선택했을 경우는 이미지이름만 추출해서 j_img에 저장하고, 선택하지 않았을 경우는 null이 저장되게 한다. -->
