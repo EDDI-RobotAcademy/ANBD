@@ -39,7 +39,11 @@ public interface ABoardService {
 	//게시글 신고 내역 상세보기
 	public ABoardVO complaintRead(int a_bno) throws Exception;
 
+	//게시글 유효성 검사
 	public int deleteChk(int a_bno) throws Exception;
+
+	//신고 유효성 검사
+	public int complaintChk(Map<String, String> comChk) throws Exception;
 
 
 }
