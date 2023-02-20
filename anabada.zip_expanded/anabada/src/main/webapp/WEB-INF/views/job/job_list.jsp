@@ -150,11 +150,13 @@
    
 </style>
 <body>
+<div id="anbdHead">
 <div>
    <jsp:include page="../includes/nav.jsp" />
 </div>
 <div>
    <jsp:include page="../includes/miniHeader.jsp" />
+</div>
 </div>
 
 <div id="wapper" >
@@ -323,9 +325,9 @@
       <div class="container">
          <!-- 여기부터는 게시물들 -->
           <c:if test="${empty j_list }">
-          <div style="text-align: center">
+          <div style="text-align: center; height: 200px;">
              선택된 조건과 일치하는 게시물이 존재하지 않습니다.
-             <br><br>
+             <br><br><br>
              <img class="j_img" src="../resources/images/minilogo.png" style="width: 250px; height: 80px;"/>
              <br><br>
           </div>
@@ -580,6 +582,7 @@
       var floatPosition = parseInt($(".sideBanner").css('top'));
       var floatHei = parseInt($(".sideBanner").outerHeight()); // 플로팅 배너 길이
       var footerTop = $('#footer').outerHeight(); // footer가 높이한 위치
+      var headTop = $('#anbdHead').outerHeight();
       
       // scroll 인식
       $(window).scroll(function() {
@@ -596,6 +599,11 @@
                    "top" : bannerTop
                 }, 500);
           }
+          if (currentTop < headTop) {
+              $(".sideBanner").stop().animate({
+                 "top" : headTop
+              }, 500);
+           }
    
       }).scroll(); 
       
@@ -671,7 +679,7 @@
                    
               },
               error : function(request, status, error) {
-              	alert("삭제 실패:" + error);
+              	//alert("삭제 실패:" + error);
             }
           });
          
