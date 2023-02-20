@@ -218,7 +218,9 @@
     </form>
     </section>
     
-    
+    <div>
+      <jsp:include page="../includes/footer.jsp" />
+    </div>
 
 </body>
 </html>

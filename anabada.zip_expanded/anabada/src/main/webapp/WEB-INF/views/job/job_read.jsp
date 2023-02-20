@@ -199,7 +199,7 @@
 		var items = sessionStorage.getItem("recent_job");
 			    
 		if(items == null){
-			var li = "<br><br><li>최근 본 상품이 없습니다.</li>"
+			var li = "<br><br><br><br><li>최근 본 알바가 없습니다.</li>"
 			$recentItemList.append(li);
 		}
 			
@@ -238,11 +238,11 @@
 				       //alert("이미지 + /" + j_img + "/");
 				       		        	
 				       if(j_img != ""){
-				       		var li = "<li><a href='javascript:void(0);' onclick='readView(" + j_bno +")'><img width='100' height='100' src='/upload/"+j_img+"'/>"
+				       		var li = "<li><a href='javascript:void(0);' onclick='readView(" + j_bno +")'><img style='border-radius: 5px;' width='100' height='100' src='/upload/"+j_img+"'/>"
 				       			+ "<br><div class='word'>" + j_title+ "</div>" + "</a></li>";
 				       	    //alert(i);
 				       }else{
-				       		var li = "<li><a href='javascript:void(0);' onclick='readView(" + j_bno +")'><img width='100' height='100' src='../resources/images/아나바다2.png'/>"
+				       		var li = "<li><a href='javascript:void(0);' onclick='readView(" + j_bno +")'><img style='border-radius: 5px;' width='100' height='100' src='../resources/images/아나바다2.png'/>"
 				       			+ "<br><div class='word'>" + j_title+ "</div>" + "</a></li>";
 				       		//alert(i);
 				       }
@@ -423,9 +423,8 @@
       width: 100%;
    }
    tr, td{
-      border-bottom: 1px solid #c9cdd2;
-       /*border-left: 1px solid #c9cdd2;*/
-       padding: 10px;
+      border-bottom: 1px solid #E5E5E5;
+      padding: 10px;
    }
      
    /*레이아웃*/
@@ -452,21 +451,17 @@
    .sideBanner {
       width: 120px; 
       position: absolute;
-      height: 450px;
+      max-height: 490px;
+      min-height: 200px;
       top: 100px;
       background-color: white;
-      border: 1px solid #0C6BBC;
+      border: 1px solid #E2E2E2;
       text-align: center;
       margin-left: 10px;
       margin-top: 10px;
-      border-radius: 5px;
    }
    .recent_list{
       height: 405px; 
-      /*
-      396인 이유: li높이 128(검사에서 확인)+margin bottom 5px이 3개씩 보일거라
-      132*3 = 396임.
-      */
       overflow: hidden;
    }
    
@@ -484,10 +479,15 @@
    }
    
    .word {
-        width:110px;
+     width:110px;
      overflow: hidden;
      text-overflow: ellipsis;
      white-space: nowrap;
+   }
+   
+   .recent_btn{
+   	   all: unset; 
+   	   cursor: pointer;
    }
 </style>
 </head>
@@ -517,42 +517,45 @@
    
          <table>
             <tr>
-               <td colspan="3">
-                   ${j_read.j_date }&nbsp;&nbsp;
-                  <c:if test="${j_read.id eq id}"><!-- 로그인한 아이디(세션에 저장된 아이디(id))와 작성자아이디(j_read.id)가 같으면 수정, 삭제 가능 -->
+               <td colspan="5" style="border-bottom: 2px solid #626262; " >
+                  <div style="display: inline-block; float: left; height: 30px; line-height: 40px;">
+                  등록일: ${j_read.j_date }
+                  </div>
+               	  <div style="display: inline; float: right;">
+               	  <c:if test="${j_read.id eq id}"><!-- 로그인한 아이디(세션에 저장된 아이디(id))와 작성자아이디(j_read.id)가 같으면 수정, 삭제 가능 -->
                      <button type="button" id="update" class="j_btn3">수정</button>
-                     <button type="button" id="delete" class="j_btn3">삭제</button>
-                  </c:if>
-                  <c:if test="${id eq 'admin'}"><!-- 로그인한 아이디(세션에 저장된 아이디(id))와 작성자아이디(j_read.id)가 같으면 수정, 삭제 가능 -->
                      <button type="button" id="delete" class="j_btn3">삭제</button>
                   </c:if>
                   <c:if test="${j_read.id ne id}">
                      <button type="button" id="report" class="j_btn3">신고</button>
                   </c:if>
-               </td>
-               <td style="border-left: none; text-align: right">
-                  <label class="rach">
-                     <input type="checkbox" id="heart" name="j_heart" value="${j_read.j_heart }" />                
-                     <c:choose>
-                     <c:when test="${heart == 0 }">
-                        <img class="himg" style="width: 30px; height: 30px;" src="../../resources/images/하트1.png">
-                     </c:when>
-                     <c:otherwise>
-                        <img class="himg" style="width: 30px; height: 30px;" src="../../resources/images/하트2.png">
-                     </c:otherwise>
-                     </c:choose>
-                  </label>
-               </td>
-               <td style="border-left: none; text-align: right">
-                  <img style="width: 30px; height: 30px;" src="../../resources/images/하트2.png">
-                  <div style="display: inline" id="heartCh">${j_read.j_heart }</div>
+                  </div>
                </td>
             </tr>
       
             <tr>
                <td colspan="5">
-               ${j_read.j_company }<br>
-               <font style="font-size: 20px; font-weight: bolder;">${j_read.j_title }</font>
+               	  ${j_read.j_company }&nbsp;&nbsp;&nbsp;&nbsp;
+               	  <img style="width: 12px; height: 12px;" src="../../resources/images/하트2.png">
+	              <font style="color: gray;">찜 + </font>
+	              <div style="display: inline; color: gray" id="heartCh">
+	                 ${j_read.j_heart }
+	              </div>
+               <div style="float: right;">
+                  <label class="rach" style="cursor: pointer;">
+                     <input type="checkbox" id="heart" name="j_heart" value="${j_read.j_heart }" />                
+                     <c:choose>
+                     <c:when test="${heart == 0 }">
+                        <img class="himg" style="width: 20px; height: 20px;" src="../../resources/images/하트1.png">
+                     </c:when>
+                     <c:otherwise>
+                        <img class="himg" style="width: 20px; height: 20px;" src="../../resources/images/하트2.png">
+                     </c:otherwise>
+                     </c:choose>
+                  </label>
+               </div>
+               <br>
+               <font style="font-size: 25px; font-weight: bolder;">${j_read.j_title }</font>
                </td>
             </tr>
             
@@ -560,10 +563,10 @@
                <td width="250px;" style="text-align: center">
                <c:choose>
                   <c:when test="${empty j_read.j_img}">
-                     <img src="../resources/images/아나바다2.png" width="250px" height="250px"/>
+                     <img src="../resources/images/아나바다2.png" width="250px" height="150px"/>
                   </c:when>
                   <c:otherwise>
-                     <img src="/upload/${j_read.j_img }" width="250px" height="250px"/>
+                     <img src="/upload/${j_read.j_img }" width="250px" height="150px"/>
                   </c:otherwise>
                </c:choose>
                <td width="120px;" style="text-align: center">
@@ -598,20 +601,23 @@
             </tr>
             
             <!-- 내용 있을 때만 출력 -->
-            <c:if test="${j_read.j_content ne null}">
             <tr>
-               <td colspan="6">
-               <font style="font-weight: bolder;">상세내용</font><br><br>
-               ${fn:replace(j_read.j_content, replaceChar, "<br/>")}
-               </td>
-            </tr>
-            </c:if>
+               <td colspan="6" style="padding: 0px;">
+               <div style="float:left; width: 465px; min-height: 300px; border-right: 1px solid #E5E5E5; padding: 10px; padding-right: 20px;">
+	               <font style="font-weight: bolder;">상세 내용</font><br><br>
+	               <c:if test="${j_read.j_content eq null}">
+	               등록된 상세 내용이 없습니다.
+	               </c:if>
+	               <c:if test="${j_read.j_content ne null}">
+	               ${fn:replace(j_read.j_content, replaceChar, "<br/>")}
+	               </c:if>
+	           </div>
             
-            <tr>
-               <td colspan="5">
+               <div style="float:left; width: 465px; padding: 10px; padding-left: 20px;">
                <font style="font-weight: bolder;">주소</font><br><br>
                   <div id="addr" style="padding-bottom: 10px;">${j_read.j_addr1 } ${j_read.j_addr2 }</div>
                   <div id="map" style="width:100%;height:200px; margin: auto"></div>
+               </div>
                
                <!-- 해당 주소에 해당하는 지도 띄우기 -->   
                   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cd033a39a25f6e21dbc70db3f498f6e8&libraries=services"></script>
@@ -678,11 +684,11 @@
       </section>
       
       <section class="aside">
-            <div class="sideBanner">
+            <div class="sideBanner"style=" padding-top: 10px; padding-bottom: 10px;">
               최근 본 알바
-              <div class="r_btn">
-                 <button class="recent_btn">▲</button>
-                 <button class="recent_btn">▼</button>
+              <div>
+                 <button class="recent_btn" style="padding: 5px;"><img src="../resources/images/up.png" width="10px;" height="10px;"></button>
+          		 <button class="recent_btn" style="padding: 5px;"><img src="../resources/images/down.png" width="10px;" height="10px;"></button>
               </div>
               <div class="recent_list">
              <ul id="recentItemList" style="margin-left:5px; margin-right: 5px; ">

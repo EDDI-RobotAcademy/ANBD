@@ -458,7 +458,7 @@ public class JobController {
  			System.out.println("실행테스트");
  			
  			//4-2) 경고 쪽지 보내기
- 			String content = "회원님의 알바 구인 게시물 '" + vo.getJ_title() + "'은 부적접한 사유로 인해 삭제되었습니다."
+ 			String content = "회원님의 알바 구인 게시물 '" + vo.getJ_title() + "'은 부적절한 사유로 인해 삭제되었습니다."
  					+ "\n회원님은 누적 경고수는 " + ++count + "입니다."
  					+ "\n누적 경고수가 5가 되면 회원 강제 탈퇴가 이루어집니다.";
  			
