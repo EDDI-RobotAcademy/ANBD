@@ -97,8 +97,23 @@ a {
   align-items: center;
   justify-content: space-between;
   margin-top: 0;
+  margin-bottom: 0;
   padding-top: 15px;
   padding-bottom: 15px;
+  vertical-align: top;
+}
+
+.pro-navbar {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
   vertical-align: top;
 }
 
@@ -112,12 +127,20 @@ a {
 .nav-right {
   display: flex;
   justify-content: flex-end;
-/*   margin-left: auto; */
+  margin-left: auto;
 }
 
 .profile {
   color: #555555;
   font-size: 12px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.profile-pro {
+  color: #555555;
+  font-size: 14px;
   list-style-type: none;
   margin: 0;
   padding: 0;
