@@ -753,7 +753,7 @@ margin-top: 0px;
 		            	}else{
 		            		
 		            		 var url = "/product/reviewReport?r_no="+btn_val;
-		            		 window.open(url, "신고", "width=700, height=750, left=700, top=100");
+		            		 window.open(url, "신고", "width=650, height=550, left=700, top=100");
 		            	}
 		                
 		            },
@@ -766,22 +766,6 @@ margin-top: 0px;
 	})
       
       
-      
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
       
       
    });
@@ -823,7 +807,7 @@ function complaint() {
 	            	if(data == 1){
 	            		alert("이미 신고한 게시글입니다.");
 	            	}else{
-	            		 window.open("/product/report?pno=${read.pno}", "신고", "width=750, height=750, right=100, top=100");
+	            		 window.open("/product/report?pno=${read.pno}", "신고", "width=600, height=600, right=100, top=100");
 	            	}
 	                
 	            },
@@ -866,12 +850,12 @@ function complaint() {
 	<!-- 		<button id="listbtn">목록으로가기</button> -->
 
 
-			<form name="readForm" role="form">
+			<form name="readForm" role="form"    >
 
 				<input type="hidden" name="pno" value="${read.pno }">
 
 
-				<table style="margin-left: auto; margin-right: auto;">
+				<table style="margin-left: auto; margin-right: auto; width: 1000px; ">
 					<tr>
 
 
@@ -916,7 +900,7 @@ function complaint() {
 
 
 					<tr style="height: 15px;">
-						<td colspan="6" rowspan="10" style="background-color: white;">
+						<td colspan="1" rowspan="10" style="background-color: white; width: 510px;">
 
 							<div class="single-item" id="slick" style="width: 500px; height: 500px;">
 
@@ -995,7 +979,7 @@ function complaint() {
 
 						<td>
 							<button type="button" value="1" id="alarm" onclick="complaint()">
-								<img width="30px;" height="30px;" src="../resources/images/u_alarm.png"> <font style="color: gray;"> 신고하기 </font>
+								<img width="23px;" height="23px;" src="../resources/images/u_alarm.png"> <font style="color: gray;"> 신고하기 </font>
 							</button>
 						</td>
 

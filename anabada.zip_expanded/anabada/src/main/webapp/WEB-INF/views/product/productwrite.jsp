@@ -60,6 +60,17 @@ padding-right: 10px;
 #p_title{
 height: 33px;
 }
+td{
+padding-bottom: 10px;
+}
+input[type=checkbox] {
+
+zoom: 1.5;
+
+}
+.sellLabel{
+vertical-align: 20%;
+}
 </style>
 
 <script type="text/javascript">
@@ -275,7 +286,7 @@ height: 33px;
 					<td class="td_title" ><h4>거래 방법</h4></td>
 					<td><div class="checkbox-part">
 
-							<input type="checkbox" id="sell_a" name="sell_a" value="직거래"> <label for="sell_a">직거래</label> <input type="checkbox" id="sell_b" name="sell_b" value="택배"> <label for="sell_b">택배</label>
+							<input type="checkbox" id="sell_a" name="sell_a" value="직거래"> <label for="sell_a" class="sellLabel" >직거래</label> <input type="checkbox" id="sell_b" name="sell_b" value="택배"> <label class="sellLabel"  for="sell_b">택배</label>
 
 						</div></td>
 
@@ -307,10 +318,11 @@ height: 33px;
 					</td>
 				</tr>
 				<tr>
-					<td colspan="2">
+					<td colspan="2"  >
+					<div style="margin: auto; width: 120px; ">
 						<button type="submit" class="write_btn">저 장</button>
 						<button type="reset" >다시작성</button>
-
+</div>
 					</td>
 				</tr>
 
