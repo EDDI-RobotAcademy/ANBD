@@ -116,4 +116,7 @@ WHERE A_BNO = #{a_bno}
 SELECT COUNT(*) FROM A_BOARD WHERE A_BNO = #{a_bno}
 </select>
 
+<select id="complaintChk" parameterType="java.util.HashMap" resultType="int">
+SELECT COUNT(*) FROM COMPLAINT WHERE ID = #{id} AND C_BNO = #{c_bno} AND BOARD_TYPE = 'a_board'
+</select>
 </mapper>
