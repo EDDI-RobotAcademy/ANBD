@@ -83,10 +83,11 @@
 .sideBanner {
 	width: 120px;
 	position: absolute;
-	height: 470px;
+	max-height: 490px;
+	min-height: 200px;
 	top: 100px;
 	background-color: white;
-	border: 1px solid #0C6BBC;
+	border: 1px solid #E2E2E2;
 	text-align: center;
 	margin-left: 10px;
 	margin-top: 10px;
@@ -130,7 +131,11 @@ ul {
 	margin-top: 40px;
 }
 
-/*끝 */
+   .recent_btn{
+   	   all: unset; 
+   	   cursor: pointer;
+   }
+
 </style>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
@@ -270,7 +275,7 @@ ul {
 			var items = sessionStorage.getItem("recent_product");
 
 			if (items == null) {
-				var li = "<br><br><li>최근 본 상품이 없습니다.</li>"
+				var li = "<br><br><br><br><li>최근 본 상품이 없습니다.</li>"
 				$recentItemList.append(li);
 			}
 
@@ -313,13 +318,13 @@ ul {
 	                                   if(p_img == "" || p_img == null){
 	                                	   var li = "<li  ><a href='/product/readView?pno="
 	   	          							+ pno
-	   	          							+ "'><img width='100' height='100' src='../resources/images/img.png'/>"
+	   	          							+ "'><img style='border-radius: 5px;' width='100' height='100' src='../resources/images/img.png'/>"
 	   	          							+ "<br><div class='sideword' >" + p_title + "</div>"
 	   	          							+ "</a></li>";
 	                                   }else{
 	                                	   var li = "<li  ><a href='/product/readView?pno="
 	   	          							+ pno
-	   	          							+ "'><img width='100' height='100' src='"+p_img+"'/>"
+	   	          							+ "'><img style='border-radius: 5px;' width='100' height='100' src='"+p_img+"'/>"
 	   	          							+ "<br><div class='sideword' >" + p_title + "</div>"
 	   	          							+ "</a></li>";
 	                                   }
@@ -576,11 +581,11 @@ ul {
 			</section>
 			<!-- 사이드바 - 최근본 상품 목록 -->
 			<section class="aside">
-				<div class="sideBanner">
+				<div class="sideBanner" style="padding-top: 10px; padding-bottom: 10px;">
 					최근 본 상품
 					<div class="r_btn">
-						<button type="button" class="recent_btn">▲</button>
-						<button type="button" class="recent_btn">▼</button>
+						<button class="recent_btn" style="padding: 5px;"><img src="../resources/images/up.png" width="10px;" height="10px;"></button>
+          				<button class="recent_btn" style="padding: 5px;"><img src="../resources/images/down.png" width="10px;" height="10px;"></button>
 					</div>
 					<div class="recent_list ">
 						<ul id="recentItemList" style="margin-left: 5px; margin-right: 5px;">
