@@ -106,7 +106,8 @@
       var floatPosition = parseInt($(".sideBanner").css('top'));
       var floatHei = parseInt($(".sideBanner").outerHeight()); // 플로팅 배너 길이
       var footerTop = $('#footer').outerHeight(); // footer가 높이한 위치
-         
+      var headTop = $('#anbdHead').outerHeight();
+      
       // scroll 인식
       $(window).scroll(function() {
            
@@ -122,6 +123,11 @@
                    "top" : bannerTop
                }, 500);
          }
+         if (currentTop < headTop) {
+             $(".sideBanner").stop().animate({
+                "top" : headTop
+             }, 500);
+          }
       
       }).scroll(); 
       
@@ -254,7 +260,7 @@
 		      		 
 		    },
 		    error : function(request, status, error) {
-				alert("삭제 실패:" + error);
+				//alert("삭제 실패:" + error);
 			}
 		});
 			
@@ -492,12 +498,14 @@
 </style>
 </head>
 <body>
-   <div>
+    <div id="anbdHead">
+    <div>
        <jsp:include page="../includes/nav.jsp" />
     </div>
       
     <div>
        <jsp:include page="../includes/miniHeader.jsp" />
+    </div>
     </div>
     
     <div id="wapper" >
@@ -535,21 +543,21 @@
       
             <tr>
                <td colspan="5">
-               	  ${j_read.j_company }&nbsp;&nbsp;&nbsp;&nbsp;
+               	  ${j_read.j_company }&nbsp;&nbsp;&nbsp;
                	  <img style="width: 12px; height: 12px;" src="../../resources/images/하트2.png">
-	              <font style="color: gray;">찜 + </font>
-	              <div style="display: inline; color: gray" id="heartCh">
-	                 ${j_read.j_heart }
+	              <div style="display: inline;  color: gray; vertical-align: 10%; font-size: 13px;">찜 +</div>
+	              <div style="display: inline; color: gray; font-size: 13px; vertical-align: 10%;" id="heartCh">
+	                 <div style="display: inline">${j_read.j_heart }</div>
 	              </div>
                <div style="float: right;">
                   <label class="rach" style="cursor: pointer;">
                      <input type="checkbox" id="heart" name="j_heart" value="${j_read.j_heart }" />                
                      <c:choose>
                      <c:when test="${heart == 0 }">
-                        <img class="himg" style="width: 20px; height: 20px;" src="../../resources/images/하트1.png">
+                        <img class="himg" style="width: 30px; height: 30px;" src="../../resources/images/하트1.png">
                      </c:when>
                      <c:otherwise>
-                        <img class="himg" style="width: 20px; height: 20px;" src="../../resources/images/하트2.png">
+                        <img class="himg" style="width: 30px; height: 30px;" src="../../resources/images/하트2.png">
                      </c:otherwise>
                      </c:choose>
                   </label>
