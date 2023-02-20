@@ -96,20 +96,21 @@
    .sideBanner {
       width: 120px; 
       position: absolute;
-      height: 450px;
+      max-height: 490px;
+      min-height: 200px;
       top: 100px;
       background-color: white;
-      border: 1px solid #0C6BBC;
+      border: 1px solid #E2E2E2;
       text-align: center;
       margin-left: 10px;
       margin-top: 10px;
-      border-radius: 5px;
+      /* border-radius: 5px; */
    }
    .recent_list{
       height: 405px; 
       /*
-      396인 이유: li높이 128(검사에서 확인)+margin bottom 5px이 3개씩 보일거라
-      132*3 = 396임.
+      405인 이유: li높이 130(검사에서 확인)+margin bottom 5px이 3개씩 보일거라
+      130*3 = 390임.
       */
       overflow: hidden;
    }
@@ -122,24 +123,29 @@
    }
    #recentItemList li{
       height: 130px;
-     display: inline-block;
-     text-align: center;
-     margin-bottom: 5px;
+      display: inline-block;
+      text-align: center;
+      margin-bottom: 5px;
    }
    
    /*글자 자르게*/
    .word {
-        width:110px;
-     overflow: hidden;
-     text-overflow: ellipsis;
-     white-space: nowrap;
+      width:110px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
    }
    
    .word2{
-        width:230px;
-     overflow: hidden;
-     text-overflow: ellipsis;
-     white-space: nowrap;
+       width:230px;
+       overflow: hidden;
+       text-overflow: ellipsis;
+       white-space: nowrap;
+   }
+   
+   .recent_btn{
+   	   all: unset; 
+   	   cursor: pointer;
    }
    
 </style>
@@ -342,8 +348,8 @@
                        <div class="word2">${j_list.j_day }&nbsp;${j_list.j_start }:00 ~ ${j_list.j_end }:00</div>
                        <div class="word2">${j_list.j_method }&nbsp;${j_list.j_pay }원</div>
                        <div class="word2">${j_list.j_addr1 }&nbsp;${j_list.j_addr2 }</div>
-                       <div class="word2">직종 : ${j_list.j_cate }</div>
-                       <div class="word2">근무기간 : ${j_list.j_term }</div>
+                       <!--<div class="word2">직종 : ${j_list.j_cate }</div>
+                       <div class="word2">근무기간 : ${j_list.j_term }</div>-->
                     </div>
                 </div>
              </c:forEach>
@@ -369,16 +375,16 @@
    
    <!-- 사이드바.ex)최근 본 항목 -->
    <section class="aside">
-      <div class="sideBanner">
+      <div class="sideBanner" style="padding-top: 10px; padding-bottom: 10px;">
         최근 본 알바
-          <div class="r_btn">
-             <button class="recent_btn">▲</button>
-             <button class="recent_btn">▼</button>
+          <div>
+          <button class="recent_btn" style="padding: 5px;"><img src="../resources/images/up.png" width="10px;" height="10px;"></button>
+          <button class="recent_btn" style="padding: 5px;"><img src="../resources/images/down.png" width="10px;" height="10px;"></button>
           </div>
           <div class="recent_list">
-          <ul id="recentItemList" style="margin-left:5px; margin-right: 5px; ">
-          </ul>
-        </div>
+          	 <ul id="recentItemList" style="margin-left:5px; margin-right: 5px; ">
+          	 </ul>
+          </div>
       </div>
    </section>
    </div>
@@ -611,7 +617,7 @@
          var items = sessionStorage.getItem("recent_job");
              
          if(items == null){
-              var li = "<br><br><li>최근 본 상품이 없습니다.</li>"
+              var li = "<br><br><br><br><li>최근 본 알바가 없습니다.</li>"
              $recentItemList.append(li);
          }
          
@@ -650,11 +656,11 @@
                          //alert("이미지 + /" + j_img + "/");
                                     
                          if(j_img != ""){
-                            var li = "<li><a href='javascript:void(0);' onclick='readView(" + j_bno +")'><img width='100' height='100' src='/upload/"+j_img+"'/>"
+                            var li = "<li><a href='javascript:void(0);' onclick='readView(" + j_bno +")'><img style='border-radius: 5px;' width='100' height='100' src='/upload/"+j_img+"'/>"
                                 + "<br><div class='word'>" + j_title+ "</div>" + "</a></li>";
                             //alert(i);
                          }else{
-                             var li = "<li><a href='javascript:void(0);' onclick='readView(" + j_bno +")'><img width='100' height='100' src='../resources/images/아나바다2.png'/>"
+                             var li = "<li><a href='javascript:void(0);' onclick='readView(" + j_bno +")'><img style='border-radius: 5px;' width='100' height='100' src='../resources/images/아나바다2.png'/>"
                                 + "<br><div class='word'>" + j_title+ "</div>" + "</a></li>";
                                //alert(i);
                          }
