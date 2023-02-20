@@ -384,7 +384,7 @@ public class ABoardController {
 		
 		return "a_board/report";
 	}
-
+	
 	//마이페이지 내가 쓴 글 목록 
 	@RequestMapping(value = "/myWriteList", method = RequestMethod.GET)
 	public String myWriteList(Model model, ABoardVO boardVO, @ModelAttribute("scri") ASearchCriteria scri, HttpServletRequest req) throws Exception {
@@ -464,13 +464,30 @@ public class ABoardController {
 			return result;
 		}
 		
-
+		//게시글 삭제 유효성 검사
 		@RequestMapping(value = "/deleteChk", method = RequestMethod.GET)
 		public @ResponseBody int deleteChk(@RequestParam(value = "a_bno", required = false) int a_bno) throws Exception {
 			
 			System.out.println("게시글 상세보기 시 삭제된 게시물인지 확인");
 			int result = service.deleteChk(a_bno);
 			System.out.println("a_bno : " + result);
+			
+			return result;
+		}
+		
+		//게시글 신고 유효성 검사
+		@RequestMapping(value = "/complaintChk", method = RequestMethod.GET)
+		public @ResponseBody int complaintChk (@RequestParam(value = "id") String id, @RequestParam(value = "a_bno") int a_bno, 
+				@RequestParam(value = "a_board", required = false) String a_board) throws Exception {
+			logger.info("신고 유효성 검사");
+			
+			Map<String, String> comChk = new HashMap<>();
+			
+			comChk.put("id", id);
+			comChk.put("c_bno", Integer.toString(a_bno));
+			comChk.put("board_type", a_board);
+			
+			int result = service.complaintChk(comChk);
 			
 			return result;
 		}

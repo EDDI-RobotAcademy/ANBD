@@ -85,9 +85,16 @@ public class ABoardDAOImpl implements ABoardDAO {
 		return sqlSession.selectOne("boardMapper.complaintRead", a_bno);
 	}
 
+	//게시글 삭제 유효성 검사
 	@Override
 	public int deleteChk(int a_bno) throws Exception {
 		return sqlSession.selectOne("boardMapper.deleteChk", a_bno);
+	}
+
+	//게시글 신고 유효성 검사
+	@Override
+	public int complaintChk(Map<String, String> comChk) {
+		return sqlSession.selectOne("boardMapper.complaintChk", comChk);
 	}
 
 

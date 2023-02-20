@@ -48,26 +48,35 @@
 					"&searchType=${scri.searchType}" + "&keyword=${scri.keyword}";
 		});
 	
-			
-	});
-	
 	/* 게시글 신고 스크립트 */
-	$(document).ready(function() {
-	var button = document.querySelector('.report_btn');
-		
-		button.addEventListener("click", function() {
+		$(".report_btn").on("click", function() {
+			
 			var id = "${id}";
+			var a_bno = $("#a_bno").val();
 			
 			if(id == "") {
 				alert("로그인 후 신고하실 수 있습니다.");
 			}
-			else {
-			window.open("/a_board/report?a_bno=${read.a_bno}", "신고", "width=400, height=600, left=0, top=0");
+			else{
+				$.ajax({
+					url: '/a_board/complaintChk',
+					type: 'GET',
+					data: {id: id, a_bno: a_bno, board_type: 'a_board'},
+					dataType: 'json',
+					success: function(result) {
+						if(result > 0) {
+							alert("이미 신고하셨습니다.");
+						}
+						else {
+							window.open("/a_board/report?a_bno=${read.a_bno}", "신고", "width=400, height=600, left=0, top=0");
+						}
+					}
+				});
 			}
-		});
+		});	
+	/* 신고 스크립트 끝 */
 	});
 	
-	/* 신고 스크립트 끝 */
 	
 	
 	/* 좋아요 로그인 유효성 검사 */
