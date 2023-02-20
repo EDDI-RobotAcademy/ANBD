@@ -47,6 +47,8 @@
 			location.href = "/a_board/list?page=${scri.page}" + "&perPageNum=${scri.perPageNum}" + 
 					"&searchType=${scri.searchType}" + "&keyword=${scri.keyword}";
 		});
+	
+			
 	});
 	
 	/* 게시글 신고 스크립트 */
@@ -64,6 +66,7 @@
 			}
 		});
 	});
+	
 	/* 신고 스크립트 끝 */
 	
 	
@@ -300,10 +303,10 @@
 		
 		<div>
 			<label for="a_content" class="form-label">내용</label>
-			<textarea id="a_content" name="a_content" readonly><c:out value="${read.a_content }"/></textarea>
-			<script type="text/javascript">
+			<div id="a_content" name="a_content" readonly>${str}</div>
+			<!-- <script type="text/javascript">
 				CKEDITOR.replace('a_content', {filebrowserUploadUrl: '/a_board/fileUpload', width:790, height:300});
-			</script>
+			</script> -->
 		</div>
 	<!-- 게시글 끝 -->
 	<br>

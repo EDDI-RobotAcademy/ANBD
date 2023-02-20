@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -102,7 +104,7 @@ public class ABoardController {
 		    		String path = "C:\\ckeditor_upload_" + "ckImage/";
 		    		String ckUploadPath = path + uid + "_" + fileName;
 		    		File folder = new File(path);
-		    		System.out.println("path : " + path);	// 이미지 저장경로 console에 확인
+		    		System.out.println("path111 : " + path);	// 이미지 저장경로 console에 확인
 		    		
 		    		//해당 디렉토리 확인
 		    		if(!folder.exists()){
@@ -116,14 +118,16 @@ public class ABoardController {
 		    	out = new FileOutputStream(new File(ckUploadPath));
 		    	out.write(bytes);
 		    	out.flush(); // outputStram에 저장된 데이터를 전송하고 초기화
-		    	
+		    	System.out.println(1);
 		    	String callback = request.getParameter("CKEditorFuncNum");
 		    	printWriter = response.getWriter();
 		    	String fileUrl = "/a_board/ckImgSubmit?uid=" + uid + "&fileName=" + fileName; // 작성화면
-		    	
+		    	System.out.println(2);
 		    	// 업로드시 메시지 출력
 		    	printWriter.println("{\"filename\" : \"" + fileName + "\", \"uploaded\" : 1, \"url\":\"" + fileUrl + "\"}");
+		    	System.out.println(3);
 		    	printWriter.flush();
+		    	System.out.println(4);
 		    	
 		    	}
 		    	catch(IOException e){
@@ -136,6 +140,7 @@ public class ABoardController {
 		    	} 
 		    		catch(IOException e) { e.printStackTrace(); }
 		    	}
+		    	System.out.println(5);
 		    	return;
 		    }
 
@@ -143,10 +148,10 @@ public class ABoardController {
 		    @RequestMapping(value = "/ckImgSubmit")
 		    public void ckSubmit(@RequestParam(value = "uid") String uid, @RequestParam(value="fileName") String fileName
 		    		, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		    	
+		    	System.out.println("여깅여기");
 		    	//서버에 저장된 이미지 경로
-		    	String path = "C:\\ckeditor_upload_" + "ckImage/";	// 저장된 이미지 경로
-		    	System.out.println("path : " + path);
+		    	String path = "C:\\ckeditor_upload_" + "ckImage/"; // 저장된 이미지 경로
+		    	System.out.println("path2222 : " + path);
 		    	String sDirPath = path + uid + "_" + fileName;
 		    	
 		    	File imgFile = new File(sDirPath);
@@ -234,6 +239,15 @@ public class ABoardController {
 		
 		logger.info("id : " + id);
 		
+		String str = service.read(boardVO.getA_bno()).getA_content();
+		Pattern pattern = Pattern.compile("<img[^>]*src=[\\\"']?([^>\\\"']+)[\\\"']?[^>]*>");
+		Matcher matcher = pattern.matcher(str);
+		
+		while(matcher.find()) {
+			System.out.println(matcher.group(1));
+		}
+		
+		model.addAttribute("str", str);
 		model.addAttribute("read", service.read(boardVO.getA_bno()));
 		model.addAttribute("scri", scri);
 		
@@ -317,7 +331,7 @@ public class ABoardController {
 	public @ResponseBody String insertLike(ABoardVO boardVO, ALikeVO likeVO, @RequestParam(value = "id", required = false) String id, @RequestParam(value = "a_bno", required = false) int a_bno, 
 			HttpServletRequest request, Model model) throws Exception {
 		System.out.println("잘 넘어는지 확인");
-
+		
 		Map<String, String> bnoId = new HashMap<>();
 		
 		bnoId.put("id", id);
