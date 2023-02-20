@@ -89,7 +89,7 @@
 		var likeVal = ${Chk};
 		
 		if(likeVal > 0) {
-			$("#heart").on("click", function() {
+			$("#heart").one("click", function() {
 				
 				var id = "${id}"
 				
@@ -115,7 +115,7 @@
 			}
 		});
 		} else {
-			$("#clear").on("click", function() {
+			$("#clear").one("click", function() {
 				
 				var id = "${id}"
 					
