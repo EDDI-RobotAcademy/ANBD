@@ -58,6 +58,13 @@
 #ImgBox{
 width: 335px;
 }
+#emptyBox{
+ㅡㅁㄱ
+width:1000px;
+background-color: pink;
+text-align: center;
+
+}
 </style>
 </head>
 <body>
@@ -111,9 +118,10 @@ width: 335px;
 			<div style="width: 1200px; margin: auto;" class="gallery_f_inner row imageGallery1">
 
 
-
-
-				<c:forEach items="${list }" var="list">
+           <c:choose>
+           <c:when test="${not empty list}">
+           
+           			<c:forEach items="${list }" var="list">
 					<div class="col-lg-4 col-md-4 col-sm-6 ${list.e_type} design print" id="ImgBox" >
 						<div class="h_gallery_item" onclick="location.href='/event/readView?eno=${list.eno}&page=${scri.page }&perPageNum=${scri.perPageNum }&searchType=${scri.searchType }&keyword=${scri.keyword }'">
 
@@ -132,6 +140,15 @@ width: 335px;
 						</div>
 					</div>
 				</c:forEach>
+           
+           </c:when>
+           <c:otherwise>
+           <div id="emptyBox" > 비어있다  </div>
+           </c:otherwise>
+           
+           </c:choose>
+
+	
 
 
 				<!-- 	<div class="more_btn">
