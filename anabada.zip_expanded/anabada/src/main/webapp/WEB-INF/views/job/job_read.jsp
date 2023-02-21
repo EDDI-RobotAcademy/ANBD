@@ -245,11 +245,11 @@
 				       		        	
 				       if(j_img != ""){
 				       		var li = "<li><a href='javascript:void(0);' onclick='readView(" + j_bno +")'><img style='border-radius: 5px;' width='100' height='100' src='/upload/"+j_img+"'/>"
-				       			+ "<br><div class='word'>" + j_title+ "</div>" + "</a></li>";
+				       			+ "<br><div class='word' style='font-size:14px; '>" + j_title+ "</div>" + "</a></li>";
 				       	    //alert(i);
 				       }else{
 				       		var li = "<li><a href='javascript:void(0);' onclick='readView(" + j_bno +")'><img style='border-radius: 5px;' width='100' height='100' src='../resources/images/아나바다2.png'/>"
-				       			+ "<br><div class='word'>" + j_title+ "</div>" + "</a></li>";
+				       			+ "<br><div class='word' style='font-size:14px; '>" + j_title+ "</div>" + "</a></li>";
 				       		//alert(i);
 				       }
 			      //ul에 붙이기
@@ -391,37 +391,58 @@
    
    function readView(param) {
 		
-	 	  var bno = param;
+	  var bno = param;
 	 	  
-	 	  // 게시물 상세보기로 이동할때 삭제된 게시물인지 유효성 체크
-	      $.ajax({
-	           type: "get",
-	           url : "/job/read_chk.ajax",
-	           data: {
-	              j_bno : bno, 
-	           },
-	           traditional : true,
-	           success: function(data){
+	  // 게시물 상세보기로 이동할때 삭제된 게시물인지 유효성 체크
+	  $.ajax({
+	      type: "get",
+	      url : "/job/read_chk.ajax",
+	      data: {
+	          j_bno : bno, 
+	      },
+	      traditional : true,
+	      success: function(data){
 	              
-	              if(data > 0){
-	                  location.href="/job/job_read?j_bno=" + bno + 
-	                   "&page=${scri.page }&perPageNum=${scri.perPageNum }" + 
+	          if(data > 0){
+	              location.href="/job/job_read?j_bno=" + bno + 
+	              	   "&page=${scri.page }&perPageNum=${scri.perPageNum }" + 
 	                   "&j_addr1=${scri.j_addr1 }" + 
 	                   "&j_term=${scri.j_term }" +
 	                   "&j_day=${scri.j_day}" + 
 	                   "&j_cate=${scri.j_cate}";
-	              }else{
-	                 alert("해당게시물은 삭제되었습니다.");
-	                 return false;
-	              }
+	          }else{
+	              alert("해당게시물은 삭제되었습니다.");
+	              return false;
+	          }
 	                
-	           },
-	           error : function(request, status, error) {
-	              alert("상세보기 ajax 실패:" + error);
-	           }
-	       });
+	       },
+	       error : function(request, status, error) {
+	           alert("상세보기 ajax 실패:" + error);
+	       }
+	   });
 	 	  
-	   }
+	}
+   
+    // 이미지 확대 새창
+    function imgDetail() {
+
+    	var imgTmp = new Image();
+    	imgTmp.src = "${j_read.j_img}";
+    	
+    	var popupX = (window.screen.width/2) - (510/2); 
+    	var popupY = (window.screen.height/2) - (400/2); 
+    	
+    	if(imgTmp.src == ""){
+			return false;
+    	}else{
+    		 var imgWin = window.open("", "알바이미지", "width=510px, height=400px, left=" + popupX + ", top=" + popupY);
+    	     imgWin.document.write("<html>"
+    	        +"<body>"
+    	        +"<div style='margin: 0 auto; width: 500px'><img src='/upload/${j_read.j_img}' width='500px' height='400px'/></div>"
+    	        +"</body></html>");
+    	}
+	}
+   
 
 </script>
 <style>
@@ -495,6 +516,10 @@
    	   all: unset; 
    	   cursor: pointer;
    }
+   
+   img{
+     cursor: pointer;
+   }
 </style>
 </head>
 <body>
@@ -544,8 +569,8 @@
             <tr>
                <td colspan="5">
                	  ${j_read.j_company }&nbsp;&nbsp;&nbsp;
-               	  <img style="width: 12px; height: 12px;" src="../../resources/images/하트2.png">
-	              <div style="display: inline;  color: gray; vertical-align: 10%; font-size: 13px;">찜 +</div>
+               	  <img style="width: 13px; height: 13px;" src="../../resources/images/하트2.png">
+	              <div style="display: inline; color: gray; vertical-align: 10%; font-size: 13px;">찜</div>
 	              <div style="display: inline; color: gray; font-size: 13px; vertical-align: 10%;" id="heartCh">
 	                 <div style="display: inline">${j_read.j_heart }</div>
 	              </div>
@@ -571,10 +596,10 @@
                <td width="250px;" style="text-align: center">
                <c:choose>
                   <c:when test="${empty j_read.j_img}">
-                     <img src="../resources/images/아나바다2.png" width="250px" height="150px"/>
+                     <img src="../resources/images/아나바다2.png" width="250px" height="150px" />
                   </c:when>
                   <c:otherwise>
-                     <img src="/upload/${j_read.j_img }" width="250px" height="150px"/>
+                     <img src="/upload/${j_read.j_img }" width="250px" height="150px" onclick="imgDetail()"/>
                   </c:otherwise>
                </c:choose>
                <td width="120px;" style="text-align: center">

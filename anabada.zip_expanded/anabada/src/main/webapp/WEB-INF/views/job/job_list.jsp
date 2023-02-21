@@ -23,12 +23,12 @@
    }
    
    .boxes > div {
-     width: 244px; /*이걸로 해야지 1000px에 알바 게시물 4개 보임*/
-     margin-top: 3px; /*게시물들 위아래 간격 3px*/
+     width: 240px; /*이걸로 해야지 1000px에 알바 게시물 4개 보임*/
+     margin-top: 5px; /*게시물들 위아래 간격 3px*/
      box-sizing: border-box;
      border: 1px solid #E2E2E2;
-     margin: 3px;
-     border-radius: 5px;
+     margin: 5px; /*게시물 간 간격*/
+     border-radius: 5px; 
    }
    
    .boxes > div > .read {
@@ -38,12 +38,16 @@
    }
    
    .boxes > div > div > .word2{
-     padding: 3px 10px;
+     padding-bottom: 3px;
+     padding-top: 3px;
+     padding-right: 10px; 
+     padding-left: 10px;
+     
    }
    
    .j_img { 
-      width: 244px;
-      height: 230px;
+      width: 239px;
+      height: 200px;
       border-radius: 5px 5px 0px 0px;
    }
    
@@ -137,7 +141,7 @@
    }
    
    .word2{
-       width:230px;
+       width:225px;
        overflow: hidden;
        text-overflow: ellipsis;
        white-space: nowrap;
@@ -347,9 +351,9 @@
                        </c:choose>
                        <div class="word2">${j_list.j_company }</div>
                        <div class="word2"><font style="font-weight: bolder;">${j_list.j_title }</font></div>
-                       <div class="word2">${j_list.j_day }&nbsp;${j_list.j_start }:00 ~ ${j_list.j_end }:00</div>
-                       <div class="word2">${j_list.j_method }&nbsp;${j_list.j_pay }원</div>
-                       <div class="word2">${j_list.j_addr1 }&nbsp;${j_list.j_addr2 }</div>
+                       <div class="word2" style="font-size: 15px; color: #424242; padding-bottom: 0px;">${j_list.j_day }&nbsp;${j_list.j_start }:00 ~ ${j_list.j_end }:00</div>
+                       <div class="word2" style="font-size: 15px; color: #424242; padding-bottom: 0px; padding-top: 1px">${j_list.j_method }&nbsp;${j_list.j_pay }원</div>
+                       <div class="word2" style="font-size: 15px; color: #424242; padding-top: 1px">${j_list.j_addr1 }&nbsp;${j_list.j_addr2 }</div>
                        <!--<div class="word2">직종 : ${j_list.j_cate }</div>
                        <div class="word2">근무기간 : ${j_list.j_term }</div>-->
                     </div>
@@ -665,11 +669,11 @@
                                     
                          if(j_img != ""){
                             var li = "<li><a href='javascript:void(0);' onclick='readView(" + j_bno +")'><img style='border-radius: 5px;' width='100' height='100' src='/upload/"+j_img+"'/>"
-                                + "<br><div class='word'>" + j_title+ "</div>" + "</a></li>";
+                                + "<br><div class='word' style='font-size:14px;'>" + j_title+ "</div>" + "</a></li>";
                             //alert(i);
                          }else{
                              var li = "<li><a href='javascript:void(0);' onclick='readView(" + j_bno +")'><img style='border-radius: 5px;' width='100' height='100' src='../resources/images/아나바다2.png'/>"
-                                + "<br><div class='word'>" + j_title+ "</div>" + "</a></li>";
+                                + "<br><div class='word' style='font-size:14px;'>" + j_title+ "</div>" + "</a></li>";
                                //alert(i);
                          }
                      //ul에 붙이기
