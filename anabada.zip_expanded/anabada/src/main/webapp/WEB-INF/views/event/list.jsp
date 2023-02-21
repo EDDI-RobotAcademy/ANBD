@@ -58,6 +58,17 @@
 #ImgBox{
 width: 335px;
 }
+#emptyBox{
+color:#DEDEDE;
+font-size:40px;
+width:1000px;
+margin-top:70px;
+
+text-align: center;
+
+}
+
+
 </style>
 </head>
 <body>
@@ -111,9 +122,10 @@ width: 335px;
 			<div style="width: 1200px; margin: auto;" class="gallery_f_inner row imageGallery1">
 
 
-
-
-				<c:forEach items="${list }" var="list">
+           <c:choose>
+           <c:when test="${not empty list}">
+           
+           			<c:forEach items="${list }" var="list">
 					<div class="col-lg-4 col-md-4 col-sm-6 ${list.e_type} design print" id="ImgBox" >
 						<div class="h_gallery_item" onclick="location.href='/event/readView?eno=${list.eno}&page=${scri.page }&perPageNum=${scri.perPageNum }&searchType=${scri.searchType }&keyword=${scri.keyword }'">
 
@@ -132,12 +144,23 @@ width: 335px;
 						</div>
 					</div>
 				</c:forEach>
+           
+           </c:when>
+           <c:otherwise>
+           <div id="emptyBox" > 현재 진행 중인 이벤트가 없습니다. </div>
+           </c:otherwise>
+           
+           </c:choose>
+
+	
 
 
 				<!-- 	<div class="more_btn">
 					<a class="main_btn" href="#">Load More Items</a>
 				</div> -->
 			</div>
+			
+			
 	</section>
 	<!--================End Home Gallery Area =================-->
 	<!-- 페이징 -->

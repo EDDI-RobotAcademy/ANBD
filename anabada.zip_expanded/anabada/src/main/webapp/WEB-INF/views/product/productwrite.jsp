@@ -211,7 +211,7 @@ vertical-align: 20%;
 
 <!--  hearder -->
 
-	<div>
+	<div >
 		<jsp:include page="../includes/nav.jsp" />
 	</div>
 	<div>
