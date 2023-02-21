@@ -135,6 +135,47 @@ ul {
    	   all: unset; 
    	   cursor: pointer;
    }
+.rachb input[type='radio'] {
+   display: none;
+}
+
+.rachb input[type='radio']:checked+span {
+   font-weight: 600;
+}
+
+.rachb input[type='radio']+span {
+   text-align: center;
+   cursor: pointer;
+}
+
+.pro-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 0;
+  color: #A5A5A5;
+  font-size: 12px;
+  font-weight: 350;
+  background: url('../resources/images/pro_down.png') no-repeat 95% 50%;
+}
+
+.pro-input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: auto;
+  border: 0;
+  font-size: 13px;
+  padding: 0 5px;
+  box-sizing: border-box;
+}
+
+.pro-search {
+  all: unset;
+}
+
+
+
 
 </style>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -235,11 +276,12 @@ ul {
 		//최근본 목록
 		// 최근 본 알바 플로팅배너
 		// 기본 위치(top)값
+		//outerHeight() : 선택한 요소의 세로값 (패딩포함)을 가져오거나 설정한다. 
 		var floatPosition = parseInt($(".sideBanner").css('top')); //100
 		var floatHei = parseInt($(".sideBanner").outerHeight()); // 플로팅 배너 길이 450
 		var footerTop = $('#footer').outerHeight(); // footer가 위치한 높이 
-		var headTop = $('#anbdHead').outerHeight(); // 294
-
+        var headTop = $('#headLine').outerHeight();
+	
 		// scroll 인식
 		$(window).scroll(function() {
 
@@ -255,9 +297,7 @@ ul {
 				$(".sideBanner").stop().animate({
 					"top" : bannerTop
 				}, 500);
-
 			}
-
 			if (currentTop < headTop) {
 				$(".sideBanner").stop().animate({
 					"top" : headTop
@@ -391,6 +431,7 @@ ul {
 </head>
 <body>
 
+<div id="headLine">
 	<div id="anbdHead">
 		<div>
 			<jsp:include page="../includes/nav.jsp" />
@@ -401,103 +442,81 @@ ul {
 	</div>
 
 
+
+
+<div style="min-width: 1200px; width: 100%; border-bottom: 1px solid #f1f2f5;"></div>
+      <div class="container pro-navbar">
+         <ul class="profile-pro" style="float: left;">
+            <li class="pro-li"><label class="rachb"><input type="radio" id="con" name="p_type" value="" <c:out value="${ empty scri.productType ? 'checked' :''} "/> /><span>전체</span></label></li>
+            <li class="pro-li"><label class="rachb"><input type="radio" id="con" name="p_type" value="전자기기" <c:out value="${scri.productType eq '전자기기' ? 'checked' :''} "/> /><span>전자기기</span></label></li>
+            <li class="pro-li"><label class="rachb"><input type="radio" id="con" name="p_type" value="상품권/쿠폰" <c:out value="${scri.productType eq '상품권/쿠폰' ? 'checked' :''} "/> /><span>상품권/쿠폰</span></label></li>
+            <li class="pro-li"><label class="rachb"><input type="radio" id="con" name="p_type" value="남성의류" <c:out value="${scri.productType eq '남성의류' ? 'checked' :''} "/> /><span>남성의류</span></label></li>
+            <li class="pro-li"><label class="rachb"><input type="radio" id="con" name="p_type" value="여성의류" <c:out value="${scri.productType eq '여성의류' ? 'checked' :''} "/> /><span>여성의류</span></label></li>
+            <li class="pro-li"><label class="rachb"><input type="radio" id="con" name="p_type" value="아동용품" <c:out value="${scri.searchType eq '아동용품' ? 'checked' :''} "/> /><span>아동용품</span></label></li>
+            <li class="pro-li"><label class="rachb"><input type="radio" id="con" name="p_type" value="가구" <c:out value="${scri.searchType eq '가구' ? 'checked' :''} "/> /><span>가구</span></label></li>
+            <li class="pro-li"><label class="rachb"><input type="radio" id="con" name="p_type" value="신발" <c:out value="${scri.searchType eq '신발' ? 'checked' :''} "/> /><span>신발</span></label></li>
+            <li class="pro-li"><label class="rachb"><input type="radio" id="con" name="p_type" value="가방" <c:out value="${scri.searchType eq '가방' ? 'checked' :''} "/> /><span>가방</span></label></li>
+            <li class="pro-li"><label class="rachb"><input type="radio" id="con" name="p_type" value="기타" <c:out value="${scri.searchType eq '기타' ? 'checked' :''} "/> /><span>기타</span></label></li>
+         </ul>
+         
+         <div style="float: right; margin-right: 5px; border: 1px solid #f1f2f5; padding: 3px; box-sizing: border-box;">
+            <table>
+               <tr>
+                  <td style="padding: 0 5px; border-right: 1px solid #f1f2f5;">
+                     <select name="searchType" class="pro-select" style="padding: 0 15px 0 3px; box-sizing: border-box; vertical-align: 13%; text-align: center;">
+                        <option value="t" <c:out value="${scri.searchType eq 't' ? 'selected' :''} "/>>제목</option>
+                        <option value="c" <c:out value="${scri.searchType eq 'c' ? 'selected' :''} "/>>내용</option>
+                        <option value="w" <c:out value="${scri.searchType eq 'w' ? 'selected' :''} "/>>작성자&nbsp;</option>
+                     </select>
+                  </td>
+                  
+                  <td>
+                     <input class="pro-input" type="text" name="keyWord" id="keywordInput" style="margin: 0 5px; vertical-align: 15%;" value="${scri.keyword }">
+                     <button class="searchBtn pro-search" type="button" style="vertical-align: 10%; margin: 0 5px; vertical-align: 15%;"><img src="<c:url value='/images/pro_search.png'/>" style="width: 15px; height: 15px;"></button>
+                  </td>
+               </tr>
+            </table>
+         </div>
+         
+      </div>
+
+   <div style="clear: both;"></div>   
+   
+   <div  style="min-width: 1200px; width: 100%; border-bottom: 1px solid #f1f2f5;"></div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
 	<!-- 검색 기능 부분  -->
 	<form role="form" method="get">
 		<div id="wapper">
 			<section class="nav"></section>
-			<section class="section" style="border-top: 1px solid #e5e5e5">
+			<section class="section" >
 
-				<div class="searchTable">
+		
 
-					<table>
-						<tr>
-							<td width="30%"><select name="searchType" style="text-align: center;">
-
-									<option value="t" <c:out value="${scri.searchType eq 't' ? 'selected' :''} "/>>제 목</option>
-									<option value="c" <c:out value="${scri.searchType eq 'c' ? 'selected' :''} "/>>내 용</option>
-									<option value="w" <c:out value="${scri.searchType eq 'w' ? 'selected' :''} "/>>작성자</option>
-							</select></td>
-							<td><input type="text" name="keyWord" id="keywordInput" value="${scri.keyword }">
-								<button class="searchBtn btn btn-outline-primary " type="button">검색</button> &nbsp; &nbsp;
-								<button id="writebtn" class="btn btn-outline-primary" type="button">내글쓰기</button></td>
-						</tr>
-
-					</table>
-
-
-
-				</div>
-
-				<div class="searchDIV">
-
-
-
-					<div style="display: inline;">
-
-						<label class="rach"> <input type="radio" id="con" name="p_type" value="" <c:out value="${ empty scri.productType ? 'checked' :''} "/> /><span>전체</span></label>
-
-					</div>
-
-
-					<div style="display: inline;">
-
-						<label class="rach"><input type="radio" id="con" name="p_type" value="전자기기" <c:out value="${scri.productType eq '전자기기' ? 'checked' :''} "/> /><span>전자기기</span></label>
-
-					</div>
-
-					<div style="display: inline;">
-
-						<label class="rach"><input type="radio" id="con" name="p_type" value="상품권/쿠폰" <c:out value="${scri.productType eq '상품권/쿠폰' ? 'checked' :''} "/> /><span>상품권/쿠폰</span></label>
-
-					</div>
-
-					<div style="display: inline;">
-
-						<label class="rach"><input type="radio" id="con" name="p_type" value="남성의류" <c:out value="${scri.productType eq '남성의류' ? 'checked' :''} "/> /><span>남성 의류</span></label>
-
-					</div>
-
-					<div style="display: inline;">
-
-						<label class="rach"><input type="radio" id="con" name="p_type" value="여성의류" <c:out value="${scri.productType eq '여성의류' ? 'checked' :''} "/> /><span>여성 의류</span></label>
-
-					</div>
-
-					<div style="display: inline;">
-
-						<label class="rach"><input type="radio" id="con" name="p_type" value="아동용품" <c:out value="${scri.searchType eq '아동용품' ? 'checked' :''} "/> /><span>아동 용품</span></label>
-
-					</div>
-
-					<div style="display: inline;">
-
-						<label class="rach"><input type="radio" id="con" name="p_type" value="가구" <c:out value="${scri.searchType eq '가구' ? 'checked' :''} "/> /><span>가구</span></label>
-
-					</div>
-
-					<div style="display: inline;">
-
-						<label class="rach"><input type="radio" id="con" name="p_type" value="신발" <c:out value="${scri.searchType eq '신발' ? 'checked' :''} "/> /><span>신발</span></label>
-
-					</div>
-
-					<div style="display: inline;">
-
-						<label class="rach"><input type="radio" id="con" name="p_type" value="가방" <c:out value="${scri.searchType eq '가방' ? 'checked' :''} "/> /><span>가방</span></label>
-
-					</div>
-
-					<div style="display: inline;">
-
-						<label class="rach"><input type="radio" id="con" name="p_type" value="기타" <c:out value="${scri.searchType eq '기타' ? 'checked' :''} "/> /><span>기타</span></label>
-
-					</div>
-
-				</div>
+			
+			
+			
+			
+			
 
 				<!-- 내용 박스 부분 -->
 				<section class="py-5">
 					<div class="container px-4 px-lg-5 mt-5">
+					                  <button id="writebtn" type="button" style="float: right; margin-bottom: 10px;">내글쓰기</button>
+                  <div style="clear: both;"></div>
+					
 						<div style="width: 1000px;" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 
 							<c:forEach items="${list }" var="list">

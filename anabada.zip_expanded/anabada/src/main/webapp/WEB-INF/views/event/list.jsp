@@ -59,12 +59,16 @@
 width: 335px;
 }
 #emptyBox{
-ㅡㅁㄱ
+color:#DEDEDE;
+font-size:40px;
 width:1000px;
-background-color: pink;
+margin-top:70px;
+
 text-align: center;
 
 }
+
+
 </style>
 </head>
 <body>
@@ -143,7 +147,7 @@ text-align: center;
            
            </c:when>
            <c:otherwise>
-           <div id="emptyBox" > 비어있다  </div>
+           <div id="emptyBox" > 현재 진행 중인 이벤트가 없습니다. </div>
            </c:otherwise>
            
            </c:choose>
@@ -155,6 +159,8 @@ text-align: center;
 					<a class="main_btn" href="#">Load More Items</a>
 				</div> -->
 			</div>
+			
+			
 	</section>
 	<!--================End Home Gallery Area =================-->
 	<!-- 페이징 -->
