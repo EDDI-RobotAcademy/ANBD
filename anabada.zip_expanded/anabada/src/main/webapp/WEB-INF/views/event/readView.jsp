@@ -603,7 +603,7 @@ border-radius: 20px;
 														});
 												location.reload(true);
 
-											})
+											});
 
 						}) //read end
 	</script>

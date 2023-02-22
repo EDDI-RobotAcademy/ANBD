@@ -281,15 +281,17 @@ public class EventController {
 	      }
 	      
 	      //db에 winenr 저장 
-	      System.out.println("당첨자 : "+sb);
 	   
+	      String winners = sb.toString().substring(0,sb.toString().length()-2);
+	      System.out.println("winners " +winners);
+	      
 	      EventBoardVO vo = new EventBoardVO();
 	      vo.setEno(eno);
-	      vo.setE_winner(sb.toString());
+	      vo.setE_winner(winners);
 	      
 	      service.winner(vo); 
 	      
-	      winner.put("winlist", sb.toString());
+	      winner.put("winlist", winners);
 
 	      return winner;
 	   }

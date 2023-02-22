@@ -357,7 +357,7 @@ margin-top: 0px;
                data : $("#note_form").serialize(),
                success:function(data){
                    alert("쪽지 전송 완료");
-                   alert($("#pno").val());
+                 //  alert($("#pno").val());
                },
                error : function(request, status, error) {
                alert("쪽지 전송 실패:" + error);
