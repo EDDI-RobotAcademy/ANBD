@@ -17,7 +17,7 @@
 
 <body style="background-color: #F9F9F9;">
 	<div class="regcenter">
-		<div style="margin-top: 140px; border-bottom: 1px solid #d8d9df; text-align: right;">
+		<div style="margin-top: 140px;">
 			<span class="find-chk">
 				<label for="findId">
 					<b>아이디 찾기 결과</b>
@@ -25,7 +25,7 @@
 			</span>
 		</div>
 		
-		<div class="find-result">
+		<div class="find-result" style="background-color: white; border: 1px solid #d8d9df;">
 	        <c:choose>                                                                          
 	            <c:when test="${empty vo}">                                                 
 	                <p>일치하는 정보가 없습니다.</p>                                        

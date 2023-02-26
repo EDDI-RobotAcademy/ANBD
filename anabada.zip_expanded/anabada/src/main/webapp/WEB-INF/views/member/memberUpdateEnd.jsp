@@ -22,6 +22,13 @@
 		<%@ include file="../includes/miniHeader.jsp" %>
 	</div>
 	
+	<c:if test="${member.id eq null }">
+		<script type="text/javascript">
+			alert("로그인이 필요한 페이지입니다.");
+			location.href="/member/login"
+		</script>
+	</c:if>
+	
 	<div>
 		<section class="container">
 			<div class="modi-end">

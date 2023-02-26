@@ -18,7 +18,7 @@
 
 <body style="background-color: #F9F9F9;">
 	<div class="regcenter">
-		<div style="margin-top: 140px; border-bottom: 1px solid #d8d9df; text-align: right;">
+		<div style="margin-top: 140px; border-bottom: 1px solid #d8d9df;">
 			<span class="find-chk">
 				<label for="findId">
 					<b>비밀번호 재발급</b>
@@ -26,7 +26,15 @@
 			</span>
 		</div>
 		
-		<div class="find-result">                                         
+		<div>
+			<span class="find-notice">
+				<label for="findId">
+					* 임시 비밀번호로 로그인 후 비밀번호를 재설정해 주시길 바랍니다.
+				</label>
+			</span>
+		</div>
+		
+		<div class="find-result" style="background-color: white; border: 1px solid #d8d9df;">                                         
 			<p>${newPwd}</p>                                              
 		</div>
         

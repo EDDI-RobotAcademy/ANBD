@@ -75,13 +75,13 @@
 			</div>
 
 			<div>
-				<button class="login-but" type="submit" id="submit">로그인</button>
+				<button class="login-but" type="submit" id="submit" style="margin-bottom: 5px;">로그인</button>
 				<a href="https://kauth.kakao.com/oauth/authorize?client_id=1cd5f25c91f73f916bf1cf73f7a82141&redirect_uri=http://localhost:8080/member/kakaoLogin&response_type=code&scope=profile_nickname,profile_image,account_email">
-					<img src="<c:url value='/images/kakao_login_button.png'/>"/>
+					<img style="width: 380px; height: 60px;" src="<c:url value='/images/kakao_login_button.png'/>"/>
 				</a>
 			</div>
 			
-			<div style="text-align: center; font-size: 13px; color: #555555;">
+			<div style="text-align: center; font-size: 13px; color: #555555; margin-top: 10px;">
 				<a href="./findId">아이디 찾기</a> │
 				<a href="./findPass">비밀번호 찾기</a> │
 				<a href="./registerAgree">회원가입</a>
