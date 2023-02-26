@@ -58,12 +58,12 @@
 	
 	function nickChange() {
 		// 새창 만들기
-		window.open("nickChangeForm", "nickwin", "width = 400, height = 350");
+		window.open("nickChangeForm", "nickwin", "width = 400, height = 230");
 	}
 	
 	function emailChange() {
 		// 새창 만들기
-		window.open("emailChangeForm", "emailwin", "width = 400, height = 350");
+		window.open("emailChangeForm", "emailwin", "width = 400, height = 230");
 	}
 </script>
 
@@ -77,6 +77,13 @@
 	<div>
 		<%@ include file="../includes/miniHeader.jsp" %>
 	</div>
+	
+	<c:if test="${member.id eq null }">
+		<script type="text/javascript">
+			alert("로그인이 필요한 페이지입니다.");
+			location.href="/member/login"
+		</script>
+	</c:if>
 	
 	<div>
 		<section class="container">
@@ -108,14 +115,14 @@
 						
 						<div>
 							<label class="membermodify" for="nick">닉네임</label>
-							<input class="modi-box-readonly" type="text" id="nick" name="nick" value="${member.nick}" readonly />
-							<button type="button" onclick="nickChange()">변경</button>
+							<input class="modi-box-readonly-mini" type="text" id="nick" name="nick" value="${member.nick}" readonly />
+							<button type="button" onclick="nickChange()" class="nickChk">변경</button>
 						</div>
 						
 						<div>
 							<label class="membermodify" for="email">이메일</label>
-							<input class="modi-box-readonly" type="text" id="email" name="email" value="${member.email}" placeholder="example@gmail.com" readonly />
-							<button type="button" onclick="emailChange()">변경</button>
+							<input class="modi-box-readonly-mini" type="text" id="email" name="email" value="${member.email}" placeholder="example@gmail.com" readonly />
+							<button type="button" onclick="emailChange()" class="nickChk">변경</button>
 						</div>
 						
 						<div>
