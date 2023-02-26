@@ -673,10 +673,10 @@ input[id="termsService3"]:checked + label::before{
 
 .find-result {
   width: 380px;
-  min-height: 100px;
-  margin-top: 20px;
+  padding: 30px;
   text-align: center;
   font-size: 14px;
+  box-sizing: border-box;
 }
 
 .find-cancle-but {

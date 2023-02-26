@@ -101,7 +101,7 @@
 									<img width="700px;" height="182px;" src="${filelist.a_file}">
 									<br>
 									
-									<button type="button" class="imgbtn deleteChk" value="${filelist.a_no}" style="margin-bottom: 15px;">삭제</button>
+									<button type="button" class="imgbtn deleteChk" value="${filelist.a_no}" style="margin-bottom: 20px;">삭제</button>
 									<br>
 								</div>
 							</c:forEach>
