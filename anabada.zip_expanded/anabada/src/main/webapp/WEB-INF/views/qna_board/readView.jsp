@@ -197,6 +197,10 @@
 					<label for="q_content" class="qna">문의 내용</label>
 					<div id="q_content" class="qnacon"><p style="white-space: pre-line"><c:out value="${read.q_content}" /></p></div>
 				</div>
+				
+				<c:if test="${member.id == 'admin'}">
+				<button class="delete_btn fsize-13">삭제</button>
+				</c:if>
 
 				<!-- 댓글 -->
 				<div id="reply">

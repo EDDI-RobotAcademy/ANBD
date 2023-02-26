@@ -34,31 +34,39 @@
 <body>
 	<!-- 네비바 -->
 	<nav class="navbar">
-		<form class="container" name='homeForm' method="post" action="/member/login">
-			<c:if test="${id == null}">
+		<form class="help_container" name='homeForm' method="post" action="/member/login">
+			<div style="float: left; display: inline-block; height: 17px;">
+				<a href="/"><img src="<c:url value='/images/help_logo.png'/>" style="width: 69px; height: 17px;"></a>
+			</div>
+		
+			<div style="float: right;">
+				<c:if test="${id == null}">
+						<div class="nav-right">
+							<ul class="profile">
+								<li class="pro-li"><a href="/member/login">로그인</a></li>
+								<li class="pro-li"><a href="/help_board/list">고객센터</a></li>
+							</ul>
+						</div>
+				</c:if>
+					
+				<c:if test="${id != null}">
 					<div class="nav-right">
 						<ul class="profile">
-							<li class="pro-li"><a href="/member/login">로그인</a></li>
+							<li class="pro-li"><a href="/note/note_list">쪽지</a></li>
+							<li class="pro-li"><a href="/member/myPage"><b>${member.nick}</b> 님</a></li>
+							<li class="pro-li"><a href="/member/logout">로그아웃</a></li>
 							<li class="pro-li"><a href="/help_board/list">고객센터</a></li>
+							<c:if test="${member.id == 'admin'}">
+								<li class="pro-li"><a href="http://localhost:8081/complaint-all-view/">신고게시글</a></li>
+							</c:if>
 						</ul>
 					</div>
-			</c:if>
-				
-			<c:if test="${id != null}">
-				<div class="nav-right">
-					<ul class="profile">
-						<li class="pro-li"><a href="/note/note_list">쪽지</a></li>
-						<li class="pro-li"><a href="/member/myPage"><b>${member.nick}</b> 님</a></li>
-						<li class="pro-li"><a href="/member/logout">로그아웃</a></li>
-						<li class="pro-li"><a href="/help_board/list">고객센터</a></li>
-						<c:if test="${member.id == 'admin'}">
-							<li class="pro-li"><a href="http://localhost:8081/complaint-all-view/">신고게시글</a></li>
-						</c:if>
-					</ul>
-				</div>
-			</c:if>
+				</c:if>
+			</div>
 		</form>
 	</nav>
+	
+	<div style="clear: both;"></div>
 	
 	<div style="min-width: 1000px; width: 100%; border-bottom: 1px solid #f1f2f5;"></div>
 	<!-- 네비바 끝 -->

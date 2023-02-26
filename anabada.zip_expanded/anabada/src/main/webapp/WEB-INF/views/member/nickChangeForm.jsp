@@ -82,15 +82,15 @@
 
 <body>
 	<input id="id" type="hidden" value="${member.id}" >
-	<div>
-		<label class="membermodify" for="nick">닉네임</label>
-		<input class="modi-box" type="text" id="nick" name="nick" value="${member.nick}" autofocus />
-		<button type="button" id="nickChange">확인</button>
+	<div style="padding: 15px; box-sizing: border-box;">
+		<label class="membermodify-new" for="nick">닉네임 변경</label>
+		<input class="modi-box-new" type="text" id="nick" name="nick" value="${member.nick}" autofocus />
+		<button type="button" id="nickChange" class="nickC">확인</button>
 	</div>
 	
 	<div style="text-align: center;">
 		<font id="nickChk" size="2"></font>
-		<button type="submit" id="submit" class="modi_btn">변경하기</button>
+		<button type="submit" id="submit" class="modi_btn-new">변경하기</button>
 	</div>
 </body>
 </html>

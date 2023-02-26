@@ -6,10 +6,21 @@
 <div class="sidemenu2">
 	<div class="sidepro" style="float: right;">
 		<div class="sideimg">
-<%--             <img src="<c:url value='/images/lev_1.png'/>" style="width: 60px; height: 60px;"> --%>
-<%--             <img src="<c:url value='/images/lev_2.png'/>" style="width: 55px; height: 55px;"> --%>
-            <img src="<c:url value='/images/lev_3.png'/>" style="width: 55px; height: 55px;">
-<%--             <img src="<c:url value='/images/lev_4.png'/>" style="width: 85px; height: 85px;"> --%>
+			<c:if test="${member.lev <= 25}">
+				<img src="<c:url value='/images/lev_1.png'/>" style="width: 55px; height: 55px;">
+			</c:if>
+			
+			<c:if test="${member.lev >= 26 and member.lev <= 50}">
+				<img src="<c:url value='/images/lev_2.png'/>" style="width: 55px; height: 55px;">
+			</c:if>
+			
+			<c:if test="${member.lev >= 51 and member.lev <= 75}">
+				<img src="<c:url value='/images/lev_3.png'/>" style="width: 55px; height: 55px;">
+			</c:if>
+			
+			<c:if test="${member.lev >= 76}">
+				<img src="<c:url value='/images/lev_4.png'/>" style="width: 55px; height: 55px;">
+			</c:if>
 		</div>
 	</div>
 	
@@ -32,12 +43,11 @@
 		<li class="side-li"><a href="/job/my_job">아르바이트 공고</a></li>
 		<li class="side-li"><a href="/resume/my_resume">아르바이트 지원</a></li>
 		<li class="side-li"><a href="/job/heart_job">아르바이트 찜</a></li>
-		<li class="side-line"></li>
-		<li class="side-li">나의 걸음수</li>
 		<c:if test="${member.id == 'admin'}">
 			<li class="side-line"></li>
 			<li class="side-li"><a href="/member/memberListView">회원 관리</a></li>
-			<li class="side-li"><a href="/qna_board/list">문의 내역</a></li>
+			<li class="side-li"><a href="/a_banner/bannerUpdate">배너 관리</a></li>
+			<li class="side-li"><a href="/qna_board/list">1:1 문의 내역</a></li>
 		</c:if>	
 	</ul>
 </div>
