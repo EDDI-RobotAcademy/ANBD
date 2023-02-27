@@ -603,31 +603,25 @@
                   </c:otherwise>
                </c:choose>
                <td width="120px;" style="text-align: center">
-                  <c:if test="${j_read.j_method eq '월급'}">
-                     <img src="../resources/images/월급2.png" width="70px" height="70px"/>
-                  </c:if>
-                  <c:if test="${j_read.j_method eq '시급'}">
-                     <img src="../resources/images/시급2.png" width="70px" height="70px"/>
-                  </c:if>
-                  <c:if test="${j_read.j_method eq '주급'}">
-                     <img src="../resources/images/주급2.png" width="70px" height="70px"/>
-                  </c:if>
-                  <c:if test="${j_read.j_method eq '건당'}">
-                     <img src="../resources/images/건당2.png" width="70px" height="70px"/>
-                  </c:if>
-                  <br><br>${j_read.j_pay }원
+                  <img src="../resources/images/job_pay.png" width="50px" height="50px">
+                  <br><br>
+                  <c:if test="${j_read.j_method eq '월급'}">월급</c:if>
+                  <c:if test="${j_read.j_method eq '시급'}">시급</c:if>
+                  <c:if test="${j_read.j_method eq '주급'}">주급</c:if>
+                  <c:if test="${j_read.j_method eq '건당'}">건당</c:if>
+                  ${j_read.j_pay }원
                </td>
                <td width="120px;" style="text-align: center">
-                  <img src="../resources/images/달력2.png" width="70px" height="70px"/>
+                  <img src="../resources/images/job_week.png" width="50px" height="50px"/>
                   <br><br>${j_read.j_term }
                   <!-- 근무기간 -->
                </td>
                <td style="text-align: center">
-                  <img src="../resources/images/카테고리2.png" width="70px" height="70px"/>
+                  <img src="../resources/images/job_cate.png" width="50px" height="50px"/>
                   <br><br>${j_read.j_cate }
                </td>
                <td style="text-align: center">
-                  <img src="../resources/images/시계.png" width="70px" height="70px"/>
+                  <img src="../resources/images/job_time.png" width="50px" height="50px"/>
                   <br><br>${j_read.j_day }&nbsp;&nbsp;${j_read.j_start }:00 ~ ${j_read.j_end }:00
                   <!-- 근무요일과 시간 -->
                </td>
