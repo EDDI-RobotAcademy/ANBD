@@ -514,7 +514,7 @@ ul {
 				<!-- 내용 박스 부분 -->
 				<section class="py-5">
 					<div class="container px-4 px-lg-5 mt-5">
-					                  <button id="writebtn" type="button" style="float: right; margin-bottom: 10px;">내글쓰기</button>
+					                  <button id="writebtn" type="button" class="btn btn-light"  style="float: right; margin-bottom: 10px; ">내글쓰기</button>
                   <div style="clear: both;"></div>
 					
 						<div style="width: 1000px;" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">

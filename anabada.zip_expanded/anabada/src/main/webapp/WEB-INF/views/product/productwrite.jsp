@@ -319,9 +319,9 @@ vertical-align: 20%;
 				</tr>
 				<tr>
 					<td colspan="2"  >
-					<div style="margin: auto; width: 120px; ">
-						<button type="submit" class="write_btn">저 장</button>
-						<button type="reset" >다시작성</button>
+					<div style="margin: auto; width: 180px; ">
+						<button type="submit" class="write_btn btn btn-light ">저 장</button>
+						<button type="reset" class="btn btn-light">다시작성</button>
 </div>
 					</td>
 				</tr>

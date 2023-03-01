@@ -208,13 +208,13 @@ input[type='file'] {
 		<input type="hidden" name="id" value="${id}">
 		<table style="margin-left: auto; margin-right: auto;">
 			<tr>
-				<th colspan="5">이벤트 게시판 </th>
+				<th colspan="5">이벤트 등록 </th>
 			</tr>
 			<tr>
 				<td colspan="5" style="text-align: right;">
 				
-					<button type="submit" class="write_btn">저 장</button>
-					<button type="reset">다시작성</button>
+					<button type="submit" class=" btn btn-light write_btn">저 장</button>
+					<button type=" reset" class="btn btn-light" >다시작성</button>
 				</td>
 			</tr>
 			<tr class="tline">

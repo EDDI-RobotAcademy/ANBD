@@ -199,7 +199,7 @@ function deleteFile(obj) {
 
 		<h2>게시글 수정하기</h2>
 		<br>
-		<a href="/product/list" >목록으로</a>
+		<a  style="float: right;"  href="/product/list" >[목록으로]</a>
 
 		<form name="updateForm" enctype="multipart/form-data" method="POST" >
 		<input  name="pno" type="hidden"  value="${update.pno }"  >
@@ -288,7 +288,8 @@ function deleteFile(obj) {
 					<td>
                          <c:forEach items="${filelist }" var="filelist" >
                         
-						<div style="display: inline-block;"  id="${filelist.fno }" > <img  width="150px;" height="150px;"  src="${filelist.filepath }"  >  <button  type="button"  class="imgbtn"  value="${filelist.fno }"  >삭제</button> </div> 
+						<div style="display: inline-block;"  id="${filelist.fno }" > <img  width="150px;" height="150px;"  src="${filelist.filepath }"  >  <br>
+						 <button  type="button"   style="margin-left: 48px;" class=" btn btn-light imgbtn"  value="${filelist.fno }"  >삭제</button> </div> 
                         </c:forEach>
 					</td>
 
@@ -298,8 +299,9 @@ function deleteFile(obj) {
 
 				<tr>
 					<td colspan="2">
+					
 						<div class="form-group" id="file-list">
-				
+				 <br>
 							<a href="#this" onclick="addFile()">[ 파일추가 ]</a>
 							<div class="file-group">
 							
@@ -312,8 +314,8 @@ function deleteFile(obj) {
 				</tr>
 				<tr>
 					<td colspan="2">
-						<button type="submit" class="write_btn">저 장</button>
-						<button type="reset" class="write_btn">다시작성</button>
+						<button type="submit" class=" btn btn-light write_btn">저 장</button>
+						<button type="reset" class=" btn btn-light write_btn">다시작성</button>
 
 					</td>
 				</tr>
