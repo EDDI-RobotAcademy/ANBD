@@ -1376,6 +1376,13 @@ input[id="termsService3"]:checked + label::before{
   box-sizing: border-box;
 }
 
+.qnatitle_2 {
+  width: 208px;
+  margin: 15px auto;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
 .qnacon {
   width: 620px;
   margin: 30px auto;

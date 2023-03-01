@@ -133,6 +133,13 @@
 	<div>
 		<%@ include file="../includes/miniHeader.jsp" %>
 	</div>
+	
+	<c:if test="${member.id eq null }">
+		<script type="text/javascript">
+			alert("로그인이 필요한 페이지입니다.");
+			location.href="/member/login"
+		</script>
+	</c:if>
 
 	<div>
 		<section class="container">
@@ -177,15 +184,13 @@
 				<div class="stitle">
 					1:1 문의 내역
 				</div>
-			
-				<div style="border-bottom: 1px solid #E0E0E0; display: flex; align-items: center;">
-					<label for="q_date" class="qna">등록일</label>
-					<div class="qnatitle"><fmt:formatDate value="${read.q_date}" pattern="yyyy-MM-dd HH:mm" /></div>
-				</div>
 
 				<div style="border-bottom: 1px solid #E0E0E0; display: flex; align-items: center;">		
 					<label for="q_title" class="qna">이메일</label>
-					<div id="email" class="qnatitle"><c:out value="${read.email}"/></div>
+					<div id="email" class="qnatitle_2" style="border-right: 1px solid #cccccc"><c:out value="${read.email}"/></div>
+					
+					<label for="q_date" class="qna">등록일</label>
+					<div class="qnatitle_2"><fmt:formatDate value="${read.q_date}" pattern="yyyy-MM-dd HH:mm" /></div>
 				</div>
 				
 				<div style="border-bottom: 1px solid #E0E0E0; display: flex; align-items: center;">		
@@ -197,10 +202,6 @@
 					<label for="q_content" class="qna">문의 내용</label>
 					<div id="q_content" class="qnacon"><p style="white-space: pre-line"><c:out value="${read.q_content}" /></p></div>
 				</div>
-				
-				<c:if test="${member.id == 'admin'}">
-				<button class="delete_btn fsize-13">삭제</button>
-				</c:if>
 
 				<!-- 댓글 -->
 				<div id="reply">
@@ -258,6 +259,7 @@
 					</ol>
 				</div>
 
+
 	<script type="text/javascript">
 		var modifyViews = document.getElementsByClassName('reply-update-area')
 	
@@ -280,6 +282,13 @@
 		}
 		
 	</script>
+	
+				<c:if test="${member.id == 'admin'}">
+					<div class="fsize-13">
+						<button class="delete_btn btn_reset">삭제</button>
+					</div>
+				</c:if>
+	
 				<!-- 댓글 작성 -->
 				<form name="replyForm" method="post" class="form-horizontal">
 					<input type="hidden" id="id" name="id" value="${member.id}"/>
@@ -308,7 +317,7 @@
 					</div>
 				</c:if>
 				</form>
-					
+									
 				<div>
 					<button type="button" class="list_btn modi_btn">목록</button>
 				</div>
