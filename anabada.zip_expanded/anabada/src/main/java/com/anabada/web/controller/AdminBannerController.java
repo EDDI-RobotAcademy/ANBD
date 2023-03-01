@@ -31,8 +31,8 @@ public class AdminBannerController {
 	AdminBannerService service;
 	
 	// 배너 등록
-	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-	public String insert(Model model, MultipartHttpServletRequest multipartRequest) throws Exception {
+	@RequestMapping(value = "/insert")
+	public String insert(Model model, MultipartHttpServletRequest multipartRequest) throws Exception {	
 		multipartRequest.setCharacterEncoding("utf-8");
 	
 		// view에서 넘어온 사진들이 담긴 fileList
@@ -45,7 +45,7 @@ public class AdminBannerController {
 				model.addAttribute("filePath", filePath);
 			}
 		}
-	
+		
 		model.addAttribute("fileList", fileList);
 		       
 		return "redirect:/";
@@ -89,7 +89,6 @@ public class AdminBannerController {
     
     // 이미지 저장
     public List<String> fileProcess(MultipartHttpServletRequest multipartRequest) throws Exception {
-
  		// Iterator<String> fileNames = multipartRequest.getFileNames();
  		List<MultipartFile> fileNameList = multipartRequest.getFiles("file");
  		List<String> fileList = new ArrayList<>();

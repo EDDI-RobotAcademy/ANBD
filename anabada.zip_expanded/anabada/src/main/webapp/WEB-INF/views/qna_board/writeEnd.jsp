@@ -22,7 +22,7 @@
 		<%@ include file="../includes/miniHeader.jsp" %>
 	</div>
 	
-	<div style="border-top: 1px solid #f1f2f5;">
+	<div>
 		<section class="container">
 			<div class="modi-end">
 				<div class="modi-end-item">
