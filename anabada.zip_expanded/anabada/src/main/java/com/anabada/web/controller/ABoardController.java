@@ -62,6 +62,7 @@ public class ABoardController {
 	@Inject
 	ComplaintService complaintService;
 	
+	
 	// 게시판글 작성 화면
 	// 리턴값이랑 경로랑 같다면 안적어줘도 됨
 	@RequestMapping(value = "/writeView", method = RequestMethod.GET)
@@ -443,7 +444,7 @@ public class ABoardController {
 			if(count < 4) {
 				complaintService.add_caution(boardVO.getId());
 				
-				String content = "회원님이 작성한 커뮤니티 게시물은 부적접한 사유로 인해 삭제되었습니다."
+				String content = "회원님의 커뮤니티 게시물 '" + boardVO.getA_title() + "'은 부적접한 사유로 인해 삭제되었습니다."
 	 					+ "\n회원님은 누적 경고수는 " + ++count + "입니다."
 	 					+ "\n누적 경고수가 5가 되면 회원 강제 탈퇴가 이루어집니다.";
 			
@@ -458,8 +459,8 @@ public class ABoardController {
 				String email = complaintService.expel_email(boardVO.getId());
 				complaintService.expel_member(boardVO.getId());
 				complaintService.insert_email(email);
+				
 			}
-			
 			boolean result = true;
 			return result;
 		}
@@ -492,4 +493,5 @@ public class ABoardController {
 			return result;
 		}
 		
+
 }
