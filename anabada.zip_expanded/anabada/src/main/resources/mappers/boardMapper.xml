@@ -27,6 +27,8 @@ ORDER BY A_BNO DESC
 <select id="listCount" parameterType="com.anabada.web.vo.ASearchCriteria" resultType="int">
 SELECT COUNT(A_BNO) FROM A_BOARD WHERE 1 = 1
 <include refid="search"></include>
+<include refid="category"></include>
+<include refid="location"></include>
 AND A_BNO > 0
 </select>
 
@@ -71,7 +73,7 @@ AND A_BNO > 0
 </update>
 
 <select id="read" parameterType="int" resultType="boardVO">
-	SELECT A_BNO, A_TITLE, A_CONTENT, ID, NICK, A_LIKE_CNT, A_TYPE
+	SELECT A_BNO, A_TITLE, A_CONTENT, A_REGDATE, ID, NICK, A_LIKE_CNT, A_TYPE
 	FROM A_BOARD
 	WHERE A_BNO = #{a_bno}
 </select>
@@ -119,4 +121,5 @@ SELECT COUNT(*) FROM A_BOARD WHERE A_BNO = #{a_bno}
 <select id="complaintChk" parameterType="java.util.HashMap" resultType="int">
 SELECT COUNT(*) FROM COMPLAINT WHERE ID = #{id} AND C_BNO = #{c_bno} AND BOARD_TYPE = 'a_board'
 </select>
+
 </mapper>

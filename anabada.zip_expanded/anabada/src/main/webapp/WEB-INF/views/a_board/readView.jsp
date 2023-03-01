@@ -20,6 +20,20 @@
   	padding: 15px 20px 50px 20px;
  	box-sizing: border-box;
 }
+.update_btn, .delete_btn, .list_btn,
+.report_btn, .replysave, .replyreset,
+.replyupdate, .replydelete, .write_btn {
+   display:inline-block;
+   padding:4px 4px;
+   border:1px solid #AEB6BF;
+   border-radius:6px;
+   background-color:white;
+   text-align:center;
+   cursor:pointer;
+   font-size:14px;
+   width:45px;
+   height:30px;
+}
 </style>
 <script src="//cdn.ckeditor.com/4.19.0/standard/ckeditor.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js""></script>
@@ -76,20 +90,6 @@
 		});	
 	/* 신고 스크립트 끝 */
 	});
-	
-	
-	
-	/* 좋아요 로그인 유효성 검사 */
-	/* $(function() {
-		$(".like").on("click", function() {
-			var id = "${id}";
-			
-			if(id == "") {
-				alert("로그인 후 이용 가능합니다.");
-			}
-		});
-	}); */
-	/* 좋아요 로그인 유효성 검사 끝 */
 	
 	
 	/* 좋아요 스크립트 */
@@ -281,47 +281,47 @@
 	</form>
 	
 	<div class="aboardcon">
-		<div>
-			<label for="a_type" class="form-label">말머리</label>
+		<div style="font-size:18px; font-weight:bold; padding-bottom:20px;">
+			<label for="a_type" class="form-label"></label>
 			<c:if test="${read.a_type == 1 }">
-				<input type="text" class="form-control" id="a_type" name="a_type" value="<c:out value="동네생활"/>" readonly/>
+				<c:out value="동네생활"/>
 			</c:if>
 			<c:if test="${read.a_type == 2 }">
-				<input type="text" class="form-control" id="a_type" name="a_type" value="<c:out value="동네맛집"/>" readonly/>
+				<c:out value="동네맛집"/>
 			</c:if>
 			<c:if test="${read.a_type == 3 }">
-				<input type="text" class="form-control" id="a_type" name="a_type" value="<c:out value="같이해요"/>" readonly/>
+				<c:out value="같이해요"/>
 			</c:if>
 		</div>
 		
-		<br>
-		
-		<div>
-			<label for="a_title" class="form-label">제목</label>
-			<input type="text" id="a_title" name="a_title" class="form-control" value="${read.a_title }" readonly/> 
+		<div style="font-size:20px; padding-bottom:20px;">
+			<label for="a_title" class="form-label"></label>
+			<c:out value="${read.a_title }"/> 
 		</div>
 		
-		<br>
-		
-		<div>
-			<label for="nick" class="form-label">작성자</label>
-			<input type="text" id="nick" name="nick" class="form-control" value="${read.nick}" readonly/>
+			
+		<div style="font-size:15px; font-weight:bold;">
+			<label for="nick" class="form-label"></label>
+			<c:out value="${read.nick }"/>
 		</div>
 		
-		<br>
+		
+		<div style="font-size:13px; border-bottom:1px solid #E0E0E0; padding-bottom:15px; color:#505050;">
+			<label></label>
+			<fmt:formatDate value="${read.a_regdate }" pattern="yyyy-MM-dd HH:MM:SS"/>
+		</div>
+		
 		
 		<div>
-			<label for="a_content" class="form-label">내용</label>
-			<div id="a_content" name="a_content" readonly>${str}</div>
-			<!-- <script type="text/javascript">
-				CKEDITOR.replace('a_content', {filebrowserUploadUrl: '/a_board/fileUpload', width:790, height:300});
-			</script> -->
+			<label for="a_content" class="form-label"></label>
+			<div id="a_content" style="font-size:15px;">${str}</div>
 		</div>
 	<!-- 게시글 끝 -->
-	<br>
 	
 		<!-- 좋아요 -->
-		<div class="like">
+	<div class="like">
+	 <div class="row g-3" style="border-bottom:1px solid #E0E0E0; margin-top:10%; padding-bottom:10px;">
+	 	<div class="col-sm-6">
 		<c:choose>
 			<c:when test="${read.a_like_cnt == 0}"> 
 				<img id="clear" src="<c:url value='/images/clear.png'/>" style="width:50px; height:50px;"/>
@@ -335,45 +335,51 @@
 		<span><c:out value="${read.a_like_cnt}"/></span>
 		</div>
 		
-		
 		<!-- 게시글 수정, 삭제, 목록, 신고 -->
-		<div style="text-align:right;">
+		<div class="col-sm-6" style="text-align:right; margin-top:25px;">
 			<c:if test="${read.id eq id }">
 				<button type="button" class="update_btn">수정</button> &nbsp;
 				<button type="button" class="delete_btn">삭제</button> &nbsp;
 			</c:if>
 			<button type="button" class="list_btn">목록</button> &nbsp;
-			<button type="button" class="report_btn">신고</button>
+			<button type="button" class="report_btn" style="color:red;">신고</button>
 		</div>
-	<hr>
-	
+	</div>
+</div>
+
+
 	<!-- 댓글 -->
 	<div id="reply">
-		<ol class="replyList">
 			<c:forEach items="${replyList }" var="replyList">
+			<ol class="replyList" style="list-style:none; padding:10px; border-bottom:1px solid #E0E0E0;">
 				<li>
-					<%-- <p>
-					작성자 : ${replyList.id }<br>
-				 	작성 날짜 : <fmt:formatDate value="${replyList.r_regdate }" pattern="yyyy-MM-dd"/>
-				 	</p>
-					<p>${replyList.r_content }</p> --%>
 				 	<div>
-				 		<input type="text" class="id" value="${replyList.nick }" readonly/>
-				 		<input type="date" value="<fmt:formatDate value='${replyList.r_regdate }' pattern='yyyy-MM-dd'/>" readonly/>
-				 		<input type="text" class="r_content" value="${replyList.r_content }" readonly/>
+				 		<div class="col-sm-2">
+				 			<input type="text" class="id form-control-plaintext" value="${replyList.nick }" style="font-weight:bold; font-size:15px;" readonly/>
+				 		</div>
+
+				 		<div class="col-sm-4">
+					 		<input type="text" class="r_content form-control-plaintext" value="${replyList.r_content }" style="font-size:15px;"readonly/>
+				 		</div>
 				 		
-				 		<input type="text" class="r_content2" name="r_content2" value="${replyList.r_content }" style="display:none"/>
-				 		<button type="button" data-rno="${replyList.r_rno }" data-bno="${replyList.a_bno }" class="replysave" style="display:none">저장</button>
-				 		<button type="button" data-rno="${replyList.r_rno }" data-bno="${replyList.a_bno }" class="replyreset"style="display:none">취소</button>
+				 		<div class="col-sm-4">
+					 		<input type="date" class="form-control-plaintext" value="<fmt:formatDate value='${replyList.r_regdate }' pattern='yyyy-MM-dd'/>" 
+					 		style="font-size:13px; color:#505050" readonly/>
+				 		</div>
 				 		
+				 		<div class="col-sm-16" style="text-align:right;">
+				 			<input type="text" class="r_content2 form-control form-control-sm" name="r_content2" value="${replyList.r_content }" style="display:none; margin-bottom:10px;"/>
+				 			<button type="button" data-rno="${replyList.r_rno }" data-bno="${replyList.a_bno }" class="replysave" style="display:none">저장</button>&nbsp;
+				 			<button type="button" data-rno="${replyList.r_rno }" data-bno="${replyList.a_bno }" class="replyreset"style="display:none">취소</button>
 				 		<c:if test="${replyList.id eq id }">
-				 			<button type="button" data-rno="${replyList.r_rno }" data-bno="${replyList.a_bno }" class="replyupdate">수정</button>
+				 			<button type="button" data-rno="${replyList.r_rno }" data-bno="${replyList.a_bno }" class="replyupdate">수정</button>&nbsp;
 				 			<button type="button" data-rno="${replyList.r_rno }" data-bno="${replyList.a_bno }" class="replydelete">삭제</button>
 				 		</c:if>
+				 		</div>
 				 	</div>
 				 </li>
-			</c:forEach>
-		</ol>
+			</ol>
+		</c:forEach>
 	</div>
 	
 	<form name="replyForm" method="post" role="form">
@@ -384,22 +390,32 @@
 		<input type="hidden" id="keyword" name="keyword" value="${scri.keyword }"/>
 		<input type="hidden" id="cateType" name="cateType" value="${scri.cateType }"/>
 		
-		<div>
-			<label for="nick">작성자</label>
-			<input type="hidden" id="id" name="id" value="${id }"/>
-			<input type="text" id="nick" name="nick" value="${member.nick }" readonly/>
-			<label for="r_content">내용</label>
-			<input type="text" id="r_content" name="r_content"/>
+	<c:if test="${id != null }">
+		<div class="row g-4" style="padding-top:15px;">
+			<div class="col-sm-2">
+					<input type="hidden" id="id" name="id" value="${id }"/>
+					<input type="text" id="nick" name="nick" value="${member.nick }" class="form-control-plaintext form-control-sm" style="text-align:center;" readonly/>
+			</div>
 		
-			<c:if test="${id != null }">
+			<div class="col-sm-8">
+				<input type="text" id="r_content" name="r_content" class="form-control form-control-sm"/>
+			</div>
+			
+			<div class="col-sm-2">
 				<button type="button" class="write_btn">작성</button>
-			</c:if>
-			<c:if test="${id == null }">
-				<span>로그인 후 댓글을 작성하실 수 있습니다.</span>
-			</c:if>
+			</div>
 		</div>
-	</form>
-	<!-- 댓글 끝 -->
+	</c:if>	
+	
+	<br>
+	
+	<c:if test="${id == null }">
+		<span style="margin-left:35%;">로그인 후 댓글을 작성하실 수 있습니다.</span>
+	</c:if>
+	
+</form>
+<!-- 댓글 끝 -->
+	
 </div>
 </section>
 <div>
