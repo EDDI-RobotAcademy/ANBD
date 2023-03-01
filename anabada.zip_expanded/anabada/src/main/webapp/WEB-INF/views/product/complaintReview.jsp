@@ -89,7 +89,7 @@ tr, td {
 
 	<table>
 	<tr> <td colspan="3" >신고된 리뷰   &nbsp; &nbsp;  <div style="text-align: left; display: inline">
-						<button type="button" name="delete" class="d_btn">삭제</button>
+						<button type="button" name="delete" class="btn btn-light d_btn">삭제</button>
 					</div>   </td>    </tr>
 	
 	<tr> <td> <div class="box">작성자</div> 

@@ -9,7 +9,7 @@
 <meta name="theme-color" content="#ffffff">
 <link rel="stylesheet" href="../resources/css/j_styles.css">
 <meta charset="UTF-8">
-<title>내 지원목록</title>
+<title>아르바이트 지원</title>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function () {

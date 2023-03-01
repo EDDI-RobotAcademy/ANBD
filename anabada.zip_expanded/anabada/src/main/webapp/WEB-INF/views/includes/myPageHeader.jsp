@@ -35,7 +35,6 @@
 		<li class="side-line"></li>
 		<li class="side-li"><a href="/userProduct/myStore">내 상점 보기</a></li>
 		<li class="side-li"> <a href="/userProduct/myHeartList" >내 찜 목록 보기</a> </li>
-		<li class="side-li">참여한 이벤트</li>
 		<li class="side-line"></li>
 		<li class="side-li"><a href="/a_board/myWriteList">내가 쓴 게시글</a></li>
 		<li class="side-li"><a href="/a_board/myReplyList">내가 쓴 댓글</a></li>

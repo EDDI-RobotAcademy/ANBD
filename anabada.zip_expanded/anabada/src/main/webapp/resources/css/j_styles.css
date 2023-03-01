@@ -52,10 +52,10 @@
    margin-left: 5px;
 }
 .chk input[type='radio']:checked+span {
-   background-color:skyblue;
+   background-color:#0C6BBC;
    color:white;
    border-radius:5px;
-   border: skyblue;
+   border: #0C6BBC;
 }
 
 .chk input[type='checkbox'] {
@@ -72,10 +72,10 @@
    margin-left: 5px;
 }
 .chk input[type='checkbox']:checked+span {
-   background-color:skyblue;
+   background-color:#0C6BBC;
    color:white;
    border-radius:5px;
-   border-color: skyblue;
+   border-color: #0C6BBC;
 }
 
 

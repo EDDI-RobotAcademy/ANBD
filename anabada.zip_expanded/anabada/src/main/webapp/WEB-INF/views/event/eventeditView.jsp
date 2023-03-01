@@ -233,8 +233,8 @@ margin-bottom: 50px;
 			<tr>
 				<td colspan="5" style="text-align: right;">
 
-					<button type="submit" class="write_btn">저 장</button>
-					<button type="reset">다시작성</button>
+					<button type="submit" class=" btn btn-light write_btn">저 장</button>
+					<button type="reset" class="btn btn-light">다시작성</button>
 				</td>
 			</tr>
 			<tr class="tline">
@@ -263,9 +263,9 @@ margin-bottom: 50px;
 			<tr>
 				<td><c:forEach items="${filelist }" var="filelist">
 
-						<div style="display: inline-block;" id="${filelist.efno }">
-							<img src="${filelist.filepath }"  width="150px;" height="150px;" >
-							<button type="button" class="imgbtn" value="${filelist.efno }">삭제</button>
+						<div style="display: inline-block;  " id="${filelist.efno }">
+							<img src="${filelist.filepath }"  width="150px;" height="150px;" ><br>
+							<button type="button" style="margin-left: 48px;"  class=" btn btn-light imgbtn" value="${filelist.efno }">삭제</button>
 						</div>
 					</c:forEach></td>
 

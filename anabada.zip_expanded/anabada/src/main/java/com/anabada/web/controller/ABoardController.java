@@ -37,6 +37,7 @@ import com.anabada.web.service.ABoardService;
 import com.anabada.web.service.ALikeService;
 import com.anabada.web.service.AReplyService;
 import com.anabada.web.service.ComplaintService;
+import com.anabada.web.service.JobService;
 import com.anabada.web.vo.ABoardVO;
 import com.anabada.web.vo.ALikeVO;
 import com.anabada.web.vo.APageMaker;
@@ -50,6 +51,8 @@ import com.anabada.web.vo.MemberVO;
 public class ABoardController {
 	private static final Logger logger = LoggerFactory.getLogger(ABoardController.class);
 	
+	private static final String JOB_IMG_PATH = "C:\\upload\\"; // 알바 게시판 사진경로 
+	
 	@Inject
 	ABoardService service;
 	
@@ -61,7 +64,10 @@ public class ABoardController {
 	
 	@Inject
 	ComplaintService complaintService;
-	
+
+	@Inject
+	JobService jobService;
+
 	
 	// 게시판글 작성 화면
 	// 리턴값이랑 경로랑 같다면 안적어줘도 됨
@@ -457,6 +463,20 @@ public class ABoardController {
 			}
 			else {
 				String email = complaintService.expel_email(boardVO.getId());
+				
+				//회원 탈퇴시키기 전에 알바 게시물 관련 이미지 서버에서 먼저 삭제
+	 			List img_list = jobService.img_list(boardVO.getId());
+	 			
+	 			if(img_list != null || !img_list.isEmpty()) { // 사진이 있다면 삭제
+	 				
+	 				for(int i = 0; i < img_list.size(); i++) {
+	 					File file = null;
+	 					file = new File(JOB_IMG_PATH + img_list.get(i));
+	 					file.delete();
+	 				}
+	 			}
+				
+				
 				complaintService.expel_member(boardVO.getId());
 				complaintService.insert_email(email);
 				

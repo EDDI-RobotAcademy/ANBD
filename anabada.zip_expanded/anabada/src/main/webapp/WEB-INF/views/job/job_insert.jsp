@@ -9,7 +9,7 @@
 <meta name="theme-color" content="#ffffff">
 <link rel="stylesheet" href="../resources/css/j_styles.css">
 <meta charset="UTF-8">
-<title>알바 공고 쓰기!!!</title>
+<title>알바 구인 공고 작성</title>
 <link href="../resources/css/jquery-ui.css" rel="stylesheet" type="text/css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <style>

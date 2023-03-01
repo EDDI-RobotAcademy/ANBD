@@ -95,7 +95,7 @@ tr, td {
 			<tr>
 				<td colspan="3"> <font style="font-weight: bold;" >상품 게시판 신고글 </font>   &nbsp;&nbsp;&nbsp;&nbsp;
 					<div style="text-align: left; display: inline">
-						<button type="button" name="delete" class="d_btn">삭제</button>
+						<button type="button" name="delete" class=" btn btn-light d_btn">삭제</button>
 					</div>
 				</td>
 			</tr>
