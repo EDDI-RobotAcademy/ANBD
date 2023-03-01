@@ -854,8 +854,8 @@ body .ui-tooltip {
 	color: #333333;
 }
 .ui-widget-header {
-	border: 1px solid skyblue;
-	background: skyblue;
+	border: 1px solid #0C6BBC;
+	background: #0C6BBC;
 	color: #ffffff;
 	font-weight: bold;
 }

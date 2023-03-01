@@ -13,12 +13,12 @@
 <meta name="theme-color" content="#ffffff">
 <link rel="stylesheet" href="../resources/css/j_styles.css">
 <meta charset="UTF-8">
-<title>알바 공고 상세보기</title>
+<title>신고 상세보기</title>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function () {
 		
-		$("button[name=delete]").on("click", function () {
+		$("#delete").on("click", function () {
 			
 			if(confirm("알바 게시물을 삭제하시겠습니까?")){
 				

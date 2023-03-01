@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="../resources/css/j_styles.css">
 <meta name="theme-color" content="#ffffff">
 <meta charset="UTF-8">
-<title>알바 구인 게시판</title>
+<title>알바 게시판</title>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <style>
