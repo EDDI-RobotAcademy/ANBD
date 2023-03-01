@@ -17,15 +17,29 @@
    display:inline-block;
    padding:5px 5px;
    border:1px solid #AEB6BF;
-   border-radius:10px;
+   border-radius:6px;
    background-color:white;
    text-align:center;
    cursor:pointer;
+   font-size:15px;
 }
 .chk input[type='radio']:checked+span {
-   background-color:#8E9091;
+   background-color:#0C6BBC;
    color:white;
-   border-radius:10px;
+   border-radius:6px;
+   font-size:15px;
+}
+#searchBtn {
+   display:inline-block;
+   padding:5px 5px;
+   border:1px solid #AEB6BF;
+   border-radius:6px;
+   background-color:white;
+   text-align:center;
+   cursor:pointer;
+   font-size:14px;
+   width:20px;
+   height:32px;
 }
 </style>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -53,7 +67,7 @@
    		});
    		
    		//게시글 삭제 유효성 검사
-		$(".deleteChk").on("click", function() {
+		$(".delChk").on("click", function() {
 			
 			var a_bno = $("#a_bno").val();
 			
@@ -102,7 +116,7 @@
 </div> 
 
 
-<section class="container">
+<section class="container" style="font-size:15px;">
 <form>
    <!-- 지역 카테고리 -->
    	  <div class="sidemenu2">
@@ -229,7 +243,7 @@
                   </c:otherwise>
                </c:choose>            
             </td>
-            <td class="deleteChk">
+            <td class="delChk">
                <a href="/a_board/readView?a_bno=${list.a_bno}&page=${scri.page }&perPageNum=${scri.perPageNum }&searchType=${scri.searchType }&keyword=${scri.keyword }&cateType=${scri.cateType }">
                <c:out value="${list.a_title }"/>
                </a>
