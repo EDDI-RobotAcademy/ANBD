@@ -36,11 +36,11 @@
 				            alert("삭제했습니다.");
 				            
 				            if(${href eq 'all'}){
-								alert("전체 새로고침");
+								//alert("전체 새로고침");
 						    	window.opener.top.location.href = "http://localhost:8081/complaint-all-view/";
 						    	
 						    }else if(${href eq 'note'}){
-						    	alert("쪽지만 새로고침");
+						    	//alert("쪽지만 새로고침");
 						    	window.opener.top.location.href = "http://localhost:8081/complaint-view/note";
 						    }
 				            		
