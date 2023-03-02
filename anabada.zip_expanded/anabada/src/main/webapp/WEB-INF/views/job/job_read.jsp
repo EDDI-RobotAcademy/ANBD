@@ -13,7 +13,7 @@
 <meta name="theme-color" content="#ffffff">
 <link rel="stylesheet" href="../resources/css/j_styles.css">
 <meta charset="UTF-8">
-<title>알바 상세보기</title>
+<title>${j_read.j_title }</title>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
    $(document).ready(function () {
