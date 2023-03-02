@@ -112,7 +112,7 @@ margin-right: 10px;
 				  var deleteList = new Array(); // 삭제 내역의 pno를 담을 공간
 				     $('input[name=deletes]:checked').each(function (i) {
 				    	 deleteList.push($(this).val());
-			               alert($(this).val());
+			              // alert($(this).val());
 			            });
 				  
 				  
@@ -127,7 +127,7 @@ margin-right: 10px;
 		                 dataType :  'json',   // 데이터 타입을 Json으로 변경
 		                 traditional : true,
 		                 success: function(data){
-		                     alert("삭제했습니다.");
+		                   //  alert("삭제했습니다.");
 		                     window.location.reload();
 		                 },
 		                 error : function(request, status, error) {
