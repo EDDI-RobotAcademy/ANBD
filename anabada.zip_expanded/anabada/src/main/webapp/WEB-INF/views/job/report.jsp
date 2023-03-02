@@ -133,13 +133,13 @@ function reportSubmit() {
 			 c_content ="개인 정보 노출, 유포, 거래";
 		 }else if(checked == "6"){
 			 c_content ="도배, 스팸";
-		 }else if(inputValue == "7"){
+		 }else if(checked == "7"){
 			 c_content =$("#etc").val();
 		 }
 		$("#c_content").attr('value', c_content);
 		
 		
-		alert(c_content);
+		//alert(c_content);
 		$("form[name='reportForm']").submit();
 
 	}else{
