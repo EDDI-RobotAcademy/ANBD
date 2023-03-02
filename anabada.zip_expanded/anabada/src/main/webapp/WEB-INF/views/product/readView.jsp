@@ -332,7 +332,13 @@ margin-top: 0px;
       
       // 쪽지 보내기 버튼 눌렀을 떄 모달창 띄우기
       $("button[name=n_send]").on("click", function () { 
-         $("#n_content").attr("placeholder", "");
+         
+    	 if(${empty id}){
+              alert("로그인 후 이용해주세요.");
+              return false;
+    	 } 
+    	  
+    	 $("#n_content").attr("placeholder", "");
          $("#n_content").val("");
          $("#n_receiver").attr("placeholder", "");
          $('#noteModal').modal("show"); 
