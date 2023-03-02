@@ -93,7 +93,6 @@ public class AReplyController {
 		
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("myReplyList", replyService.myReplyList(scri));
-		model.addAttribute("myReplyTitle", replyService.myReplyTitle(boardVO.getA_bno()));
 		
 		return "a_board/myReplyList";
 	}

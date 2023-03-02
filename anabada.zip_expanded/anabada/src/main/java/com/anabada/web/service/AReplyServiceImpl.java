@@ -1,13 +1,11 @@
 package com.anabada.web.service;
 
 import java.util.List;
-
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
 import com.anabada.web.dao.AReplyDAO;
-import com.anabada.web.vo.ABoardVO;
 import com.anabada.web.vo.AReplyVO;
 import com.anabada.web.vo.ASearchCriteria;
 
@@ -56,11 +54,5 @@ public class AReplyServiceImpl implements AReplyService {
 	public int replyListCount(ASearchCriteria scri) throws Exception {
 		return dao.replyListCount(scri);
 	}
-
-	@Override
-	public ABoardVO myReplyTitle(int a_bno) throws Exception {
-		return dao.myReplyTitle(a_bno);
-	}
-
 
 }
