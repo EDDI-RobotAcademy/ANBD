@@ -308,7 +308,7 @@
 		
 		<div style="font-size:13px; border-bottom:1px solid #E0E0E0; padding-bottom:15px; color:#505050;">
 			<label></label>
-			<fmt:formatDate value="${read.a_regdate }" pattern="yyyy-MM-dd HH:MM:SS"/>
+			<fmt:formatDate value="${read.a_regdate }" pattern="yyyy-MM-dd HH:mm"/>
 		</div>
 		
 		

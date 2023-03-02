@@ -37,6 +37,18 @@
   	padding: 15px 20px 50px 20px;
  	box-sizing: border-box;
 }
+.subtn, .rebtn {
+   display:inline-block;
+   padding:4px 4px;
+   border:1px solid #AEB6BF;
+   border-radius:6px;
+   background-color:white;
+   text-align:center;
+   cursor:pointer;
+   font-size:14px;
+   width:45px;
+   height:30px;
+}
 </style>
 <script src="//cdn.ckeditor.com/4.19.0/standard/ckeditor.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -141,9 +153,9 @@
 	<!-- 저장 및 취소 버튼 -->
 	<div style="text-align:right;">
 		<br>
-		<button type="submit">저장</button>&nbsp;
+		<button type="submit" class="subtn">저장</button>&nbsp;
 		<!-- .cancel_btn이 안먹어서 history.go(-2)로 변경, 게시글 목록으로 넘어가게 함 -->
-		<button type="reset" onclick="javascript:history.go(-2)">취소</button>
+		<button type="reset" onclick="javascript:history.go(-2)" class="rebtn">취소</button>
 	</div>
 </form>
 </section>
