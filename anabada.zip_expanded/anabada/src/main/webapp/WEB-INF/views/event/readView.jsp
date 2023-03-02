@@ -603,6 +603,7 @@ border-radius: 20px;
 																		+ error);
 															}
 														});
+												alert("추첨을 완료하였습니다.")
 												window.location.reload();
 
 											});
