@@ -236,7 +236,7 @@ public class EventController {
 	            
 	            // 당첨자에게 쪽지 보내기 
 	            winNote.put("n_receiver", win);
-	            winNote.put("n_content", "축하합니다! 응모하신 이벤트에 당첨되셨습니다.\n자세한 사항은 이벤트 게시글을 참조해 주세요.");
+	            winNote.put("n_content", "축하합니다! 응모하신 이벤트에 당첨되셨습니다." + "\n자세한 사항은 이벤트 게시글을 참조해 주세요.");
 	            winNote.put("n_rno", Integer.toString(eno));
 	            noteService.send_event(winNote);
 	            
