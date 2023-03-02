@@ -40,7 +40,44 @@
          <tr>
             <td>
                <input type="hidden" id="a_bno" name="a_bno" value="${myWriteList.a_bno }"/>
-               <c:out value="${myWriteList.loca }"/>
+            	<c:choose>
+			   <c:when test="${myWriteList.loca == 1 }">
+			   		<c:out value="강원"/>
+			   </c:when>
+			    <c:when test="${myWriteList.loca == 2 }">
+			   		<c:out value="경기"/>
+			   </c:when>
+			    <c:when test="${myWriteList.loca == 3 }">
+			   		<c:out value="경남"/>
+			   </c:when>
+			    <c:when test="${myWriteList.loca == 4 }">
+			   		<c:out value="경북"/>
+			   </c:when>
+			    <c:when test="${myWriteList.loca == 5 }">
+			   		<c:out value="부산"/>
+			   </c:when>
+			    <c:when test="${myWriteList.loca == 6 }">
+			   		<c:out value="서울"/>
+			   </c:when>
+			    <c:when test="${myWriteList.loca == 7 }">
+			   		<c:out value="인천"/>
+			   </c:when>
+			    <c:when test="${myWriteList.loca == 8 }">
+			   		<c:out value="전남"/>
+			   </c:when>
+			    <c:when test="${myWriteList.loca == 9 }">
+			   		<c:out value="전북"/>
+			   </c:when>
+			    <c:when test="${myWriteList.loca == 10 }">
+			   		<c:out value="제주"/>
+			   </c:when>
+			    <c:when test="${myWriteList.loca == 11 }">
+			   		<c:out value="충남"/>
+			   </c:when>
+			    <c:when test="${myWriteList.loca == 12 }">
+			   		<c:out value="충북"/>
+			   </c:when>
+               </c:choose>
             </td>
             
             <td>

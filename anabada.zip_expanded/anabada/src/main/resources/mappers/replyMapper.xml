@@ -51,9 +51,9 @@ ORDER BY A_BNO DESC
 SELECT COUNT(R_RNO) FROM A_REPLY WHERE ID = #{id} AND R_RNO > 0
 </select>
 
-<select id="myReplyTitle" parameterType="int" resultType="boardVO">
+<!-- <select id="myReplyTitle" parameterType="String" resultType="boardVO">
 SELECT A_TITLE
 FROM A_BOARD A1, A_REPLY A2
-WHERE A1.A_BNO = A2.A_BNO
-</select>
+WHERE A1.A_BNO = A2.A_BNO AND A2.NICK = #{nick}
+</select> -->
 </mapper>
