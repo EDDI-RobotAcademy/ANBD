@@ -584,13 +584,15 @@ border-radius: 20px;
 
 															success : function(
 																	res) {
+																
 																const element = document
 																		.getElementById('winner');
 																element.innerText = res.winlist;
 																const btn = document
 																		.getElementById('completion');
 																btn.disabled = true;
-																
+															
+															
 
 															},
 															error : function(
@@ -601,7 +603,7 @@ border-radius: 20px;
 																		+ error);
 															}
 														});
-												location.reload(true);
+												window.location.reload();
 
 											});
 
