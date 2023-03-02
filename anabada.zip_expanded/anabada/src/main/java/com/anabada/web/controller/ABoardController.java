@@ -49,6 +49,7 @@ import com.anabada.web.vo.MemberVO;
 @Controller
 @RequestMapping("/a_board/*")
 public class ABoardController {
+	
 	private static final Logger logger = LoggerFactory.getLogger(ABoardController.class);
 	
 	private static final String JOB_IMG_PATH = "C:\\upload\\"; // 알바 게시판 사진경로 
